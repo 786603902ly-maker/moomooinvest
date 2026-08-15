@@ -1,0 +1,51 @@
+# Investment rule engine configuration
+#
+# How the ladder works (see README.md for full explanation):
+#  - Each tier has a set of MA (moving average) periods to watch.
+#  - Once per "period" (weekly for T1, monthly for T2+), the current value of
+#    each MA in the tier's set is looked up and the MAs are sorted by VALUE,
+#    highest first -- NOT by their period label. That sorted order becomes the
+#    tier's ladder for the period: rung 1 = highest value = multiplier x1,
+#    rung 2 = next highest = multiplier x1.5, rung 3 (if present) = lowest =
+#    multiplier x2 (the cap).
+#  - If any two adjacent rungs in that sorted ladder are within
+#    cluster_merge_pct of each other, the whole ladder is discarded for that
+#    stock/period and replaced with a clean drop_step_pct cascade starting
+#    from the highest rung's value instead (rule 5).
+#  - If price falls through the lowest rung of the ladder, further trigger
+#    points are generated every drop_step_pct below that, capped at
+#    cap_multiplier (rule 3).
+#  - Within a period, each rung can fire at most once. A new period resets
+#    all rungs so the same level can fire again (rule 4).
+#
+# ASSUMPTIONS THAT STILL NEED YOUR CONFIRMATION (see README "Please confirm"
+# section): the exact ma_ladder for T3 / T3.5 / T5, and base_amount for every
+# tier except T1 (only T1's 600 SGD was given explicitly).
+
+currency: SGD
+cap_multiplier: 2.0
+drop_step_pct: 5.0
+cluster_merge_pct: 1.5
+step_multipliers: [1.0, 1.5, 2.0]
+
+tiers:
+  T1:
+    base_amount: 600
+    refresh: weekly
+    ma_ladder: [60, 100, 150]
+  T2:
+    base_amount: 600
+    refresh: monthly
+    ma_ladder: [100, 150, 200]
+  T3:
+    base_amount: 600
+    refresh: monthly
+    ma_ladder: [150, 200, 250]
+  T3.5:
+    base_amount: 600
+    refresh: monthly
+    ma_ladder: [200, 250]
+  T5:
+    base_amount: 600
+    refresh: monthly
+    ma_ladder: [250]

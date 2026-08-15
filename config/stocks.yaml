@@ -1,0 +1,162 @@
+# Your tiered watchlist.
+#
+# target_price   = Morningstar "analyst rating average" price target
+# fair_value     = Morningstar fair value estimate
+# target_price_prev / fair_value_prev = previous values, kept for reference
+#   whenever the weekly refresh updates a number (so you can see the delta).
+# fundamentals_updated = date these two numbers were last refreshed
+# fundamentals_source  = where the weekly refresh found them (best-effort web
+#   search -- Morningstar's own figure is paywalled, so this is a proxy and
+#   worth spot-checking against the app periodically)
+#
+# is_etf stocks (e.g. IGV) have no analyst target/fair value -- MA-tier alerts
+# still apply, fair-value tracking is skipped.
+
+stocks:
+  - ticker: NVDA
+    name: NVIDIA
+    tier: T1
+    target_price: 225
+    target_price_prev: 240
+    fair_value: 259
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: TSM
+    name: Taiwan Semiconductor
+    tier: T1
+    target_price: 344
+    target_price_prev: 310
+    fair_value: 356
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: AVGO
+    name: Broadcom
+    tier: T1
+    target_price: 480
+    target_price_prev: null
+    fair_value: 461
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: PLTR
+    name: Palantir
+    tier: T2
+    target_price: 197
+    target_price_prev: null
+    fair_value: 153
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: IGV
+    name: iShares Expanded Tech-Software ETF
+    tier: T2
+    is_etf: true
+    target_price: null
+    fair_value: null
+    note: "ETF - no Morningstar analyst target/fair value. Your watchlist label shows '%111' -- meaning unclear (52-week range position? please confirm), not used by the engine."
+
+  - ticker: MSFT
+    name: Microsoft
+    tier: T2
+    target_price: 600
+    target_price_prev: null
+    fair_value: 616
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: META
+    name: Meta Platforms
+    tier: T2
+    target_price: 837
+    target_price_prev: 850
+    fair_value: 841
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: GOOG
+    name: Alphabet
+    tier: T3
+    target_price: 340
+    target_price_prev: null
+    fair_value: 421
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: AMZN
+    name: Amazon
+    tier: T3
+    target_price: 260
+    target_price_prev: null
+    fair_value: 285
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: RKLB
+    name: Rocket Lab
+    tier: T3
+    target_price: 68
+    target_price_prev: null
+    fair_value: 118
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: AMD
+    name: Advanced Micro Devices
+    tier: T3
+    target_price: 476
+    target_price_prev: null
+    fair_value: 450
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: NBIS
+    name: Nebius Group
+    tier: T3.5
+    target_price: 85
+    target_price_prev: null
+    fair_value: 173
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: LRCX
+    name: Lam Research
+    tier: T3.5
+    target_price: 220
+    target_price_prev: null
+    fair_value: 313
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: FTNT
+    name: Fortinet
+    tier: T3.5
+    target_price: 108
+    target_price_prev: null
+    fair_value: 86
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null
+
+  - ticker: MU
+    name: Micron Technology
+    tier: T5
+    target_price: 455
+    target_price_prev: null
+    fair_value: 543
+    fair_value_prev: null
+    fundamentals_updated: null
+    fundamentals_source: null

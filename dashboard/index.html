@@ -1,0 +1,361 @@
+<title>DCA Alert Dashboard</title>
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --surface-2:#eef0f3; --border:#dde1e7;
+  --text:#12151c; --text-muted:#5b6472;
+  --accent:#a8631f; --accent-soft:#f3e3d2;
+  --good:#1f8a5f; --good-soft:#e3f3ec;
+  --bad:#c23b3b; --bad-soft:#fbe9e8;
+  --warn:#a8760f; --warn-soft:#f6ecd6;
+  --font-display:"Iowan Old Style","Palatino Linotype",Georgia,"Times New Roman",serif;
+  --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1117; --surface:#151a22; --surface-2:#1b2130; --border:#262d3a;
+    --text:#e6e9ef; --text-muted:#939bab;
+    --accent:#d99a4e; --accent-soft:#3a2c18;
+    --good:#4cbf8a; --good-soft:#123526;
+    --bad:#e0645f; --bad-soft:#3a1b1a;
+    --warn:#d9a441; --warn-soft:#362a11;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1117; --surface:#151a22; --surface-2:#1b2130; --border:#262d3a;
+  --text:#e6e9ef; --text-muted:#939bab;
+  --accent:#d99a4e; --accent-soft:#3a2c18;
+  --good:#4cbf8a; --good-soft:#123526;
+  --bad:#e0645f; --bad-soft:#3a1b1a;
+  --warn:#d9a441; --warn-soft:#362a11;
+}
+*{box-sizing:border-box;}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--font-body);
+  margin:0; padding:2rem 1.25rem 4rem; line-height:1.45;
+}
+.wrap{max-width:1080px; margin:0 auto;}
+h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 0 .2rem; text-wrap:balance;}
+.subtitle{color:var(--text-muted); font-size:.92rem; margin-bottom:1.5rem;}
+.subtitle b{color:var(--text);}
+.stale-banner{
+  background:var(--warn-soft); border:1px solid var(--warn); color:var(--warn);
+  border-radius:10px; padding:.7rem 1rem; font-size:.88rem; margin-bottom:1.25rem;
+}
+.summary-row{display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:1.75rem;}
+.stat{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:.85rem 1.1rem; min-width:150px; flex:1;
+}
+.stat .n{font-family:var(--font-display); font-size:1.7rem; font-variant-numeric:tabular-nums; line-height:1;}
+.stat .l{color:var(--text-muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; margin-top:.3rem;}
+.stat.hot .n{color:var(--accent);}
+.tier-section{margin-bottom:2.2rem;}
+.tier-head{
+  display:flex; align-items:baseline; gap:.6rem; margin-bottom:.7rem;
+  border-bottom:1px solid var(--border); padding-bottom:.4rem;
+}
+.tier-head h2{font-family:var(--font-display); font-size:1.25rem; margin:0; font-weight:600;}
+.tier-head .meta{color:var(--text-muted); font-size:.82rem;}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:.9rem;}
+.card{
+  background:var(--surface); border:1px solid var(--border); border-radius:14px;
+  padding:1rem 1.1rem; display:flex; flex-direction:column; gap:.6rem;
+}
+.card.has-open{border-color:var(--accent);}
+.card-head{display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem;}
+.card-head .name{font-weight:600; font-size:1.02rem;}
+.card-head .sub{color:var(--text-muted); font-size:.78rem;}
+.price{font-family:var(--font-display); font-size:1.5rem; font-variant-numeric:tabular-nums;}
+.price-date{color:var(--text-muted); font-size:.76rem;}
+.pills{display:flex; gap:.4rem; flex-wrap:wrap;}
+.pill{
+  border-radius:999px; padding:.2rem .55rem; font-size:.74rem; font-weight:600;
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.pill.good{background:var(--good-soft); color:var(--good);}
+.pill.bad{background:var(--bad-soft); color:var(--bad);}
+.pill.neutral{background:var(--surface-2); color:var(--text-muted);}
+.rungs{display:flex; flex-direction:column; gap:.35rem; margin-top:.15rem;}
+.rung{
+  display:flex; align-items:center; gap:.55rem; border:1px solid var(--border);
+  border-radius:9px; padding:.4rem .55rem; font-size:.82rem; background:var(--surface-2);
+}
+.rung.open{border-color:var(--accent); background:var(--accent-soft);}
+.rung.done{opacity:.55;}
+.rung .lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
+.rung .src{color:var(--text-muted); flex:1;}
+.rung .amt{font-variant-numeric:tabular-nums; font-weight:600;}
+.rung input[type=checkbox]{width:16px; height:16px; accent-color:var(--accent); cursor:pointer;}
+.next-hint{color:var(--text-muted); font-size:.78rem; border-top:1px dashed var(--border); padding-top:.5rem;}
+.ma-strip{display:flex; gap:.5rem; flex-wrap:wrap; font-size:.72rem; color:var(--text-muted); font-variant-numeric:tabular-nums;}
+.ma-strip span b{color:var(--text);}
+.err{color:var(--bad); font-size:.78rem;}
+.section-title{font-family:var(--font-display); font-size:1.15rem; margin:2rem 0 .6rem; font-weight:600;}
+table.log{width:100%; border-collapse:collapse; font-size:.85rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;}
+table.log th, table.log td{text-align:left; padding:.5rem .7rem; border-bottom:1px solid var(--border);}
+table.log th{background:var(--surface-2); color:var(--text-muted); font-weight:600; font-size:.74rem; text-transform:uppercase; letter-spacing:.03em;}
+table.log td{font-variant-numeric:tabular-nums;}
+.empty-log{color:var(--text-muted); font-size:.85rem; padding:.8rem;}
+.actions-bar{display:flex; gap:.6rem; align-items:center; margin:.6rem 0 1.2rem;}
+button.export{
+  background:var(--surface); border:1px solid var(--border); color:var(--text);
+  border-radius:8px; padding:.45rem .85rem; font-size:.82rem; cursor:pointer; font-family:var(--font-body);
+}
+button.export:hover{border-color:var(--accent); color:var(--accent);}
+footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:1px solid var(--border); padding-top:1rem;}
+.assumptions{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:.8rem 1rem; font-size:.82rem; color:var(--text-muted); margin-bottom:1.5rem;
+}
+.assumptions b{color:var(--text);}
+</style>
+<div class="wrap">
+  <h1>DCA Alert Dashboard</h1>
+  <div class="subtitle">Prices as of <b>-</b> &middot; generated - &middot; fundamentals last refreshed <b>not yet run</b></div>
+  
+  <div class="summary-row">
+    <div class="stat hot"><div class="n">0</div><div class="l">open triggers</div></div>
+    <div class="stat"><div class="n">15</div><div class="l">stocks tracked</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">stale data</div></div>
+  </div>
+  <div class="tier-section"><div class="tier-head"><h2>T1</h2><span class="meta">base SGD 600.00 &middot; refresh weekly &middot; MA60/100/150</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">AVGO <span class="sub"></span></div><div class="sub">T1 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">NVDA <span class="sub"></span></div><div class="sub">T1 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">TSM <span class="sub"></span></div><div class="sub">T1 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T2</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA100/150/200</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">IGV <span class="sub"></span></div><div class="sub">T2 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">META <span class="sub"></span></div><div class="sub">T2 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">MSFT <span class="sub"></span></div><div class="sub">T2 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">PLTR <span class="sub"></span></div><div class="sub">T2 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T3</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA150/200/250</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">AMD <span class="sub"></span></div><div class="sub">T3 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">AMZN <span class="sub"></span></div><div class="sub">T3 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">GOOG <span class="sub"></span></div><div class="sub">T3 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">RKLB <span class="sub"></span></div><div class="sub">T3 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T3.5</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA200/250</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">FTNT <span class="sub"></span></div><div class="sub">T3.5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">LRCX <span class="sub"></span></div><div class="sub">T3.5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">NBIS <span class="sub"></span></div><div class="sub">T3.5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T5</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">MU <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
+  <div class="next-hint">All rungs for this period have fired.</div>
+  <div class="err">no data yet</div>
+</div></div></div>
+  <div class="section-title">Action log</div>
+  <div class="actions-bar">
+    <button class="export" id="export-btn">Export CSV</button>
+    <span class="next-hint" id="export-hint"></span>
+  </div>
+  <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
+  <footer>
+    Ticks are stored locally in this browser only (not synced back to the repo). Rule assumptions that still need your confirmation are noted in <b>README.md</b> / <b>config/rules.yaml</b>.
+  </footer>
+</div>
+<script>
+const STATE = {"generated_at": null, "stocks": {}};
+const STORE_KEY = "moomooinvest-ticks-v1";
+
+function loadTicks(){
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ return {}; }
+}
+function saveTicks(t){ localStorage.setItem(STORE_KEY, JSON.stringify(t)); }
+
+function renderLog(){
+  const ticks = loadTicks();
+  const rows = Object.values(ticks).sort((a,b)=> (b.tickedAt||"").localeCompare(a.tickedAt||""));
+  const wrap = document.getElementById("log-wrap");
+  if(!rows.length){ wrap.innerHTML = '<div class="empty-log">Nothing ticked yet.</div>'; return; }
+  let html = '<table class="log"><thead><tr><th>Ticked</th><th>Ticker</th><th>Tier</th><th>Rung</th><th>Level</th><th>Multiplier</th><th>Amount</th><th>First hit</th></tr></thead><tbody>';
+  for(const r of rows){
+    html += `<tr><td>${r.tickedAt ? r.tickedAt.slice(0,16).replace('T',' ') : ''}</td><td>${r.ticker}</td><td>${r.tier}</td><td>${r.source}</td><td>${r.level}</td><td>x${r.multiplier}</td><td>${r.amount}</td><td>${r.firstHit}</td></tr>`;
+  }
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+}
+
+function onToggle(cb){
+  const ticks = loadTicks();
+  const id = cb.dataset.id;
+  if(cb.checked){
+    ticks[id] = {
+      ticker: cb.dataset.ticker, tier: cb.dataset.tier, source: cb.dataset.source,
+      level: cb.dataset.level, multiplier: cb.dataset.multiplier, amount: cb.dataset.amount,
+      firstHit: cb.dataset.firsthit, tickedAt: new Date().toISOString()
+    };
+  } else {
+    delete ticks[id];
+  }
+  saveTicks(ticks);
+  const rungEl = cb.closest(".rung");
+  if(rungEl){ rungEl.classList.toggle("done", cb.checked); }
+  renderLog();
+}
+
+document.addEventListener("change", (e)=>{
+  if(e.target.matches('input[type=checkbox][data-id]')) onToggle(e.target);
+});
+
+function applyStoredTicks(){
+  const ticks = loadTicks();
+  document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
+    if(ticks[cb.dataset.id]){
+      cb.checked = true;
+      const rungEl = cb.closest(".rung");
+      if(rungEl){ rungEl.classList.add("done"); }
+    }
+  });
+}
+
+async function exportCsv(){
+  const ticks = Object.values(loadTicks());
+  const header = "tickedAt,ticker,tier,source,level,multiplier,amount,firstHit";
+  const lines = [header, ...ticks.map(r=>[r.tickedAt,r.ticker,r.tier,r.source,r.level,r.multiplier,r.amount,r.firstHit].map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(","))];
+  const csv = lines.join("\n");
+  const downloads = (window.claude && window.claude.use) ? await window.claude.use("downloads") : null;
+  if(downloads){
+    try {
+      await downloads.save({filename: "moomooinvest-action-log.csv", data: csv});
+      document.getElementById("export-hint").textContent = "Saved.";
+      return;
+    } catch(e){ /* fall through to clipboard fallback */ }
+  }
+  try {
+    await navigator.clipboard.writeText(csv);
+    document.getElementById("export-hint").textContent = "Downloads unavailable here — copied CSV to clipboard instead.";
+  } catch(e){
+    document.getElementById("export-hint").textContent = "Could not export automatically — open browser console to copy STATE/localStorage manually.";
+  }
+}
+document.getElementById("export-btn").addEventListener("click", exportCsv);
+
+applyStoredTicks();
+renderLog();
+</script>
