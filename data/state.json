@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T21:40:55.790987Z",
+  "generated_at": "2026-08-16T21:40:28.233715Z",
   "stocks": {
     "AMD": {
       "clustered": false,
@@ -215,16 +215,7 @@
         "60": 398.46183420817056
       },
       "name": "Broadcom",
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-08-14",
-          "id": "drop-0",
-          "level": 398.4618,
-          "multiplier": 1.0,
-          "source": "5% cascade #1"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "drop-1",
         "level": 378.5387,
@@ -588,24 +579,7 @@
         "60": 600.2644948323567
       },
       "name": "Meta Platforms",
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-08-14",
-          "id": "drop-0",
-          "level": 627.6344,
-          "multiplier": 1.0,
-          "source": "5% cascade #1"
-        },
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-08-14",
-          "id": "drop-1",
-          "level": 596.2527,
-          "multiplier": 1.5,
-          "source": "5% cascade #2"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "drop-2",
         "level": 566.44,
@@ -1028,16 +1002,7 @@
         "60": 93.63049983978271
       },
       "name": "Rocket Lab",
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-08-14",
-          "id": "ma-150",
-          "level": 85.3163,
-          "multiplier": 1.0,
-          "source": "150"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
         "level": 78.389,
