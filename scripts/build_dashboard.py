@@ -10,7 +10,7 @@ import json
 
 from common import DATA_DIR, ROOT, load_rules, load_state, load_stocks
 
-TIER_ORDER = ["T1", "T2", "T3", "T3.5", "T5"]
+TIER_ORDER = ["T1", "T2", "T3", "T3.5", "T5", "T9"]
 
 TEMPLATE = r"""<title>__TITLE__</title>
 <style>
@@ -125,6 +125,8 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
 .pill.custom{background:var(--accent-soft); color:var(--accent);}
 .rung.custom{border-color:var(--accent); background:var(--accent-soft);}
 .rung.custom.done{opacity:.55;}
+.rung.pending{opacity:.68; border-style:dashed;}
+.rung .dist{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
 .card-sub-title{font-size:.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:.2rem;}
 .tabs{display:flex; gap:.4rem; margin-bottom:1.5rem; border-bottom:1px solid var(--border);}
 .tab-btn{
@@ -296,7 +298,7 @@ def pill(text: str, cls: str) -> str:
     return f'<span class="pill {cls}">{text}</span>'
 
 
-def render_rung(ticker: str, tier: str, rung: dict, is_open: bool, extra_cls: str = "") -> str:
+def render_rung(ticker: str, tier: str, rung: dict, is_open: bool, extra_cls: str = "", price: float | None = None) -> str:
     status_cls = ("open " + extra_cls).strip() if is_open else extra_cls
     checkbox = ""
     if is_open:
@@ -309,11 +311,16 @@ def render_rung(ticker: str, tier: str, rung: dict, is_open: bool, extra_cls: st
         )
     amt = f'{rung.get("amount"):,.0f}' if rung.get("amount") is not None else ""
     mult_txt = f'x{rung.get("multiplier")}' if rung.get("multiplier") is not None else "your target"
+    dist_html = ""
+    if not is_open and price and rung.get("level"):
+        dist = (rung["level"] - price) / price * 100
+        dist_html = f'<span class="dist">{dist:+.1f}% away</span>'
     return (
         f'<div class="rung {status_cls}">{checkbox}'
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
         f'<span class="amt">{mult_txt}{" &middot; " + amt if amt else ""}</span>'
+        f"{dist_html}"
         f"</div>"
     )
 
@@ -323,9 +330,9 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
     currency = rules.get("currency", "SGD")
     price = s.get("price")
     fired = s.get("fired_this_period", []) or []
-    fired_ids = {f["id"] for f in fired}
-    open_rungs = fired  # all fired rungs are "hit"; open = not yet ticked, handled client-side
-    has_open = len(open_rungs) > 0
+    fired_by_id = {f["id"]: f for f in fired}
+    base_amount = (rules.get("tiers", {}).get(tier) or {}).get("base_amount")
+    has_open = len(fired) > 0
 
     pills = []
     if not s.get("is_etf") and s.get("vs_target_pct") is not None:
@@ -344,7 +351,25 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
     if s.get("data_stale"):
         pills.append(pill("stale data", "bad"))
 
-    rungs_html = "".join(render_rung(ticker, tier, r, True) for r in fired)
+    # Always show the full planned ladder for this period -- fired rungs as
+    # actionable/checkable, not-yet-fired rungs as a dashed "pending" preview
+    # with their distance from the current price -- so the whole plan is
+    # visible up front, not just what's already triggered.
+    ladder = s.get("ladder", []) or []
+    ladder_ids = {r["id"] for r in ladder}
+    plan_rows = []
+    for rung in ladder:
+        fired_entry = fired_by_id.get(rung["id"])
+        if fired_entry:
+            plan_rows.append(render_rung(ticker, tier, fired_entry, True))
+        else:
+            preview = dict(rung)
+            if base_amount is not None:
+                preview["amount"] = round(base_amount * rung["multiplier"], 2)
+            plan_rows.append(render_rung(ticker, tier, preview, False, extra_cls="pending", price=price))
+    extra_fired = [f for f in fired if f["id"] not in ladder_ids]
+    plan_rows += [render_rung(ticker, tier, f, True) for f in extra_fired]
+    rungs_html = "".join(plan_rows)
 
     fired_custom_ids = {f["id"] for f in (s.get("fired_custom") or [])}
     custom_html = ""
@@ -352,16 +377,19 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
         rows = []
         for r in custom_rungs:
             is_fired = r["id"] in fired_custom_ids
-            rows.append(render_rung(ticker, tier, r, is_fired, extra_cls="custom"))
+            rows.append(render_rung(ticker, tier, r, is_fired, extra_cls="custom", price=price))
         custom_html = f'<div class="card-sub-title">Your targets (always-on, no period reset)</div><div class="rungs">{"".join(rows)}</div>'
 
+    # Only surface "Next" separately when it's a below-the-ladder cascade
+    # projection not already shown as a pending rung above (avoids showing
+    # the same level twice).
     next_rung = s.get("next_rung")
     next_html = ""
-    if next_rung and price:
+    if next_rung and price and next_rung["id"] not in ladder_ids:
         dist = (next_rung["level"] - price) / price * 100 if price else None
         dist_txt = f" ({dist:+.1f}% away)" if dist is not None else ""
         next_html = f'<div class="next-hint">Next: {next_rung["source"]} at {fmt_price(next_rung["level"])} ×{next_rung["multiplier"]}{dist_txt}</div>'
-    elif not next_rung:
+    elif not next_rung and ladder:
         next_html = '<div class="next-hint">All rungs for this period have fired.</div>'
 
     mas = s.get("mas") or {}
@@ -381,7 +409,7 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
   </div>
   <div class="pills">{''.join(pills)}</div>
   <div class="ma-strip">{ma_strip}</div>
-  <div class="rungs">{rungs_html if rungs_html else '<div class="next-hint">No thresholds hit this period.</div>'}</div>
+  <div class="rungs">{rungs_html if rungs_html else '<div class="next-hint">No ladder available (missing MA data).</div>'}</div>
   {next_html}
   {custom_html}
   {err_html}

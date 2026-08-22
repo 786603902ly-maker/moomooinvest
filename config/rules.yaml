@@ -49,3 +49,7 @@ tiers:
     base_amount: 600
     refresh: monthly
     ma_ladder: [250]
+  T9:
+    base_amount: 600
+    refresh: monthly
+    ma_ladder: [250]

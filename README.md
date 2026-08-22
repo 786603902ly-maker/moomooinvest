@@ -55,12 +55,33 @@ that, still capped at ×2 per trigger (rule 3).
 | T1 | NVDA, TSM, AVGO | MA60 → MA100 → MA150 | weekly |
 | T2 | PLTR, IGV*, MSFT, META | MA100 → MA150 → MA200 | **biweekly** |
 | T3 | GOOG, AMZN, RKLB, AMD | MA150 → MA200 → MA250 | monthly |
-| T3.5 | NBIS, LRCX, FTNT | MA200 → MA250 (then 5% cascade) | monthly |
-| T5 | MU | MA250 (then 5% cascade) | monthly |
+| T3.5 | NBIS, LRCX, FTNT, XLV* | MA200 → MA250 (then 5% cascade) | monthly |
+| T5 | MU, SOFI, V, ASML, GRAB, TSLA, FXI*, OSCR, ASTS, MRVL | MA250 only (then 5% cascade) | monthly |
+| T9 | BRK-B, HIMS, PYPL, DUOL, NU, MSTR, VITL | MA250 only (then 5% cascade) | monthly |
 
-\* IGV is an ETF — MA-ladder alerts apply, but it has no analyst target
-price / fair value (moomoo doesn't show one for ETFs either), so that part
-is skipped for it.
+T5/T9 were added from your "T3.9 above" moomoo watchlist screenshots. Per
+your instruction they deliberately use only **one** trigger (break below
+MA250, the lowest MA tracked) rather than the fuller 3-rung ladder — same
+single-rung mechanism already used for MU. `T9`'s `base_amount`/`refresh`
+default to match `T5` (600/monthly) since none was specified; adjust in
+`config/rules.yaml` if wrong. MRVL's watchlist label was `!T5` (others were
+plain `T5`) — added to T5 as-is since the `!` meaning wasn't specified,
+flag it if it should be handled differently.
+
+\* IGV, FXI, XLV are ETFs — MA-ladder alerts apply, but they have no analyst
+target price / fair value (moomoo doesn't show one for ETFs either), so
+that part is skipped for them.
+
+## Every card always shows its full planned ladder
+
+Cards used to only show rungs that had already fired, plus a one-line
+"Next: ..." hint for the closest unfired one. Now every card always shows
+**all** of that period's rungs (typically 2-3 for T1-T3.5, 1 for T5/T9) —
+fired ones are checkable as before, not-yet-fired ones show as a dashed
+"pending" row with their price level, amount, and how far away the current
+price is. This is meant to let you review the whole plan for a stock at a
+glance and decide whether you're comfortable just waiting for it to fire,
+without having to reconstruct the ladder from `config/rules.yaml` yourself.
 
 ## Fair value / target price: now sourced from moomoo, not web search
 

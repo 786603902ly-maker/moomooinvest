@@ -171,3 +171,148 @@ stocks:
     fair_value_prev: 543
     fundamentals_updated: "2026-08-22"
     fundamentals_source: "moomoo (user CSV export)"
+
+  # -- T5 / T9: added from your "T3.9 above" moomoo watchlist screenshots.
+  # Per your instruction, these use a single trigger for now: break below
+  # MA250 (same single-rung + 5%-cascade mechanism already used for MU),
+  # not the full 3-rung ladder T1-T3.5 use. base_amount/refresh for the new
+  # T9 tier default to the same 600/monthly as T5 -- please confirm/adjust
+  # in config/rules.yaml if that's wrong.
+
+  - ticker: SOFI
+    name: SoFi Technologies
+    tier: T5
+    target_price: 20.23
+    fair_value: 17.50
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: V
+    name: Visa
+    tier: T5
+    target_price: 425.39
+    fair_value: 330.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: ASML
+    name: ASML Holding
+    tier: T5
+    target_price: 2470.80
+    fair_value: 2050.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: GRAB
+    name: Grab Holdings
+    tier: T5
+    target_price: 5.83
+    fair_value: 5.60
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: TSLA
+    name: Tesla
+    tier: T5
+    target_price: 393.62
+    fair_value: 450.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: FXI
+    name: iShares China Large-Cap ETF
+    tier: T5
+    is_etf: true
+    target_price: null
+    fair_value: null
+    note: "ETF - no analyst target/fair value."
+
+  - ticker: OSCR
+    name: Oscar Health
+    tier: T5
+    target_price: 32.20
+    fair_value: 26.90
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: ASTS
+    name: AST SpaceMobile
+    tier: T5
+    target_price: 89.67
+    fair_value: 76.29
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: MRVL
+    name: Marvell Technology
+    tier: T5
+    target_price: 287.84
+    fair_value: 270.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+    note: "Your watchlist labeled this '!T5' (others are plain 'T5') -- added to T5 as-is since the '!' meaning wasn't specified; flag if it should be excluded or tiered differently."
+
+  - ticker: BRK-B
+    name: Berkshire Hathaway B
+    tier: T9
+    target_price: 572.00
+    fair_value: 510.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+    note: "Ticker set to BRK-B (dash) to match stooq/Yahoo's symbol format for price fetching; moomoo displays it as BRK.B."
+
+  - ticker: HIMS
+    name: Hims & Hers Health
+    tier: T9
+    target_price: 36.40
+    fair_value: 23.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: PYPL
+    name: PayPal
+    tier: T9
+    target_price: 58.76
+    fair_value: 80.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: DUOL
+    name: Duolingo
+    tier: T9
+    target_price: 137.50
+    fair_value: 153.71
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: NU
+    name: Nu Holdings
+    tier: T9
+    target_price: 17.36
+    fair_value: 16.60
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: MSTR
+    name: Strategy (MicroStrategy)
+    tier: T9
+    target_price: 257.75
+    fair_value: 81.11
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: VITL
+    name: Vital Farms
+    tier: T9
+    target_price: 15.20
+    fair_value: 18.53
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: XLV
+    name: Health Care Select Sector SPDR
+    tier: T3.5
+    is_etf: true
+    target_price: null
+    fair_value: null
+    note: "ETF - no analyst target/fair value."

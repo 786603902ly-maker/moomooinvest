@@ -111,6 +111,8 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
 .pill.custom{background:var(--accent-soft); color:var(--accent);}
 .rung.custom{border-color:var(--accent); background:var(--accent-soft);}
 .rung.custom.done{opacity:.55;}
+.rung.pending{opacity:.68; border-style:dashed;}
+.rung .dist{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
 .card-sub-title{font-size:.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:.2rem;}
 .tabs{display:flex; gap:.4rem; margin-bottom:1.5rem; border-bottom:1px solid var(--border);}
 .tab-btn{
@@ -156,7 +158,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="tabpanel active" id="tab-alerts">
     <div class="summary-row">
       <div class="stat hot"><div class="n">10</div><div class="l">open triggers</div></div>
-      <div class="stat"><div class="n">15</div><div class="l">stocks tracked</div></div>
+      <div class="stat"><div class="n">32</div><div class="l">stocks tracked</div></div>
       <div class="stat"><div class="n">0</div><div class="l">stale data</div></div>
     </div>
     <div class="tier-section"><div class="tier-head"><h2>T1</h2><span class="meta">base SGD 600.00 &middot; refresh weekly &middot; MA60/100/150</span></div><div class="cards"><div class="card has-open">
@@ -166,8 +168,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-30.6% vs target</span><span class="pill good">-43.3% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$394.75</b></span><span>MA100: <b>$396.03</b></span><span>MA150: <b>$372.80</b></span><span>MA200: <b>$369.20</b></span><span>MA250: <b>$363.48</b></span></div>
-  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="AVGO|drop-0|2026-08-17" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #1" data-level="398.0397" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-17"><span class="lvl">$398.04</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung open"><input type="checkbox" data-id="AVGO|drop-1|2026-08-19" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #2" data-level="378.1377" data-multiplier="1.5" data-amount="900.0" data-firsthit="2026-08-19"><span class="lvl">$378.14</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span></div></div>
-  <div class="next-hint">Next: 5% cascade #3 at $359.23 ×2.0 (-2.5% away)</div>
+  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="AVGO|drop-0|2026-08-17" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #1" data-level="398.0397" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-17"><span class="lvl">$398.04</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung open"><input type="checkbox" data-id="AVGO|drop-1|2026-08-19" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #2" data-level="378.1377" data-multiplier="1.5" data-amount="900.0" data-firsthit="2026-08-19"><span class="lvl">$378.14</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span></div><div class="rung pending"><span class="lvl">$359.23</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-2.5% away</span></div></div>
+  
   
   
 </div><div class="card ">
@@ -177,8 +179,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-28.4% vs target</span><span class="pill good">-23.3% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$208.45</b></span><span>MA100: <b>$206.65</b></span><span>MA150: <b>$198.78</b></span><span>MA200: <b>$195.29</b></span><span>MA250: <b>$192.73</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 60 at $208.34 ×1.0 (-3.0% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$208.34</span><span class="src">60</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-3.0% away</span></div><div class="rung pending"><span class="lvl">$204.78</span><span class="src">100</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-4.6% away</span></div><div class="rung pending"><span class="lvl">$197.93</span><span class="src">150</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-7.8% away</span></div></div>
+  
   
   
 </div><div class="card has-open">
@@ -188,8 +190,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-23.2% vs target</span><span class="pill good">-21.5% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$425.20</b></span><span>MA100: <b>$409.72</b></span><span>MA150: <b>$389.09</b></span><span>MA200: <b>$366.38</b></span><span>MA250: <b>$348.24</b></span></div>
-  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="TSM|ma-60|2026-08-18" data-ticker="TSM" data-tier="T1" data-source="60" data-level="424.9685" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-18"><span class="lvl">$424.97</span><span class="src">60</span><span class="amt">x1.0 &middot; 600</span></div></div>
-  <div class="next-hint">Next: 100 at $406.28 ×1.5 (-3.0% away)</div>
+  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="TSM|ma-60|2026-08-18" data-ticker="TSM" data-tier="T1" data-source="60" data-level="424.9685" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-18"><span class="lvl">$424.97</span><span class="src">60</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung pending"><span class="lvl">$406.28</span><span class="src">100</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-3.0% away</span></div><div class="rung pending"><span class="lvl">$386.90</span><span class="src">150</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-7.6% away</span></div></div>
+  
   
   
 </div></div></div><div class="tier-section"><div class="tier-head"><h2>T2</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA100/150/200</span></div><div class="cards"><div class="card ">
@@ -199,8 +201,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$95.24</b></span><span>MA100: <b>$91.63</b></span><span>MA150: <b>$89.64</b></span><span>MA200: <b>$93.82</b></span><span>MA250: <b>$97.69</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 5% cascade #1 at $94.15 ×1.0 (-8.9% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$94.15</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-8.9% away</span></div><div class="rung pending"><span class="lvl">$89.44</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-13.5% away</span></div><div class="rung pending"><span class="lvl">$84.97</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-17.8% away</span></div></div>
+  
   
   
 </div><div class="card has-open">
@@ -221,8 +223,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-14.6% vs target</span><span class="pill good">-19.5% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$420.93</b></span><span>MA100: <b>$415.41</b></span><span>MA150: <b>$413.11</b></span><span>MA200: <b>$431.31</b></span><span>MA250: <b>$447.85</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 5% cascade #1 at $432.48 ×1.0 (-10.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$432.48</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-10.5% away</span></div><div class="rung pending"><span class="lvl">$410.86</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-15.0% away</span></div><div class="rung pending"><span class="lvl">$390.31</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-19.2% away</span></div></div>
+  
   
   
 </div><div class="card ">
@@ -232,8 +234,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-9.1% vs target</span><span class="pill bad">+17.6% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$139.62</b></span><span>MA100: <b>$139.62</b></span><span>MA150: <b>$142.47</b></span><span>MA200: <b>$151.51</b></span><span>MA250: <b>$156.36</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $152.09 ×1.0 (-15.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$152.09</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-15.5% away</span></div><div class="rung pending"><span class="lvl">$142.60</span><span class="src">150</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-20.8% away</span></div><div class="rung pending"><span class="lvl">$138.27</span><span class="src">100</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-23.2% away</span></div></div>
+  
   
   
 </div></div></div><div class="tier-section"><div class="tier-head"><h2>T3</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA150/200/250</span></div><div class="cards"><div class="card ">
@@ -243,8 +245,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-28.5% vs target</span><span class="pill good">-10.7% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$508.80</b></span><span>MA100: <b>$442.64</b></span><span>MA150: <b>$366.19</b></span><span>MA200: <b>$329.86</b></span><span>MA250: <b>$302.51</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 150 at $357.42 ×1.0 (-24.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$357.42</span><span class="src">150</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-24.5% away</span></div><div class="rung pending"><span class="lvl">$324.33</span><span class="src">200</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-31.5% away</span></div><div class="rung pending"><span class="lvl">$296.27</span><span class="src">250</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-37.4% away</span></div></div>
+  
   
   
 </div><div class="card ">
@@ -254,8 +256,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-22.6% vs target</span><span class="pill good">-13.8% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$250.44</b></span><span>MA100: <b>$251.64</b></span><span>MA150: <b>$239.91</b></span><span>MA200: <b>$238.33</b></span><span>MA250: <b>$235.86</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 5% cascade #1 at $239.28 ×1.0 (-7.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$239.28</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-7.5% away</span></div><div class="rung pending"><span class="lvl">$227.32</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-12.1% away</span></div><div class="rung pending"><span class="lvl">$215.95</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-16.5% away</span></div></div>
+  
   
   
 </div><div class="card has-open">
@@ -265,8 +267,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-21.4% vs target</span><span class="pill good">-21.1% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$352.81</b></span><span>MA100: <b>$353.49</b></span><span>MA150: <b>$339.75</b></span><span>MA200: <b>$332.06</b></span><span>MA250: <b>$314.85</b></span></div>
-  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="GOOG|ma-150|2026-08-20" data-ticker="GOOG" data-tier="T3" data-source="150" data-level="339.5061" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-20"><span class="lvl">$339.51</span><span class="src">150</span><span class="amt">x1.0 &middot; 600</span></div></div>
-  <div class="next-hint">Next: 200 at $330.50 ×1.5 (-3.3% away)</div>
+  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="GOOG|ma-150|2026-08-20" data-ticker="GOOG" data-tier="T3" data-source="150" data-level="339.5061" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-20"><span class="lvl">$339.51</span><span class="src">150</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung pending"><span class="lvl">$330.50</span><span class="src">200</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-3.3% away</span></div><div class="rung pending"><span class="lvl">$312.09</span><span class="src">250</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-8.7% away</span></div></div>
+  
   
   
 </div><div class="card has-open">
@@ -287,8 +289,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-11.5% vs target</span><span class="pill bad">+7.3% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$153.78</b></span><span>MA100: <b>$131.23</b></span><span>MA150: <b>$114.58</b></span><span>MA200: <b>$106.18</b></span><span>MA250: <b>$101.49</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $104.47 ×1.0 (-31.9% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$104.47</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-31.9% away</span></div><div class="rung pending"><span class="lvl">$99.99</span><span class="src">250</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-34.9% away</span></div></div>
+  
   
   
 </div><div class="card ">
@@ -298,8 +300,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-20.5% vs target</span><span class="pill bad">+1.3% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$335.14</b></span><span>MA100: <b>$308.67</b></span><span>MA150: <b>$281.48</b></span><span>MA200: <b>$253.59</b></span><span>MA250: <b>$228.95</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $249.56 ×1.0 (-20.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$249.56</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-20.5% away</span></div><div class="rung pending"><span class="lvl">$224.52</span><span class="src">250</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-28.5% away</span></div></div>
+  
   
   
 </div><div class="card ">
@@ -309,21 +311,208 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="pills"><span class="pill good">-27.1% vs target</span><span class="pill bad">+46.1% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$225.44</b></span><span>MA100: <b>$201.37</b></span><span>MA150: <b>$167.52</b></span><span>MA200: <b>$149.25</b></span><span>MA250: <b>$140.13</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $146.46 ×1.0 (-33.2% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$146.46</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-33.2% away</span></div><div class="rung pending"><span class="lvl">$136.78</span><span class="src">250</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-37.6% away</span></div></div>
   
   
+  
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">XLV <span class="sub"></span></div><div class="sub">T3.5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
 </div></div></div><div class="tier-section"><div class="tier-head"><h2>T5</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">ASML <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">ASTS <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">FXI <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">GRAB <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">MRVL <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
   <div class="card-head">
     <div><div class="name">MU <span class="sub">Micron Technology</span></div><div class="sub">T5 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$966.78</div><div class="price-date">2026-08-21</div></div>
   </div>
   <div class="pills"><span class="pill good">-38.4% vs target</span><span class="pill bad">+13.7% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$965.67</b></span><span>MA100: <b>$808.40</b></span><span>MA150: <b>$673.74</b></span><span>MA200: <b>$571.10</b></span><span>MA250: <b>$491.31</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 250 at $474.37 ×1.0 (-50.9% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$474.37</span><span class="src">250</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-50.9% away</span></div></div>
   
   
+  
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">OSCR <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">SOFI <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">TSLA <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">V <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T9</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">BRK-B <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">DUOL <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">HIMS <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">MSTR <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">NU <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">PYPL <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">VITL <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
 </div></div></div>
     <div class="section-title">Action log</div>
     <div class="actions-bar">
