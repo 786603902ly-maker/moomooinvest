@@ -122,23 +122,68 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
   padding:.8rem 1rem; font-size:.82rem; color:var(--text-muted); margin-bottom:1.5rem;
 }
 .assumptions b{color:var(--text);}
+.pill.custom{background:var(--accent-soft); color:var(--accent);}
+.rung.custom{border-color:var(--accent); background:var(--accent-soft);}
+.rung.custom.done{opacity:.55;}
+.card-sub-title{font-size:.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:.2rem;}
+.tabs{display:flex; gap:.4rem; margin-bottom:1.5rem; border-bottom:1px solid var(--border);}
+.tab-btn{
+  background:none; border:none; color:var(--text-muted); font-family:var(--font-body); font-size:.9rem;
+  font-weight:600; padding:.6rem .3rem; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.tab-btn.active{color:var(--accent); border-bottom-color:var(--accent);}
+.tabpanel{display:none;}
+.tabpanel.active{display:block;}
+.val-caption{color:var(--text-muted); font-size:.85rem; margin-bottom:1rem;}
+.val-chart{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; margin-bottom:1.5rem;}
+.val-row{display:flex; align-items:center; gap:.7rem; padding:.4rem 0; border-bottom:1px solid var(--border);}
+.val-row:last-child{border-bottom:none;}
+.val-label{width:130px; flex:0 0 130px; font-size:.82rem; overflow:hidden;}
+.val-label b{display:block;}
+.val-label span{color:var(--text-muted); font-size:.72rem;}
+.val-track{flex:1; position:relative; height:22px; background:var(--surface-2); border-radius:4px; min-width:80px;}
+.val-track .zero{position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--border);}
+.val-bar{position:absolute; top:2px; bottom:2px; border-radius:3px;}
+.val-bar.good{background:var(--good);}
+.val-bar.bad{background:var(--bad);}
+.val-pct{width:60px; flex:0 0 60px; text-align:right; font-variant-numeric:tabular-nums; font-weight:600; font-size:.84rem;}
+.val-pct.good{color:var(--good);}
+.val-pct.bad{color:var(--bad);}
+.val-legend{display:flex; gap:1.2rem; font-size:.78rem; color:var(--text-muted); margin-top:.8rem; padding-top:.6rem; border-top:1px solid var(--border);}
+.val-legend .sw{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:.35rem; vertical-align:middle;}
+table.val-table{width:100%; border-collapse:collapse; font-size:.85rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;}
+table.val-table th, table.val-table td{text-align:right; padding:.5rem .7rem; border-bottom:1px solid var(--border);}
+table.val-table th:first-child, table.val-table td:first-child{text-align:left;}
+table.val-table th{background:var(--surface-2); color:var(--text-muted); font-weight:600; font-size:.74rem; text-transform:uppercase; letter-spacing:.03em;}
+table.val-table td{font-variant-numeric:tabular-nums;}
+table.val-table td.good{color:var(--good);}
+table.val-table td.bad{color:var(--bad);}
 </style>
 <div class="wrap">
   <h1>DCA Alert Dashboard</h1>
   <div class="subtitle">Prices as of <b>__PRICE_DATE__</b> &middot; generated __GENERATED_AT__ &middot; fundamentals last refreshed <b>__FUND_DATE__</b></div>
   __STALE_BANNER__
-  <div class="summary-row">
-    <div class="stat hot"><div class="n">__OPEN_COUNT__</div><div class="l">open triggers</div></div>
-    <div class="stat"><div class="n">__STOCK_COUNT__</div><div class="l">stocks tracked</div></div>
-    <div class="stat"><div class="n">__STALE_COUNT__</div><div class="l">stale data</div></div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="alerts">Alerts &amp; ladder</button>
+    <button class="tab-btn" data-tab="valuation">Valuation overview</button>
   </div>
-  __TIER_SECTIONS__
-  <div class="section-title">Action log</div>
-  <div class="actions-bar">
-    <button class="export" id="export-btn">Export CSV</button>
-    <span class="next-hint" id="export-hint"></span>
+  <div class="tabpanel active" id="tab-alerts">
+    <div class="summary-row">
+      <div class="stat hot"><div class="n">__OPEN_COUNT__</div><div class="l">open triggers</div></div>
+      <div class="stat"><div class="n">__STOCK_COUNT__</div><div class="l">stocks tracked</div></div>
+      <div class="stat"><div class="n">__STALE_COUNT__</div><div class="l">stale data</div></div>
+    </div>
+    __TIER_SECTIONS__
+    <div class="section-title">Action log</div>
+    <div class="actions-bar">
+      <button class="export" id="export-btn">Export CSV</button>
+      <span class="next-hint" id="export-hint"></span>
+    </div>
+    <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
   </div>
-  <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
+  <div class="tabpanel" id="tab-valuation">
+    __VALUATION_TAB__
+  </div>
   <footer>
     Ticks are stored locally in this browser only (not synced back to the repo). Rule assumptions that still need your confirmation are noted in <b>README.md</b> / <b>config/rules.yaml</b>.
   </footer>
@@ -146,6 +191,15 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
 <script>
 const STATE = __STATE_JSON__;
 const STORE_KEY = "moomooinvest-ticks-v1";
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tabpanel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
 
 function loadTicks(){
   try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ return {}; }
@@ -242,23 +296,24 @@ def pill(text: str, cls: str) -> str:
     return f'<span class="pill {cls}">{text}</span>'
 
 
-def render_rung(ticker: str, tier: str, rung: dict, is_open: bool) -> str:
-    status_cls = "open" if is_open else ""
+def render_rung(ticker: str, tier: str, rung: dict, is_open: bool, extra_cls: str = "") -> str:
+    status_cls = ("open " + extra_cls).strip() if is_open else extra_cls
     checkbox = ""
     if is_open:
         rid = f"{ticker}|{rung.get('id')}|{rung.get('first_hit_date','')}"
         checkbox = (
             f'<input type="checkbox" data-id="{rid}" data-ticker="{ticker}" data-tier="{tier}" '
             f'data-source="{rung.get("source")}" data-level="{rung.get("level")}" '
-            f'data-multiplier="{rung.get("multiplier")}" data-amount="{rung.get("amount","")}" '
+            f'data-multiplier="{rung.get("multiplier","-")}" data-amount="{rung.get("amount","")}" '
             f'data-firsthit="{rung.get("first_hit_date","")}">'
         )
     amt = f'{rung.get("amount"):,.0f}' if rung.get("amount") is not None else ""
+    mult_txt = f'x{rung.get("multiplier")}' if rung.get("multiplier") is not None else "your target"
     return (
         f'<div class="rung {status_cls}">{checkbox}'
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
-        f'<span class="amt">x{rung.get("multiplier")}{" &middot; " + amt if amt else ""}</span>'
+        f'<span class="amt">{mult_txt}{" &middot; " + amt if amt else ""}</span>'
         f"</div>"
     )
 
@@ -283,10 +338,23 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
         pills.append(pill(f'{v:+.1f}% vs fair value', cls))
     if s.get("clustered"):
         pills.append(pill("MA cluster → 5% cascade", "neutral"))
+    custom_rungs = s.get("custom_rungs_today") or []
+    if custom_rungs:
+        pills.append(pill(f'{len(custom_rungs)} your target(s)', "custom"))
     if s.get("data_stale"):
         pills.append(pill("stale data", "bad"))
 
     rungs_html = "".join(render_rung(ticker, tier, r, True) for r in fired)
+
+    fired_custom_ids = {f["id"] for f in (s.get("fired_custom") or [])}
+    custom_html = ""
+    if custom_rungs:
+        rows = []
+        for r in custom_rungs:
+            is_fired = r["id"] in fired_custom_ids
+            rows.append(render_rung(ticker, tier, r, is_fired, extra_cls="custom"))
+        custom_html = f'<div class="card-sub-title">Your targets (always-on, no period reset)</div><div class="rungs">{"".join(rows)}</div>'
+
     next_rung = s.get("next_rung")
     next_html = ""
     if next_rung and price:
@@ -315,8 +383,81 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
   <div class="ma-strip">{ma_strip}</div>
   <div class="rungs">{rungs_html if rungs_html else '<div class="next-hint">No thresholds hit this period.</div>'}</div>
   {next_html}
+  {custom_html}
   {err_html}
 </div>"""
+
+
+def render_val_row(s: dict, max_abs: float) -> str:
+    ticker = s["ticker"]
+    pct = s["vs_fair_value_pct"]
+    cls = "good" if pct < 0 else "bad"
+    half_pct = min(abs(pct) / max_abs * 50, 50) if max_abs else 0
+    if pct < 0:
+        style = f"right:50%; width:{half_pct:.2f}%;"
+    else:
+        style = f"left:50%; width:{half_pct:.2f}%;"
+    return f"""<div class="val-row">
+  <div class="val-label"><b>{ticker}</b><span>{s.get('tier','')} &middot; fair {fmt_price(s.get('fair_value'))}</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar {cls}" style="{style}"></div></div>
+  <div class="val-pct {cls}">{pct:+.1f}%</div>
+</div>"""
+
+
+def render_val_table_row(s: dict, currency: str) -> str:
+    tp = s["vs_target_pct"]
+    fp = s["vs_fair_value_pct"]
+    tp_cls = "good" if tp < 0 else "bad"
+    fp_cls = "good" if fp < 0 else "bad"
+    return (
+        f"<tr><td>{s['ticker']} <span style='color:var(--text-muted)'>{s.get('name','')}</span></td>"
+        f"<td>{s.get('tier','')}</td>"
+        f"<td>{fmt_price(s.get('price'))}</td>"
+        f"<td>{fmt_price(s.get('target_price'))}</td>"
+        f"<td class='{tp_cls}'>{tp:+.1f}%</td>"
+        f"<td>{fmt_price(s.get('fair_value'))}</td>"
+        f"<td class='{fp_cls}'>{fp:+.1f}%</td></tr>"
+    )
+
+
+def render_valuation_tab(stocks_state: dict, stocks_cfg: dict, rules: dict) -> str:
+    rows = [
+        s
+        for s in stocks_state.values()
+        if not s.get("is_etf") and s.get("vs_fair_value_pct") is not None and s.get("vs_target_pct") is not None
+    ]
+    if not rows:
+        return '<div class="empty-log">No fair value / target price data yet. Add it to config/stocks.yaml.</div>'
+
+    rows.sort(key=lambda s: s["vs_fair_value_pct"])
+    max_abs = max(abs(s["vs_fair_value_pct"]) for s in rows) or 1.0
+    currency = rules.get("currency", "SGD")
+
+    fund_dates = {stocks_cfg[t].get("fundamentals_updated") for t in stocks_cfg if stocks_cfg[t].get("fundamentals_updated")}
+    sources = {stocks_cfg[t].get("fundamentals_source") for t in stocks_cfg if stocks_cfg[t].get("fundamentals_source")}
+    fund_date = max(fund_dates) if fund_dates else "not yet set"
+    source_txt = ", ".join(sorted(s for s in sources if s)) or "not yet set"
+
+    chart_rows = "".join(render_val_row(s, max_abs) for s in rows)
+    table_rows = "".join(render_val_table_row(s, currency) for s in rows)
+
+    return f"""
+<div class="val-caption">Sorted most-undervalued (green, left) to most-overvalued (red, right) vs each stock's fair value estimate. Source: <b>{source_txt}</b>, last updated <b>{fund_date}</b>. Use this to sanity-check whether a stock's tier assignment / MA ladder still matches how cheap or expensive it actually looks.</div>
+<div class="val-chart">
+  {chart_rows}
+  <div class="val-legend"><span><span class="sw" style="background:var(--good)"></span>undervalued vs fair value</span><span><span class="sw" style="background:var(--bad)"></span>overvalued vs fair value</span></div>
+</div>
+<table class="val-table">
+  <thead><tr><th>Stock</th><th>Tier</th><th>Price</th><th>Target</th><th>vs Target</th><th>Fair Value</th><th>vs Fair Value</th></tr></thead>
+  <tbody>{table_rows}</tbody>
+</table>
+"""
+
+
+def pct_diff(price: float | None, ref: float | None) -> float | None:
+    if price is None or ref is None or ref == 0:
+        return None
+    return round((price - ref) / ref * 100, 2)
 
 
 def build() -> str:
@@ -324,6 +465,22 @@ def build() -> str:
     state = load_state()
     stocks_cfg = {s["ticker"]: s for s in load_stocks()}
     stocks_state = state.get("stocks", {})
+
+    # Recompute target/fair-value figures from the current config against the
+    # last known price, rather than trusting whatever run_check.py baked into
+    # state.json -- this way editing config/stocks.yaml (e.g. after you paste
+    # fresh moomoo numbers) shows up on rebuild even without a fresh network
+    # fetch of prices.
+    for ticker, s in stocks_state.items():
+        cfg = stocks_cfg.get(ticker, {})
+        s["ticker"] = ticker
+        if cfg.get("is_etf"):
+            continue
+        price = s.get("price")
+        s["target_price"] = cfg.get("target_price")
+        s["fair_value"] = cfg.get("fair_value")
+        s["vs_target_pct"] = pct_diff(price, cfg.get("target_price"))
+        s["vs_fair_value_pct"] = pct_diff(price, cfg.get("fair_value"))
 
     open_count = sum(len(s.get("fired_this_period", []) or []) for s in stocks_state.values())
     stale_count = sum(1 for s in stocks_state.values() if s.get("data_stale"))
@@ -354,6 +511,8 @@ def build() -> str:
             f'<div class="cards">{"".join(cards)}</div></div>'
         )
 
+    valuation_html = render_valuation_tab(stocks_state, stocks_cfg, rules)
+
     html = TEMPLATE
     html = html.replace("__TITLE__", "DCA Alert Dashboard")
     html = html.replace("__PRICE_DATE__", str(price_date))
@@ -364,6 +523,7 @@ def build() -> str:
     html = html.replace("__STOCK_COUNT__", str(len(stocks_cfg)))
     html = html.replace("__STALE_COUNT__", str(stale_count))
     html = html.replace("__TIER_SECTIONS__", "".join(sections))
+    html = html.replace("__VALUATION_TAB__", valuation_html)
     html = html.replace("__STATE_JSON__", json.dumps(state).replace("</", "<\\/"))
     return html
 
