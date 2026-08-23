@@ -5,6 +5,13 @@ an automated pipeline: prices refresh daily, thresholds are evaluated
 against your ladder rules, and a dashboard (published as a Claude Artifact)
 shows what's hit and lets you tick off what you've actually invested in.
 
+> **Trunk branch is `claude/investment-rules-stock-tiers-benvvw`** — both
+> the GitHub Actions cron and the daily dashboard-refresh Routine only ever
+> read/write this branch. If you're a Claude session working from a
+> different (session-specific) branch, merge into this one before you're
+> done — see `CLAUDE.md` for why this matters and what went wrong once
+> already when it wasn't.
+
 ## How it works
 
 1. **Daily** (GitHub Actions, `.github/workflows/daily-price-check.yml`,
