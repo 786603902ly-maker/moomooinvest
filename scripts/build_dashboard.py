@@ -416,9 +416,49 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
 </div>"""
 
 
+def pct_diff(price: float | None, ref: float | None) -> float | None:
+    if price is None or ref is None or ref == 0:
+        return None
+    return round((price - ref) / ref * 100, 2)
+
+
+def collect_valuation_rows(stocks_cfg: dict, stocks_state: dict, tiers: set) -> list[dict]:
+    """Build valuation rows straight from config, independent of whether
+    run_check.py has ever produced a state.json entry for that ticker yet
+    (a freshly-added stock has no price until the next real price fetch --
+    still worth showing target/fair value for, with the % columns pending)."""
+    rows = []
+    for ticker, cfg in stocks_cfg.items():
+        if cfg.get("tier") not in tiers or cfg.get("is_etf"):
+            continue
+        if cfg.get("target_price") is None and cfg.get("fair_value") is None:
+            continue
+        s = stocks_state.get(ticker) or {}
+        price = s.get("price")
+        rows.append(
+            {
+                "ticker": ticker,
+                "name": cfg.get("name", ticker),
+                "tier": cfg.get("tier"),
+                "price": price,
+                "target_price": cfg.get("target_price"),
+                "fair_value": cfg.get("fair_value"),
+                "vs_target_pct": pct_diff(price, cfg.get("target_price")),
+                "vs_fair_value_pct": pct_diff(price, cfg.get("fair_value")),
+            }
+        )
+    return rows
+
+
 def render_val_row(s: dict, max_abs: float) -> str:
     ticker = s["ticker"]
     pct = s["vs_fair_value_pct"]
+    if pct is None:
+        return f"""<div class="val-row">
+  <div class="val-label"><b>{ticker}</b><span>{s.get('tier','')} &middot; fair {fmt_price(s.get('fair_value'))}</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div>"""
     cls = "good" if pct < 0 else "bad"
     half_pct = min(abs(pct) / max_abs * 50, 50) if max_abs else 0
     if pct < 0:
@@ -432,45 +472,34 @@ def render_val_row(s: dict, max_abs: float) -> str:
 </div>"""
 
 
-def render_val_table_row(s: dict, currency: str) -> str:
-    tp = s["vs_target_pct"]
-    fp = s["vs_fair_value_pct"]
-    tp_cls = "good" if tp < 0 else "bad"
-    fp_cls = "good" if fp < 0 else "bad"
+def render_val_table_row(s: dict) -> str:
+    tp, fp = s["vs_target_pct"], s["vs_fair_value_pct"]
+    tp_txt = f'<td class="{"good" if tp < 0 else "bad"}">{tp:+.1f}%</td>' if tp is not None else '<td style="color:var(--text-muted)">pending</td>'
+    fp_txt = f'<td class="{"good" if fp < 0 else "bad"}">{fp:+.1f}%</td>' if fp is not None else '<td style="color:var(--text-muted)">pending</td>'
     return (
         f"<tr><td>{s['ticker']} <span style='color:var(--text-muted)'>{s.get('name','')}</span></td>"
         f"<td>{s.get('tier','')}</td>"
         f"<td>{fmt_price(s.get('price'))}</td>"
         f"<td>{fmt_price(s.get('target_price'))}</td>"
-        f"<td class='{tp_cls}'>{tp:+.1f}%</td>"
+        f"{tp_txt}"
         f"<td>{fmt_price(s.get('fair_value'))}</td>"
-        f"<td class='{fp_cls}'>{fp:+.1f}%</td></tr>"
+        f"{fp_txt}</tr>"
     )
 
 
-def render_valuation_tab(stocks_state: dict, stocks_cfg: dict, rules: dict) -> str:
-    rows = [
-        s
-        for s in stocks_state.values()
-        if not s.get("is_etf") and s.get("vs_fair_value_pct") is not None and s.get("vs_target_pct") is not None
-    ]
+def render_valuation_section(title: str, note: str, rows: list[dict]) -> str:
     if not rows:
-        return '<div class="empty-log">No fair value / target price data yet. Add it to config/stocks.yaml.</div>'
-
-    rows.sort(key=lambda s: s["vs_fair_value_pct"])
-    max_abs = max(abs(s["vs_fair_value_pct"]) for s in rows) or 1.0
-    currency = rules.get("currency", "SGD")
-
-    fund_dates = {stocks_cfg[t].get("fundamentals_updated") for t in stocks_cfg if stocks_cfg[t].get("fundamentals_updated")}
-    sources = {stocks_cfg[t].get("fundamentals_source") for t in stocks_cfg if stocks_cfg[t].get("fundamentals_source")}
-    fund_date = max(fund_dates) if fund_dates else "not yet set"
-    source_txt = ", ".join(sorted(s for s in sources if s)) or "not yet set"
+        return ""
+    rows = sorted(rows, key=lambda s: (s["vs_fair_value_pct"] is None, s["vs_fair_value_pct"]))
+    available = [s["vs_fair_value_pct"] for s in rows if s["vs_fair_value_pct"] is not None]
+    max_abs = max((abs(v) for v in available), default=1.0) or 1.0
 
     chart_rows = "".join(render_val_row(s, max_abs) for s in rows)
-    table_rows = "".join(render_val_table_row(s, currency) for s in rows)
+    table_rows = "".join(render_val_table_row(s) for s in rows)
 
     return f"""
-<div class="val-caption">Sorted most-undervalued (green, left) to most-overvalued (red, right) vs each stock's fair value estimate. Source: <b>{source_txt}</b>, last updated <b>{fund_date}</b>. Use this to sanity-check whether a stock's tier assignment / MA ladder still matches how cheap or expensive it actually looks.</div>
+<div class="section-title">{title}</div>
+<div class="val-caption">{note}</div>
 <div class="val-chart">
   {chart_rows}
   <div class="val-legend"><span><span class="sw" style="background:var(--good)"></span>undervalued vs fair value</span><span><span class="sw" style="background:var(--bad)"></span>overvalued vs fair value</span></div>
@@ -482,10 +511,30 @@ def render_valuation_tab(stocks_state: dict, stocks_cfg: dict, rules: dict) -> s
 """
 
 
-def pct_diff(price: float | None, ref: float | None) -> float | None:
-    if price is None or ref is None or ref == 0:
-        return None
-    return round((price - ref) / ref * 100, 2)
+def render_valuation_tab(stocks_state: dict, stocks_cfg: dict, rules: dict) -> str:
+    fund_dates = {stocks_cfg[t].get("fundamentals_updated") for t in stocks_cfg if stocks_cfg[t].get("fundamentals_updated")}
+    sources = {stocks_cfg[t].get("fundamentals_source") for t in stocks_cfg if stocks_cfg[t].get("fundamentals_source")}
+    fund_date = max(fund_dates) if fund_dates else "not yet set"
+    source_txt = ", ".join(sorted(s for s in sources if s)) or "not yet set"
+    common_note = f"Sorted most-undervalued (green, left) to most-overvalued (red, right) vs each stock's fair value estimate. Source: <b>{source_txt}</b>, last updated <b>{fund_date}</b>. \"pending\" means no price fetched for that stock yet -- fills in on the next daily refresh."
+
+    main_rows = collect_valuation_rows(stocks_cfg, stocks_state, {"T1", "T2", "T3", "T3.5"})
+    t5t9_rows = collect_valuation_rows(stocks_cfg, stocks_state, {"T5", "T9"})
+
+    sections = [
+        render_valuation_section(
+            "T1 – T3.5 (full ladder tiers)",
+            common_note + " Use this to sanity-check whether a stock's tier assignment / MA ladder still matches how cheap or expensive it actually looks.",
+            main_rows,
+        ),
+        render_valuation_section(
+            "T5 &amp; T9 (single MA250-trigger tiers)",
+            common_note + " Same chart/table as above, broken out separately since these tiers use just one trigger (MA250) instead of the full 3-rung ladder.",
+            t5t9_rows,
+        ),
+    ]
+    body = "".join(s for s in sections if s)
+    return body or '<div class="empty-log">No fair value / target price data yet. Add it to config/stocks.yaml.</div>'
 
 
 def build() -> str:

@@ -523,7 +523,8 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="tabpanel" id="tab-valuation">
     
-<div class="val-caption">Sorted most-undervalued (green, left) to most-overvalued (red, right) vs each stock's fair value estimate. Source: <b>moomoo (user CSV export)</b>, last updated <b>2026-08-22</b>. Use this to sanity-check whether a stock's tier assignment / MA ladder still matches how cheap or expensive it actually looks.</div>
+<div class="section-title">T1 – T3.5 (full ladder tiers)</div>
+<div class="val-caption">Sorted most-undervalued (green, left) to most-overvalued (red, right) vs each stock's fair value estimate. Source: <b>moomoo (user CSV export)</b>, last updated <b>2026-08-22</b>. "pending" means no price fetched for that stock yet -- fills in on the next daily refresh. Use this to sanity-check whether a stock's tier assignment / MA ladder still matches how cheap or expensive it actually looks.</div>
 <div class="val-chart">
   <div class="val-row">
   <div class="val-label"><b>AVGO</b><span>T1 &middot; fair $650.00</span></div>
@@ -570,10 +571,6 @@ table.val-table td.bad{color:var(--bad);}
   <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:7.97%;"></div></div>
   <div class="val-pct bad">+7.3%</div>
 </div><div class="val-row">
-  <div class="val-label"><b>MU</b><span>T5 &middot; fair $850.00</span></div>
-  <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:14.91%;"></div></div>
-  <div class="val-pct bad">+13.7%</div>
-</div><div class="val-row">
   <div class="val-label"><b>PLTR</b><span>T2 &middot; fair $153.00</span></div>
   <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:19.10%;"></div></div>
   <div class="val-pct bad">+17.6%</div>
@@ -586,7 +583,82 @@ table.val-table td.bad{color:var(--bad);}
 </div>
 <table class="val-table">
   <thead><tr><th>Stock</th><th>Tier</th><th>Price</th><th>Target</th><th>vs Target</th><th>Fair Value</th><th>vs Fair Value</th></tr></thead>
-  <tbody><tr><td>AVGO <span style='color:var(--text-muted)'>Broadcom</span></td><td>T1</td><td>$368.45</td><td>$530.74</td><td class='good'>-30.6%</td><td>$650.00</td><td class='good'>-43.3%</td></tr><tr><td>META <span style='color:var(--text-muted)'>Meta Platforms</span></td><td>T2</td><td>$549.90</td><td>$753.32</td><td class='good'>-27.0%</td><td>$850.00</td><td class='good'>-35.3%</td></tr><tr><td>NVDA <span style='color:var(--text-muted)'>NVIDIA</span></td><td>T1</td><td>$214.72</td><td>$300.00</td><td class='good'>-28.4%</td><td>$280.00</td><td class='good'>-23.3%</td></tr><tr><td>TSM <span style='color:var(--text-muted)'>Taiwan Semiconductor</span></td><td>T1</td><td>$418.95</td><td>$545.67</td><td class='good'>-23.2%</td><td>$534.00</td><td class='good'>-21.5%</td></tr><tr><td>GOOG <span style='color:var(--text-muted)'>Alphabet</span></td><td>T3</td><td>$341.75</td><td>$434.75</td><td class='good'>-21.4%</td><td>$433.00</td><td class='good'>-21.1%</td></tr><tr><td>MSFT <span style='color:var(--text-muted)'>Microsoft</span></td><td>T2</td><td>$483.24</td><td>$566.14</td><td class='good'>-14.6%</td><td>$600.00</td><td class='good'>-19.5%</td></tr><tr><td>AMZN <span style='color:var(--text-muted)'>Amazon</span></td><td>T3</td><td>$258.63</td><td>$334.26</td><td class='good'>-22.6%</td><td>$300.00</td><td class='good'>-13.8%</td></tr><tr><td>AMD <span style='color:var(--text-muted)'>Advanced Micro Devices</span></td><td>T3</td><td>$473.25</td><td>$661.65</td><td class='good'>-28.5%</td><td>$530.00</td><td class='good'>-10.7%</td></tr><tr><td>RKLB <span style='color:var(--text-muted)'>Rocket Lab</span></td><td>T3</td><td>$72.57</td><td>$117.54</td><td class='good'>-38.3%</td><td>$77.20</td><td class='good'>-6.0%</td></tr><tr><td>LRCX <span style='color:var(--text-muted)'>Lam Research</span></td><td>T3.5</td><td>$314.00</td><td>$395.00</td><td class='good'>-20.5%</td><td>$310.00</td><td class='bad'>+1.3%</td></tr><tr><td>FTNT <span style='color:var(--text-muted)'>Fortinet</span></td><td>T3.5</td><td>$153.51</td><td>$173.42</td><td class='good'>-11.5%</td><td>$143.00</td><td class='bad'>+7.3%</td></tr><tr><td>MU <span style='color:var(--text-muted)'>Micron Technology</span></td><td>T5</td><td>$966.78</td><td>$1,568.39</td><td class='good'>-38.4%</td><td>$850.00</td><td class='bad'>+13.7%</td></tr><tr><td>PLTR <span style='color:var(--text-muted)'>Palantir</span></td><td>T2</td><td>$179.94</td><td>$197.89</td><td class='good'>-9.1%</td><td>$153.00</td><td class='bad'>+17.6%</td></tr><tr><td>NBIS <span style='color:var(--text-muted)'>Nebius Group</span></td><td>T3.5</td><td>$219.13</td><td>$300.67</td><td class='good'>-27.1%</td><td>$150.00</td><td class='bad'>+46.1%</td></tr></tbody>
+  <tbody><tr><td>AVGO <span style='color:var(--text-muted)'>Broadcom</span></td><td>T1</td><td>$368.45</td><td>$530.74</td><td class="good">-30.6%</td><td>$650.00</td><td class="good">-43.3%</td></tr><tr><td>META <span style='color:var(--text-muted)'>Meta Platforms</span></td><td>T2</td><td>$549.90</td><td>$753.32</td><td class="good">-27.0%</td><td>$850.00</td><td class="good">-35.3%</td></tr><tr><td>NVDA <span style='color:var(--text-muted)'>NVIDIA</span></td><td>T1</td><td>$214.72</td><td>$300.00</td><td class="good">-28.4%</td><td>$280.00</td><td class="good">-23.3%</td></tr><tr><td>TSM <span style='color:var(--text-muted)'>Taiwan Semiconductor</span></td><td>T1</td><td>$418.95</td><td>$545.67</td><td class="good">-23.2%</td><td>$534.00</td><td class="good">-21.5%</td></tr><tr><td>GOOG <span style='color:var(--text-muted)'>Alphabet</span></td><td>T3</td><td>$341.75</td><td>$434.75</td><td class="good">-21.4%</td><td>$433.00</td><td class="good">-21.1%</td></tr><tr><td>MSFT <span style='color:var(--text-muted)'>Microsoft</span></td><td>T2</td><td>$483.24</td><td>$566.14</td><td class="good">-14.6%</td><td>$600.00</td><td class="good">-19.5%</td></tr><tr><td>AMZN <span style='color:var(--text-muted)'>Amazon</span></td><td>T3</td><td>$258.63</td><td>$334.26</td><td class="good">-22.6%</td><td>$300.00</td><td class="good">-13.8%</td></tr><tr><td>AMD <span style='color:var(--text-muted)'>Advanced Micro Devices</span></td><td>T3</td><td>$473.25</td><td>$661.65</td><td class="good">-28.5%</td><td>$530.00</td><td class="good">-10.7%</td></tr><tr><td>RKLB <span style='color:var(--text-muted)'>Rocket Lab</span></td><td>T3</td><td>$72.57</td><td>$117.54</td><td class="good">-38.3%</td><td>$77.20</td><td class="good">-6.0%</td></tr><tr><td>LRCX <span style='color:var(--text-muted)'>Lam Research</span></td><td>T3.5</td><td>$314.00</td><td>$395.00</td><td class="good">-20.5%</td><td>$310.00</td><td class="bad">+1.3%</td></tr><tr><td>FTNT <span style='color:var(--text-muted)'>Fortinet</span></td><td>T3.5</td><td>$153.51</td><td>$173.42</td><td class="good">-11.5%</td><td>$143.00</td><td class="bad">+7.3%</td></tr><tr><td>PLTR <span style='color:var(--text-muted)'>Palantir</span></td><td>T2</td><td>$179.94</td><td>$197.89</td><td class="good">-9.1%</td><td>$153.00</td><td class="bad">+17.6%</td></tr><tr><td>NBIS <span style='color:var(--text-muted)'>Nebius Group</span></td><td>T3.5</td><td>$219.13</td><td>$300.67</td><td class="good">-27.1%</td><td>$150.00</td><td class="bad">+46.1%</td></tr></tbody>
+</table>
+
+<div class="section-title">T5 &amp; T9 (single MA250-trigger tiers)</div>
+<div class="val-caption">Sorted most-undervalued (green, left) to most-overvalued (red, right) vs each stock's fair value estimate. Source: <b>moomoo (user CSV export)</b>, last updated <b>2026-08-22</b>. "pending" means no price fetched for that stock yet -- fills in on the next daily refresh. Same chart/table as above, broken out separately since these tiers use just one trigger (MA250) instead of the full 3-rung ladder.</div>
+<div class="val-chart">
+  <div class="val-row">
+  <div class="val-label"><b>MU</b><span>T5 &middot; fair $850.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:50.00%;"></div></div>
+  <div class="val-pct bad">+13.7%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>SOFI</b><span>T5 &middot; fair $17.50</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>V</b><span>T5 &middot; fair $330.00</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>ASML</b><span>T5 &middot; fair $2,050.00</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>GRAB</b><span>T5 &middot; fair $5.60</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>TSLA</b><span>T5 &middot; fair $450.00</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>OSCR</b><span>T5 &middot; fair $26.90</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>ASTS</b><span>T5 &middot; fair $76.29</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>MRVL</b><span>T5 &middot; fair $270.00</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>BRK-B</b><span>T9 &middot; fair $510.00</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>HIMS</b><span>T9 &middot; fair $23.00</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>PYPL</b><span>T9 &middot; fair $80.00</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>DUOL</b><span>T9 &middot; fair $153.71</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>NU</b><span>T9 &middot; fair $16.60</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>MSTR</b><span>T9 &middot; fair $81.11</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div><div class="val-row">
+  <div class="val-label"><b>VITL</b><span>T9 &middot; fair $18.53</span></div>
+  <div class="val-track"><div class="zero"></div></div>
+  <div class="val-pct" style="color:var(--text-muted)">pending</div>
+</div>
+  <div class="val-legend"><span><span class="sw" style="background:var(--good)"></span>undervalued vs fair value</span><span><span class="sw" style="background:var(--bad)"></span>overvalued vs fair value</span></div>
+</div>
+<table class="val-table">
+  <thead><tr><th>Stock</th><th>Tier</th><th>Price</th><th>Target</th><th>vs Target</th><th>Fair Value</th><th>vs Fair Value</th></tr></thead>
+  <tbody><tr><td>MU <span style='color:var(--text-muted)'>Micron Technology</span></td><td>T5</td><td>$966.78</td><td>$1,568.39</td><td class="good">-38.4%</td><td>$850.00</td><td class="bad">+13.7%</td></tr><tr><td>SOFI <span style='color:var(--text-muted)'>SoFi Technologies</span></td><td>T5</td><td>-</td><td>$20.23</td><td style="color:var(--text-muted)">pending</td><td>$17.50</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>V <span style='color:var(--text-muted)'>Visa</span></td><td>T5</td><td>-</td><td>$425.39</td><td style="color:var(--text-muted)">pending</td><td>$330.00</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>ASML <span style='color:var(--text-muted)'>ASML Holding</span></td><td>T5</td><td>-</td><td>$2,470.80</td><td style="color:var(--text-muted)">pending</td><td>$2,050.00</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>GRAB <span style='color:var(--text-muted)'>Grab Holdings</span></td><td>T5</td><td>-</td><td>$5.83</td><td style="color:var(--text-muted)">pending</td><td>$5.60</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>TSLA <span style='color:var(--text-muted)'>Tesla</span></td><td>T5</td><td>-</td><td>$393.62</td><td style="color:var(--text-muted)">pending</td><td>$450.00</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>OSCR <span style='color:var(--text-muted)'>Oscar Health</span></td><td>T5</td><td>-</td><td>$32.20</td><td style="color:var(--text-muted)">pending</td><td>$26.90</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>ASTS <span style='color:var(--text-muted)'>AST SpaceMobile</span></td><td>T5</td><td>-</td><td>$89.67</td><td style="color:var(--text-muted)">pending</td><td>$76.29</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>MRVL <span style='color:var(--text-muted)'>Marvell Technology</span></td><td>T5</td><td>-</td><td>$287.84</td><td style="color:var(--text-muted)">pending</td><td>$270.00</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>BRK-B <span style='color:var(--text-muted)'>Berkshire Hathaway B</span></td><td>T9</td><td>-</td><td>$572.00</td><td style="color:var(--text-muted)">pending</td><td>$510.00</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>HIMS <span style='color:var(--text-muted)'>Hims & Hers Health</span></td><td>T9</td><td>-</td><td>$36.40</td><td style="color:var(--text-muted)">pending</td><td>$23.00</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>PYPL <span style='color:var(--text-muted)'>PayPal</span></td><td>T9</td><td>-</td><td>$58.76</td><td style="color:var(--text-muted)">pending</td><td>$80.00</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>DUOL <span style='color:var(--text-muted)'>Duolingo</span></td><td>T9</td><td>-</td><td>$137.50</td><td style="color:var(--text-muted)">pending</td><td>$153.71</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>NU <span style='color:var(--text-muted)'>Nu Holdings</span></td><td>T9</td><td>-</td><td>$17.36</td><td style="color:var(--text-muted)">pending</td><td>$16.60</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>MSTR <span style='color:var(--text-muted)'>Strategy (MicroStrategy)</span></td><td>T9</td><td>-</td><td>$257.75</td><td style="color:var(--text-muted)">pending</td><td>$81.11</td><td style="color:var(--text-muted)">pending</td></tr><tr><td>VITL <span style='color:var(--text-muted)'>Vital Farms</span></td><td>T9</td><td>-</td><td>$15.20</td><td style="color:var(--text-muted)">pending</td><td>$18.53</td><td style="color:var(--text-muted)">pending</td></tr></tbody>
 </table>
 
   </div>
