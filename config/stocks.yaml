@@ -1,57 +1,68 @@
 # Your tiered watchlist.
 #
-# target_price   = Morningstar "analyst rating average" price target
-# fair_value     = Morningstar fair value estimate
+# target_price   = moomoo App "平均目标价" (analyst average target price)
+# fair_value     = moomoo App "公允价值" (fair value estimate)
 # target_price_prev / fair_value_prev = previous values, kept for reference
-#   whenever the weekly refresh updates a number (so you can see the delta).
+#   whenever a refresh updates a number (so you can see the delta).
 # fundamentals_updated = date these two numbers were last refreshed
-# fundamentals_source  = where the weekly refresh found them (best-effort web
-#   search -- Morningstar's own figure is paywalled, so this is a proxy and
-#   worth spot-checking against the app periodically)
+# fundamentals_source  = where the numbers came from. "moomoo (user CSV export)"
+#   means you pasted/uploaded the exact numbers from your moomoo App -- these
+#   are authoritative. "web search estimate" (legacy) was a best-effort proxy
+#   used before you started sharing moomoo's own export and is no longer used.
 #
 # is_etf stocks (e.g. IGV) have no analyst target/fair value -- MA-tier alerts
 # still apply, fair-value tracking is skipped.
+#
+# custom_targets (optional, per stock): your own manually-set buy levels,
+# layered on top of the MA ladder with independent, always-on priority --
+# they do NOT reset each period/month like the MA rungs do, and stay active
+# until you remove or edit the entry. Format:
+#   custom_targets:
+#     - level: 65          # trigger price
+#       amount: 900         # optional; defaults to the tier's base_amount
+#       note: "wait for capitulation"   # optional, shown on the dashboard
+#       added: "2026-08-22"             # optional, informational only
 
 stocks:
   - ticker: NVDA
     name: NVIDIA
     tier: T1
-    target_price: 225
-    target_price_prev: 240
-    fair_value: 259
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 300.00
+    target_price_prev: 225
+    fair_value: 280.00
+    fair_value_prev: 259
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: TSM
     name: Taiwan Semiconductor
     tier: T1
-    target_price: 344
-    target_price_prev: 310
-    fair_value: 356
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 545.67
+    target_price_prev: 344
+    fair_value: 534.00
+    fair_value_prev: 356
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: AVGO
     name: Broadcom
     tier: T1
-    target_price: 480
-    target_price_prev: null
-    fair_value: 461
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 530.74
+    target_price_prev: 480
+    fair_value: 650.00
+    fair_value_prev: 461
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: PLTR
     name: Palantir
     tier: T2
-    target_price: 197
-    target_price_prev: null
-    fair_value: 153
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 197.89
+    target_price_prev: 197
+    fair_value: 153.00
+    fair_value_prev: 153
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: IGV
     name: iShares Expanded Tech-Software ETF
@@ -59,104 +70,249 @@ stocks:
     is_etf: true
     target_price: null
     fair_value: null
-    note: "ETF - no Morningstar analyst target/fair value. Your watchlist label shows '%111' -- meaning unclear (52-week range position? please confirm), not used by the engine."
+    note: "ETF - no analyst target/fair value on moomoo either. Your watchlist label shows '%111' -- meaning unclear (52-week range position? please confirm), not used by the engine."
 
   - ticker: MSFT
     name: Microsoft
     tier: T2
-    target_price: 600
-    target_price_prev: null
-    fair_value: 616
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 566.14
+    target_price_prev: 600
+    fair_value: 600.00
+    fair_value_prev: 616
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: META
     name: Meta Platforms
     tier: T2
-    target_price: 837
-    target_price_prev: 850
-    fair_value: 841
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 753.32
+    target_price_prev: 837
+    fair_value: 850.00
+    fair_value_prev: 841
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: GOOG
     name: Alphabet
     tier: T3
-    target_price: 340
-    target_price_prev: null
-    fair_value: 421
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 434.75
+    target_price_prev: 340
+    fair_value: 433.00
+    fair_value_prev: 421
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: AMZN
     name: Amazon
     tier: T3
-    target_price: 260
-    target_price_prev: null
-    fair_value: 285
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 334.26
+    target_price_prev: 260
+    fair_value: 300.00
+    fair_value_prev: 285
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: RKLB
     name: Rocket Lab
     tier: T3
-    target_price: 68
-    target_price_prev: null
-    fair_value: 118
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 117.54
+    target_price_prev: 68
+    fair_value: 77.20
+    fair_value_prev: 118
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: AMD
     name: Advanced Micro Devices
     tier: T3
-    target_price: 476
-    target_price_prev: null
-    fair_value: 450
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 661.65
+    target_price_prev: 476
+    fair_value: 530.00
+    fair_value_prev: 450
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: NBIS
     name: Nebius Group
     tier: T3.5
-    target_price: 85
-    target_price_prev: null
-    fair_value: 173
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 300.67
+    target_price_prev: 85
+    fair_value: 150.00
+    fair_value_prev: 173
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: LRCX
     name: Lam Research
     tier: T3.5
-    target_price: 220
-    target_price_prev: null
-    fair_value: 313
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 395.00
+    target_price_prev: 220
+    fair_value: 310.00
+    fair_value_prev: 313
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: FTNT
     name: Fortinet
     tier: T3.5
-    target_price: 108
-    target_price_prev: null
-    fair_value: 86
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 173.42
+    target_price_prev: 108
+    fair_value: 143.00
+    fair_value_prev: 86
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
 
   - ticker: MU
     name: Micron Technology
     tier: T5
-    target_price: 455
-    target_price_prev: null
-    fair_value: 543
-    fair_value_prev: null
-    fundamentals_updated: null
-    fundamentals_source: null
+    target_price: 1568.39
+    target_price_prev: 455
+    fair_value: 850.00
+    fair_value_prev: 543
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  # -- T5 / T9: added from your "T3.9 above" moomoo watchlist screenshots.
+  # Per your instruction, these use a single trigger for now: break below
+  # MA250 (same single-rung + 5%-cascade mechanism already used for MU),
+  # not the full 3-rung ladder T1-T3.5 use. base_amount/refresh for the new
+  # T9 tier default to the same 600/monthly as T5 -- please confirm/adjust
+  # in config/rules.yaml if that's wrong.
+
+  - ticker: SOFI
+    name: SoFi Technologies
+    tier: T5
+    target_price: 20.23
+    fair_value: 17.50
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: V
+    name: Visa
+    tier: T5
+    target_price: 425.39
+    fair_value: 330.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: ASML
+    name: ASML Holding
+    tier: T5
+    target_price: 2470.80
+    fair_value: 2050.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: GRAB
+    name: Grab Holdings
+    tier: T5
+    target_price: 5.83
+    fair_value: 5.60
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: TSLA
+    name: Tesla
+    tier: T5
+    target_price: 393.62
+    fair_value: 450.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: FXI
+    name: iShares China Large-Cap ETF
+    tier: T5
+    is_etf: true
+    target_price: null
+    fair_value: null
+    note: "ETF - no analyst target/fair value."
+
+  - ticker: OSCR
+    name: Oscar Health
+    tier: T5
+    target_price: 32.20
+    fair_value: 26.90
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: ASTS
+    name: AST SpaceMobile
+    tier: T5
+    target_price: 89.67
+    fair_value: 76.29
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: MRVL
+    name: Marvell Technology
+    tier: T5
+    target_price: 287.84
+    fair_value: 270.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+    note: "Your watchlist labeled this '!T5' (others are plain 'T5') -- added to T5 as-is since the '!' meaning wasn't specified; flag if it should be excluded or tiered differently."
+
+  - ticker: BRK-B
+    name: Berkshire Hathaway B
+    tier: T9
+    target_price: 572.00
+    fair_value: 510.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+    note: "Ticker set to BRK-B (dash) to match stooq/Yahoo's symbol format for price fetching; moomoo displays it as BRK.B."
+
+  - ticker: HIMS
+    name: Hims & Hers Health
+    tier: T9
+    target_price: 36.40
+    fair_value: 23.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: PYPL
+    name: PayPal
+    tier: T9
+    target_price: 58.76
+    fair_value: 80.00
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: DUOL
+    name: Duolingo
+    tier: T9
+    target_price: 137.50
+    fair_value: 153.71
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: NU
+    name: Nu Holdings
+    tier: T9
+    target_price: 17.36
+    fair_value: 16.60
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: MSTR
+    name: Strategy (MicroStrategy)
+    tier: T9
+    target_price: 257.75
+    fair_value: 81.11
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: VITL
+    name: Vital Farms
+    tier: T9
+    target_price: 15.20
+    fair_value: 18.53
+    fundamentals_updated: "2026-08-22"
+    fundamentals_source: "moomoo (user CSV export)"
+
+  - ticker: XLV
+    name: Health Care Select Sector SPDR
+    tier: T3.5
+    is_etf: true
+    target_price: null
+    fair_value: null
+    note: "ETF - no analyst target/fair value."

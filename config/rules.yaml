@@ -35,7 +35,7 @@ tiers:
     ma_ladder: [60, 100, 150]
   T2:
     base_amount: 600
-    refresh: monthly
+    refresh: biweekly
     ma_ladder: [100, 150, 200]
   T3:
     base_amount: 600
@@ -46,6 +46,10 @@ tiers:
     refresh: monthly
     ma_ladder: [200, 250]
   T5:
+    base_amount: 600
+    refresh: monthly
+    ma_ladder: [250]
+  T9:
     base_amount: 600
     refresh: monthly
     ma_ladder: [250]

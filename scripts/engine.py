@@ -95,6 +95,66 @@ def extend_with_drop_cascade(base_rungs: list[dict], price: float, cap_multiplie
     return base_rungs + extra
 
 
+def _custom_rung_id(level: float, note: str | None) -> str:
+    note_part = (note or "").strip().lower().replace(" ", "-")
+    return f"custom-{round(float(level), 4)}-{note_part}" if note_part else f"custom-{round(float(level), 4)}"
+
+
+def evaluate_custom_targets(
+    price: float,
+    price_date: dt.date,
+    custom_targets_cfg: list[dict],
+    default_amount: float,
+    prev_fired_custom: list[dict] | None,
+) -> dict:
+    """User-set buy levels, layered on top of the MA ladder.
+
+    Unlike the MA ladder, these do NOT reset each period -- once a level
+    fires it stays fired until the user edits/removes that entry from
+    config/stocks.yaml (which changes its id and makes it "new" again).
+    Any previously-fired entry whose id no longer appears in the current
+    config is dropped, so removing an entry cleans up its history too.
+    """
+    custom_targets_cfg = custom_targets_cfg or []
+    current_ids = set()
+    rungs = []
+    for ct in custom_targets_cfg:
+        level = ct.get("level")
+        if level is None:
+            continue
+        rid = _custom_rung_id(level, ct.get("note"))
+        current_ids.add(rid)
+        rungs.append(
+            {
+                "id": rid,
+                "source": ct.get("note") or "your target",
+                "level": round(float(level), 4),
+                "amount": round(float(ct.get("amount") or default_amount), 2),
+                "note": ct.get("note"),
+                "is_custom": True,
+            }
+        )
+    rungs.sort(key=lambda r: r["level"], reverse=True)
+
+    prev_fired_custom = prev_fired_custom or []
+    fired = [f for f in prev_fired_custom if f["id"] in current_ids]
+    fired_ids = {f["id"] for f in fired}
+
+    new_triggers = []
+    for rung in rungs:
+        if price <= rung["level"] and rung["id"] not in fired_ids:
+            trigger = {**rung, "first_hit_date": price_date.isoformat()}
+            fired.append(trigger)
+            new_triggers.append(trigger)
+            fired_ids.add(rung["id"])
+
+    return {
+        "custom_rungs_today": rungs,
+        "fired_custom": fired,
+        "new_triggers_custom_today": new_triggers,
+    }
+
+
 def evaluate_stock(
     tier: str,
     price: float,

@@ -11,7 +11,7 @@ import datetime as dt
 import sys
 
 from common import load_rules, load_state, load_stocks, save_state
-from engine import evaluate_stock
+from engine import evaluate_custom_targets, evaluate_stock
 from fetch_prices import get_history
 from indicators import moving_averages
 
@@ -67,6 +67,18 @@ def main() -> int:
         result["is_etf"] = bool(stock.get("is_etf"))
         result["error"] = err  # None on a clean fetch, else "used cached data" style note
         result["data_stale"] = bool(err)
+
+        custom_result = evaluate_custom_targets(
+            price=price,
+            price_date=price_date,
+            custom_targets_cfg=stock.get("custom_targets") or [],
+            default_amount=base_amount,
+            prev_fired_custom=(prev_stocks.get(ticker) or {}).get("fired_custom"),
+        )
+        result.update(custom_result)
+        if custom_result.get("new_triggers_custom_today"):
+            names = ", ".join(f"{t['source']} @ {t['level']}" for t in custom_result["new_triggers_custom_today"])
+            print(f"[{ticker}] NEW CUSTOM TARGET HIT: {names}")
 
         if not stock.get("is_etf"):
             result["target_price"] = stock.get("target_price")

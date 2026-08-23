@@ -108,180 +108,504 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
   padding:.8rem 1rem; font-size:.82rem; color:var(--text-muted); margin-bottom:1.5rem;
 }
 .assumptions b{color:var(--text);}
+.pill.custom{background:var(--accent-soft); color:var(--accent);}
+.rung.custom{border-color:var(--accent); background:var(--accent-soft);}
+.rung.custom.done{opacity:.55;}
+.rung.pending{opacity:.68; border-style:dashed;}
+.rung .dist{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
+.card-sub-title{font-size:.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:.2rem;}
+.tabs{display:flex; gap:.4rem; margin-bottom:1.5rem; border-bottom:1px solid var(--border);}
+.tab-btn{
+  background:none; border:none; color:var(--text-muted); font-family:var(--font-body); font-size:.9rem;
+  font-weight:600; padding:.6rem .3rem; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.tab-btn.active{color:var(--accent); border-bottom-color:var(--accent);}
+.tabpanel{display:none;}
+.tabpanel.active{display:block;}
+.val-caption{color:var(--text-muted); font-size:.85rem; margin-bottom:1rem;}
+.val-chart{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; margin-bottom:1.5rem;}
+.val-row{display:flex; align-items:center; gap:.7rem; padding:.4rem 0; border-bottom:1px solid var(--border);}
+.val-row:last-child{border-bottom:none;}
+.val-label{width:130px; flex:0 0 130px; font-size:.82rem; overflow:hidden;}
+.val-label b{display:block;}
+.val-label span{color:var(--text-muted); font-size:.72rem;}
+.val-track{flex:1; position:relative; height:22px; background:var(--surface-2); border-radius:4px; min-width:80px;}
+.val-track .zero{position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--border);}
+.val-bar{position:absolute; top:2px; bottom:2px; border-radius:3px;}
+.val-bar.good{background:var(--good);}
+.val-bar.bad{background:var(--bad);}
+.val-pct{width:60px; flex:0 0 60px; text-align:right; font-variant-numeric:tabular-nums; font-weight:600; font-size:.84rem;}
+.val-pct.good{color:var(--good);}
+.val-pct.bad{color:var(--bad);}
+.val-legend{display:flex; gap:1.2rem; font-size:.78rem; color:var(--text-muted); margin-top:.8rem; padding-top:.6rem; border-top:1px solid var(--border);}
+.val-legend .sw{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:.35rem; vertical-align:middle;}
+table.val-table{width:100%; border-collapse:collapse; font-size:.85rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;}
+table.val-table th, table.val-table td{text-align:right; padding:.5rem .7rem; border-bottom:1px solid var(--border);}
+table.val-table th:first-child, table.val-table td:first-child{text-align:left;}
+table.val-table th{background:var(--surface-2); color:var(--text-muted); font-weight:600; font-size:.74rem; text-transform:uppercase; letter-spacing:.03em;}
+table.val-table td{font-variant-numeric:tabular-nums;}
+table.val-table td.good{color:var(--good);}
+table.val-table td.bad{color:var(--bad);}
 </style>
 <div class="wrap">
   <h1>DCA Alert Dashboard</h1>
-  <div class="subtitle">Prices as of <b>2026-08-21</b> &middot; generated 2026-08-22T21:41:54.888107Z &middot; fundamentals last refreshed <b>not yet run</b></div>
+  <div class="subtitle">Prices as of <b>2026-08-21</b> &middot; generated 2026-08-22T21:41:54.888107Z &middot; fundamentals last refreshed <b>2026-08-22</b></div>
   
-  <div class="summary-row">
-    <div class="stat hot"><div class="n">10</div><div class="l">open triggers</div></div>
-    <div class="stat"><div class="n">15</div><div class="l">stocks tracked</div></div>
-    <div class="stat"><div class="n">0</div><div class="l">stale data</div></div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="alerts">Alerts &amp; ladder</button>
+    <button class="tab-btn" data-tab="valuation">Valuation overview</button>
   </div>
-  <div class="tier-section"><div class="tier-head"><h2>T1</h2><span class="meta">base SGD 600.00 &middot; refresh weekly &middot; MA60/100/150</span></div><div class="cards"><div class="card has-open">
+  <div class="tabpanel active" id="tab-alerts">
+    <div class="summary-row">
+      <div class="stat hot"><div class="n">10</div><div class="l">open triggers</div></div>
+      <div class="stat"><div class="n">32</div><div class="l">stocks tracked</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">stale data</div></div>
+    </div>
+    <div class="tier-section"><div class="tier-head"><h2>T1</h2><span class="meta">base SGD 600.00 &middot; refresh weekly &middot; MA60/100/150</span></div><div class="cards"><div class="card has-open">
   <div class="card-head">
     <div><div class="name">AVGO <span class="sub">Broadcom</span></div><div class="sub">T1 &middot; weekly · resets after 2026-08-17</div></div>
     <div style="text-align:right;"><div class="price">$368.45</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill good">-23.2% vs target</span><span class="pill good">-20.1% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
+  <div class="pills"><span class="pill good">-30.6% vs target</span><span class="pill good">-43.3% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$394.75</b></span><span>MA100: <b>$396.03</b></span><span>MA150: <b>$372.80</b></span><span>MA200: <b>$369.20</b></span><span>MA250: <b>$363.48</b></span></div>
-  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="AVGO|drop-0|2026-08-17" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #1" data-level="398.0397" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-17"><span class="lvl">$398.04</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung open"><input type="checkbox" data-id="AVGO|drop-1|2026-08-19" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #2" data-level="378.1377" data-multiplier="1.5" data-amount="900.0" data-firsthit="2026-08-19"><span class="lvl">$378.14</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span></div></div>
-  <div class="next-hint">Next: 5% cascade #3 at $359.23 ×2.0 (-2.5% away)</div>
+  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="AVGO|drop-0|2026-08-17" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #1" data-level="398.0397" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-17"><span class="lvl">$398.04</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung open"><input type="checkbox" data-id="AVGO|drop-1|2026-08-19" data-ticker="AVGO" data-tier="T1" data-source="5% cascade #2" data-level="378.1377" data-multiplier="1.5" data-amount="900.0" data-firsthit="2026-08-19"><span class="lvl">$378.14</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span></div><div class="rung pending"><span class="lvl">$359.23</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-2.5% away</span></div></div>
+  
+  
   
 </div><div class="card ">
   <div class="card-head">
     <div><div class="name">NVDA <span class="sub">NVIDIA</span></div><div class="sub">T1 &middot; weekly · resets after 2026-08-17</div></div>
     <div style="text-align:right;"><div class="price">$214.72</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill good">-4.6% vs target</span><span class="pill good">-17.1% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-28.4% vs target</span><span class="pill good">-23.3% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$208.45</b></span><span>MA100: <b>$206.65</b></span><span>MA150: <b>$198.78</b></span><span>MA200: <b>$195.29</b></span><span>MA250: <b>$192.73</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 60 at $208.34 ×1.0 (-3.0% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$208.34</span><span class="src">60</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-3.0% away</span></div><div class="rung pending"><span class="lvl">$204.78</span><span class="src">100</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-4.6% away</span></div><div class="rung pending"><span class="lvl">$197.93</span><span class="src">150</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-7.8% away</span></div></div>
+  
+  
   
 </div><div class="card has-open">
   <div class="card-head">
     <div><div class="name">TSM <span class="sub">Taiwan Semiconductor</span></div><div class="sub">T1 &middot; weekly · resets after 2026-08-17</div></div>
     <div style="text-align:right;"><div class="price">$418.95</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill bad">+21.8% vs target</span><span class="pill bad">+17.7% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-23.2% vs target</span><span class="pill good">-21.5% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$425.20</b></span><span>MA100: <b>$409.72</b></span><span>MA150: <b>$389.09</b></span><span>MA200: <b>$366.38</b></span><span>MA250: <b>$348.24</b></span></div>
-  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="TSM|ma-60|2026-08-18" data-ticker="TSM" data-tier="T1" data-source="60" data-level="424.9685" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-18"><span class="lvl">$424.97</span><span class="src">60</span><span class="amt">x1.0 &middot; 600</span></div></div>
-  <div class="next-hint">Next: 100 at $406.28 ×1.5 (-3.0% away)</div>
+  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="TSM|ma-60|2026-08-18" data-ticker="TSM" data-tier="T1" data-source="60" data-level="424.9685" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-18"><span class="lvl">$424.97</span><span class="src">60</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung pending"><span class="lvl">$406.28</span><span class="src">100</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-3.0% away</span></div><div class="rung pending"><span class="lvl">$386.90</span><span class="src">150</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-7.6% away</span></div></div>
   
-</div></div></div><div class="tier-section"><div class="tier-head"><h2>T2</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA100/150/200</span></div><div class="cards"><div class="card ">
+  
+  
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T2</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA100/150/200</span></div><div class="cards"><div class="card ">
   <div class="card-head">
     <div><div class="name">IGV <span class="sub">iShares Expanded Tech-Software ETF</span></div><div class="sub">T2 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$103.37</div><div class="price-date">2026-08-21</div></div>
   </div>
   <div class="pills"><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$95.24</b></span><span>MA100: <b>$91.63</b></span><span>MA150: <b>$89.64</b></span><span>MA200: <b>$93.82</b></span><span>MA250: <b>$97.69</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 5% cascade #1 at $94.15 ×1.0 (-8.9% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$94.15</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-8.9% away</span></div><div class="rung pending"><span class="lvl">$89.44</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-13.5% away</span></div><div class="rung pending"><span class="lvl">$84.97</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-17.8% away</span></div></div>
+  
+  
   
 </div><div class="card has-open">
   <div class="card-head">
     <div><div class="name">META <span class="sub">Meta Platforms</span></div><div class="sub">T2 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$549.90</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill good">-34.3% vs target</span><span class="pill good">-34.6% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
+  <div class="pills"><span class="pill good">-27.0% vs target</span><span class="pill good">-35.3% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$595.00</b></span><span>MA100: <b>$607.57</b></span><span>MA150: <b>$619.00</b></span><span>MA200: <b>$624.13</b></span><span>MA250: <b>$646.55</b></span></div>
   <div class="rungs"><div class="rung open"><input type="checkbox" data-id="META|drop-0|2026-08-14" data-ticker="META" data-tier="T2" data-source="5% cascade #1" data-level="627.6344" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-14"><span class="lvl">$627.63</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung open"><input type="checkbox" data-id="META|drop-1|2026-08-14" data-ticker="META" data-tier="T2" data-source="5% cascade #2" data-level="596.2527" data-multiplier="1.5" data-amount="900.0" data-firsthit="2026-08-14"><span class="lvl">$596.25</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span></div><div class="rung open"><input type="checkbox" data-id="META|drop-2|2026-08-18" data-ticker="META" data-tier="T2" data-source="5% cascade #3" data-level="566.44" data-multiplier="2.0" data-amount="1200.0" data-firsthit="2026-08-18"><span class="lvl">$566.44</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span></div></div>
   <div class="next-hint">Next: 5% below lowest rung, step 1 at $538.12 ×2.0 (-2.1% away)</div>
+  
   
 </div><div class="card ">
   <div class="card-head">
     <div><div class="name">MSFT <span class="sub">Microsoft</span></div><div class="sub">T2 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$483.24</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill good">-19.5% vs target</span><span class="pill good">-21.6% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
+  <div class="pills"><span class="pill good">-14.6% vs target</span><span class="pill good">-19.5% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$420.93</b></span><span>MA100: <b>$415.41</b></span><span>MA150: <b>$413.11</b></span><span>MA200: <b>$431.31</b></span><span>MA250: <b>$447.85</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 5% cascade #1 at $432.48 ×1.0 (-10.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$432.48</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-10.5% away</span></div><div class="rung pending"><span class="lvl">$410.86</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-15.0% away</span></div><div class="rung pending"><span class="lvl">$390.31</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-19.2% away</span></div></div>
+  
+  
   
 </div><div class="card ">
   <div class="card-head">
     <div><div class="name">PLTR <span class="sub">Palantir</span></div><div class="sub">T2 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$179.94</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill good">-8.7% vs target</span><span class="pill bad">+17.6% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-9.1% vs target</span><span class="pill bad">+17.6% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$139.62</b></span><span>MA100: <b>$139.62</b></span><span>MA150: <b>$142.47</b></span><span>MA200: <b>$151.51</b></span><span>MA250: <b>$156.36</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $152.09 ×1.0 (-15.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$152.09</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-15.5% away</span></div><div class="rung pending"><span class="lvl">$142.60</span><span class="src">150</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-20.8% away</span></div><div class="rung pending"><span class="lvl">$138.27</span><span class="src">100</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-23.2% away</span></div></div>
+  
+  
   
 </div></div></div><div class="tier-section"><div class="tier-head"><h2>T3</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA150/200/250</span></div><div class="cards"><div class="card ">
   <div class="card-head">
     <div><div class="name">AMD <span class="sub">Advanced Micro Devices</span></div><div class="sub">T3 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$473.25</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill good">-0.6% vs target</span><span class="pill bad">+5.2% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-28.5% vs target</span><span class="pill good">-10.7% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$508.80</b></span><span>MA100: <b>$442.64</b></span><span>MA150: <b>$366.19</b></span><span>MA200: <b>$329.86</b></span><span>MA250: <b>$302.51</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 150 at $357.42 ×1.0 (-24.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$357.42</span><span class="src">150</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-24.5% away</span></div><div class="rung pending"><span class="lvl">$324.33</span><span class="src">200</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-31.5% away</span></div><div class="rung pending"><span class="lvl">$296.27</span><span class="src">250</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-37.4% away</span></div></div>
+  
+  
   
 </div><div class="card ">
   <div class="card-head">
     <div><div class="name">AMZN <span class="sub">Amazon</span></div><div class="sub">T3 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$258.63</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill good">-0.5% vs target</span><span class="pill good">-9.2% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
+  <div class="pills"><span class="pill good">-22.6% vs target</span><span class="pill good">-13.8% vs fair value</span><span class="pill neutral">MA cluster → 5% cascade</span></div>
   <div class="ma-strip"><span>MA60: <b>$250.44</b></span><span>MA100: <b>$251.64</b></span><span>MA150: <b>$239.91</b></span><span>MA200: <b>$238.33</b></span><span>MA250: <b>$235.86</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 5% cascade #1 at $239.28 ×1.0 (-7.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$239.28</span><span class="src">5% cascade #1</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-7.5% away</span></div><div class="rung pending"><span class="lvl">$227.32</span><span class="src">5% cascade #2</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-12.1% away</span></div><div class="rung pending"><span class="lvl">$215.95</span><span class="src">5% cascade #3</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-16.5% away</span></div></div>
+  
+  
   
 </div><div class="card has-open">
   <div class="card-head">
     <div><div class="name">GOOG <span class="sub">Alphabet</span></div><div class="sub">T3 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$341.75</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill bad">+0.5% vs target</span><span class="pill good">-18.8% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-21.4% vs target</span><span class="pill good">-21.1% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$352.81</b></span><span>MA100: <b>$353.49</b></span><span>MA150: <b>$339.75</b></span><span>MA200: <b>$332.06</b></span><span>MA250: <b>$314.85</b></span></div>
-  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="GOOG|ma-150|2026-08-20" data-ticker="GOOG" data-tier="T3" data-source="150" data-level="339.5061" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-20"><span class="lvl">$339.51</span><span class="src">150</span><span class="amt">x1.0 &middot; 600</span></div></div>
-  <div class="next-hint">Next: 200 at $330.50 ×1.5 (-3.3% away)</div>
+  <div class="rungs"><div class="rung open"><input type="checkbox" data-id="GOOG|ma-150|2026-08-20" data-ticker="GOOG" data-tier="T3" data-source="150" data-level="339.5061" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-20"><span class="lvl">$339.51</span><span class="src">150</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung pending"><span class="lvl">$330.50</span><span class="src">200</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-3.3% away</span></div><div class="rung pending"><span class="lvl">$312.09</span><span class="src">250</span><span class="amt">x2.0 &middot; 1,200</span><span class="dist">-8.7% away</span></div></div>
+  
+  
   
 </div><div class="card has-open">
   <div class="card-head">
     <div><div class="name">RKLB <span class="sub">Rocket Lab</span></div><div class="sub">T3 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$72.57</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill bad">+6.7% vs target</span><span class="pill good">-38.5% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-38.3% vs target</span><span class="pill good">-6.0% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$88.53</b></span><span>MA100: <b>$90.52</b></span><span>MA150: <b>$84.92</b></span><span>MA200: <b>$78.73</b></span><span>MA250: <b>$74.01</b></span></div>
   <div class="rungs"><div class="rung open"><input type="checkbox" data-id="RKLB|ma-150|2026-08-14" data-ticker="RKLB" data-tier="T3" data-source="150" data-level="85.3163" data-multiplier="1.0" data-amount="600.0" data-firsthit="2026-08-14"><span class="lvl">$85.32</span><span class="src">150</span><span class="amt">x1.0 &middot; 600</span></div><div class="rung open"><input type="checkbox" data-id="RKLB|ma-200|2026-08-19" data-ticker="RKLB" data-tier="T3" data-source="200" data-level="78.389" data-multiplier="1.5" data-amount="900.0" data-firsthit="2026-08-19"><span class="lvl">$78.39</span><span class="src">200</span><span class="amt">x1.5 &middot; 900</span></div><div class="rung open"><input type="checkbox" data-id="RKLB|ma-250|2026-08-20" data-ticker="RKLB" data-tier="T3" data-source="250" data-level="73.3279" data-multiplier="2.0" data-amount="1200.0" data-firsthit="2026-08-20"><span class="lvl">$73.33</span><span class="src">250</span><span class="amt">x2.0 &middot; 1,200</span></div></div>
   <div class="next-hint">Next: 5% below lowest rung, step 1 at $69.66 ×2.0 (-4.0% away)</div>
+  
   
 </div></div></div><div class="tier-section"><div class="tier-head"><h2>T3.5</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA200/250</span></div><div class="cards"><div class="card ">
   <div class="card-head">
     <div><div class="name">FTNT <span class="sub">Fortinet</span></div><div class="sub">T3.5 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$153.51</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill bad">+42.1% vs target</span><span class="pill bad">+78.5% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-11.5% vs target</span><span class="pill bad">+7.3% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$153.78</b></span><span>MA100: <b>$131.23</b></span><span>MA150: <b>$114.58</b></span><span>MA200: <b>$106.18</b></span><span>MA250: <b>$101.49</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $104.47 ×1.0 (-31.9% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$104.47</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-31.9% away</span></div><div class="rung pending"><span class="lvl">$99.99</span><span class="src">250</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-34.9% away</span></div></div>
+  
+  
   
 </div><div class="card ">
   <div class="card-head">
     <div><div class="name">LRCX <span class="sub">Lam Research</span></div><div class="sub">T3.5 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$314.00</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill bad">+42.7% vs target</span><span class="pill bad">+0.3% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-20.5% vs target</span><span class="pill bad">+1.3% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$335.14</b></span><span>MA100: <b>$308.67</b></span><span>MA150: <b>$281.48</b></span><span>MA200: <b>$253.59</b></span><span>MA250: <b>$228.95</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $249.56 ×1.0 (-20.5% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$249.56</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-20.5% away</span></div><div class="rung pending"><span class="lvl">$224.52</span><span class="src">250</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-28.5% away</span></div></div>
+  
+  
   
 </div><div class="card ">
   <div class="card-head">
     <div><div class="name">NBIS <span class="sub">Nebius Group</span></div><div class="sub">T3.5 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$219.13</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill bad">+157.8% vs target</span><span class="pill bad">+26.7% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-27.1% vs target</span><span class="pill bad">+46.1% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$225.44</b></span><span>MA100: <b>$201.37</b></span><span>MA150: <b>$167.52</b></span><span>MA200: <b>$149.25</b></span><span>MA250: <b>$140.13</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 200 at $146.46 ×1.0 (-33.2% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$146.46</span><span class="src">200</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-33.2% away</span></div><div class="rung pending"><span class="lvl">$136.78</span><span class="src">250</span><span class="amt">x1.5 &middot; 900</span><span class="dist">-37.6% away</span></div></div>
   
+  
+  
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">XLV <span class="sub"></span></div><div class="sub">T3.5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
 </div></div></div><div class="tier-section"><div class="tier-head"><h2>T5</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">ASML <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">ASTS <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">FXI <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">GRAB <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">MRVL <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
   <div class="card-head">
     <div><div class="name">MU <span class="sub">Micron Technology</span></div><div class="sub">T5 &middot; monthly · resets after 2026-08-01</div></div>
     <div style="text-align:right;"><div class="price">$966.78</div><div class="price-date">2026-08-21</div></div>
   </div>
-  <div class="pills"><span class="pill bad">+112.5% vs target</span><span class="pill bad">+78.0% vs fair value</span></div>
+  <div class="pills"><span class="pill good">-38.4% vs target</span><span class="pill bad">+13.7% vs fair value</span></div>
   <div class="ma-strip"><span>MA60: <b>$965.67</b></span><span>MA100: <b>$808.40</b></span><span>MA150: <b>$673.74</b></span><span>MA200: <b>$571.10</b></span><span>MA250: <b>$491.31</b></span></div>
-  <div class="rungs"><div class="next-hint">No thresholds hit this period.</div></div>
-  <div class="next-hint">Next: 250 at $474.37 ×1.0 (-50.9% away)</div>
+  <div class="rungs"><div class="rung pending"><span class="lvl">$474.37</span><span class="src">250</span><span class="amt">x1.0 &middot; 600</span><span class="dist">-50.9% away</span></div></div>
   
-</div></div></div>
-  <div class="section-title">Action log</div>
-  <div class="actions-bar">
-    <button class="export" id="export-btn">Export CSV</button>
-    <span class="next-hint" id="export-hint"></span>
+  
+  
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">OSCR <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
   </div>
-  <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">SOFI <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">TSLA <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">V <span class="sub"></span></div><div class="sub">T5 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T9</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card ">
+  <div class="card-head">
+    <div><div class="name">BRK-B <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">DUOL <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">HIMS <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">MSTR <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">NU <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">PYPL <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div><div class="card ">
+  <div class="card-head">
+    <div><div class="name">VITL <span class="sub"></span></div><div class="sub">T9 &middot; - · resets after -</div></div>
+    <div style="text-align:right;"><div class="price">-</div><div class="price-date">-</div></div>
+  </div>
+  <div class="pills"></div>
+  <div class="ma-strip"></div>
+  <div class="rungs"><div class="next-hint">No ladder available (missing MA data).</div></div>
+  
+  
+  <div class="err">no data yet</div>
+</div></div></div>
+    <div class="section-title">Action log</div>
+    <div class="actions-bar">
+      <button class="export" id="export-btn">Export CSV</button>
+      <span class="next-hint" id="export-hint"></span>
+    </div>
+    <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
+  </div>
+  <div class="tabpanel" id="tab-valuation">
+    
+<div class="val-caption">Sorted most-undervalued (green, left) to most-overvalued (red, right) vs each stock's fair value estimate. Source: <b>moomoo (user CSV export)</b>, last updated <b>2026-08-22</b>. Use this to sanity-check whether a stock's tier assignment / MA ladder still matches how cheap or expensive it actually looks.</div>
+<div class="val-chart">
+  <div class="val-row">
+  <div class="val-label"><b>AVGO</b><span>T1 &middot; fair $650.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:47.00%;"></div></div>
+  <div class="val-pct good">-43.3%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>META</b><span>T2 &middot; fair $850.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:38.31%;"></div></div>
+  <div class="val-pct good">-35.3%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>NVDA</b><span>T1 &middot; fair $280.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:25.29%;"></div></div>
+  <div class="val-pct good">-23.3%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>TSM</b><span>T1 &middot; fair $534.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:23.37%;"></div></div>
+  <div class="val-pct good">-21.5%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>GOOG</b><span>T3 &middot; fair $433.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:22.86%;"></div></div>
+  <div class="val-pct good">-21.1%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>MSFT</b><span>T2 &middot; fair $600.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:21.11%;"></div></div>
+  <div class="val-pct good">-19.5%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>AMZN</b><span>T3 &middot; fair $300.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:14.96%;"></div></div>
+  <div class="val-pct good">-13.8%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>AMD</b><span>T3 &middot; fair $530.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:11.62%;"></div></div>
+  <div class="val-pct good">-10.7%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>RKLB</b><span>T3 &middot; fair $77.20</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar good" style="right:50%; width:6.51%;"></div></div>
+  <div class="val-pct good">-6.0%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>LRCX</b><span>T3.5 &middot; fair $310.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:1.40%;"></div></div>
+  <div class="val-pct bad">+1.3%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>FTNT</b><span>T3.5 &middot; fair $143.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:7.97%;"></div></div>
+  <div class="val-pct bad">+7.3%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>MU</b><span>T5 &middot; fair $850.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:14.91%;"></div></div>
+  <div class="val-pct bad">+13.7%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>PLTR</b><span>T2 &middot; fair $153.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:19.10%;"></div></div>
+  <div class="val-pct bad">+17.6%</div>
+</div><div class="val-row">
+  <div class="val-label"><b>NBIS</b><span>T3.5 &middot; fair $150.00</span></div>
+  <div class="val-track"><div class="zero"></div><div class="val-bar bad" style="left:50%; width:50.00%;"></div></div>
+  <div class="val-pct bad">+46.1%</div>
+</div>
+  <div class="val-legend"><span><span class="sw" style="background:var(--good)"></span>undervalued vs fair value</span><span><span class="sw" style="background:var(--bad)"></span>overvalued vs fair value</span></div>
+</div>
+<table class="val-table">
+  <thead><tr><th>Stock</th><th>Tier</th><th>Price</th><th>Target</th><th>vs Target</th><th>Fair Value</th><th>vs Fair Value</th></tr></thead>
+  <tbody><tr><td>AVGO <span style='color:var(--text-muted)'>Broadcom</span></td><td>T1</td><td>$368.45</td><td>$530.74</td><td class='good'>-30.6%</td><td>$650.00</td><td class='good'>-43.3%</td></tr><tr><td>META <span style='color:var(--text-muted)'>Meta Platforms</span></td><td>T2</td><td>$549.90</td><td>$753.32</td><td class='good'>-27.0%</td><td>$850.00</td><td class='good'>-35.3%</td></tr><tr><td>NVDA <span style='color:var(--text-muted)'>NVIDIA</span></td><td>T1</td><td>$214.72</td><td>$300.00</td><td class='good'>-28.4%</td><td>$280.00</td><td class='good'>-23.3%</td></tr><tr><td>TSM <span style='color:var(--text-muted)'>Taiwan Semiconductor</span></td><td>T1</td><td>$418.95</td><td>$545.67</td><td class='good'>-23.2%</td><td>$534.00</td><td class='good'>-21.5%</td></tr><tr><td>GOOG <span style='color:var(--text-muted)'>Alphabet</span></td><td>T3</td><td>$341.75</td><td>$434.75</td><td class='good'>-21.4%</td><td>$433.00</td><td class='good'>-21.1%</td></tr><tr><td>MSFT <span style='color:var(--text-muted)'>Microsoft</span></td><td>T2</td><td>$483.24</td><td>$566.14</td><td class='good'>-14.6%</td><td>$600.00</td><td class='good'>-19.5%</td></tr><tr><td>AMZN <span style='color:var(--text-muted)'>Amazon</span></td><td>T3</td><td>$258.63</td><td>$334.26</td><td class='good'>-22.6%</td><td>$300.00</td><td class='good'>-13.8%</td></tr><tr><td>AMD <span style='color:var(--text-muted)'>Advanced Micro Devices</span></td><td>T3</td><td>$473.25</td><td>$661.65</td><td class='good'>-28.5%</td><td>$530.00</td><td class='good'>-10.7%</td></tr><tr><td>RKLB <span style='color:var(--text-muted)'>Rocket Lab</span></td><td>T3</td><td>$72.57</td><td>$117.54</td><td class='good'>-38.3%</td><td>$77.20</td><td class='good'>-6.0%</td></tr><tr><td>LRCX <span style='color:var(--text-muted)'>Lam Research</span></td><td>T3.5</td><td>$314.00</td><td>$395.00</td><td class='good'>-20.5%</td><td>$310.00</td><td class='bad'>+1.3%</td></tr><tr><td>FTNT <span style='color:var(--text-muted)'>Fortinet</span></td><td>T3.5</td><td>$153.51</td><td>$173.42</td><td class='good'>-11.5%</td><td>$143.00</td><td class='bad'>+7.3%</td></tr><tr><td>MU <span style='color:var(--text-muted)'>Micron Technology</span></td><td>T5</td><td>$966.78</td><td>$1,568.39</td><td class='good'>-38.4%</td><td>$850.00</td><td class='bad'>+13.7%</td></tr><tr><td>PLTR <span style='color:var(--text-muted)'>Palantir</span></td><td>T2</td><td>$179.94</td><td>$197.89</td><td class='good'>-9.1%</td><td>$153.00</td><td class='bad'>+17.6%</td></tr><tr><td>NBIS <span style='color:var(--text-muted)'>Nebius Group</span></td><td>T3.5</td><td>$219.13</td><td>$300.67</td><td class='good'>-27.1%</td><td>$150.00</td><td class='bad'>+46.1%</td></tr></tbody>
+</table>
+
+  </div>
   <footer>
     Ticks are stored locally in this browser only (not synced back to the repo). Rule assumptions that still need your confirmation are noted in <b>README.md</b> / <b>config/rules.yaml</b>.
   </footer>
 </div>
 <script>
-const STATE = {"generated_at": "2026-08-22T21:41:54.888107Z", "stocks": {"AMD": {"clustered": false, "data_stale": false, "error": null, "fair_value": 450, "fired_this_period": [], "full_ladder_today": [{"id": "ma-150", "level": 357.4159, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 324.3304, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 296.2713, "multiplier": 2.0, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-150", "level": 357.4159, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 324.3304, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 296.2713, "multiplier": 2.0, "source": "250"}], "mas": {"100": 442.64320098876954, "150": 366.1904005940755, "200": 329.8632504272461, "250": 302.5119203491211, "60": 508.79850107828776}, "name": "Advanced Micro Devices", "new_triggers_today": [], "next_rung": {"id": "ma-150", "level": 357.4159, "multiplier": 1.0, "source": "150"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 473.25, "price_date": "2026-08-21", "target_price": 476, "ticker": "AMD", "tier": "T3", "vs_fair_value_pct": 5.17, "vs_target_pct": -0.58}, "AMZN": {"clustered": true, "data_stale": false, "error": null, "fair_value": 285, "fired_this_period": [], "full_ladder_today": [{"id": "drop-0", "level": 239.2837, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 227.3195, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 215.9535, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 239.2837, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 227.3195, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 215.9535, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 251.63900009155273, "150": 239.91079996744793, "200": 238.3259999847412, "250": 235.85964001464845, "60": 250.43516642252604}, "name": "Amazon", "new_triggers_today": [], "next_rung": {"id": "drop-0", "level": 239.2837, "multiplier": 1.0, "source": "5% cascade #1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 258.6300048828125, "price_date": "2026-08-21", "target_price": 260, "ticker": "AMZN", "tier": "T3", "vs_fair_value_pct": -9.25, "vs_target_pct": -0.53}, "AVGO": {"clustered": true, "data_stale": false, "error": null, "fair_value": 461, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-17", "id": "drop-0", "level": 398.0397, "multiplier": 1.0, "source": "5% cascade #1"}, {"amount": 900.0, "first_hit_date": "2026-08-19", "id": "drop-1", "level": 378.1377, "multiplier": 1.5, "source": "5% cascade #2"}], "full_ladder_today": [{"id": "drop-0", "level": 398.0397, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 378.1377, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 359.2308, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 398.0397, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 378.1377, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 359.2308, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 396.0288006591797, "150": 372.8001338704427, "200": 369.1979504394531, "250": 363.48024060058594, "60": 394.7460006713867}, "name": "Broadcom", "new_triggers_today": [], "next_rung": {"id": "drop-2", "level": 359.2308, "multiplier": 2.0, "source": "5% cascade #3"}, "period": {"key": "2026-W34", "start_date": "2026-08-17", "type": "weekly"}, "price": 368.45001220703125, "price_date": "2026-08-21", "target_price": 480, "ticker": "AVGO", "tier": "T1", "vs_fair_value_pct": -20.08, "vs_target_pct": -23.24}, "FTNT": {"clustered": false, "data_stale": false, "error": null, "fair_value": 86, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 104.4663, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 99.9927, "multiplier": 1.5, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 104.4663, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 99.9927, "multiplier": 1.5, "source": "250"}], "mas": {"100": 131.23029960632323, "150": 114.57866643269857, "200": 106.18014987945557, "250": 101.49183990478515, "60": 153.78449935913085}, "name": "Fortinet", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 104.4663, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 153.50999450683594, "price_date": "2026-08-21", "target_price": 108, "ticker": "FTNT", "tier": "T3.5", "vs_fair_value_pct": 78.5, "vs_target_pct": 42.14}, "GOOG": {"clustered": false, "data_stale": false, "error": null, "fair_value": 421, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-20", "id": "ma-150", "level": 339.5061, "multiplier": 1.0, "source": "150"}], "full_ladder_today": [{"id": "ma-150", "level": 339.5061, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 330.4995, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 312.0919, "multiplier": 2.0, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-150", "level": 339.5061, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 330.4995, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 312.0919, "multiplier": 2.0, "source": "250"}], "mas": {"100": 353.49049896240234, "150": 339.7501991780599, "200": 332.0641993713379, "250": 314.8521596069336, "60": 352.8144999186198}, "name": "Alphabet", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 330.4995, "multiplier": 1.5, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 341.75, "price_date": "2026-08-21", "target_price": 340, "ticker": "GOOG", "tier": "T3", "vs_fair_value_pct": -18.82, "vs_target_pct": 0.51}, "IGV": {"clustered": true, "data_stale": false, "error": null, "fired_this_period": [], "full_ladder_today": [{"id": "drop-0", "level": 94.1471, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 89.4397, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 84.9678, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": true, "ladder": [{"id": "drop-0", "level": 94.1471, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 89.4397, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 84.9678, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 91.62849998474121, "150": 89.64099985758463, "200": 93.82169982910156, "250": 97.69079989624024, "60": 95.2449998219808}, "name": "iShares Expanded Tech-Software ETF", "new_triggers_today": [], "next_rung": {"id": "drop-0", "level": 94.1471, "multiplier": 1.0, "source": "5% cascade #1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 103.37000274658203, "price_date": "2026-08-21", "ticker": "IGV", "tier": "T2"}, "LRCX": {"clustered": false, "data_stale": false, "error": null, "fair_value": 313, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 249.5573, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 224.5191, "multiplier": 1.5, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 249.5573, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 224.5191, "multiplier": 1.5, "source": "250"}], "mas": {"100": 308.66759872436523, "150": 281.47913238525393, "200": 253.59459922790526, "250": 228.94551907348634, "60": 335.14166564941405}, "name": "Lam Research", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 249.5573, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 314.0, "price_date": "2026-08-21", "target_price": 220, "ticker": "LRCX", "tier": "T3.5", "vs_fair_value_pct": 0.32, "vs_target_pct": 42.73}, "META": {"clustered": true, "data_stale": false, "error": null, "fair_value": 841, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-14", "id": "drop-0", "level": 627.6344, "multiplier": 1.0, "source": "5% cascade #1"}, {"amount": 900.0, "first_hit_date": "2026-08-14", "id": "drop-1", "level": 596.2527, "multiplier": 1.5, "source": "5% cascade #2"}, {"amount": 1200.0, "first_hit_date": "2026-08-18", "id": "drop-2", "level": 566.44, "multiplier": 2.0, "source": "5% cascade #3"}], "full_ladder_today": [{"id": "drop-0", "level": 627.6344, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 596.2527, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 566.44, "multiplier": 2.0, "source": "5% cascade #3"}, {"id": "below-ladder-drop-0", "level": 538.118, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 627.6344, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 596.2527, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 566.44, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 607.5689971923828, "150": 619.0034635416666, "200": 624.1281982421875, "250": 646.5542783203125, "60": 594.9994944254557}, "name": "Meta Platforms", "new_triggers_today": [], "next_rung": {"id": "below-ladder-drop-0", "level": 538.118, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 549.9000244140625, "price_date": "2026-08-21", "target_price": 837, "ticker": "META", "tier": "T2", "vs_fair_value_pct": -34.61, "vs_target_pct": -34.3}, "MSFT": {"clustered": true, "data_stale": false, "error": null, "fair_value": 616, "fired_this_period": [], "full_ladder_today": [{"id": "drop-0", "level": 432.4805, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 410.8565, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 390.3137, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 432.4805, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 410.8565, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 390.3137, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 415.4053985595703, "150": 413.1090653483073, "200": 431.3127993774414, "250": 447.8545192871094, "60": 420.93099721272785}, "name": "Microsoft", "new_triggers_today": [], "next_rung": {"id": "drop-0", "level": 432.4805, "multiplier": 1.0, "source": "5% cascade #1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 483.239990234375, "price_date": "2026-08-21", "target_price": 600, "ticker": "MSFT", "tier": "T2", "vs_fair_value_pct": -21.55, "vs_target_pct": -19.46}, "MU": {"clustered": false, "data_stale": false, "error": null, "fair_value": 543, "fired_this_period": [], "full_ladder_today": [{"id": "ma-250", "level": 474.3694, "multiplier": 1.0, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-250", "level": 474.3694, "multiplier": 1.0, "source": "250"}], "mas": {"100": 808.4011026000976, "150": 673.7366013590495, "200": 571.0984007263183, "250": 491.30724087524413, "60": 965.6718363444011}, "name": "Micron Technology", "new_triggers_today": [], "next_rung": {"id": "ma-250", "level": 474.3694, "multiplier": 1.0, "source": "250"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 966.780029296875, "price_date": "2026-08-21", "target_price": 455, "ticker": "MU", "tier": "T5", "vs_fair_value_pct": 78.04, "vs_target_pct": 112.48}, "NBIS": {"clustered": false, "data_stale": false, "error": null, "fair_value": 173, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 146.4557, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 136.7825, "multiplier": 1.5, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 146.4557, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 136.7825, "multiplier": 1.5, "source": "250"}], "mas": {"100": 201.36820037841798, "150": 167.52430053710938, "200": 149.24582542419432, "250": 140.13478051757812, "60": 225.44116694132487}, "name": "Nebius Group", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 146.4557, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 219.1300048828125, "price_date": "2026-08-21", "target_price": 85, "ticker": "NBIS", "tier": "T3.5", "vs_fair_value_pct": 26.66, "vs_target_pct": 157.8}, "NVDA": {"clustered": false, "data_stale": false, "error": null, "fair_value": 259, "fired_this_period": [], "full_ladder_today": [{"id": "ma-60", "level": 208.3435, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 204.7826, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 197.9281, "multiplier": 2.0, "source": "150"}], "is_etf": false, "ladder": [{"id": "ma-60", "level": 208.3435, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 204.7826, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 197.9281, "multiplier": 2.0, "source": "150"}], "mas": {"100": 206.6452000427246, "150": 198.7809999593099, "200": 195.28750022888184, "250": 192.72940026855468, "60": 208.45299962361653}, "name": "NVIDIA", "new_triggers_today": [], "next_rung": {"id": "ma-60", "level": 208.3435, "multiplier": 1.0, "source": "60"}, "period": {"key": "2026-W34", "start_date": "2026-08-17", "type": "weekly"}, "price": 214.72000122070312, "price_date": "2026-08-21", "target_price": 225, "ticker": "NVDA", "tier": "T1", "vs_fair_value_pct": -17.1, "vs_target_pct": -4.57}, "PLTR": {"clustered": false, "data_stale": false, "error": null, "fair_value": 153, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 152.093, "multiplier": 1.0, "source": "200"}, {"id": "ma-150", "level": 142.5954, "multiplier": 1.5, "source": "150"}, {"id": "ma-100", "level": 138.2687, "multiplier": 2.0, "source": "100"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 152.093, "multiplier": 1.0, "source": "200"}, {"id": "ma-150", "level": 142.5954, "multiplier": 1.5, "source": "150"}, {"id": "ma-100", "level": 138.2687, "multiplier": 2.0, "source": "100"}], "mas": {"100": 139.62144950866698, "150": 142.47443303426107, "200": 151.505899848938, "250": 156.3565598449707, "60": 139.62449938456217}, "name": "Palantir", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 152.093, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 179.94000244140625, "price_date": "2026-08-21", "target_price": 197, "ticker": "PLTR", "tier": "T2", "vs_fair_value_pct": 17.61, "vs_target_pct": -8.66}, "RKLB": {"clustered": false, "data_stale": false, "error": null, "fair_value": 118, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-14", "id": "ma-150", "level": 85.3163, "multiplier": 1.0, "source": "150"}, {"amount": 900.0, "first_hit_date": "2026-08-19", "id": "ma-200", "level": 78.389, "multiplier": 1.5, "source": "200"}, {"amount": 1200.0, "first_hit_date": "2026-08-20", "id": "ma-250", "level": 73.3279, "multiplier": 2.0, "source": "250"}], "full_ladder_today": [{"id": "ma-150", "level": 85.3163, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 78.389, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 73.3279, "multiplier": 2.0, "source": "250"}, {"id": "below-ladder-drop-0", "level": 69.6615, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}], "is_etf": false, "ladder": [{"id": "ma-150", "level": 85.3163, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 78.389, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 73.3279, "multiplier": 2.0, "source": "250"}], "mas": {"100": 90.52189990997314, "150": 84.92100011189778, "200": 78.72622514724732, "250": 74.00834007263184, "60": 88.5251667658488}, "name": "Rocket Lab", "new_triggers_today": [], "next_rung": {"id": "below-ladder-drop-0", "level": 69.6615, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 72.56999969482422, "price_date": "2026-08-21", "target_price": 68, "ticker": "RKLB", "tier": "T3", "vs_fair_value_pct": -38.5, "vs_target_pct": 6.72}, "TSM": {"clustered": false, "data_stale": false, "error": null, "fair_value": 356, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-18", "id": "ma-60", "level": 424.9685, "multiplier": 1.0, "source": "60"}], "full_ladder_today": [{"id": "ma-60", "level": 424.9685, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 406.2815, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 386.9011, "multiplier": 2.0, "source": "150"}], "is_etf": false, "ladder": [{"id": "ma-60", "level": 424.9685, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 406.2815, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 386.9011, "multiplier": 2.0, "source": "150"}], "mas": {"100": 409.7150003051758, "150": 389.09260009765626, "200": 366.37510009765623, "250": 348.2406400146484, "60": 425.19733378092445}, "name": "Taiwan Semiconductor", "new_triggers_today": [], "next_rung": {"id": "ma-100", "level": 406.2815, "multiplier": 1.5, "source": "100"}, "period": {"key": "2026-W34", "start_date": "2026-08-17", "type": "weekly"}, "price": 418.95001220703125, "price_date": "2026-08-21", "target_price": 344, "ticker": "TSM", "tier": "T1", "vs_fair_value_pct": 17.68, "vs_target_pct": 21.79}}};
+const STATE = {"generated_at": "2026-08-22T21:41:54.888107Z", "stocks": {"AMD": {"clustered": false, "data_stale": false, "error": null, "fair_value": 530.0, "fired_this_period": [], "full_ladder_today": [{"id": "ma-150", "level": 357.4159, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 324.3304, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 296.2713, "multiplier": 2.0, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-150", "level": 357.4159, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 324.3304, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 296.2713, "multiplier": 2.0, "source": "250"}], "mas": {"100": 442.64320098876954, "150": 366.1904005940755, "200": 329.8632504272461, "250": 302.5119203491211, "60": 508.79850107828776}, "name": "Advanced Micro Devices", "new_triggers_today": [], "next_rung": {"id": "ma-150", "level": 357.4159, "multiplier": 1.0, "source": "150"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 473.25, "price_date": "2026-08-21", "target_price": 661.65, "ticker": "AMD", "tier": "T3", "vs_fair_value_pct": -10.71, "vs_target_pct": -28.47}, "AMZN": {"clustered": true, "data_stale": false, "error": null, "fair_value": 300.0, "fired_this_period": [], "full_ladder_today": [{"id": "drop-0", "level": 239.2837, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 227.3195, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 215.9535, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 239.2837, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 227.3195, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 215.9535, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 251.63900009155273, "150": 239.91079996744793, "200": 238.3259999847412, "250": 235.85964001464845, "60": 250.43516642252604}, "name": "Amazon", "new_triggers_today": [], "next_rung": {"id": "drop-0", "level": 239.2837, "multiplier": 1.0, "source": "5% cascade #1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 258.6300048828125, "price_date": "2026-08-21", "target_price": 334.26, "ticker": "AMZN", "tier": "T3", "vs_fair_value_pct": -13.79, "vs_target_pct": -22.63}, "AVGO": {"clustered": true, "data_stale": false, "error": null, "fair_value": 650.0, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-17", "id": "drop-0", "level": 398.0397, "multiplier": 1.0, "source": "5% cascade #1"}, {"amount": 900.0, "first_hit_date": "2026-08-19", "id": "drop-1", "level": 378.1377, "multiplier": 1.5, "source": "5% cascade #2"}], "full_ladder_today": [{"id": "drop-0", "level": 398.0397, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 378.1377, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 359.2308, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 398.0397, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 378.1377, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 359.2308, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 396.0288006591797, "150": 372.8001338704427, "200": 369.1979504394531, "250": 363.48024060058594, "60": 394.7460006713867}, "name": "Broadcom", "new_triggers_today": [], "next_rung": {"id": "drop-2", "level": 359.2308, "multiplier": 2.0, "source": "5% cascade #3"}, "period": {"key": "2026-W34", "start_date": "2026-08-17", "type": "weekly"}, "price": 368.45001220703125, "price_date": "2026-08-21", "target_price": 530.74, "ticker": "AVGO", "tier": "T1", "vs_fair_value_pct": -43.32, "vs_target_pct": -30.58}, "FTNT": {"clustered": false, "data_stale": false, "error": null, "fair_value": 143.0, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 104.4663, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 99.9927, "multiplier": 1.5, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 104.4663, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 99.9927, "multiplier": 1.5, "source": "250"}], "mas": {"100": 131.23029960632323, "150": 114.57866643269857, "200": 106.18014987945557, "250": 101.49183990478515, "60": 153.78449935913085}, "name": "Fortinet", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 104.4663, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 153.50999450683594, "price_date": "2026-08-21", "target_price": 173.42, "ticker": "FTNT", "tier": "T3.5", "vs_fair_value_pct": 7.35, "vs_target_pct": -11.48}, "GOOG": {"clustered": false, "data_stale": false, "error": null, "fair_value": 433.0, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-20", "id": "ma-150", "level": 339.5061, "multiplier": 1.0, "source": "150"}], "full_ladder_today": [{"id": "ma-150", "level": 339.5061, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 330.4995, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 312.0919, "multiplier": 2.0, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-150", "level": 339.5061, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 330.4995, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 312.0919, "multiplier": 2.0, "source": "250"}], "mas": {"100": 353.49049896240234, "150": 339.7501991780599, "200": 332.0641993713379, "250": 314.8521596069336, "60": 352.8144999186198}, "name": "Alphabet", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 330.4995, "multiplier": 1.5, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 341.75, "price_date": "2026-08-21", "target_price": 434.75, "ticker": "GOOG", "tier": "T3", "vs_fair_value_pct": -21.07, "vs_target_pct": -21.39}, "IGV": {"clustered": true, "data_stale": false, "error": null, "fired_this_period": [], "full_ladder_today": [{"id": "drop-0", "level": 94.1471, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 89.4397, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 84.9678, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": true, "ladder": [{"id": "drop-0", "level": 94.1471, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 89.4397, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 84.9678, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 91.62849998474121, "150": 89.64099985758463, "200": 93.82169982910156, "250": 97.69079989624024, "60": 95.2449998219808}, "name": "iShares Expanded Tech-Software ETF", "new_triggers_today": [], "next_rung": {"id": "drop-0", "level": 94.1471, "multiplier": 1.0, "source": "5% cascade #1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 103.37000274658203, "price_date": "2026-08-21", "ticker": "IGV", "tier": "T2"}, "LRCX": {"clustered": false, "data_stale": false, "error": null, "fair_value": 310.0, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 249.5573, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 224.5191, "multiplier": 1.5, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 249.5573, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 224.5191, "multiplier": 1.5, "source": "250"}], "mas": {"100": 308.66759872436523, "150": 281.47913238525393, "200": 253.59459922790526, "250": 228.94551907348634, "60": 335.14166564941405}, "name": "Lam Research", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 249.5573, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 314.0, "price_date": "2026-08-21", "target_price": 395.0, "ticker": "LRCX", "tier": "T3.5", "vs_fair_value_pct": 1.29, "vs_target_pct": -20.51}, "META": {"clustered": true, "data_stale": false, "error": null, "fair_value": 850.0, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-14", "id": "drop-0", "level": 627.6344, "multiplier": 1.0, "source": "5% cascade #1"}, {"amount": 900.0, "first_hit_date": "2026-08-14", "id": "drop-1", "level": 596.2527, "multiplier": 1.5, "source": "5% cascade #2"}, {"amount": 1200.0, "first_hit_date": "2026-08-18", "id": "drop-2", "level": 566.44, "multiplier": 2.0, "source": "5% cascade #3"}], "full_ladder_today": [{"id": "drop-0", "level": 627.6344, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 596.2527, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 566.44, "multiplier": 2.0, "source": "5% cascade #3"}, {"id": "below-ladder-drop-0", "level": 538.118, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 627.6344, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 596.2527, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 566.44, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 607.5689971923828, "150": 619.0034635416666, "200": 624.1281982421875, "250": 646.5542783203125, "60": 594.9994944254557}, "name": "Meta Platforms", "new_triggers_today": [], "next_rung": {"id": "below-ladder-drop-0", "level": 538.118, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 549.9000244140625, "price_date": "2026-08-21", "target_price": 753.32, "ticker": "META", "tier": "T2", "vs_fair_value_pct": -35.31, "vs_target_pct": -27.0}, "MSFT": {"clustered": true, "data_stale": false, "error": null, "fair_value": 600.0, "fired_this_period": [], "full_ladder_today": [{"id": "drop-0", "level": 432.4805, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 410.8565, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 390.3137, "multiplier": 2.0, "source": "5% cascade #3"}], "is_etf": false, "ladder": [{"id": "drop-0", "level": 432.4805, "multiplier": 1.0, "source": "5% cascade #1"}, {"id": "drop-1", "level": 410.8565, "multiplier": 1.5, "source": "5% cascade #2"}, {"id": "drop-2", "level": 390.3137, "multiplier": 2.0, "source": "5% cascade #3"}], "mas": {"100": 415.4053985595703, "150": 413.1090653483073, "200": 431.3127993774414, "250": 447.8545192871094, "60": 420.93099721272785}, "name": "Microsoft", "new_triggers_today": [], "next_rung": {"id": "drop-0", "level": 432.4805, "multiplier": 1.0, "source": "5% cascade #1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 483.239990234375, "price_date": "2026-08-21", "target_price": 566.14, "ticker": "MSFT", "tier": "T2", "vs_fair_value_pct": -19.46, "vs_target_pct": -14.64}, "MU": {"clustered": false, "data_stale": false, "error": null, "fair_value": 850.0, "fired_this_period": [], "full_ladder_today": [{"id": "ma-250", "level": 474.3694, "multiplier": 1.0, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-250", "level": 474.3694, "multiplier": 1.0, "source": "250"}], "mas": {"100": 808.4011026000976, "150": 673.7366013590495, "200": 571.0984007263183, "250": 491.30724087524413, "60": 965.6718363444011}, "name": "Micron Technology", "new_triggers_today": [], "next_rung": {"id": "ma-250", "level": 474.3694, "multiplier": 1.0, "source": "250"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 966.780029296875, "price_date": "2026-08-21", "target_price": 1568.39, "ticker": "MU", "tier": "T5", "vs_fair_value_pct": 13.74, "vs_target_pct": -38.36}, "NBIS": {"clustered": false, "data_stale": false, "error": null, "fair_value": 150.0, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 146.4557, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 136.7825, "multiplier": 1.5, "source": "250"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 146.4557, "multiplier": 1.0, "source": "200"}, {"id": "ma-250", "level": 136.7825, "multiplier": 1.5, "source": "250"}], "mas": {"100": 201.36820037841798, "150": 167.52430053710938, "200": 149.24582542419432, "250": 140.13478051757812, "60": 225.44116694132487}, "name": "Nebius Group", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 146.4557, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 219.1300048828125, "price_date": "2026-08-21", "target_price": 300.67, "ticker": "NBIS", "tier": "T3.5", "vs_fair_value_pct": 46.09, "vs_target_pct": -27.12}, "NVDA": {"clustered": false, "data_stale": false, "error": null, "fair_value": 280.0, "fired_this_period": [], "full_ladder_today": [{"id": "ma-60", "level": 208.3435, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 204.7826, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 197.9281, "multiplier": 2.0, "source": "150"}], "is_etf": false, "ladder": [{"id": "ma-60", "level": 208.3435, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 204.7826, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 197.9281, "multiplier": 2.0, "source": "150"}], "mas": {"100": 206.6452000427246, "150": 198.7809999593099, "200": 195.28750022888184, "250": 192.72940026855468, "60": 208.45299962361653}, "name": "NVIDIA", "new_triggers_today": [], "next_rung": {"id": "ma-60", "level": 208.3435, "multiplier": 1.0, "source": "60"}, "period": {"key": "2026-W34", "start_date": "2026-08-17", "type": "weekly"}, "price": 214.72000122070312, "price_date": "2026-08-21", "target_price": 300.0, "ticker": "NVDA", "tier": "T1", "vs_fair_value_pct": -23.31, "vs_target_pct": -28.43}, "PLTR": {"clustered": false, "data_stale": false, "error": null, "fair_value": 153.0, "fired_this_period": [], "full_ladder_today": [{"id": "ma-200", "level": 152.093, "multiplier": 1.0, "source": "200"}, {"id": "ma-150", "level": 142.5954, "multiplier": 1.5, "source": "150"}, {"id": "ma-100", "level": 138.2687, "multiplier": 2.0, "source": "100"}], "is_etf": false, "ladder": [{"id": "ma-200", "level": 152.093, "multiplier": 1.0, "source": "200"}, {"id": "ma-150", "level": 142.5954, "multiplier": 1.5, "source": "150"}, {"id": "ma-100", "level": 138.2687, "multiplier": 2.0, "source": "100"}], "mas": {"100": 139.62144950866698, "150": 142.47443303426107, "200": 151.505899848938, "250": 156.3565598449707, "60": 139.62449938456217}, "name": "Palantir", "new_triggers_today": [], "next_rung": {"id": "ma-200", "level": 152.093, "multiplier": 1.0, "source": "200"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 179.94000244140625, "price_date": "2026-08-21", "target_price": 197.89, "ticker": "PLTR", "tier": "T2", "vs_fair_value_pct": 17.61, "vs_target_pct": -9.07}, "RKLB": {"clustered": false, "data_stale": false, "error": null, "fair_value": 77.2, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-14", "id": "ma-150", "level": 85.3163, "multiplier": 1.0, "source": "150"}, {"amount": 900.0, "first_hit_date": "2026-08-19", "id": "ma-200", "level": 78.389, "multiplier": 1.5, "source": "200"}, {"amount": 1200.0, "first_hit_date": "2026-08-20", "id": "ma-250", "level": 73.3279, "multiplier": 2.0, "source": "250"}], "full_ladder_today": [{"id": "ma-150", "level": 85.3163, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 78.389, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 73.3279, "multiplier": 2.0, "source": "250"}, {"id": "below-ladder-drop-0", "level": 69.6615, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}], "is_etf": false, "ladder": [{"id": "ma-150", "level": 85.3163, "multiplier": 1.0, "source": "150"}, {"id": "ma-200", "level": 78.389, "multiplier": 1.5, "source": "200"}, {"id": "ma-250", "level": 73.3279, "multiplier": 2.0, "source": "250"}], "mas": {"100": 90.52189990997314, "150": 84.92100011189778, "200": 78.72622514724732, "250": 74.00834007263184, "60": 88.5251667658488}, "name": "Rocket Lab", "new_triggers_today": [], "next_rung": {"id": "below-ladder-drop-0", "level": 69.6615, "multiplier": 2.0, "source": "5% below lowest rung, step 1"}, "period": {"key": "2026-08", "start_date": "2026-08-01", "type": "monthly"}, "price": 72.56999969482422, "price_date": "2026-08-21", "target_price": 117.54, "ticker": "RKLB", "tier": "T3", "vs_fair_value_pct": -6.0, "vs_target_pct": -38.26}, "TSM": {"clustered": false, "data_stale": false, "error": null, "fair_value": 534.0, "fired_this_period": [{"amount": 600.0, "first_hit_date": "2026-08-18", "id": "ma-60", "level": 424.9685, "multiplier": 1.0, "source": "60"}], "full_ladder_today": [{"id": "ma-60", "level": 424.9685, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 406.2815, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 386.9011, "multiplier": 2.0, "source": "150"}], "is_etf": false, "ladder": [{"id": "ma-60", "level": 424.9685, "multiplier": 1.0, "source": "60"}, {"id": "ma-100", "level": 406.2815, "multiplier": 1.5, "source": "100"}, {"id": "ma-150", "level": 386.9011, "multiplier": 2.0, "source": "150"}], "mas": {"100": 409.7150003051758, "150": 389.09260009765626, "200": 366.37510009765623, "250": 348.2406400146484, "60": 425.19733378092445}, "name": "Taiwan Semiconductor", "new_triggers_today": [], "next_rung": {"id": "ma-100", "level": 406.2815, "multiplier": 1.5, "source": "100"}, "period": {"key": "2026-W34", "start_date": "2026-08-17", "type": "weekly"}, "price": 418.95001220703125, "price_date": "2026-08-21", "target_price": 545.67, "ticker": "TSM", "tier": "T1", "vs_fair_value_pct": -21.54, "vs_target_pct": -23.22}}};
 const STORE_KEY = "moomooinvest-ticks-v1";
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tabpanel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
 
 function loadTicks(){
   try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ return {}; }

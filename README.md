@@ -22,10 +22,18 @@ shows what's hit and lets you tick off what you've actually invested in.
    and updates `config/stocks.yaml` before rebuilding.
 3. **You** open the dashboard link each morning, see what's hit, place your
    GTC order(s) manually in moomoo, and tick the checkbox next to the rung
-   you acted on. Ticks are stored in your browser's local storage (per
-   device) purely for your own tracking — they don't feed back into the
-   alerting logic. Export your tick history as CSV any time from the
-   dashboard.
+   you acted on.
+
+   **What the checkbox actually does**: purely a personal reminder. It's
+   written to `localStorage` in your browser only (key
+   `moomooinvest-ticks-v1`) — never committed to the repo, never read by
+   `run_check.py` or `engine.py`, and doesn't sync across devices. Its only
+   two effects: (1) it grays out that rung and moves it into the "Action
+   log" table below, and (2) that table is what "Export CSV" reads. It does
+   **not** change whether a rung is considered "fired," does not stop the
+   next period from re-offering the same rung, and does not affect
+   `data/state.json` at all. If you want an action to actually change
+   future alerting behavior, use a **custom target** instead (below).
 
 ## The rule engine (`scripts/engine.py`)
 
@@ -45,13 +53,104 @@ that, still capped at ×2 per trigger (rule 3).
 | Tier | Stocks | MA ladder | Refresh |
 |---|---|---|---|
 | T1 | NVDA, TSM, AVGO | MA60 → MA100 → MA150 | weekly |
-| T2 | PLTR, IGV*, MSFT, META | MA100 → MA150 → MA200 | monthly |
+| T2 | PLTR, IGV*, MSFT, META | MA100 → MA150 → MA200 | **biweekly** |
 | T3 | GOOG, AMZN, RKLB, AMD | MA150 → MA200 → MA250 | monthly |
-| T3.5 | NBIS, LRCX, FTNT | MA200 → MA250 (then 5% cascade) | monthly |
-| T5 | MU | MA250 (then 5% cascade) | monthly |
+| T3.5 | NBIS, LRCX, FTNT, XLV* | MA200 → MA250 (then 5% cascade) | monthly |
+| T5 | MU, SOFI, V, ASML, GRAB, TSLA, FXI*, OSCR, ASTS, MRVL | MA250 only (then 5% cascade) | monthly |
+| T9 | BRK-B, HIMS, PYPL, DUOL, NU, MSTR, VITL | MA250 only (then 5% cascade) | monthly |
 
-\* IGV is an ETF — MA-ladder alerts apply, but it has no Morningstar
-analyst target price / fair value, so that part is skipped for it.
+T5/T9 were added from your "T3.9 above" moomoo watchlist screenshots. Per
+your instruction they deliberately use only **one** trigger (break below
+MA250, the lowest MA tracked) rather than the fuller 3-rung ladder — same
+single-rung mechanism already used for MU. `T9`'s `base_amount`/`refresh`
+default to match `T5` (600/monthly) since none was specified; adjust in
+`config/rules.yaml` if wrong. MRVL's watchlist label was `!T5` (others were
+plain `T5`) — added to T5 as-is since the `!` meaning wasn't specified,
+flag it if it should be handled differently.
+
+\* IGV, FXI, XLV are ETFs — MA-ladder alerts apply, but they have no analyst
+target price / fair value (moomoo doesn't show one for ETFs either), so
+that part is skipped for them.
+
+## Every card always shows its full planned ladder
+
+Cards used to only show rungs that had already fired, plus a one-line
+"Next: ..." hint for the closest unfired one. Now every card always shows
+**all** of that period's rungs (typically 2-3 for T1-T3.5, 1 for T5/T9) —
+fired ones are checkable as before, not-yet-fired ones show as a dashed
+"pending" row with their price level, amount, and how far away the current
+price is. This is meant to let you review the whole plan for a stock at a
+glance and decide whether you're comfortable just waiting for it to fire,
+without having to reconstruct the ladder from `config/rules.yaml` yourself.
+
+## Fair value / target price: now sourced from moomoo, not web search
+
+`target_price` and `fair_value` in `config/stocks.yaml` used to be filled by
+a weekly best-effort web search (a proxy for Morningstar's numbers, often
+stale or unavailable). That's been replaced: you export/paste the
+**"平均目标价" (target price) and "公允价值" (fair value)** columns straight
+from the moomoo App/CSV, and those exact numbers get written into
+`config/stocks.yaml` with `fundamentals_source: "moomoo (user CSV export)"`.
+There's no moomoo API integration doing this automatically (see chat history
+for why — no official moomoo Claude Skill exists, and the "moomoo skill
+installer" doc that surfaced is not something this repo trusts or executes);
+it's a manual-but-precise refresh: whenever you want updated numbers, export
+the CSV from moomoo and share it, and it gets applied the same way.
+
+**Valuation overview tab**: the dashboard now has a second tab (next to
+"Alerts & ladder") showing every stock sorted from most-undervalued to
+most-overvalued vs its fair value estimate, as a diverging bar chart plus a
+data table (price, target price, vs-target %, fair value, vs-fair-value %).
+Use it to sanity-check whether a stock's tier / MA-ladder assignment still
+matches how cheap or expensive it actually looks — e.g. if a stock you put
+in T3 (slow accumulation) is sitting 35%+ under fair value, that's a signal
+its tier might deserve reconsidering.
+
+## Custom targets: your own buy levels, layered on top of the ladder
+
+Sometimes you want to wait for a specific lower price on a stock regardless
+of what the MA ladder says. Add a `custom_targets` list to that stock in
+`config/stocks.yaml`:
+
+```yaml
+  - ticker: RKLB
+    ...
+    custom_targets:
+      - level: 60
+        amount: 900          # optional, defaults to the tier's base_amount
+        note: "wait for capitulation"
+        added: "2026-08-22"  # optional, informational only
+```
+
+These are evaluated every day alongside the MA ladder, but behave
+differently on purpose:
+
+- **They don't reset each period.** The MA ladder's rungs reset every
+  week/biweek/month so the same level can fire again next period. A custom
+  target fires once and then stays "fired" indefinitely — it's your
+  one-off call, not a recurring rule.
+- **They're always shown**, in their own "Your targets" section on that
+  stock's card, tagged distinctly from the MA rungs, so they can't be
+  mistaken for auto-generated ones.
+- **Editing = a new target.** Change the `level` or `note` and it's treated
+  as a fresh entry (can fire again); delete the entry and its fired history
+  is dropped too. There's no separate "reset" command — editing the YAML
+  *is* the edit mechanism.
+- **How to edit it right now**: tell me the ticker/price/amount/note in
+  chat and I'll update `config/stocks.yaml` and push — same flow as
+  updating fair value numbers. A fully self-serve in-dashboard editor that
+  writes straight back to this repo isn't wired up (the dashboard is a
+  static Artifact; the engine that reads this file runs on GitHub Actions,
+  which can't watch the Artifact live) — this chat-driven flow is the
+  reliable version of that for now. If you want true point-and-edit later,
+  a small hosted endpoint (e.g. via a Val Town-backed bridge) could let the
+  dashboard write directly and have `run_check.py` read from it over HTTP
+  — happy to build that out if the manual flow gets tedious.
+- Takes effect on the **next `run_check.py` run** (the daily GitHub Actions
+  job) — a dashboard-only rebuild (no network) still picks up **fair
+  value/target price edits** immediately, since those are just re-read from
+  config each render, but custom-target *firing* needs a fresh price
+  check to evaluate against.
 
 ## ⚠️ Please confirm / adjust
 
