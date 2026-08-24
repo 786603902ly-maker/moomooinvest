@@ -67,6 +67,29 @@ def _fetch_yahoo(ticker: str) -> list[tuple[dt.date, float]]:
     return sorted(out)
 
 
+def get_intraday_quote(ticker: str) -> tuple[dt.datetime, float]:
+    """Return (utc_timestamp, price) for the most recent intraday tick.
+
+    Distinct from get_history: this is a live snapshot for display only, not
+    used for MA/ladder math (which stays keyed off the daily close). Raises
+    FetchError if no live quote is available (e.g. market closed).
+    """
+    url = (
+        "https://query1.finance.yahoo.com/v8/finance/chart/"
+        f"{ticker}?range=1d&interval=1m"
+    )
+    req = urllib.request.Request(url, headers=HEADERS)
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        payload = json.load(resp)
+    result = payload["chart"]["result"][0]
+    timestamps = result["timestamp"]
+    closes = result["indicators"]["quote"][0]["close"]
+    for ts, c in reversed(list(zip(timestamps, closes))):
+        if c is not None:
+            return dt.datetime.fromtimestamp(ts, tz=dt.timezone.utc), float(c)
+    raise FetchError(f"yahoo intraday: no ticks for {ticker}")
+
+
 def _cache_path(ticker: str):
     return PRICES_DIR / f"{ticker}.csv"
 

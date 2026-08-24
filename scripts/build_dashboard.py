@@ -7,10 +7,24 @@ published as the Artifact dashboard.
 """
 import datetime as dt
 import json
+from zoneinfo import ZoneInfo
 
 from common import DATA_DIR, ROOT, load_rules, load_state, load_stocks
 
 TIER_ORDER = ["T1", "T2", "T3", "T3.5", "T5", "T9"]
+NY = ZoneInfo("America/New_York")
+
+
+def format_et_label(iso_ts: str | None) -> str:
+    if not iso_ts:
+        return ""
+    try:
+        ts = dt.datetime.fromisoformat(iso_ts)
+    except ValueError:
+        return ""
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=dt.timezone.utc)
+    return ts.astimezone(NY).strftime("%-I:%M %p ET")
 
 TEMPLATE = r"""<title>__TITLE__</title>
 <style>
@@ -81,6 +95,7 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 .card-head .sub{color:var(--text-muted); font-size:.78rem;}
 .price{font-family:var(--font-display); font-size:1.5rem; font-variant-numeric:tabular-nums;}
 .price-date{color:var(--text-muted); font-size:.76rem;}
+.live-tag{background:var(--good-soft); color:var(--good); border-radius:999px; padding:.05rem .4rem; font-size:.68rem; font-weight:700; margin-right:.35rem; text-transform:uppercase; letter-spacing:.03em;}
 .pills{display:flex; gap:.4rem; flex-wrap:wrap;}
 .pill{
   border-radius:999px; padding:.2rem .55rem; font-size:.74rem; font-weight:600;
@@ -163,7 +178,7 @@ table.val-table td.bad{color:var(--bad);}
 </style>
 <div class="wrap">
   <h1>DCA Alert Dashboard</h1>
-  <div class="subtitle">Prices as of <b>__PRICE_DATE__</b> &middot; generated __GENERATED_AT__ &middot; fundamentals last refreshed <b>__FUND_DATE__</b></div>
+  <div class="subtitle">Prices as of <b>__PRICE_DATE__</b>__LIVE_SNAPSHOT__ &middot; generated __GENERATED_AT__ &middot; fundamentals last refreshed <b>__FUND_DATE__</b></div>
   __STALE_BANNER__
   <div class="tabs">
     <button class="tab-btn active" data-tab="alerts">Alerts &amp; ladder</button>
@@ -328,7 +343,7 @@ def render_rung(ticker: str, tier: str, rung: dict, is_open: bool, extra_cls: st
 def render_card(ticker: str, s: dict, rules: dict) -> str:
     tier = s.get("tier", "?")
     currency = rules.get("currency", "SGD")
-    price = s.get("price")
+    price = s.get("display_price", s.get("price"))
     fired = s.get("fired_this_period", []) or []
     fired_by_id = {f["id"]: f for f in fired}
     base_amount = (rules.get("tiers", {}).get(tier) or {}).get("base_amount")
@@ -402,10 +417,19 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
 
     err_html = f'<div class="err">{s.get("error")}</div>' if s.get("error") else ""
 
+    if s.get("is_live"):
+        time_label = format_et_label(s.get("intraday_price_at"))
+        price_sub = (
+            f'<div class="price-date"><span class="live-tag">live</span>{time_label}</div>'
+            f'<div class="price-date" style="opacity:.65">close {fmt_price(s.get("price"))} &middot; {s.get("price_date","-")}</div>'
+        )
+    else:
+        price_sub = f'<div class="price-date">{s.get("price_date","-")}</div>'
+
     return f"""<div class="card {'has-open' if has_open else ''}">
   <div class="card-head">
     <div><div class="name">{ticker} <span class="sub">{s.get('name','')}</span></div><div class="sub">{tier} &middot; {period_txt}</div></div>
-    <div style="text-align:right;"><div class="price">{fmt_price(price)}</div><div class="price-date">{s.get('price_date','-')}</div></div>
+    <div style="text-align:right;"><div class="price">{fmt_price(price)}</div>{price_sub}</div>
   </div>
   <div class="pills">{''.join(pills)}</div>
   <div class="ma-strip">{ma_strip}</div>
@@ -434,7 +458,7 @@ def collect_valuation_rows(stocks_cfg: dict, stocks_state: dict, tiers: set) -> 
         if cfg.get("target_price") is None and cfg.get("fair_value") is None:
             continue
         s = stocks_state.get(ticker) or {}
-        price = s.get("price")
+        price = s.get("display_price", s.get("price"))
         rows.append(
             {
                 "ticker": ticker,
@@ -479,7 +503,7 @@ def render_val_table_row(s: dict) -> str:
     return (
         f"<tr><td>{s['ticker']} <span style='color:var(--text-muted)'>{s.get('name','')}</span></td>"
         f"<td>{s.get('tier','')}</td>"
-        f"<td>{fmt_price(s.get('price'))}</td>"
+        f"<td>{fmt_price(s.get('display_price', s.get('price')))}</td>"
         f"<td>{fmt_price(s.get('target_price'))}</td>"
         f"{tp_txt}"
         f"<td>{fmt_price(s.get('fair_value'))}</td>"
@@ -551,9 +575,12 @@ def build() -> str:
     for ticker, s in stocks_state.items():
         cfg = stocks_cfg.get(ticker, {})
         s["ticker"] = ticker
+        live_price = s.get("intraday_price")
+        s["is_live"] = live_price is not None
+        s["display_price"] = live_price if live_price is not None else s.get("price")
         if cfg.get("is_etf"):
             continue
-        price = s.get("price")
+        price = s["display_price"]
         s["target_price"] = cfg.get("target_price")
         s["fair_value"] = cfg.get("fair_value")
         s["vs_target_pct"] = pct_diff(price, cfg.get("target_price"))
@@ -563,6 +590,10 @@ def build() -> str:
     stale_count = sum(1 for s in stocks_state.values() if s.get("data_stale"))
     price_dates = [s.get("price_date") for s in stocks_state.values() if s.get("price_date")]
     price_date = max(price_dates) if price_dates else "-"
+    live_times = [s.get("intraday_price_at") for s in stocks_state.values() if s.get("intraday_price_at")]
+    live_snapshot_html = (
+        f' &middot; live snapshot <b>{format_et_label(max(live_times))}</b>' if live_times else ""
+    )
     fund_dates = [
         stocks_cfg[t].get("fundamentals_updated") for t in stocks_cfg if stocks_cfg[t].get("fundamentals_updated")
     ]
@@ -593,6 +624,7 @@ def build() -> str:
     html = TEMPLATE
     html = html.replace("__TITLE__", "DCA Alert Dashboard")
     html = html.replace("__PRICE_DATE__", str(price_date))
+    html = html.replace("__LIVE_SNAPSHOT__", live_snapshot_html)
     html = html.replace("__GENERATED_AT__", state.get("generated_at") or "-")
     html = html.replace("__FUND_DATE__", str(fund_date))
     html = html.replace("__STALE_BANNER__", stale_banner)

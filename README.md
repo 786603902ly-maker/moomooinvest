@@ -20,16 +20,38 @@ shows what's hit and lets you tick off what you've actually invested in.
    ladder against the new price, and commits the result to `data/state.json`.
    This step needs real internet access to Yahoo/stooq, which the Claude
    sandbox that built this doesn't have — hence it runs on GitHub's own
-   runners instead of as a Claude-scheduled job.
-2. **Daily + Weekly** (Claude scheduled routines, since only a Claude session
+   runners instead of as a Claude-scheduled job. This is the data the
+   MA/ladder math is keyed off — it never changes intraday.
+2. **Market open** (GitHub Actions, `.github/workflows/market-open-price-check.yml`):
+   NYSE opens at 9:30am ET, which lands at either 9:30pm SGT (EDT, roughly
+   Mar–Nov) or 10:30pm SGT (EST, roughly Nov–Mar) depending on the time of
+   year. Rather than track the DST flip, this workflow fires at *both*
+   possible "~15 min after open" times every weekday (13:44 UTC and
+   14:44 UTC). `scripts/market_open_snapshot.py` then checks the real
+   America/New_York clock and only actually fetches a live quote if it's
+   genuinely within ~25 minutes of today's open — so whichever of the two
+   firings doesn't match the current DST regime is a silent no-op, and the
+   schedule self-adjusts across the March/November transitions with no
+   manual cron edits. When it does fire, it writes a live
+   `intraday_price` / `intraday_price_at` per stock into `data/state.json`
+   (on top of, not instead of, the daily close) and rebuilds
+   `dashboard/index.html` so the repo has a fresh static copy even before
+   the next Routine run publishes it.
+3. **Daily + Weekly** (Claude scheduled routines, since only a Claude session
    has the Artifact and WebSearch tools): pulls the latest `state.json`,
    rebuilds `dashboard/index.html`, and republishes it to the same Artifact
-   URL. On **Mondays** it additionally web-searches each stock's current
-   Morningstar-style analyst average target price and fair value estimate
-   and updates `config/stocks.yaml` before rebuilding.
-3. **You** open the dashboard link each morning, see what's hit, place your
-   GTC order(s) manually in moomoo, and tick the checkbox next to the rung
-   you acted on.
+   URL. The "moomooinvest dashboard refresh" Routine's triggers are set to
+   fire shortly after both market-open snapshot times (currently ~9:50pm and
+   ~10:50pm SGT weekdays) so the published dashboard reflects the live
+   post-open price, not the prior day's close. On **Mondays** it used to
+   additionally web-search each stock's current Morningstar-style analyst
+   target price and fair value and update `config/stocks.yaml` — that step
+   has since been replaced by the user pasting exact moomoo App numbers
+   into a chat conversation instead, so the Routine no longer touches
+   `config/stocks.yaml` at all.
+4. **You** open the dashboard link shortly after market open, see what's
+   hit against the live price, place your GTC order(s) manually in moomoo,
+   and tick the checkbox next to the rung you acted on.
 
    **What the checkbox actually does**: purely a personal reminder. It's
    written to `localStorage` in your browser only (key
@@ -196,14 +218,18 @@ data/
   prices/       cached daily close history per ticker — generated
 scripts/
   fetch_prices.py   stooq (primary) / Yahoo (fallback) daily close history
+                     + Yahoo intraday quote (get_intraday_quote)
   indicators.py     moving averages
   engine.py         ladder construction + trigger evaluation
   run_check.py      daily entrypoint -> data/state.json
+  market_open_snapshot.py  live post-open snapshot -> intraday_price fields
   build_dashboard.py  renders dashboard/index.html from state + config
 dashboard/
   index.html    generated dashboard (also what gets published as the Artifact)
 .github/workflows/
-  daily-price-check.yml   the only step that needs real internet access
+  daily-price-check.yml         daily close fetch, needs real internet access
+  market-open-price-check.yml   live snapshot ~15min after NYSE open, also
+                                 needs real internet access
 ```
 
 ## Manual run
@@ -211,8 +237,10 @@ dashboard/
 ```bash
 pip install pyyaml
 cd scripts
-python3 run_check.py        # needs internet access to stooq/Yahoo
-python3 build_dashboard.py  # pure templating, no internet needed
+python3 run_check.py               # needs internet access to stooq/Yahoo
+python3 market_open_snapshot.py    # optional: live snapshot, no-ops outside
+                                    # the ~9:30-9:55am ET window (see below)
+python3 build_dashboard.py         # pure templating, no internet needed
 ```
 
 Note: GitHub only runs *scheduled* Actions workflows from the files on the

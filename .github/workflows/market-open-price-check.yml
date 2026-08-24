@@ -1,0 +1,57 @@
+name: Market-open live snapshot
+
+# NYSE opens at 9:30am ET, which is 9:30pm SGT during EDT (roughly Mar-Nov)
+# or 10:30pm SGT during EST (roughly Nov-Mar). Rather than track the DST
+# flip, this fires at both possible "~15 min after open" times every
+# weekday: 13:44 UTC (9:44am ET in EDT) and 14:44 UTC (9:44am ET in EST).
+# scripts/market_open_snapshot.py checks the real America/New_York clock
+# and no-ops unless it's actually ~15 minutes after today's open, so only
+# one of the two firings ever does anything on a given day -- no manual
+# cron edits needed across the March/November DST transitions.
+#
+# This only adds a live intraday_price snapshot on top of the daily close
+# data (see daily-price-check.yml for that); it does not touch the MA/
+# ladder math, which stays keyed off the daily close.
+on:
+  schedule:
+    - cron: "44 13 * * 1-5"
+    - cron: "44 14 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Fetch live snapshot (no-op outside the post-open window)
+        working-directory: scripts
+        run: python3 market_open_snapshot.py
+
+      - name: Rebuild dashboard
+        working-directory: scripts
+        run: python3 build_dashboard.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "moomooinvest-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/state.json dashboard/index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: market-open live price snapshot"
+            git push
+          fi
