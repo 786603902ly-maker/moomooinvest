@@ -79,13 +79,13 @@ def build_period_ladder(tier_cfg: dict, mas: dict, rules: dict) -> tuple[list[di
             level, source = support["level"], "+".join(support["sources"])
             idx += 1
         elif drop_level is not None:
-            level, source = drop_level, f"{drop_step_pct:g}% below prior rung"
+            level, source = drop_level, f"{drop_step_pct:g}% drop"
         else:
             break
 
         rungs.append(
             {
-                "id": f"ma-{source}" if "below prior rung" not in source else f"rung-drop-{i}",
+                "id": f"ma-{source}" if "drop" not in source else f"rung-drop-{i}",
                 "source": source,
                 "level": round(level, 4),
                 "multiplier": mult,
@@ -110,7 +110,7 @@ def extend_with_drop_cascade(base_rungs: list[dict], price: float, cap_multiplie
         extra.append(
             {
                 "id": f"below-ladder-drop-{i}",
-                "source": f"{drop_step_pct:g}% below lowest rung, step {i + 1}",
+                "source": f"{drop_step_pct:g}% drop #{i + 1}",
                 "level": round(level, 4),
                 "multiplier": cap_multiplier,
             }

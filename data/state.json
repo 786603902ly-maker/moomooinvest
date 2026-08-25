@@ -98,13 +98,13 @@
           "id": "rung-drop-1",
           "level": 226.2424,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 214.9303,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -119,13 +119,13 @@
           "id": "rung-drop-1",
           "level": 226.2424,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 214.9303,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -233,7 +233,7 @@
           "id": "below-ladder-drop-0",
           "level": 73.7572,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -241,7 +241,7 @@
           "id": "below-ladder-drop-1",
           "level": 70.0694,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -249,7 +249,7 @@
           "id": "below-ladder-drop-2",
           "level": 66.5659,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -257,7 +257,7 @@
           "id": "below-ladder-drop-3",
           "level": 63.2376,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         }
       ],
       "full_ladder_today": [
@@ -271,31 +271,31 @@
           "id": "below-ladder-drop-0",
           "level": 73.7572,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 70.0694,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
           "level": 66.5659,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
           "level": 63.2376,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
           "level": 60.0757,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         }
       ],
       "is_etf": false,
@@ -331,7 +331,7 @@
           "id": "below-ladder-drop-0",
           "level": 73.7572,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -339,7 +339,7 @@
           "id": "below-ladder-drop-1",
           "level": 70.0694,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -347,7 +347,7 @@
           "id": "below-ladder-drop-2",
           "level": 66.5659,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -355,14 +355,14 @@
           "id": "below-ladder-drop-3",
           "level": 63.2376,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-4",
         "level": 60.0757,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 5"
+        "source": "5% drop #5"
       },
       "period": {
         "key": "2026-08",
@@ -419,7 +419,7 @@
           "id": "rung-drop-2",
           "level": 354.2048,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -440,7 +440,7 @@
           "id": "rung-drop-2",
           "level": 354.2048,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -474,7 +474,7 @@
         "id": "rung-drop-2",
         "level": 354.2048,
         "multiplier": 2.0,
-        "source": "5% below prior rung"
+        "source": "5% drop"
       },
       "period": {
         "key": "2026-W35",
@@ -565,7 +565,7 @@
           "id": "below-ladder-drop-0",
           "level": 159.1671,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -573,7 +573,7 @@
           "id": "below-ladder-drop-1",
           "level": 151.2087,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         }
       ],
       "full_ladder_today": [
@@ -587,19 +587,19 @@
           "id": "below-ladder-drop-0",
           "level": 159.1671,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 151.2087,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
           "level": 143.6483,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         }
       ],
       "is_etf": false,
@@ -635,7 +635,7 @@
           "id": "below-ladder-drop-0",
           "level": 159.1671,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -643,14 +643,14 @@
           "id": "below-ladder-drop-1",
           "level": 151.2087,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-2",
         "level": 143.6483,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 3"
+        "source": "5% drop #3"
       },
       "period": {
         "key": "2026-08",
@@ -684,13 +684,13 @@
           "id": "rung-drop-1",
           "level": 101.1883,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 96.1289,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -705,13 +705,13 @@
           "id": "rung-drop-1",
           "level": 101.1883,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 96.1289,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -764,7 +764,7 @@
           "id": "below-ladder-drop-0",
           "level": 35.6979,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         }
       ],
       "full_ladder_today": [
@@ -778,13 +778,13 @@
           "id": "below-ladder-drop-0",
           "level": 35.6979,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 33.913,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         }
       ],
       "is_etf": true,
@@ -820,14 +820,14 @@
           "id": "below-ladder-drop-0",
           "level": 35.6979,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-1",
         "level": 33.913,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 2"
+        "source": "5% drop #2"
       },
       "period": {
         "key": "2026-08",
@@ -864,7 +864,7 @@
           "id": "rung-drop-2",
           "level": 299.6242,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -885,7 +885,7 @@
           "id": "rung-drop-2",
           "level": 299.6242,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -939,7 +939,7 @@
           "id": "below-ladder-drop-0",
           "level": 4.2495,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -947,7 +947,7 @@
           "id": "below-ladder-drop-1",
           "level": 4.0371,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -955,7 +955,7 @@
           "id": "below-ladder-drop-2",
           "level": 3.8352,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -963,7 +963,7 @@
           "id": "below-ladder-drop-3",
           "level": 3.6434,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         }
       ],
       "full_ladder_today": [
@@ -977,31 +977,31 @@
           "id": "below-ladder-drop-0",
           "level": 4.2495,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 4.0371,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
           "level": 3.8352,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
           "level": 3.6434,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
           "level": 3.4613,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         }
       ],
       "is_etf": false,
@@ -1037,7 +1037,7 @@
           "id": "below-ladder-drop-0",
           "level": 4.2495,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -1045,7 +1045,7 @@
           "id": "below-ladder-drop-1",
           "level": 4.0371,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -1053,7 +1053,7 @@
           "id": "below-ladder-drop-2",
           "level": 3.8352,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -1061,14 +1061,14 @@
           "id": "below-ladder-drop-3",
           "level": 3.6434,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-4",
         "level": 3.4613,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 5"
+        "source": "5% drop #5"
       },
       "period": {
         "key": "2026-08",
@@ -1105,7 +1105,7 @@
           "id": "below-ladder-drop-0",
           "level": 31.6798,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         }
       ],
       "full_ladder_today": [
@@ -1119,13 +1119,13 @@
           "id": "below-ladder-drop-0",
           "level": 31.6798,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 30.0958,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         }
       ],
       "is_etf": false,
@@ -1161,14 +1161,14 @@
           "id": "below-ladder-drop-0",
           "level": 31.6798,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-1",
         "level": 30.0958,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 2"
+        "source": "5% drop #2"
       },
       "period": {
         "key": "2026-08",
@@ -1201,13 +1201,13 @@
           "id": "rung-drop-1",
           "level": 88.1726,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 83.7639,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": true,
@@ -1222,13 +1222,13 @@
           "id": "rung-drop-1",
           "level": 88.1726,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 83.7639,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -1282,7 +1282,7 @@
           "id": "rung-drop-2",
           "level": 218.292,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -1303,7 +1303,7 @@
           "id": "rung-drop-2",
           "level": 218.292,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -1357,7 +1357,7 @@
           "id": "rung-drop-1",
           "level": 585.7763,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "full_ladder_today": [
@@ -1371,13 +1371,13 @@
           "id": "rung-drop-1",
           "level": 585.7763,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 556.4875,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -1392,13 +1392,13 @@
           "id": "rung-drop-1",
           "level": 585.7763,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 556.4875,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -1425,14 +1425,14 @@
           "id": "rung-drop-1",
           "level": 585.7763,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "next_rung": {
         "id": "rung-drop-2",
         "level": 556.4875,
         "multiplier": 2.0,
-        "source": "5% below prior rung"
+        "source": "5% drop"
       },
       "period": {
         "key": "2026-B17",
@@ -1520,13 +1520,13 @@
           "id": "rung-drop-1",
           "level": 409.6188,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 389.1379,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -1541,13 +1541,13 @@
           "id": "rung-drop-1",
           "level": 409.6188,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 389.1379,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -1601,7 +1601,7 @@
           "id": "below-ladder-drop-0",
           "level": 168.9496,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -1609,7 +1609,7 @@
           "id": "below-ladder-drop-1",
           "level": 160.5021,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -1617,7 +1617,7 @@
           "id": "below-ladder-drop-2",
           "level": 152.477,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -1625,7 +1625,7 @@
           "id": "below-ladder-drop-3",
           "level": 144.8532,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "amount": 1200.0,
@@ -1633,7 +1633,7 @@
           "id": "below-ladder-drop-4",
           "level": 137.6105,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         },
         {
           "amount": 1200.0,
@@ -1641,7 +1641,7 @@
           "id": "below-ladder-drop-5",
           "level": 130.73,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 6"
+          "source": "5% drop #6"
         },
         {
           "amount": 1200.0,
@@ -1649,7 +1649,7 @@
           "id": "below-ladder-drop-6",
           "level": 124.1935,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 7"
+          "source": "5% drop #7"
         }
       ],
       "full_ladder_today": [
@@ -1663,49 +1663,49 @@
           "id": "below-ladder-drop-0",
           "level": 168.9496,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 160.5021,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
           "level": 152.477,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
           "level": 144.8532,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
           "level": 137.6105,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         },
         {
           "id": "below-ladder-drop-5",
           "level": 130.73,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 6"
+          "source": "5% drop #6"
         },
         {
           "id": "below-ladder-drop-6",
           "level": 124.1935,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 7"
+          "source": "5% drop #7"
         },
         {
           "id": "below-ladder-drop-7",
           "level": 117.9838,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 8"
+          "source": "5% drop #8"
         }
       ],
       "is_etf": false,
@@ -1741,7 +1741,7 @@
           "id": "below-ladder-drop-0",
           "level": 168.9496,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -1749,7 +1749,7 @@
           "id": "below-ladder-drop-1",
           "level": 160.5021,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -1757,7 +1757,7 @@
           "id": "below-ladder-drop-2",
           "level": 152.477,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -1765,7 +1765,7 @@
           "id": "below-ladder-drop-3",
           "level": 144.8532,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "amount": 1200.0,
@@ -1773,7 +1773,7 @@
           "id": "below-ladder-drop-4",
           "level": 137.6105,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         },
         {
           "amount": 1200.0,
@@ -1781,7 +1781,7 @@
           "id": "below-ladder-drop-5",
           "level": 130.73,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 6"
+          "source": "5% drop #6"
         },
         {
           "amount": 1200.0,
@@ -1789,14 +1789,14 @@
           "id": "below-ladder-drop-6",
           "level": 124.1935,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 7"
+          "source": "5% drop #7"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-7",
         "level": 117.9838,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 8"
+        "source": "5% drop #8"
       },
       "period": {
         "key": "2026-08",
@@ -1890,7 +1890,7 @@
           "id": "rung-drop-2",
           "level": 133.6634,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -1911,7 +1911,7 @@
           "id": "rung-drop-2",
           "level": 133.6634,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -1971,7 +1971,7 @@
           "id": "below-ladder-drop-0",
           "level": 14.3507,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         }
       ],
       "is_etf": false,
@@ -2006,7 +2006,7 @@
         "id": "below-ladder-drop-0",
         "level": 14.3507,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 1"
+        "source": "5% drop #1"
       },
       "period": {
         "key": "2026-08",
@@ -2040,13 +2040,13 @@
           "id": "rung-drop-1",
           "level": 197.2878,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 187.4235,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -2061,13 +2061,13 @@
           "id": "rung-drop-1",
           "level": 197.2878,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 187.4235,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -2178,7 +2178,7 @@
           "id": "rung-drop-2",
           "level": 134.1518,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -2199,7 +2199,7 @@
           "id": "rung-drop-2",
           "level": 134.1518,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -2323,7 +2323,7 @@
           "id": "below-ladder-drop-0",
           "level": 70.388,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         }
       ],
       "full_ladder_today": [
@@ -2349,13 +2349,13 @@
           "id": "below-ladder-drop-0",
           "level": 70.388,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 66.8686,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         }
       ],
       "is_etf": false,
@@ -2419,14 +2419,14 @@
           "id": "below-ladder-drop-0",
           "level": 70.388,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-1",
         "level": 66.8686,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 2"
+        "source": "5% drop #2"
       },
       "period": {
         "key": "2026-08",
@@ -2463,7 +2463,7 @@
           "id": "below-ladder-drop-0",
           "level": 20.7666,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -2471,7 +2471,7 @@
           "id": "below-ladder-drop-1",
           "level": 19.7283,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -2479,7 +2479,7 @@
           "id": "below-ladder-drop-2",
           "level": 18.7419,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         }
       ],
       "full_ladder_today": [
@@ -2493,25 +2493,25 @@
           "id": "below-ladder-drop-0",
           "level": 20.7666,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 19.7283,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
           "level": 18.7419,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
           "level": 17.8048,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         }
       ],
       "is_etf": false,
@@ -2547,7 +2547,7 @@
           "id": "below-ladder-drop-0",
           "level": 20.7666,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -2555,7 +2555,7 @@
           "id": "below-ladder-drop-1",
           "level": 19.7283,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -2563,14 +2563,14 @@
           "id": "below-ladder-drop-2",
           "level": 18.7419,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-3",
         "level": 17.8048,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 4"
+        "source": "5% drop #4"
       },
       "period": {
         "key": "2026-08",
@@ -2607,7 +2607,7 @@
           "id": "below-ladder-drop-0",
           "level": 385.0418,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -2615,7 +2615,7 @@
           "id": "below-ladder-drop-1",
           "level": 365.7897,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         }
       ],
       "full_ladder_today": [
@@ -2629,19 +2629,19 @@
           "id": "below-ladder-drop-0",
           "level": 385.0418,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 365.7897,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
           "level": 347.5003,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         }
       ],
       "is_etf": false,
@@ -2677,7 +2677,7 @@
           "id": "below-ladder-drop-0",
           "level": 385.0418,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -2685,14 +2685,14 @@
           "id": "below-ladder-drop-1",
           "level": 365.7897,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-2",
         "level": 347.5003,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 3"
+        "source": "5% drop #3"
       },
       "period": {
         "key": "2026-08",
@@ -2735,13 +2735,13 @@
           "id": "rung-drop-1",
           "level": 403.7041,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 383.5189,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": false,
@@ -2756,13 +2756,13 @@
           "id": "rung-drop-1",
           "level": 403.7041,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 383.5189,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
@@ -2788,7 +2788,7 @@
         "id": "rung-drop-1",
         "level": 403.7041,
         "multiplier": 1.5,
-        "source": "5% below prior rung"
+        "source": "5% drop"
       },
       "period": {
         "key": "2026-W35",
@@ -2879,7 +2879,7 @@
           "id": "below-ladder-drop-0",
           "level": 22.9168,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -2887,7 +2887,7 @@
           "id": "below-ladder-drop-1",
           "level": 21.7709,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -2895,7 +2895,7 @@
           "id": "below-ladder-drop-2",
           "level": 20.6824,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -2903,7 +2903,7 @@
           "id": "below-ladder-drop-3",
           "level": 19.6483,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "amount": 1200.0,
@@ -2911,7 +2911,7 @@
           "id": "below-ladder-drop-4",
           "level": 18.6658,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         },
         {
           "amount": 1200.0,
@@ -2919,7 +2919,7 @@
           "id": "below-ladder-drop-5",
           "level": 17.7325,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 6"
+          "source": "5% drop #6"
         },
         {
           "amount": 1200.0,
@@ -2927,7 +2927,7 @@
           "id": "below-ladder-drop-6",
           "level": 16.8459,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 7"
+          "source": "5% drop #7"
         },
         {
           "amount": 1200.0,
@@ -2935,7 +2935,7 @@
           "id": "below-ladder-drop-7",
           "level": 16.0036,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 8"
+          "source": "5% drop #8"
         },
         {
           "amount": 1200.0,
@@ -2943,7 +2943,7 @@
           "id": "below-ladder-drop-8",
           "level": 15.2034,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 9"
+          "source": "5% drop #9"
         },
         {
           "amount": 1200.0,
@@ -2951,7 +2951,7 @@
           "id": "below-ladder-drop-9",
           "level": 14.4433,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 10"
+          "source": "5% drop #10"
         },
         {
           "amount": 1200.0,
@@ -2959,7 +2959,7 @@
           "id": "below-ladder-drop-10",
           "level": 13.7211,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 11"
+          "source": "5% drop #11"
         },
         {
           "amount": 1200.0,
@@ -2967,7 +2967,7 @@
           "id": "below-ladder-drop-11",
           "level": 13.0351,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 12"
+          "source": "5% drop #12"
         },
         {
           "amount": 1200.0,
@@ -2975,7 +2975,7 @@
           "id": "below-ladder-drop-12",
           "level": 12.3833,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 13"
+          "source": "5% drop #13"
         },
         {
           "amount": 1200.0,
@@ -2983,7 +2983,7 @@
           "id": "below-ladder-drop-13",
           "level": 11.7641,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 14"
+          "source": "5% drop #14"
         },
         {
           "amount": 1200.0,
@@ -2991,7 +2991,7 @@
           "id": "below-ladder-drop-14",
           "level": 11.1759,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 15"
+          "source": "5% drop #15"
         }
       ],
       "full_ladder_today": [
@@ -3005,97 +3005,97 @@
           "id": "below-ladder-drop-0",
           "level": 22.9168,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
           "level": 21.7709,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
           "level": 20.6824,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
           "level": 19.6483,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
           "level": 18.6658,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         },
         {
           "id": "below-ladder-drop-5",
           "level": 17.7325,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 6"
+          "source": "5% drop #6"
         },
         {
           "id": "below-ladder-drop-6",
           "level": 16.8459,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 7"
+          "source": "5% drop #7"
         },
         {
           "id": "below-ladder-drop-7",
           "level": 16.0036,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 8"
+          "source": "5% drop #8"
         },
         {
           "id": "below-ladder-drop-8",
           "level": 15.2034,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 9"
+          "source": "5% drop #9"
         },
         {
           "id": "below-ladder-drop-9",
           "level": 14.4433,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 10"
+          "source": "5% drop #10"
         },
         {
           "id": "below-ladder-drop-10",
           "level": 13.7211,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 11"
+          "source": "5% drop #11"
         },
         {
           "id": "below-ladder-drop-11",
           "level": 13.0351,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 12"
+          "source": "5% drop #12"
         },
         {
           "id": "below-ladder-drop-12",
           "level": 12.3833,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 13"
+          "source": "5% drop #13"
         },
         {
           "id": "below-ladder-drop-13",
           "level": 11.7641,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 14"
+          "source": "5% drop #14"
         },
         {
           "id": "below-ladder-drop-14",
           "level": 11.1759,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 15"
+          "source": "5% drop #15"
         },
         {
           "id": "below-ladder-drop-15",
           "level": 10.6171,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 16"
+          "source": "5% drop #16"
         }
       ],
       "is_etf": false,
@@ -3131,7 +3131,7 @@
           "id": "below-ladder-drop-0",
           "level": 22.9168,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 1"
+          "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
@@ -3139,7 +3139,7 @@
           "id": "below-ladder-drop-1",
           "level": 21.7709,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 2"
+          "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
@@ -3147,7 +3147,7 @@
           "id": "below-ladder-drop-2",
           "level": 20.6824,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 3"
+          "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
@@ -3155,7 +3155,7 @@
           "id": "below-ladder-drop-3",
           "level": 19.6483,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 4"
+          "source": "5% drop #4"
         },
         {
           "amount": 1200.0,
@@ -3163,7 +3163,7 @@
           "id": "below-ladder-drop-4",
           "level": 18.6658,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 5"
+          "source": "5% drop #5"
         },
         {
           "amount": 1200.0,
@@ -3171,7 +3171,7 @@
           "id": "below-ladder-drop-5",
           "level": 17.7325,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 6"
+          "source": "5% drop #6"
         },
         {
           "amount": 1200.0,
@@ -3179,7 +3179,7 @@
           "id": "below-ladder-drop-6",
           "level": 16.8459,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 7"
+          "source": "5% drop #7"
         },
         {
           "amount": 1200.0,
@@ -3187,7 +3187,7 @@
           "id": "below-ladder-drop-7",
           "level": 16.0036,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 8"
+          "source": "5% drop #8"
         },
         {
           "amount": 1200.0,
@@ -3195,7 +3195,7 @@
           "id": "below-ladder-drop-8",
           "level": 15.2034,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 9"
+          "source": "5% drop #9"
         },
         {
           "amount": 1200.0,
@@ -3203,7 +3203,7 @@
           "id": "below-ladder-drop-9",
           "level": 14.4433,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 10"
+          "source": "5% drop #10"
         },
         {
           "amount": 1200.0,
@@ -3211,7 +3211,7 @@
           "id": "below-ladder-drop-10",
           "level": 13.7211,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 11"
+          "source": "5% drop #11"
         },
         {
           "amount": 1200.0,
@@ -3219,7 +3219,7 @@
           "id": "below-ladder-drop-11",
           "level": 13.0351,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 12"
+          "source": "5% drop #12"
         },
         {
           "amount": 1200.0,
@@ -3227,7 +3227,7 @@
           "id": "below-ladder-drop-12",
           "level": 12.3833,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 13"
+          "source": "5% drop #13"
         },
         {
           "amount": 1200.0,
@@ -3235,7 +3235,7 @@
           "id": "below-ladder-drop-13",
           "level": 11.7641,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 14"
+          "source": "5% drop #14"
         },
         {
           "amount": 1200.0,
@@ -3243,14 +3243,14 @@
           "id": "below-ladder-drop-14",
           "level": 11.1759,
           "multiplier": 2.0,
-          "source": "5% below lowest rung, step 15"
+          "source": "5% drop #15"
         }
       ],
       "next_rung": {
         "id": "below-ladder-drop-15",
         "level": 10.6171,
         "multiplier": 2.0,
-        "source": "5% below lowest rung, step 16"
+        "source": "5% drop #16"
       },
       "period": {
         "key": "2026-08",
@@ -3283,13 +3283,13 @@
           "id": "rung-drop-1",
           "level": 145.328,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 138.0616,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "is_etf": true,
@@ -3304,13 +3304,13 @@
           "id": "rung-drop-1",
           "level": 145.328,
           "multiplier": 1.5,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
           "level": 138.0616,
           "multiplier": 2.0,
-          "source": "5% below prior rung"
+          "source": "5% drop"
         }
       ],
       "mas": {
