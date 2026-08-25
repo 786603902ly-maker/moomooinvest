@@ -442,7 +442,9 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     price = s.get("display_price", s.get("price"))
     fired = s.get("fired_this_period", []) or []
     fired_by_id = {f["id"]: f for f in fired}
-    base_amount = (rules.get("tiers", {}).get(tier) or {}).get("base_amount")
+    tier_cfg = rules.get("tiers", {}).get(tier) or {}
+    base_amount = tier_cfg.get("base_amount")
+    is_single_trigger = len(tier_cfg.get("ma_ladder", [])) == 1
     has_open = len(fired) > 0
     ticker_notes = (rung_notes or {}).get(ticker) or {}
 
@@ -469,20 +471,39 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     # visible up front, not just what's already triggered.
     ladder = s.get("ladder", []) or []
     ladder_ids = {r["id"] for r in ladder}
-    plan_rows = []
-    for rung in ladder:
-        note = ticker_notes.get(rung["id"])
-        fired_entry = fired_by_id.get(rung["id"])
-        if fired_entry:
-            plan_rows.append(render_rung(ticker, tier, fired_entry, True, note=note))
-        else:
-            preview = dict(rung)
+    next_rung = s.get("next_rung")
+
+    if is_single_trigger:
+        # T5/T9 are deliberately single-trigger: show just the one live
+        # target (the MA level, or -- once that's fired -- wherever the
+        # drop cascade currently sits) instead of every cascade step ever
+        # fired, which used to blow the card up into a wall of rungs.
+        if next_rung:
+            note = ticker_notes.get(next_rung["id"])
+            preview = dict(next_rung)
             if base_amount is not None:
-                preview["amount"] = round(base_amount * rung["multiplier"], 2)
-            plan_rows.append(render_rung(ticker, tier, preview, False, extra_cls="pending", price=price, note=note))
-    extra_fired = [f for f in fired if f["id"] not in ladder_ids]
-    plan_rows += [render_rung(ticker, tier, f, True, note=ticker_notes.get(f["id"])) for f in extra_fired]
-    rungs_html = "".join(plan_rows)
+                preview["amount"] = round(base_amount * next_rung["multiplier"], 2)
+            rungs_html = render_rung(ticker, tier, preview, False, extra_cls="pending", price=price, note=note)
+        elif fired:
+            last_fired = fired[-1]
+            rungs_html = render_rung(ticker, tier, last_fired, True, note=ticker_notes.get(last_fired["id"]))
+        else:
+            rungs_html = ""
+    else:
+        plan_rows = []
+        for rung in ladder:
+            note = ticker_notes.get(rung["id"])
+            fired_entry = fired_by_id.get(rung["id"])
+            if fired_entry:
+                plan_rows.append(render_rung(ticker, tier, fired_entry, True, note=note))
+            else:
+                preview = dict(rung)
+                if base_amount is not None:
+                    preview["amount"] = round(base_amount * rung["multiplier"], 2)
+                plan_rows.append(render_rung(ticker, tier, preview, False, extra_cls="pending", price=price, note=note))
+        extra_fired = [f for f in fired if f["id"] not in ladder_ids]
+        plan_rows += [render_rung(ticker, tier, f, True, note=ticker_notes.get(f["id"])) for f in extra_fired]
+        rungs_html = "".join(plan_rows)
 
     fired_custom_ids = {f["id"] for f in (s.get("fired_custom") or [])}
     custom_html = ""
@@ -495,10 +516,12 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
 
     # Only surface "Next" separately when it's a below-the-ladder cascade
     # projection not already shown as a pending rung above (avoids showing
-    # the same level twice).
-    next_rung = s.get("next_rung")
+    # the same level twice). Single-trigger tiers already show that
+    # projection as their one rung, so they never need this line.
     next_html = ""
-    if next_rung and price and next_rung["id"] not in ladder_ids:
+    if is_single_trigger:
+        pass
+    elif next_rung and price and next_rung["id"] not in ladder_ids:
         dist = (next_rung["level"] - price) / price * 100 if price else None
         dist_txt = f" ({dist:+.1f}% away)" if dist is not None else ""
         next_html = f'<div class="next-hint">Next: {next_rung["source"]} at {fmt_price(next_rung["level"])} ×{next_rung["multiplier"]}{dist_txt}</div>'
