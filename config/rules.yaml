@@ -2,16 +2,19 @@
 #
 # How the ladder works (see README.md for full explanation):
 #  - Each tier has a set of MA (moving average) periods to watch.
-#  - Once per "period" (weekly for T1, monthly for T2+), the current value of
-#    each MA in the tier's set is looked up and the MAs are sorted by VALUE,
-#    highest first -- NOT by their period label. That sorted order becomes the
-#    tier's ladder for the period: rung 1 = highest value = multiplier x1,
-#    rung 2 = next highest = multiplier x1.5, rung 3 (if present) = lowest =
-#    multiplier x2 (the cap).
-#  - If any two adjacent rungs in that sorted ladder are within
-#    cluster_merge_pct of each other, the whole ladder is discarded for that
-#    stock/period and replaced with a clean drop_step_pct cascade starting
-#    from the highest rung's value instead (rule 5).
+#  - Once per "period" (weekly for T1, biweekly for T2, monthly for T3+),
+#    the current value of each MA in the tier's set is looked up. MAs within
+#    cluster_merge_pct of each other are treated as ONE support level (their
+#    average) -- e.g. MA60 and MA100 sitting 1% apart isn't two separate buy
+#    points, it's the market agreeing on one support.
+#  - Rung 1 = the highest support level, multiplier x1. Each further rung is
+#    whichever is LOWER of (a) the next real support level below the prior
+#    rung, or (b) the prior rung minus drop_step_pct -- so a rung is only
+#    ever a real MA support when that support is already at least
+#    drop_step_pct further down; otherwise it's a plain drop_step_pct step.
+#    This guarantees every rung is a genuine deeper support, never a near-
+#    duplicate of the one above it. Multipliers step x1 -> x1.5 -> x2 (cap)
+#    across however many rungs this produces.
 #  - If price falls through the lowest rung of the ladder, further trigger
 #    points are generated every drop_step_pct below that, capped at
 #    cap_multiplier (rule 3).
@@ -25,7 +28,7 @@
 currency: SGD
 cap_multiplier: 2.0
 drop_step_pct: 5.0
-cluster_merge_pct: 1.5
+cluster_merge_pct: 3.0
 step_multipliers: [1.0, 1.5, 2.0]
 
 tiers:

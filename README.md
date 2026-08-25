@@ -67,15 +67,28 @@ shows what's hit and lets you tick off what you've actually invested in.
 ## The rule engine (`scripts/engine.py`)
 
 For each tier, a fixed set of MA periods is watched (`config/rules.yaml`).
-Once per refresh period (weekly for T1, monthly for T2 and below — rule 4),
-those MAs' current values are sorted **by value, not by label** (rule 2) to
-build that period's ladder: highest value = first rung = ×1, next = ×1.5,
-lowest = ×2 (the cap, rule 1). Within the period, each rung fires once; a
-new period resets all of them even if price never recovered (rule 4). If two
-adjacent rungs are within 1.5% of each other, the whole ladder is replaced
-with a clean 5%-drop cascade from the top instead (rule 5). If price falls
-through the lowest rung, further trigger points are generated every 5% below
-that, still capped at ×2 per trigger (rule 3).
+Once per refresh period (weekly for T1, biweekly for T2, monthly for T3 and
+below), those MAs' current values are looked up and turned into that
+period's ladder as follows, aimed at genuinely spaced-out support levels
+rather than blindly following whichever MAs happen to be configured:
+
+1. **Merge near-duplicate MAs into one support.** MAs within
+   `cluster_merge_pct` (3%) of each other are averaged into a single support
+   level — two MAs a percent or two apart isn't two buy points, it's the
+   market agreeing on one support.
+2. **Rung 1 = the highest support**, multiplier ×1.
+3. **Each further rung = whichever is lower of** (a) the next real support
+   level below the prior rung, or (b) the prior rung minus `drop_step_pct`
+   (5%). A real MA support only becomes a rung when it's already at least
+   5% below the one above it; otherwise that step is a plain 5% drop
+   instead. This guarantees rungs are never bunched close together, and a
+   rung is always a genuinely deeper level than the last, not a near-repeat
+   of it. Multipliers step ×1 → ×1.5 → ×2 (the cap) across however many
+   rungs this produces (fewer than 3 if MAs merged/ran out).
+4. Within a period, each rung fires once; a new period resets all of them
+   even if price never recovered.
+5. If price falls through the lowest rung, further trigger points are
+   generated every 5% below that, still capped at ×2 per trigger.
 
 ## Tiers, as read from your watchlist screenshots
 
@@ -134,6 +147,33 @@ Use it to sanity-check whether a stock's tier / MA-ladder assignment still
 matches how cheap or expensive it actually looks — e.g. if a stock you put
 in T3 (slow accumulation) is sitting 35%+ under fair value, that's a signal
 its tier might deserve reconsidering.
+
+## Rung notes: annotate a specific price level, roundtrip through chat
+
+Under every rung on the dashboard (fired or pending) there's now a small
+text field where you can type a note directly — reasoning, conviction,
+"wait for X to confirm", whatever. These are **purely informational**, not
+a trigger mechanism (see Custom targets below for that):
+
+- Typing into a note field saves it to your browser's `localStorage`
+  immediately, same mechanism as the tick log — per-device, not synced.
+- **"Download my notes"** (next to Export CSV) exports every note you've
+  typed as a Markdown file, one section per rung, each carrying a `key`
+  like `NVDA|ma-60+100`.
+- To make notes visible on every device (not just the one you typed them
+  on), upload that Markdown file into a chat with Claude — it reads the
+  file and writes the notes into `config/rung_notes.yaml` (`ticker: {
+  rung_id: "note text" }`), which `build_dashboard.py` then renders as the
+  default value of each note field on every future rebuild. You don't have
+  to use the download/upload round trip either — just tell Claude in plain
+  English which stock/level you mean and what to write, and it'll edit
+  `config/rung_notes.yaml` directly.
+- If a note implies you actually want an alert at a specific price, say so
+  explicitly — notes alone don't create one; that's what Custom targets
+  (below) are for. The eventual goal is for Claude to learn your reasoning
+  patterns from accumulated notes well enough to weigh in on tier/ladder
+  judgment calls on its own — the notes round trip is the first concrete
+  step toward that, not the whole thing yet.
 
 ## Custom targets: your own buy levels, layered on top of the ladder
 

@@ -15,6 +15,7 @@ PRICES_DIR = DATA_DIR / "prices"
 STATE_PATH = DATA_DIR / "state.json"
 STOCKS_PATH = CONFIG_DIR / "stocks.yaml"
 RULES_PATH = CONFIG_DIR / "rules.yaml"
+RUNG_NOTES_PATH = CONFIG_DIR / "rung_notes.yaml"
 
 
 def load_yaml(path: pathlib.Path) -> dict:
@@ -28,6 +29,12 @@ def load_stocks() -> list:
 
 def load_rules() -> dict:
     return load_yaml(RULES_PATH)
+
+
+def load_rung_notes() -> dict:
+    if not RUNG_NOTES_PATH.exists():
+        return {}
+    return load_yaml(RUNG_NOTES_PATH).get("notes") or {}
 
 
 def load_state() -> dict:

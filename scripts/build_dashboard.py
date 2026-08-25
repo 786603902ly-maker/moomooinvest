@@ -9,7 +9,7 @@ import datetime as dt
 import json
 from zoneinfo import ZoneInfo
 
-from common import DATA_DIR, ROOT, load_rules, load_state, load_stocks
+from common import DATA_DIR, ROOT, load_rules, load_rung_notes, load_state, load_stocks
 
 TIER_ORDER = ["T1", "T2", "T3", "T3.5", "T5", "T9"]
 NY = ZoneInfo("America/New_York")
@@ -142,6 +142,14 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
 .rung.custom.done{opacity:.55;}
 .rung.pending{opacity:.68; border-style:dashed;}
 .rung .dist{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
+.rung-wrap{display:flex; flex-direction:column; gap:.15rem;}
+.note-input{
+  width:100%; border:1px dashed var(--border); background:transparent; color:var(--text);
+  border-radius:7px; padding:.3rem .5rem; font-size:.76rem; font-family:var(--font-body);
+  box-sizing:border-box;
+}
+.note-input::placeholder{color:var(--text-muted);}
+.note-input:focus{outline:none; border-color:var(--accent); border-style:solid;}
 .card-sub-title{font-size:.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin-top:.2rem;}
 .tabs{display:flex; gap:.4rem; margin-bottom:1.5rem; border-bottom:1px solid var(--border);}
 .tab-btn{
@@ -194,6 +202,7 @@ table.val-table td.bad{color:var(--bad);}
     <div class="section-title">Action log</div>
     <div class="actions-bar">
       <button class="export" id="export-btn">Export CSV</button>
+      <button class="export" id="export-notes-btn">Download my notes</button>
       <span class="next-hint" id="export-hint"></span>
     </div>
     <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
@@ -291,7 +300,68 @@ async function exportCsv(){
 }
 document.getElementById("export-btn").addEventListener("click", exportCsv);
 
+const NOTES_KEY = "moomooinvest-rung-notes-v1";
+function loadNotes(){ try { return JSON.parse(localStorage.getItem(NOTES_KEY) || "{}"); } catch(e){ return {}; } }
+function saveNotes(n){ localStorage.setItem(NOTES_KEY, JSON.stringify(n)); }
+
+function applyStoredNotes(){
+  const notes = loadNotes();
+  document.querySelectorAll('.note-input').forEach(inp=>{
+    const key = inp.dataset.noteKey;
+    if(Object.prototype.hasOwnProperty.call(notes, key)){ inp.value = notes[key]; }
+  });
+}
+
+document.addEventListener("change", (e)=>{
+  if(!e.target.matches('.note-input')) return;
+  const notes = loadNotes();
+  const key = e.target.dataset.noteKey;
+  const val = e.target.value.trim();
+  if(val){ notes[key] = val; } else { delete notes[key]; }
+  saveNotes(notes);
+});
+
+async function exportNotes(){
+  const rows = [];
+  document.querySelectorAll('.note-input').forEach(inp=>{
+    const val = inp.value.trim();
+    if(!val) return;
+    const card = inp.closest('.card');
+    const ticker = card ? card.dataset.ticker : '';
+    const rungEl = inp.closest('.rung');
+    const lvl = rungEl ? (rungEl.querySelector('.lvl')?.textContent || '') : '';
+    const src = rungEl ? (rungEl.querySelector('.src')?.textContent || '') : '';
+    rows.push({ticker, key: inp.dataset.noteKey, level: lvl, source: src, note: val});
+  });
+  let md = "# My rung notes -- moomooinvest\n\n";
+  md += "Exported " + new Date().toISOString() + ".\n\n";
+  md += "Upload this file into a chat with Claude to persist these into config/rung_notes.yaml -- once there, they show on the dashboard on every device, not just this browser. Notes are informational only (reasoning/conviction on a level); if one implies an actual price you want alerted on, tell Claude explicitly so it can set up a real custom_targets entry instead.\n\n";
+  if(!rows.length){
+    md += "_(no notes yet -- type into any rung's note field on the dashboard, then re-download)_\n";
+  }
+  for(const r of rows){
+    md += `## ${r.ticker} -- ${r.source} @ ${r.level}\n`;
+    md += `(key: \`${r.key}\`)\n\n${r.note}\n\n`;
+  }
+  const downloads = (window.claude && window.claude.use) ? await window.claude.use("downloads") : null;
+  if(downloads){
+    try {
+      await downloads.save({filename: "moomooinvest-rung-notes.md", data: md});
+      document.getElementById("export-hint").textContent = "Saved.";
+      return;
+    } catch(e){ /* fall through to clipboard fallback */ }
+  }
+  try {
+    await navigator.clipboard.writeText(md);
+    document.getElementById("export-hint").textContent = "Downloads unavailable here — copied notes to clipboard instead.";
+  } catch(e){
+    document.getElementById("export-hint").textContent = "Could not export automatically — open browser console to copy notes manually.";
+  }
+}
+document.getElementById("export-notes-btn").addEventListener("click", exportNotes);
+
 applyStoredTicks();
+applyStoredNotes();
 renderLog();
 </script>
 """
@@ -313,7 +383,25 @@ def pill(text: str, cls: str) -> str:
     return f'<span class="pill {cls}">{text}</span>'
 
 
-def render_rung(ticker: str, tier: str, rung: dict, is_open: bool, extra_cls: str = "", price: float | None = None) -> str:
+def html_escape(v: str) -> str:
+    return (
+        str(v)
+        .replace("&", "&amp;")
+        .replace('"', "&quot;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+    )
+
+
+def render_rung(
+    ticker: str,
+    tier: str,
+    rung: dict,
+    is_open: bool,
+    extra_cls: str = "",
+    price: float | None = None,
+    note: str | None = None,
+) -> str:
     status_cls = ("open " + extra_cls).strip() if is_open else extra_cls
     checkbox = ""
     if is_open:
@@ -330,17 +418,25 @@ def render_rung(ticker: str, tier: str, rung: dict, is_open: bool, extra_cls: st
     if not is_open and price and rung.get("level"):
         dist = (rung["level"] - price) / price * 100
         dist_html = f'<span class="dist">{dist:+.1f}% away</span>'
+    note_key = f"{ticker}|{rung.get('id')}"
+    note_input = (
+        f'<input type="text" class="note-input" data-note-key="{html_escape(note_key)}" '
+        f'value="{html_escape(note or "")}" placeholder="add a note: target price / reasoning...">'
+    )
     return (
+        f'<div class="rung-wrap">'
         f'<div class="rung {status_cls}">{checkbox}'
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
         f'<span class="amt">{mult_txt}{" &middot; " + amt if amt else ""}</span>'
         f"{dist_html}"
         f"</div>"
+        f"{note_input}"
+        f"</div>"
     )
 
 
-def render_card(ticker: str, s: dict, rules: dict) -> str:
+def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = None) -> str:
     tier = s.get("tier", "?")
     currency = rules.get("currency", "SGD")
     price = s.get("display_price", s.get("price"))
@@ -348,6 +444,7 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
     fired_by_id = {f["id"]: f for f in fired}
     base_amount = (rules.get("tiers", {}).get(tier) or {}).get("base_amount")
     has_open = len(fired) > 0
+    ticker_notes = (rung_notes or {}).get(ticker) or {}
 
     pills = []
     if not s.get("is_etf") and s.get("vs_target_pct") is not None:
@@ -359,7 +456,7 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
         cls = "good" if v < 0 else "bad"
         pills.append(pill(f'{v:+.1f}% vs fair value', cls))
     if s.get("clustered"):
-        pills.append(pill("MA cluster → 5% cascade", "neutral"))
+        pills.append(pill("2+ MAs merged into one support", "neutral"))
     custom_rungs = s.get("custom_rungs_today") or []
     if custom_rungs:
         pills.append(pill(f'{len(custom_rungs)} your target(s)', "custom"))
@@ -374,16 +471,17 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
     ladder_ids = {r["id"] for r in ladder}
     plan_rows = []
     for rung in ladder:
+        note = ticker_notes.get(rung["id"])
         fired_entry = fired_by_id.get(rung["id"])
         if fired_entry:
-            plan_rows.append(render_rung(ticker, tier, fired_entry, True))
+            plan_rows.append(render_rung(ticker, tier, fired_entry, True, note=note))
         else:
             preview = dict(rung)
             if base_amount is not None:
                 preview["amount"] = round(base_amount * rung["multiplier"], 2)
-            plan_rows.append(render_rung(ticker, tier, preview, False, extra_cls="pending", price=price))
+            plan_rows.append(render_rung(ticker, tier, preview, False, extra_cls="pending", price=price, note=note))
     extra_fired = [f for f in fired if f["id"] not in ladder_ids]
-    plan_rows += [render_rung(ticker, tier, f, True) for f in extra_fired]
+    plan_rows += [render_rung(ticker, tier, f, True, note=ticker_notes.get(f["id"])) for f in extra_fired]
     rungs_html = "".join(plan_rows)
 
     fired_custom_ids = {f["id"] for f in (s.get("fired_custom") or [])}
@@ -426,7 +524,7 @@ def render_card(ticker: str, s: dict, rules: dict) -> str:
     else:
         price_sub = f'<div class="price-date">{s.get("price_date","-")}</div>'
 
-    return f"""<div class="card {'has-open' if has_open else ''}">
+    return f"""<div class="card {'has-open' if has_open else ''}" data-ticker="{ticker}">
   <div class="card-head">
     <div><div class="name">{ticker} <span class="sub">{s.get('name','')}</span></div><div class="sub">{tier} &middot; {period_txt}</div></div>
     <div style="text-align:right;"><div class="price">{fmt_price(price)}</div>{price_sub}</div>
@@ -566,6 +664,7 @@ def build() -> str:
     state = load_state()
     stocks_cfg = {s["ticker"]: s for s in load_stocks()}
     stocks_state = state.get("stocks", {})
+    rung_notes = load_rung_notes()
 
     # Recompute target/fair-value figures from the current config against the
     # last known price, rather than trusting whatever run_check.py baked into
@@ -613,7 +712,7 @@ def build() -> str:
         cards = []
         for ticker in sorted(tickers):
             s = stocks_state.get(ticker, {"tier": tier, "error": "no data yet"})
-            cards.append(render_card(ticker, s, rules))
+            cards.append(render_card(ticker, s, rules, rung_notes))
         sections.append(
             f'<div class="tier-section"><div class="tier-head"><h2>{tier}</h2><span class="meta">{meta}</span></div>'
             f'<div class="cards">{"".join(cards)}</div></div>'
