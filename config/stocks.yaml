@@ -297,9 +297,9 @@ stocks:
     name: Strategy (MicroStrategy)
     tier: T9
     target_price: 257.75
-    fair_value: 81.11
-    fundamentals_updated: "2026-08-22"
-    fundamentals_source: "moomoo (user CSV export)"
+    fair_value: 101.0
+    fundamentals_updated: "2026-08-25"
+    fundamentals_source: "user-provided"
 
   - ticker: VITL
     name: Vital Farms

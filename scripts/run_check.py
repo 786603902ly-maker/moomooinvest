@@ -19,9 +19,12 @@ MA_WINDOWS = [60, 100, 150, 200, 250]
 
 
 def pct_diff(price: float, ref: float | None) -> float | None:
-    if ref is None or ref == 0:
+    """Upside (positive) or downside (negative) from the current price to
+    a reference (target/fair value), e.g. price 360 vs fair value 650 is
+    +80.6% -- 80.6% upside if it reaches fair value."""
+    if ref is None or price == 0:
         return None
-    return round((price - ref) / ref * 100, 2)
+    return round((ref - price) / price * 100, 2)
 
 
 def main() -> int:

@@ -104,6 +104,7 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 .pill.good{background:var(--good-soft); color:var(--good);}
 .pill.bad{background:var(--bad-soft); color:var(--bad);}
 .pill.neutral{background:var(--surface-2); color:var(--text-muted);}
+.valuation-line{color:var(--text-muted); font-size:.74rem;}
 .rungs{display:flex; flex-direction:column; gap:.35rem; margin-top:.15rem;}
 .rung{
   display:flex; align-items:center; gap:.55rem; border:1px solid var(--border);
@@ -451,12 +452,20 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     pills = []
     if not s.get("is_etf") and s.get("vs_target_pct") is not None:
         v = s["vs_target_pct"]
-        cls = "good" if v < 0 else "bad"
+        cls = "good" if v > 0 else "bad"
         pills.append(pill(f'{v:+.1f}% vs target', cls))
     if not s.get("is_etf") and s.get("vs_fair_value_pct") is not None:
         v = s["vs_fair_value_pct"]
-        cls = "good" if v < 0 else "bad"
+        cls = "good" if v > 0 else "bad"
         pills.append(pill(f'{v:+.1f}% vs fair value', cls))
+    valuation_line = ""
+    if not s.get("is_etf") and (s.get("target_price") is not None or s.get("fair_value") is not None):
+        parts = []
+        if s.get("target_price") is not None:
+            parts.append(f"Target {fmt_price(s.get('target_price'))}")
+        if s.get("fair_value") is not None:
+            parts.append(f"Fair value {fmt_price(s.get('fair_value'))}")
+        valuation_line = f'<div class="valuation-line">{" &middot; ".join(parts)}</div>'
     if s.get("clustered"):
         pills.append(pill("2+ MAs merged into one support", "neutral"))
     custom_rungs = s.get("custom_rungs_today") or []
@@ -553,6 +562,7 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     <div style="text-align:right;"><div class="price">{fmt_price(price)}</div>{price_sub}</div>
   </div>
   <div class="pills">{''.join(pills)}</div>
+  {valuation_line}
   <div class="ma-strip">{ma_strip}</div>
   <div class="rungs">{rungs_html if rungs_html else '<div class="next-hint">No ladder available (missing MA data).</div>'}</div>
   {next_html}
@@ -562,9 +572,12 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
 
 
 def pct_diff(price: float | None, ref: float | None) -> float | None:
-    if price is None or ref is None or ref == 0:
+    """Upside (positive) or downside (negative) from the current price to
+    a reference (target/fair value), e.g. price 360 vs fair value 650 is
+    +80.6% -- 80.6% upside if it reaches fair value."""
+    if price is None or ref is None or price == 0:
         return None
-    return round((price - ref) / ref * 100, 2)
+    return round((ref - price) / price * 100, 2)
 
 
 def collect_valuation_rows(stocks_cfg: dict, stocks_state: dict, tiers: set) -> list[dict]:
@@ -604,9 +617,9 @@ def render_val_row(s: dict, max_abs: float) -> str:
   <div class="val-track"><div class="zero"></div></div>
   <div class="val-pct" style="color:var(--text-muted)">pending</div>
 </div>"""
-    cls = "good" if pct < 0 else "bad"
+    cls = "good" if pct > 0 else "bad"
     half_pct = min(abs(pct) / max_abs * 50, 50) if max_abs else 0
-    if pct < 0:
+    if pct > 0:
         style = f"right:50%; width:{half_pct:.2f}%;"
     else:
         style = f"left:50%; width:{half_pct:.2f}%;"
@@ -619,8 +632,8 @@ def render_val_row(s: dict, max_abs: float) -> str:
 
 def render_val_table_row(s: dict) -> str:
     tp, fp = s["vs_target_pct"], s["vs_fair_value_pct"]
-    tp_txt = f'<td class="{"good" if tp < 0 else "bad"}">{tp:+.1f}%</td>' if tp is not None else '<td style="color:var(--text-muted)">pending</td>'
-    fp_txt = f'<td class="{"good" if fp < 0 else "bad"}">{fp:+.1f}%</td>' if fp is not None else '<td style="color:var(--text-muted)">pending</td>'
+    tp_txt = f'<td class="{"good" if tp > 0 else "bad"}">{tp:+.1f}%</td>' if tp is not None else '<td style="color:var(--text-muted)">pending</td>'
+    fp_txt = f'<td class="{"good" if fp > 0 else "bad"}">{fp:+.1f}%</td>' if fp is not None else '<td style="color:var(--text-muted)">pending</td>'
     return (
         f"<tr><td>{s['ticker']} <span style='color:var(--text-muted)'>{s.get('name','')}</span></td>"
         f"<td>{s.get('tier','')}</td>"
@@ -635,7 +648,7 @@ def render_val_table_row(s: dict) -> str:
 def render_valuation_section(title: str, note: str, rows: list[dict]) -> str:
     if not rows:
         return ""
-    rows = sorted(rows, key=lambda s: (s["vs_fair_value_pct"] is None, s["vs_fair_value_pct"]))
+    rows = sorted(rows, key=lambda s: (s["vs_fair_value_pct"] is None, -(s["vs_fair_value_pct"] or 0)))
     available = [s["vs_fair_value_pct"] for s in rows if s["vs_fair_value_pct"] is not None]
     max_abs = max((abs(v) for v in available), default=1.0) or 1.0
 
