@@ -8,66 +8,92 @@ import datetime as dt
 from common import period_key, period_start
 
 
-def _sorted_ladder(ma_values: list[tuple[str, float]], step_multipliers: list[float]) -> list[dict]:
+def _cluster_supports(ma_values: list[tuple[str, float]], cluster_merge_pct: float) -> list[dict]:
     """ma_values: [(source_label, value), ...] with non-None values only.
-    Returns rungs sorted highest-value-first, each tagged with its multiplier.
+
+    Group MAs that sit within cluster_merge_pct of each other into a single
+    "support level" (their average) -- two MAs a couple percent apart are
+    read as the market agreeing on one support, not two separate rungs.
+    Returns support levels sorted highest-first, each tagged with which MA
+    period(s) it's made of.
     """
     ranked = sorted(ma_values, key=lambda pair: pair[1], reverse=True)
-    rungs = []
-    for i, (source, value) in enumerate(ranked):
-        if i >= len(step_multipliers):
-            break
-        rungs.append(
-            {
-                "id": f"ma-{source}",
-                "source": source,
-                "level": round(value, 4),
-                "multiplier": step_multipliers[i],
-            }
-        )
-    return rungs
-
-
-def _has_cluster(rungs: list[dict], cluster_merge_pct: float) -> bool:
-    for a, b in zip(rungs, rungs[1:]):
-        if a["level"] <= 0:
-            continue
-        gap_pct = (a["level"] - b["level"]) / a["level"] * 100
-        if gap_pct < cluster_merge_pct:
-            return True
-    return False
-
-
-def _cascade_ladder(top_value: float, n_rungs: int, step_multipliers: list[float], drop_step_pct: float) -> list[dict]:
-    rungs = []
-    level = top_value
-    for i in range(n_rungs):
-        rungs.append(
-            {
-                "id": f"drop-{i}",
-                "source": f"{drop_step_pct:g}% cascade #{i + 1}",
-                "level": round(level, 4),
-                "multiplier": step_multipliers[i] if i < len(step_multipliers) else step_multipliers[-1],
-            }
-        )
-        level = level * (1 - drop_step_pct / 100)
-    return rungs
+    groups: list[dict] = []
+    for source, value in ranked:
+        if groups:
+            last = groups[-1]
+            rep = sum(last["values"]) / len(last["values"])
+            gap_pct = (rep - value) / rep * 100 if rep else 0
+            if gap_pct < cluster_merge_pct:
+                last["sources"].append(source)
+                last["values"].append(value)
+                continue
+        groups.append({"sources": [source], "values": [value]})
+    return [{"sources": g["sources"], "level": sum(g["values"]) / len(g["values"])} for g in groups]
 
 
 def build_period_ladder(tier_cfg: dict, mas: dict, rules: dict) -> tuple[list[dict], bool]:
-    """Build the ladder snapshot for a fresh period. Returns (rungs, clustered)."""
+    """Build the ladder snapshot for a fresh period. Returns (rungs, merged).
+
+    Each rung is either a real support level (see _cluster_supports) or,
+    when the next real support isn't at least drop_step_pct below the prior
+    rung, a synthetic drop_step_pct-below-prior-rung level instead -- i.e.
+    at every step we take whichever is LOWER of "next real support" and
+    "prior rung minus drop_step_pct", so consecutive rungs are never too
+    close together and each one is a genuine next support down, not a
+    same-ish MA a percent or two away.
+
+    Tiers configured with only a single MA period (T5/T9 -- deliberately
+    single-trigger tiers, not a multi-rung ladder) are capped at exactly one
+    rung here; any further downside for them still comes from the caller's
+    separate extend_with_drop_cascade, dynamically, once price actually
+    falls that far -- unlike multi-MA tiers, they don't get 2nd/3rd rungs
+    pre-planned with escalating multipliers.
+    """
     ma_periods = tier_cfg["ma_ladder"]
     step_multipliers = rules["step_multipliers"]
+    drop_step_pct = rules["drop_step_pct"]
+    cluster_pct = rules["cluster_merge_pct"]
+
     available = [(str(p), mas[str(p)]) for p in ma_periods if mas.get(str(p)) is not None]
     if not available:
         return [], False
 
-    rungs = _sorted_ladder(available, step_multipliers)
-    clustered = _has_cluster(rungs, rules["cluster_merge_pct"])
-    if clustered:
-        top_value = rungs[0]["level"]
-        rungs = _cascade_ladder(top_value, len(available), step_multipliers, rules["drop_step_pct"])
-    return rungs, clustered
+    supports = _cluster_supports(available, cluster_pct)
+    merged = any(len(s["sources"]) > 1 for s in supports)
+    max_rungs = len(step_multipliers) if len(ma_periods) > 1 else 1
+
+    rungs: list[dict] = []
+    idx = 0
+    prev_level = None
+    for i, mult in enumerate(step_multipliers[:max_rungs]):
+        while idx < len(supports) and prev_level is not None and supports[idx]["level"] >= prev_level:
+            idx += 1  # already passed/merged into where we are -- irrelevant now
+        support = supports[idx] if idx < len(supports) else None
+        drop_level = prev_level * (1 - drop_step_pct / 100) if prev_level is not None else None
+
+        if prev_level is None:
+            level, source = support["level"], "+".join(support["sources"])
+            idx += 1
+        elif support is not None and (drop_level is None or support["level"] <= drop_level):
+            level, source = support["level"], "+".join(support["sources"])
+            idx += 1
+        elif drop_level is not None:
+            level, source = drop_level, f"{drop_step_pct:g}% below prior rung"
+        else:
+            break
+
+        rungs.append(
+            {
+                "id": f"ma-{source}" if "below prior rung" not in source else f"rung-drop-{i}",
+                "source": source,
+                "level": round(level, 4),
+                "multiplier": mult,
+            }
+        )
+        prev_level = level
+
+    return rungs, merged
 
 
 def extend_with_drop_cascade(base_rungs: list[dict], price: float, cap_multiplier: float, drop_step_pct: float) -> list[dict]:

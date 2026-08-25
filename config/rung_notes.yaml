@@ -1,0 +1,19 @@
+# Your own annotations on specific ladder rungs (target price reasoning,
+# conviction, "wait for X to confirm", etc.) -- purely informational, shown
+# on the dashboard next to that rung. They do NOT change trigger behavior;
+# if a note implies an actual price you want alerts on, tell Claude in chat
+# and it'll set up a proper custom_targets entry in stocks.yaml instead
+# (see README "Custom targets").
+#
+# You can type notes directly in the dashboard (saved to your browser only)
+# and use the "Download my notes" button to export them, then upload that
+# file into a chat with Claude to persist them here -- once they're here,
+# they show up for you on every device/browser, not just the one you typed
+# them on.
+#
+# Format: ticker -> { rung_id: "note text" }. rung_id is shown in small
+# print under each note input on the dashboard (e.g. "ma-60+100",
+# "rung-drop-2") -- or just tell Claude in plain English which stock/rung
+# you mean and let it fill in the id.
+
+notes: {}

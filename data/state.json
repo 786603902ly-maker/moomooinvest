@@ -10,19 +10,19 @@
       "full_ladder_today": [
         {
           "id": "ma-150",
-          "level": 357.4159,
+          "level": 366.1904,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 324.3304,
+          "level": 329.8633,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 296.2713,
+          "level": 302.5119,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -31,19 +31,19 @@
       "ladder": [
         {
           "id": "ma-150",
-          "level": 357.4159,
+          "level": 366.1904,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 324.3304,
+          "level": 329.8633,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 296.2713,
+          "level": 302.5119,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -59,7 +59,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150",
-        "level": 357.4159,
+        "level": 366.1904,
         "multiplier": 1.0,
         "source": "150"
       },
@@ -84,43 +84,43 @@
       "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "drop-0",
-          "level": 239.2837,
+          "id": "ma-150+200+250",
+          "level": 238.0321,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "150+200+250"
         },
         {
-          "id": "drop-1",
-          "level": 227.3195,
+          "id": "rung-drop-1",
+          "level": 226.1305,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 215.9535,
+          "id": "rung-drop-2",
+          "level": 214.824,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
-          "id": "drop-0",
-          "level": 239.2837,
+          "id": "ma-150+200+250",
+          "level": 238.0321,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "150+200+250"
         },
         {
-          "id": "drop-1",
-          "level": 227.3195,
+          "id": "rung-drop-1",
+          "level": 226.1305,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 215.9535,
+          "id": "rung-drop-2",
+          "level": 214.824,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -133,10 +133,10 @@
       "name": "Amazon",
       "new_triggers_today": [],
       "next_rung": {
-        "id": "drop-0",
-        "level": 239.2837,
+        "id": "ma-150+200+250",
+        "level": 238.0321,
         "multiplier": 1.0,
-        "source": "5% cascade #1"
+        "source": "150+200+250"
       },
       "period": {
         "key": "2026-08",
@@ -159,60 +159,60 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-17",
-          "id": "drop-0",
-          "level": 398.0397,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-100+60",
+          "level": 395.3874,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "100+60"
         },
         {
           "amount": 900.0,
-          "first_hit_date": "2026-08-19",
-          "id": "drop-1",
-          "level": 378.1377,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-150",
+          "level": 372.8001,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "150"
         }
       ],
       "full_ladder_today": [
         {
-          "id": "drop-0",
-          "level": 398.0397,
+          "id": "ma-100+60",
+          "level": 395.3874,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "100+60"
         },
         {
-          "id": "drop-1",
-          "level": 378.1377,
+          "id": "ma-150",
+          "level": 372.8001,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "150"
         },
         {
-          "id": "drop-2",
-          "level": 359.2308,
+          "id": "rung-drop-2",
+          "level": 354.1601,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
-          "id": "drop-0",
-          "level": 398.0397,
+          "id": "ma-100+60",
+          "level": 395.3874,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "100+60"
         },
         {
-          "id": "drop-1",
-          "level": 378.1377,
+          "id": "ma-150",
+          "level": 372.8001,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "150"
         },
         {
-          "id": "drop-2",
-          "level": 359.2308,
+          "id": "rung-drop-2",
+          "level": 354.1601,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -223,12 +223,29 @@
         "60": 394.7460006713867
       },
       "name": "Broadcom",
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-100+60",
+          "level": 395.3874,
+          "multiplier": 1.0,
+          "source": "100+60"
+        },
+        {
+          "amount": 900.0,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-150",
+          "level": 372.8001,
+          "multiplier": 1.5,
+          "source": "150"
+        }
+      ],
       "next_rung": {
-        "id": "drop-2",
-        "level": 359.2308,
+        "id": "rung-drop-2",
+        "level": 354.1601,
         "multiplier": 2.0,
-        "source": "5% cascade #3"
+        "source": "5% below prior rung"
       },
       "period": {
         "key": "2026-W34",
@@ -252,30 +269,42 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 104.4663,
+          "level": 106.1801,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-250",
-          "level": 99.9927,
+          "id": "rung-drop-1",
+          "level": 100.8711,
           "multiplier": 1.5,
-          "source": "250"
+          "source": "5% below prior rung"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 95.8276,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 104.4663,
+          "level": 106.1801,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-250",
-          "level": 99.9927,
+          "id": "rung-drop-1",
+          "level": 100.8711,
           "multiplier": 1.5,
-          "source": "250"
+          "source": "5% below prior rung"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 95.8276,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -289,7 +318,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 104.4663,
+        "level": 106.1801,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -307,59 +336,50 @@
       "vs_target_pct": 42.14
     },
     "GOOG": {
-      "clustered": false,
+      "clustered": true,
       "data_stale": false,
       "error": null,
       "fair_value": 421,
-      "fired_this_period": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-08-20",
-          "id": "ma-150",
-          "level": 339.5061,
-          "multiplier": 1.0,
-          "source": "150"
-        }
-      ],
+      "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "ma-150",
-          "level": 339.5061,
+          "id": "ma-150+200",
+          "level": 335.9072,
           "multiplier": 1.0,
-          "source": "150"
-        },
-        {
-          "id": "ma-200",
-          "level": 330.4995,
-          "multiplier": 1.5,
-          "source": "200"
+          "source": "150+200"
         },
         {
           "id": "ma-250",
-          "level": 312.0919,
-          "multiplier": 2.0,
+          "level": 314.8522,
+          "multiplier": 1.5,
           "source": "250"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 299.1096,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
-          "id": "ma-150",
-          "level": 339.5061,
+          "id": "ma-150+200",
+          "level": 335.9072,
           "multiplier": 1.0,
-          "source": "150"
-        },
-        {
-          "id": "ma-200",
-          "level": 330.4995,
-          "multiplier": 1.5,
-          "source": "200"
+          "source": "150+200"
         },
         {
           "id": "ma-250",
-          "level": 312.0919,
-          "multiplier": 2.0,
+          "level": 314.8522,
+          "multiplier": 1.5,
           "source": "250"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 299.1096,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -372,10 +392,10 @@
       "name": "Alphabet",
       "new_triggers_today": [],
       "next_rung": {
-        "id": "ma-200",
-        "level": 330.4995,
-        "multiplier": 1.5,
-        "source": "200"
+        "id": "ma-150+200",
+        "level": 335.9072,
+        "multiplier": 1.0,
+        "source": "150+200"
       },
       "period": {
         "key": "2026-08",
@@ -397,43 +417,43 @@
       "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "drop-0",
-          "level": 94.1471,
+          "id": "ma-200+100",
+          "level": 92.7251,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "200+100"
         },
         {
-          "id": "drop-1",
-          "level": 89.4397,
+          "id": "rung-drop-1",
+          "level": 88.0888,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 84.9678,
+          "id": "rung-drop-2",
+          "level": 83.6844,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": true,
       "ladder": [
         {
-          "id": "drop-0",
-          "level": 94.1471,
+          "id": "ma-200+100",
+          "level": 92.7251,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "200+100"
         },
         {
-          "id": "drop-1",
-          "level": 89.4397,
+          "id": "rung-drop-1",
+          "level": 88.0888,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 84.9678,
+          "id": "rung-drop-2",
+          "level": 83.6844,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -446,10 +466,10 @@
       "name": "iShares Expanded Tech-Software ETF",
       "new_triggers_today": [],
       "next_rung": {
-        "id": "drop-0",
-        "level": 94.1471,
+        "id": "ma-200+100",
+        "level": 92.7251,
         "multiplier": 1.0,
-        "source": "5% cascade #1"
+        "source": "200+100"
       },
       "period": {
         "key": "2026-08",
@@ -470,30 +490,42 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 249.5573,
+          "level": 253.5946,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 224.5191,
+          "level": 228.9455,
           "multiplier": 1.5,
           "source": "250"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 217.4982,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 249.5573,
+          "level": 253.5946,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 224.5191,
+          "level": 228.9455,
           "multiplier": 1.5,
           "source": "250"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 217.4982,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -507,7 +539,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 249.5573,
+        "level": 253.5946,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -532,51 +564,51 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-14",
-          "id": "drop-0",
-          "level": 627.6344,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-200+150+100",
+          "level": 616.9002,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "200+150+100"
         },
         {
           "amount": 900.0,
-          "first_hit_date": "2026-08-14",
-          "id": "drop-1",
-          "level": 596.2527,
+          "first_hit_date": "2026-08-21",
+          "id": "rung-drop-1",
+          "level": 586.0552,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-18",
-          "id": "drop-2",
-          "level": 566.44,
+          "first_hit_date": "2026-08-21",
+          "id": "rung-drop-2",
+          "level": 556.7524,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "full_ladder_today": [
         {
-          "id": "drop-0",
-          "level": 627.6344,
+          "id": "ma-200+150+100",
+          "level": 616.9002,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "200+150+100"
         },
         {
-          "id": "drop-1",
-          "level": 596.2527,
+          "id": "rung-drop-1",
+          "level": 586.0552,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 566.44,
+          "id": "rung-drop-2",
+          "level": 556.7524,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 538.118,
+          "level": 528.9148,
           "multiplier": 2.0,
           "source": "5% below lowest rung, step 1"
         }
@@ -584,22 +616,22 @@
       "is_etf": false,
       "ladder": [
         {
-          "id": "drop-0",
-          "level": 627.6344,
+          "id": "ma-200+150+100",
+          "level": 616.9002,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "200+150+100"
         },
         {
-          "id": "drop-1",
-          "level": 596.2527,
+          "id": "rung-drop-1",
+          "level": 586.0552,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 566.44,
+          "id": "rung-drop-2",
+          "level": 556.7524,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -610,10 +642,35 @@
         "60": 594.9994944254557
       },
       "name": "Meta Platforms",
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-200+150+100",
+          "level": 616.9002,
+          "multiplier": 1.0,
+          "source": "200+150+100"
+        },
+        {
+          "amount": 900.0,
+          "first_hit_date": "2026-08-21",
+          "id": "rung-drop-1",
+          "level": 586.0552,
+          "multiplier": 1.5,
+          "source": "5% below prior rung"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-08-21",
+          "id": "rung-drop-2",
+          "level": 556.7524,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
+        }
+      ],
       "next_rung": {
         "id": "below-ladder-drop-0",
-        "level": 538.118,
+        "level": 528.9148,
         "multiplier": 2.0,
         "source": "5% below lowest rung, step 1"
       },
@@ -638,43 +695,43 @@
       "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "drop-0",
-          "level": 432.4805,
+          "id": "ma-200",
+          "level": 431.3128,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "200"
         },
         {
-          "id": "drop-1",
-          "level": 410.8565,
+          "id": "rung-drop-1",
+          "level": 409.7472,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 390.3137,
+          "id": "rung-drop-2",
+          "level": 389.2598,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
-          "id": "drop-0",
-          "level": 432.4805,
+          "id": "ma-200",
+          "level": 431.3128,
           "multiplier": 1.0,
-          "source": "5% cascade #1"
+          "source": "200"
         },
         {
-          "id": "drop-1",
-          "level": 410.8565,
+          "id": "rung-drop-1",
+          "level": 409.7472,
           "multiplier": 1.5,
-          "source": "5% cascade #2"
+          "source": "5% below prior rung"
         },
         {
-          "id": "drop-2",
-          "level": 390.3137,
+          "id": "rung-drop-2",
+          "level": 389.2598,
           "multiplier": 2.0,
-          "source": "5% cascade #3"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -687,10 +744,10 @@
       "name": "Microsoft",
       "new_triggers_today": [],
       "next_rung": {
-        "id": "drop-0",
-        "level": 432.4805,
+        "id": "ma-200",
+        "level": 431.3128,
         "multiplier": 1.0,
-        "source": "5% cascade #1"
+        "source": "200"
       },
       "period": {
         "key": "2026-08",
@@ -714,7 +771,7 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 474.3694,
+          "level": 491.3072,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -723,7 +780,7 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 474.3694,
+          "level": 491.3072,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -739,7 +796,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
-        "level": 474.3694,
+        "level": 491.3072,
         "multiplier": 1.0,
         "source": "250"
       },
@@ -765,30 +822,42 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 146.4557,
+          "level": 149.2458,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 136.7825,
+          "level": 140.1348,
           "multiplier": 1.5,
           "source": "250"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 133.128,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 146.4557,
+          "level": 149.2458,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 136.7825,
+          "level": 140.1348,
           "multiplier": 1.5,
           "source": "250"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 133.128,
+          "multiplier": 2.0,
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -802,7 +871,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 146.4557,
+        "level": 149.2458,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -820,50 +889,50 @@
       "vs_target_pct": 157.8
     },
     "NVDA": {
-      "clustered": false,
+      "clustered": true,
       "data_stale": false,
       "error": null,
       "fair_value": 259,
       "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "ma-60",
-          "level": 208.3435,
+          "id": "ma-60+100",
+          "level": 207.5491,
           "multiplier": 1.0,
-          "source": "60"
+          "source": "60+100"
         },
         {
-          "id": "ma-100",
-          "level": 204.7826,
+          "id": "rung-drop-1",
+          "level": 197.1716,
           "multiplier": 1.5,
-          "source": "100"
+          "source": "5% below prior rung"
         },
         {
-          "id": "ma-150",
-          "level": 197.9281,
+          "id": "rung-drop-2",
+          "level": 187.3131,
           "multiplier": 2.0,
-          "source": "150"
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
-          "id": "ma-60",
-          "level": 208.3435,
+          "id": "ma-60+100",
+          "level": 207.5491,
           "multiplier": 1.0,
-          "source": "60"
+          "source": "60+100"
         },
         {
-          "id": "ma-100",
-          "level": 204.7826,
+          "id": "rung-drop-1",
+          "level": 197.1716,
           "multiplier": 1.5,
-          "source": "100"
+          "source": "5% below prior rung"
         },
         {
-          "id": "ma-150",
-          "level": 197.9281,
+          "id": "rung-drop-2",
+          "level": 187.3131,
           "multiplier": 2.0,
-          "source": "150"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -876,10 +945,10 @@
       "name": "NVIDIA",
       "new_triggers_today": [],
       "next_rung": {
-        "id": "ma-60",
-        "level": 208.3435,
+        "id": "ma-60+100",
+        "level": 207.5491,
         "multiplier": 1.0,
-        "source": "60"
+        "source": "60+100"
       },
       "period": {
         "key": "2026-W34",
@@ -895,7 +964,7 @@
       "vs_target_pct": -4.57
     },
     "PLTR": {
-      "clustered": false,
+      "clustered": true,
       "data_stale": false,
       "error": null,
       "fair_value": 153,
@@ -903,42 +972,42 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 152.093,
+          "level": 151.5059,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-150",
-          "level": 142.5954,
+          "id": "ma-150+100",
+          "level": 141.0479,
           "multiplier": 1.5,
-          "source": "150"
+          "source": "150+100"
         },
         {
-          "id": "ma-100",
-          "level": 138.2687,
+          "id": "rung-drop-2",
+          "level": 133.9955,
           "multiplier": 2.0,
-          "source": "100"
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 152.093,
+          "level": 151.5059,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-150",
-          "level": 142.5954,
+          "id": "ma-150+100",
+          "level": 141.0479,
           "multiplier": 1.5,
-          "source": "150"
+          "source": "150+100"
         },
         {
-          "id": "ma-100",
-          "level": 138.2687,
+          "id": "rung-drop-2",
+          "level": 133.9955,
           "multiplier": 2.0,
-          "source": "100"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -952,7 +1021,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 152.093,
+        "level": 151.5059,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -977,25 +1046,25 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-14",
+          "first_hit_date": "2026-08-21",
           "id": "ma-150",
-          "level": 85.3163,
+          "level": 84.921,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "amount": 900.0,
-          "first_hit_date": "2026-08-19",
+          "first_hit_date": "2026-08-21",
           "id": "ma-200",
-          "level": 78.389,
+          "level": 78.7262,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-20",
+          "first_hit_date": "2026-08-21",
           "id": "ma-250",
-          "level": 73.3279,
+          "level": 74.0083,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -1003,25 +1072,25 @@
       "full_ladder_today": [
         {
           "id": "ma-150",
-          "level": 85.3163,
+          "level": 84.921,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 78.389,
+          "level": 78.7262,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 73.3279,
+          "level": 74.0083,
           "multiplier": 2.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 69.6615,
+          "level": 70.3079,
           "multiplier": 2.0,
           "source": "5% below lowest rung, step 1"
         }
@@ -1030,19 +1099,19 @@
       "ladder": [
         {
           "id": "ma-150",
-          "level": 85.3163,
+          "level": 84.921,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 78.389,
+          "level": 78.7262,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 73.3279,
+          "level": 74.0083,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -1055,10 +1124,35 @@
         "60": 88.5251667658488
       },
       "name": "Rocket Lab",
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-150",
+          "level": 84.921,
+          "multiplier": 1.0,
+          "source": "150"
+        },
+        {
+          "amount": 900.0,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-200",
+          "level": 78.7262,
+          "multiplier": 1.5,
+          "source": "200"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-250",
+          "level": 74.0083,
+          "multiplier": 2.0,
+          "source": "250"
+        }
+      ],
       "next_rung": {
         "id": "below-ladder-drop-0",
-        "level": 69.6615,
+        "level": 70.3079,
         "multiplier": 2.0,
         "source": "5% below lowest rung, step 1"
       },
@@ -1083,9 +1177,9 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-18",
+          "first_hit_date": "2026-08-21",
           "id": "ma-60",
-          "level": 424.9685,
+          "level": 425.1973,
           "multiplier": 1.0,
           "source": "60"
         }
@@ -1093,42 +1187,42 @@
       "full_ladder_today": [
         {
           "id": "ma-60",
-          "level": 424.9685,
+          "level": 425.1973,
           "multiplier": 1.0,
           "source": "60"
         },
         {
-          "id": "ma-100",
-          "level": 406.2815,
+          "id": "rung-drop-1",
+          "level": 403.9375,
           "multiplier": 1.5,
-          "source": "100"
+          "source": "5% below prior rung"
         },
         {
-          "id": "ma-150",
-          "level": 386.9011,
+          "id": "rung-drop-2",
+          "level": 383.7406,
           "multiplier": 2.0,
-          "source": "150"
+          "source": "5% below prior rung"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-60",
-          "level": 424.9685,
+          "level": 425.1973,
           "multiplier": 1.0,
           "source": "60"
         },
         {
-          "id": "ma-100",
-          "level": 406.2815,
+          "id": "rung-drop-1",
+          "level": 403.9375,
           "multiplier": 1.5,
-          "source": "100"
+          "source": "5% below prior rung"
         },
         {
-          "id": "ma-150",
-          "level": 386.9011,
+          "id": "rung-drop-2",
+          "level": 383.7406,
           "multiplier": 2.0,
-          "source": "150"
+          "source": "5% below prior rung"
         }
       ],
       "mas": {
@@ -1139,12 +1233,21 @@
         "60": 425.19733378092445
       },
       "name": "Taiwan Semiconductor",
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-08-21",
+          "id": "ma-60",
+          "level": 425.1973,
+          "multiplier": 1.0,
+          "source": "60"
+        }
+      ],
       "next_rung": {
-        "id": "ma-100",
-        "level": 406.2815,
+        "id": "rung-drop-1",
+        "level": 403.9375,
         "multiplier": 1.5,
-        "source": "100"
+        "source": "5% below prior rung"
       },
       "period": {
         "key": "2026-W34",
