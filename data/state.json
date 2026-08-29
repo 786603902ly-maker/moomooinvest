@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T03:12:46.143550Z",
+  "generated_at": "2026-08-29T23:26:52.043232Z",
   "stocks": {
     "AMD": {
       "clustered": false,
@@ -1786,16 +1786,7 @@
       },
       "name": "Nu Holdings",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-08-28",
-          "id": "below-ladder-drop-0",
-          "level": 14.3507,
-          "multiplier": 2.0,
-          "source": "5% drop #1"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "below-ladder-drop-1",
         "level": 13.6332,
@@ -2074,16 +2065,7 @@
       },
       "name": "PayPal",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-08-28",
-          "id": "ma-250",
-          "level": 54.9303,
-          "multiplier": 1.0,
-          "source": "250"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "below-ladder-drop-0",
         "level": 52.1838,
