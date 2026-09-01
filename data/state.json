@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T00:41:16.147674Z",
+  "generated_at": "2026-09-01T23:25:22.194945Z",
   "stocks": {
     "AMD": {
       "clustered": false,
@@ -12,19 +12,19 @@
       "full_ladder_today": [
         {
           "id": "ma-150",
-          "level": 367.6898,
+          "level": 376.5847,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 330.8967,
+          "level": 337.7204,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 303.6855,
+          "level": 311.0586,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -33,51 +33,51 @@
       "ladder": [
         {
           "id": "ma-150",
-          "level": 367.6898,
+          "level": 376.5847,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 330.8967,
+          "level": 337.7204,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 303.6855,
+          "level": 311.0586,
           "multiplier": 2.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 457.89480087280276,
-        "150": 375.2008005777995,
-        "200": 336.7168004608154,
-        "250": 309.86868023681643,
-        "60": 503.7693339029948
+        "100": 460.1245007324219,
+        "150": 376.5846671549479,
+        "200": 337.7204003143311,
+        "250": 311.05860015869143,
+        "60": 503.6565002441406
       },
       "name": "Advanced Micro Devices",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150",
-        "level": 367.6898,
+        "level": 376.5847,
         "multiplier": 1.0,
         "source": "150"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 470.7200012207031,
-      "price_date": "2026-08-31",
+      "price": 459.6099853515625,
+      "price_date": "2026-09-01",
       "target_price": 661.65,
       "ticker": "AMD",
       "tier": "T3",
-      "vs_fair_value_pct": 12.59,
-      "vs_target_pct": 40.56
+      "vs_fair_value_pct": 15.32,
+      "vs_target_pct": 43.96
     },
     "AMZN": {
       "clustered": true,
@@ -90,19 +90,19 @@
       "full_ladder_today": [
         {
           "id": "ma-150+200+250",
-          "level": 238.1499,
+          "level": 238.8448,
           "multiplier": 1.0,
           "source": "150+200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 226.2424,
+          "level": 226.9026,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 214.9303,
+          "level": 215.5575,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -111,51 +111,51 @@
       "ladder": [
         {
           "id": "ma-150+200+250",
-          "level": 238.1499,
+          "level": 238.8448,
           "multiplier": 1.0,
           "source": "150+200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 226.2424,
+          "level": 226.9026,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 214.9303,
+          "level": 215.5575,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
       "mas": {
-        "100": 254.53349990844725,
-        "150": 240.927599995931,
-        "200": 238.73299995422363,
-        "250": 236.63627996826173,
-        "60": 250.42916615804037
+        "100": 254.7461999511719,
+        "150": 240.99586669921874,
+        "200": 238.78659996032715,
+        "250": 236.75199993896484,
+        "60": 250.57733281453451
       },
       "name": "Amazon",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150+200+250",
-        "level": 238.1499,
+        "level": 238.8448,
         "multiplier": 1.0,
         "source": "150+200+250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 259.7699890136719,
-      "price_date": "2026-08-31",
+      "price": 254.9199981689453,
+      "price_date": "2026-09-01",
       "target_price": 334.26,
       "ticker": "AMZN",
       "tier": "T3",
-      "vs_fair_value_pct": 15.49,
-      "vs_target_pct": 28.68
+      "vs_fair_value_pct": 17.68,
+      "vs_target_pct": 31.12
     },
     "ASML": {
       "clustered": false,
@@ -168,7 +168,7 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 1347.3971,
+          "level": 1366.6804,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -177,39 +177,39 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 1347.3971,
+          "level": 1366.6804,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 1671.7645983886719,
-        "150": 1578.3806681315104,
-        "200": 1467.4101974487305,
-        "250": 1366.804477783203,
-        "60": 1772.2786641438802
+        "100": 1671.4543981933593,
+        "150": 1578.173868001302,
+        "200": 1467.2550973510743,
+        "250": 1366.6803977050781,
+        "60": 1771.7616638183595
       },
       "name": "ASML Holding",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
-        "level": 1347.3971,
+        "level": 1366.6804,
         "multiplier": 1.0,
         "source": "250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 1696.010009765625,
-      "price_date": "2026-08-31",
+      "price": 1665.1400146484375,
+      "price_date": "2026-09-01",
       "target_price": 2470.8,
       "ticker": "ASML",
       "tier": "T5",
-      "vs_fair_value_pct": 20.87,
-      "vs_target_pct": 45.68
+      "vs_fair_value_pct": 23.11,
+      "vs_target_pct": 48.38
     },
     "ASTS": {
       "clustered": false,
@@ -221,134 +221,205 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 77.6392,
+          "level": 77.9021,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 73.7572,
+          "level": 74.007,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 70.0694,
+          "level": 70.3066,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-2",
-          "level": 66.5659,
+          "level": 66.7913,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-3",
-          "level": 63.2376,
+          "level": 63.4517,
           "multiplier": 2.0,
           "source": "5% drop #4"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-26",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-4",
-          "level": 60.0757,
+          "level": 60.2792,
           "multiplier": 2.0,
           "source": "5% drop #5"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-5",
+          "level": 57.2652,
+          "multiplier": 2.0,
+          "source": "5% drop #6"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 77.6392,
+          "level": 77.9021,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 73.7572,
+          "level": 74.007,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 70.0694,
+          "level": 70.3066,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
-          "level": 66.5659,
+          "level": 66.7913,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
-          "level": 63.2376,
+          "level": 63.4517,
           "multiplier": 2.0,
           "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
-          "level": 60.0757,
+          "level": 60.2792,
           "multiplier": 2.0,
           "source": "5% drop #5"
         },
         {
           "id": "below-ladder-drop-5",
-          "level": 57.0719,
+          "level": 57.2652,
           "multiplier": 2.0,
           "source": "5% drop #6"
+        },
+        {
+          "id": "below-ladder-drop-6",
+          "level": 54.4019,
+          "multiplier": 2.0,
+          "source": "5% drop #7"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-250",
-          "level": 77.6392,
+          "level": 77.9021,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 77.94949996948242,
-        "150": 82.74849985758463,
-        "200": 81.41087482452393,
-        "250": 77.85975979614258,
-        "60": 70.8559995651245
+        "100": 77.59139995574951,
+        "150": 82.37823321024577,
+        "200": 81.36742483139038,
+        "250": 77.90207978820801,
+        "60": 70.22599957784017
       },
       "name": "AST SpaceMobile",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 77.9021,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 74.007,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 70.3066,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-2",
+          "level": 66.7913,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-3",
+          "level": 63.4517,
+          "multiplier": 2.0,
+          "source": "5% drop #4"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-4",
+          "level": 60.2792,
+          "multiplier": 2.0,
+          "source": "5% drop #5"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-5",
+          "level": 57.2652,
+          "multiplier": 2.0,
+          "source": "5% drop #6"
+        }
+      ],
       "next_rung": {
-        "id": "below-ladder-drop-5",
-        "level": 57.0719,
+        "id": "below-ladder-drop-6",
+        "level": 54.4019,
         "multiplier": 2.0,
-        "source": "5% drop #6"
+        "source": "5% drop #7"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 59.099998474121094,
-      "price_date": "2026-08-31",
+      "price": 55.79999923706055,
+      "price_date": "2026-09-01",
       "target_price": 89.67,
       "ticker": "ASTS",
       "tier": "T5",
-      "vs_fair_value_pct": 29.09,
-      "vs_target_pct": 51.73
+      "vs_fair_value_pct": 36.72,
+      "vs_target_pct": 60.7
     },
     "AVGO": {
       "clustered": false,
@@ -417,32 +488,15 @@
         }
       ],
       "mas": {
-        "100": 398.4806008911133,
-        "150": 374.12186747233073,
-        "200": 369.4753004455566,
-        "250": 365.02020056152344,
-        "60": 385.89150085449216
+        "100": 398.62830078125,
+        "150": 374.3678006998698,
+        "200": 369.547600402832,
+        "250": 365.2893604736328,
+        "60": 385.6240005493164
       },
       "name": "Broadcom",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-08-31",
-          "id": "ma-100",
-          "level": 398.4806,
-          "multiplier": 1.0,
-          "source": "100"
-        },
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-08-31",
-          "id": "rung-drop-1",
-          "level": 378.5566,
-          "multiplier": 1.5,
-          "source": "5% drop"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-2",
         "level": 359.6287,
@@ -454,13 +508,13 @@
         "start_date": "2026-08-31",
         "type": "weekly"
       },
-      "price": 370.3399963378906,
-      "price_date": "2026-08-31",
+      "price": 369.67999267578125,
+      "price_date": "2026-09-01",
       "target_price": 530.74,
       "ticker": "AVGO",
       "tier": "T1",
-      "vs_fair_value_pct": 75.51,
-      "vs_target_pct": 43.31
+      "vs_fair_value_pct": 75.83,
+      "vs_target_pct": 43.57
     },
     "BRK-B": {
       "clustered": false,
@@ -473,7 +527,7 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 492.4774,
+          "level": 492.587,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -482,39 +536,39 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 492.4774,
+          "level": 492.587,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 490.5696990966797,
-        "150": 490.08773315429687,
-        "200": 492.44179962158205,
-        "250": 492.5976395263672,
-        "60": 499.87533213297525
+        "100": 490.54299896240235,
+        "150": 490.06993306477864,
+        "200": 492.4284495544434,
+        "250": 492.58695947265625,
+        "60": 499.83083190917966
       },
       "name": "Berkshire Hathaway B",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
-        "level": 492.4774,
+        "level": 492.587,
         "multiplier": 1.0,
         "source": "250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 504.0299987792969,
-      "price_date": "2026-08-31",
+      "price": 502.3299865722656,
+      "price_date": "2026-09-01",
       "target_price": 572.0,
       "ticker": "BRK-B",
       "tier": "T9",
-      "vs_fair_value_pct": 1.18,
-      "vs_target_pct": 13.49
+      "vs_fair_value_pct": 1.53,
+      "vs_target_pct": 13.87
     },
     "DUOL": {
       "clustered": false,
@@ -526,95 +580,73 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 167.5443,
+          "level": 164.3137,
           "multiplier": 1.0,
           "source": "250"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
-          "id": "below-ladder-drop-0",
-          "level": 159.1671,
-          "multiplier": 2.0,
-          "source": "5% drop #1"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
-          "id": "below-ladder-drop-1",
-          "level": 151.2087,
-          "multiplier": 2.0,
-          "source": "5% drop #2"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-08-26",
-          "id": "below-ladder-drop-2",
-          "level": 143.6483,
-          "multiplier": 2.0,
-          "source": "5% drop #3"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 167.5443,
+          "level": 164.3137,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 159.1671,
+          "level": 156.098,
           "multiplier": 2.0,
           "source": "5% drop #1"
-        },
-        {
-          "id": "below-ladder-drop-1",
-          "level": 151.2087,
-          "multiplier": 2.0,
-          "source": "5% drop #2"
-        },
-        {
-          "id": "below-ladder-drop-2",
-          "level": 143.6483,
-          "multiplier": 2.0,
-          "source": "5% drop #3"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-250",
-          "level": 167.5443,
+          "level": 164.3137,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 120.83824989318848,
-        "150": 116.48549997965495,
-        "200": 131.8951499938965,
-        "250": 164.26650024414062,
-        "60": 130.96083348592123
+        "100": 120.9561499786377,
+        "150": 116.5641000366211,
+        "200": 131.9541000366211,
+        "250": 164.3136602783203,
+        "60": 131.1573336283366
       },
       "name": "Duolingo",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
-      "next_rung": null,
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 164.3137,
+          "multiplier": 1.0,
+          "source": "250"
+        }
+      ],
+      "next_rung": {
+        "id": "below-ladder-drop-0",
+        "level": 156.098,
+        "multiplier": 2.0,
+        "source": "5% drop #1"
+      },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 148.36000061035156,
-      "price_date": "2026-08-31",
+      "price": 158.77000427246094,
+      "price_date": "2026-09-01",
       "target_price": 137.5,
       "ticker": "DUOL",
       "tier": "T9",
-      "vs_fair_value_pct": 3.61,
-      "vs_target_pct": -7.32
+      "vs_fair_value_pct": -3.19,
+      "vs_target_pct": -13.4
     },
     "FTNT": {
       "clustered": false,
@@ -627,19 +659,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 106.514,
+          "level": 108.5265,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 101.1883,
+          "level": 103.1002,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 96.1289,
+          "level": 97.9452,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -648,51 +680,51 @@
       "ladder": [
         {
           "id": "ma-200",
-          "level": 106.514,
+          "level": 108.5265,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 101.1883,
+          "level": 103.1002,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 96.1289,
+          "level": 97.9452,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
       "mas": {
-        "100": 136.0100994873047,
-        "150": 117.93853307088216,
-        "200": 108.54724983215333,
-        "250": 103.50979989624024,
-        "60": 155.6691660563151
+        "100": 135.96859954833985,
+        "150": 117.9108664449056,
+        "200": 108.5264998626709,
+        "250": 103.49319992065429,
+        "60": 155.5999994913737
       },
       "name": "Fortinet",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 106.514,
+        "level": 108.5265,
         "multiplier": 1.0,
         "source": "200"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 170.92999267578125,
-      "price_date": "2026-08-31",
+      "price": 161.85000610351562,
+      "price_date": "2026-09-01",
       "target_price": 173.42,
       "ticker": "FTNT",
       "tier": "T3.5",
-      "vs_fair_value_pct": -16.34,
-      "vs_target_pct": 1.46
+      "vs_fair_value_pct": -11.65,
+      "vs_target_pct": 7.15
     },
     "FXI": {
       "clustered": false,
@@ -703,17 +735,17 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 37.5767,
+          "level": 37.4947,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 35.6979,
+          "level": 35.62,
           "multiplier": 2.0,
           "source": "5% drop #1"
         }
@@ -721,19 +753,19 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 37.5767,
+          "level": 37.4947,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 35.6979,
+          "level": 35.62,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 33.913,
+          "level": 33.839,
           "multiplier": 2.0,
           "source": "5% drop #2"
         }
@@ -742,34 +774,51 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 37.5767,
+          "level": 37.4947,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 35.3238002204895,
-        "150": 35.977600212097165,
-        "200": 36.80440011024475,
-        "250": 37.508960121154786,
-        "60": 34.528000100453696
+        "100": 35.314300212860104,
+        "150": 35.946933555603025,
+        "200": 36.77655011177063,
+        "250": 37.49468012237549,
+        "60": 34.53783343633016
       },
       "name": "iShares China Large-Cap ETF",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 37.4947,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 35.62,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        }
+      ],
       "next_rung": {
         "id": "below-ladder-drop-1",
-        "level": 33.913,
+        "level": 33.839,
         "multiplier": 2.0,
         "source": "5% drop #2"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 35.369998931884766,
-      "price_date": "2026-08-31",
+      "price": 35.34000015258789,
+      "price_date": "2026-09-01",
       "ticker": "FXI",
       "tier": "T5"
     },
@@ -783,9 +832,9 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-31",
+          "first_hit_date": "2026-09-01",
           "id": "ma-150+200",
-          "level": 336.121,
+          "level": 337.0719,
           "multiplier": 1.0,
           "source": "150+200"
         }
@@ -793,19 +842,19 @@
       "full_ladder_today": [
         {
           "id": "ma-150+200",
-          "level": 336.121,
+          "level": 337.0719,
           "multiplier": 1.0,
           "source": "150+200"
         },
         {
           "id": "ma-250",
-          "level": 315.3939,
+          "level": 318.3752,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 299.6242,
+          "level": 302.4564,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -814,60 +863,60 @@
       "ladder": [
         {
           "id": "ma-150+200",
-          "level": 336.121,
+          "level": 337.0719,
           "multiplier": 1.0,
           "source": "150+200"
         },
         {
           "id": "ma-250",
-          "level": 315.3939,
+          "level": 318.3752,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 299.6242,
+          "level": 302.4564,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
       "mas": {
-        "100": 355.9952993774414,
-        "150": 340.2121325683594,
-        "200": 333.72844940185547,
-        "250": 317.9714395751953,
-        "60": 349.89050038655597
+        "100": 356.1518994140625,
+        "150": 340.19233256022136,
+        "200": 333.95144943237307,
+        "250": 318.37515954589844,
+        "60": 349.3283335367839
       },
       "name": "Alphabet",
       "new_triggers_custom_today": [],
       "new_triggers_today": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-31",
+          "first_hit_date": "2026-09-01",
           "id": "ma-150+200",
-          "level": 336.121,
+          "level": 337.0719,
           "multiplier": 1.0,
           "source": "150+200"
         }
       ],
       "next_rung": {
         "id": "ma-250",
-        "level": 315.3939,
+        "level": 318.3752,
         "multiplier": 1.5,
         "source": "250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 335.4100036621094,
-      "price_date": "2026-08-31",
+      "price": 332.0299987792969,
+      "price_date": "2026-09-01",
       "target_price": 434.75,
       "ticker": "GOOG",
       "tier": "T3",
-      "vs_fair_value_pct": 29.1,
-      "vs_target_pct": 29.62
+      "vs_fair_value_pct": 30.41,
+      "vs_target_pct": 30.94
     },
     "GRAB": {
       "clustered": false,
@@ -879,41 +928,41 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 4.4732,
+          "level": 4.4398,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 4.2495,
+          "level": 4.2178,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 4.0371,
+          "level": 4.0069,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-2",
-          "level": 3.8352,
+          "level": 3.8066,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-3",
-          "level": 3.6434,
+          "level": 3.6162,
           "multiplier": 2.0,
           "source": "5% drop #4"
         }
@@ -921,37 +970,37 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 4.4732,
+          "level": 4.4398,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 4.2495,
+          "level": 4.2178,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 4.0371,
+          "level": 4.0069,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
-          "level": 3.8352,
+          "level": 3.8066,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
-          "level": 3.6434,
+          "level": 3.6162,
           "multiplier": 2.0,
           "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
-          "level": 3.4613,
+          "level": 3.4354,
           "multiplier": 2.0,
           "source": "5% drop #5"
         }
@@ -960,39 +1009,80 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 4.4732,
+          "level": 4.4398,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 3.637999994754791,
-        "150": 3.7641999975840252,
-        "200": 4.084499995708466,
-        "250": 4.445659997940063,
-        "60": 3.580666657288869
+        "100": 3.635799994468689,
+        "150": 3.7559999974568683,
+        "200": 4.072849996089936,
+        "250": 4.439819997787476,
+        "60": 3.5826666593551635
       },
       "name": "Grab Holdings",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 4.4398,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 4.2178,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 4.0069,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-2",
+          "level": 3.8066,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-3",
+          "level": 3.6162,
+          "multiplier": 2.0,
+          "source": "5% drop #4"
+        }
+      ],
       "next_rung": {
         "id": "below-ladder-drop-4",
-        "level": 3.4613,
+        "level": 3.4354,
         "multiplier": 2.0,
         "source": "5% drop #5"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 3.5399999618530273,
-      "price_date": "2026-08-31",
+      "price": 3.4600000381469727,
+      "price_date": "2026-09-01",
       "target_price": 5.83,
       "ticker": "GRAB",
       "tier": "T5",
-      "vs_fair_value_pct": 58.19,
-      "vs_target_pct": 64.69
+      "vs_fair_value_pct": 61.85,
+      "vs_target_pct": 68.5
     },
     "HIMS": {
       "clustered": false,
@@ -1004,25 +1094,25 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 33.3472,
+          "level": 33.0203,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 31.6798,
+          "level": 31.3693,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-26",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 30.0958,
+          "level": 29.8008,
           "multiplier": 2.0,
           "source": "5% drop #2"
         }
@@ -1030,25 +1120,25 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 33.3472,
+          "level": 33.0203,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 31.6798,
+          "level": 31.3693,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 30.0958,
+          "level": 29.8008,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
-          "level": 28.5911,
+          "level": 28.3108,
           "multiplier": 2.0,
           "source": "5% drop #3"
         }
@@ -1057,39 +1147,64 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 33.3472,
+          "level": 33.0203,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 29.318799991607666,
-        "150": 26.387999992370606,
-        "200": 28.554449977874757,
-        "250": 33.084359954833985,
-        "60": 31.57483329772949
+        "100": 29.405699996948243,
+        "150": 26.37973332722982,
+        "200": 28.501549978256225,
+        "250": 33.02027996063232,
+        "60": 31.612333297729492
       },
       "name": "Hims & Hers Health",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 33.0203,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 31.3693,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 29.8008,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        }
+      ],
       "next_rung": {
         "id": "below-ladder-drop-2",
-        "level": 28.5911,
+        "level": 28.3108,
         "multiplier": 2.0,
         "source": "5% drop #3"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 29.579999923706055,
-      "price_date": "2026-08-31",
+      "price": 28.440000534057617,
+      "price_date": "2026-09-01",
       "target_price": 36.4,
       "ticker": "HIMS",
       "tier": "T9",
-      "vs_fair_value_pct": -22.24,
-      "vs_target_pct": 23.06
+      "vs_fair_value_pct": -19.13,
+      "vs_target_pct": 27.99
     },
     "IGV": {
       "clustered": true,
@@ -1140,11 +1255,11 @@
         }
       ],
       "mas": {
-        "100": 93.18470001220703,
-        "150": 89.99693318684896,
-        "200": 93.67739982604981,
-        "250": 97.65607992553711,
-        "60": 95.68599980672201
+        "100": 93.4801000213623,
+        "150": 90.05306650797526,
+        "200": 93.65904983520508,
+        "250": 97.65151992797851,
+        "60": 95.85816650390625
       },
       "name": "iShares Expanded Tech-Software ETF",
       "new_triggers_custom_today": [],
@@ -1160,8 +1275,8 @@
         "start_date": "2026-08-24",
         "type": "biweekly"
       },
-      "price": 109.9800033569336,
-      "price_date": "2026-08-31",
+      "price": 106.18000030517578,
+      "price_date": "2026-09-01",
       "ticker": "IGV",
       "tier": "T2"
     },
@@ -1176,19 +1291,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 254.3665,
+          "level": 258.6973,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 229.7811,
+          "level": 234.7147,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 218.292,
+          "level": 222.9789,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -1197,51 +1312,51 @@
       "ladder": [
         {
           "id": "ma-200",
-          "level": 254.3665,
+          "level": 258.6973,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 229.7811,
+          "level": 234.7147,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 218.292,
+          "level": 222.9789,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
       "mas": {
-        "100": 313.8083985900879,
-        "150": 284.9751989746094,
-        "200": 258.05339920043946,
-        "250": 233.94483908081054,
-        "60": 333.3391657511393
+        "100": 314.12279861450196,
+        "150": 285.3201323445638,
+        "200": 258.69729927062986,
+        "250": 234.71467913818358,
+        "60": 333.1211659749349
       },
       "name": "Lam Research",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 254.3665,
+        "level": 258.6973,
         "multiplier": 1.0,
         "source": "200"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 301.489990234375,
-      "price_date": "2026-08-31",
+      "price": 290.20001220703125,
+      "price_date": "2026-09-01",
       "target_price": 395.0,
       "ticker": "LRCX",
       "tier": "T3.5",
-      "vs_fair_value_pct": 2.82,
-      "vs_target_pct": 31.02
+      "vs_fair_value_pct": 6.82,
+      "vs_target_pct": 36.11
     },
     "META": {
       "clustered": true,
@@ -1310,11 +1425,11 @@
         }
       ],
       "mas": {
-        "100": 606.97259765625,
-        "150": 616.4073970540364,
-        "200": 622.4477481079101,
-        "250": 642.3421586914062,
-        "60": 590.169829305013
+        "100": 606.474097290039,
+        "150": 615.7778637695312,
+        "200": 622.2953979492188,
+        "250": 641.7081186523437,
+        "60": 589.9288289388021
       },
       "name": "Meta Platforms",
       "new_triggers_custom_today": [],
@@ -1330,13 +1445,13 @@
         "start_date": "2026-08-24",
         "type": "biweekly"
       },
-      "price": 572.3400268554688,
-      "price_date": "2026-08-31",
+      "price": 578.5399780273438,
+      "price_date": "2026-09-01",
       "target_price": 753.32,
       "ticker": "META",
       "tier": "T2",
-      "vs_fair_value_pct": 48.51,
-      "vs_target_pct": 31.62
+      "vs_fair_value_pct": 46.92,
+      "vs_target_pct": 30.21
     },
     "MRVL": {
       "clustered": false,
@@ -1349,7 +1464,7 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 132.5599,
+          "level": 136.3581,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -1358,39 +1473,39 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 132.5599,
+          "level": 136.3581,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 212.25980003356935,
-        "150": 170.410866800944,
-        "200": 149.25685012817382,
-        "250": 135.7658000640869,
-        "60": 235.81250025431316
+        "100": 213.16440002441405,
+        "150": 171.26060012817382,
+        "200": 149.86215011596678,
+        "250": 136.35812005615233,
+        "60": 234.9278335571289
       },
       "name": "Marvell Technology",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
-        "level": 132.5599,
+        "level": 136.3581,
         "multiplier": 1.0,
         "source": "250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 211.66000366210938,
-      "price_date": "2026-08-31",
+      "price": 210.38999938964844,
+      "price_date": "2026-09-01",
       "target_price": 287.84,
       "ticker": "MRVL",
       "tier": "T5",
-      "vs_fair_value_pct": 27.56,
-      "vs_target_pct": 35.99
+      "vs_fair_value_pct": 28.33,
+      "vs_target_pct": 36.81
     },
     "MSFT": {
       "clustered": true,
@@ -1442,11 +1557,11 @@
         }
       ],
       "mas": {
-        "100": 423.0930987548828,
-        "150": 414.8117989095052,
-        "200": 431.1686993408203,
-        "250": 447.7216392822266,
-        "60": 427.04466501871747
+        "100": 424.37259857177736,
+        "150": 414.9480655924479,
+        "200": 431.1180992126465,
+        "250": 447.70431921386717,
+        "60": 428.4504979451497
       },
       "name": "Microsoft",
       "new_triggers_custom_today": [],
@@ -1462,13 +1577,13 @@
         "start_date": "2026-08-24",
         "type": "biweekly"
       },
-      "price": 507.2900085449219,
-      "price_date": "2026-08-31",
+      "price": 501.0199890136719,
+      "price_date": "2026-09-01",
       "target_price": 566.14,
       "ticker": "MSFT",
       "tier": "T2",
-      "vs_fair_value_pct": 18.28,
-      "vs_target_pct": 11.6
+      "vs_fair_value_pct": 19.76,
+      "vs_target_pct": 13.0
     },
     "MSTR": {
       "clustered": false,
@@ -1480,145 +1595,205 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 177.8417,
+          "level": 172.7777,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 168.9496,
+          "level": 164.1388,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 160.5021,
+          "level": 155.9319,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-2",
-          "level": 152.477,
+          "level": 148.1353,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-3",
-          "level": 144.8532,
+          "level": 140.7285,
           "multiplier": 2.0,
           "source": "5% drop #4"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-4",
-          "level": 137.6105,
+          "level": 133.6921,
           "multiplier": 2.0,
           "source": "5% drop #5"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-5",
-          "level": 130.73,
+          "level": 127.0075,
           "multiplier": 2.0,
           "source": "5% drop #6"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
-          "id": "below-ladder-drop-6",
-          "level": 124.1935,
-          "multiplier": 2.0,
-          "source": "5% drop #7"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 177.8417,
+          "level": 172.7777,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 168.9496,
+          "level": 164.1388,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 160.5021,
+          "level": 155.9319,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
-          "level": 152.477,
+          "level": 148.1353,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
-          "level": 144.8532,
+          "level": 140.7285,
           "multiplier": 2.0,
           "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
-          "level": 137.6105,
+          "level": 133.6921,
           "multiplier": 2.0,
           "source": "5% drop #5"
         },
         {
           "id": "below-ladder-drop-5",
-          "level": 130.73,
+          "level": 127.0075,
           "multiplier": 2.0,
           "source": "5% drop #6"
+        },
+        {
+          "id": "below-ladder-drop-6",
+          "level": 120.6571,
+          "multiplier": 2.0,
+          "source": "5% drop #7"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-250",
-          "level": 177.8417,
+          "level": 172.7777,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 127.55129974365235,
-        "150": 129.75873306274414,
-        "200": 140.54935001373292,
-        "250": 173.59924014282225,
-        "60": 103.98883285522462
+        "100": 127.511499710083,
+        "150": 129.5140663655599,
+        "200": 140.05069999694825,
+        "250": 172.77772009277345,
+        "60": 104.06283276875814
       },
       "name": "Strategy (MicroStrategy)",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
-      "next_rung": null,
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 172.7777,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 164.1388,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 155.9319,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-2",
+          "level": 148.1353,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-3",
+          "level": 140.7285,
+          "multiplier": 2.0,
+          "source": "5% drop #4"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-4",
+          "level": 133.6921,
+          "multiplier": 2.0,
+          "source": "5% drop #5"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-5",
+          "level": 127.0075,
+          "multiplier": 2.0,
+          "source": "5% drop #6"
+        }
+      ],
+      "next_rung": {
+        "id": "below-ladder-drop-6",
+        "level": 120.6571,
+        "multiplier": 2.0,
+        "source": "5% drop #7"
+      },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 132.94000244140625,
-      "price_date": "2026-08-31",
+      "price": 124.87999725341797,
+      "price_date": "2026-09-01",
       "target_price": 257.75,
       "ticker": "MSTR",
       "tier": "T9",
-      "vs_fair_value_pct": -24.03,
-      "vs_target_pct": 93.88
+      "vs_fair_value_pct": -19.12,
+      "vs_target_pct": 106.4
     },
     "MU": {
       "clustered": false,
@@ -1631,7 +1806,7 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 494.4833,
+          "level": 514.1606,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -1640,39 +1815,39 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 494.4833,
+          "level": 514.1606,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 842.1489022827149,
-        "150": 695.7739347330729,
-        "200": 592.0113505554199,
-        "250": 510.9017207336426,
-        "60": 957.9900034586589
+        "100": 847.2682022094726,
+        "150": 699.2619348144531,
+        "200": 595.4540505981445,
+        "250": 514.1606007385254,
+        "60": 959.1471700032552
       },
       "name": "Micron Technology",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
-        "level": 494.4833,
+        "level": 514.1606,
         "multiplier": 1.0,
         "source": "250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 958.72998046875,
-      "price_date": "2026-08-31",
+      "price": 933.4400024414062,
+      "price_date": "2026-09-01",
       "target_price": 1568.39,
       "ticker": "MU",
       "tier": "T5",
-      "vs_fair_value_pct": -11.34,
-      "vs_target_pct": 63.59
+      "vs_fair_value_pct": -8.94,
+      "vs_target_pct": 68.02
     },
     "NBIS": {
       "clustered": false,
@@ -1685,19 +1860,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 149.7477,
+          "level": 152.8735,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 140.6983,
+          "level": 144.1268,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 133.6634,
+          "level": 136.9204,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -1706,51 +1881,51 @@
       "ladder": [
         {
           "id": "ma-200",
-          "level": 149.7477,
+          "level": 152.8735,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 140.6983,
+          "level": 144.1268,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 133.6634,
+          "level": 136.9204,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
       "mas": {
-        "100": 207.48140029907228,
-        "150": 172.13156712849934,
-        "200": 152.3476253890991,
-        "250": 143.59122048950195,
-        "60": 221.88983357747395
+        "100": 208.11350021362304,
+        "150": 172.80936706542968,
+        "200": 152.87352535247803,
+        "250": 144.12678045654297,
+        "60": 221.4186668395996
       },
       "name": "Nebius Group",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 149.7477,
+        "level": 152.8735,
         "multiplier": 1.0,
         "source": "200"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 206.32000732421875,
-      "price_date": "2026-08-31",
+      "price": 199.5399932861328,
+      "price_date": "2026-09-01",
       "target_price": 300.67,
       "ticker": "NBIS",
       "tier": "T3.5",
-      "vs_fair_value_pct": -27.3,
-      "vs_target_pct": 45.73
+      "vs_fair_value_pct": -24.83,
+      "vs_target_pct": 50.68
     },
     "NU": {
       "clustered": false,
@@ -1762,31 +1937,23 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 15.106,
+          "level": 15.1095,
           "multiplier": 1.0,
           "source": "250"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-08-28",
-          "id": "below-ladder-drop-0",
-          "level": 14.3507,
-          "multiplier": 2.0,
-          "source": "5% drop #1"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 15.106,
+          "level": 15.1095,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 14.3507,
+          "level": 14.354,
           "multiplier": 2.0,
           "source": "5% drop #1"
         }
@@ -1795,34 +1962,48 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 15.106,
+          "level": 15.1095,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 13.74520001411438,
-        "150": 14.383200016021728,
-        "200": 14.981850037574768,
-        "250": 15.108880016326903,
-        "60": 13.707000017166138
+        "100": 13.746800012588501,
+        "150": 14.384266681671143,
+        "200": 14.982650036811828,
+        "250": 15.109520015716553,
+        "60": 13.709666681289672
       },
       "name": "Nu Holdings",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
-      "next_rung": null,
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 15.1095,
+          "multiplier": 1.0,
+          "source": "250"
+        }
+      ],
+      "next_rung": {
+        "id": "below-ladder-drop-0",
+        "level": 14.354,
+        "multiplier": 2.0,
+        "source": "5% drop #1"
+      },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 14.550000190734863,
-      "price_date": "2026-08-31",
+      "price": 14.460000038146973,
+      "price_date": "2026-09-01",
       "target_price": 17.36,
       "ticker": "NU",
       "tier": "T9",
-      "vs_fair_value_pct": 14.09,
-      "vs_target_pct": 19.31
+      "vs_fair_value_pct": 14.8,
+      "vs_target_pct": 20.06
     },
     "NVDA": {
       "clustered": true,
@@ -1874,11 +2055,11 @@
         }
       ],
       "mas": {
-        "100": 208.9666000366211,
-        "150": 200.05366658528646,
-        "200": 195.96330017089844,
-        "250": 193.6461602783203,
-        "60": 208.31166610717773
+        "100": 209.30190002441407,
+        "150": 200.24646657307943,
+        "200": 196.08150016784668,
+        "250": 193.8334403076172,
+        "60": 208.51733271280924
       },
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
@@ -1894,13 +2075,13 @@
         "start_date": "2026-08-31",
         "type": "weekly"
       },
-      "price": 220.77999877929688,
-      "price_date": "2026-08-31",
+      "price": 217.44000244140625,
+      "price_date": "2026-09-01",
       "target_price": 300.0,
       "ticker": "NVDA",
       "tier": "T1",
-      "vs_fair_value_pct": 26.82,
-      "vs_target_pct": 35.88
+      "vs_fair_value_pct": 28.77,
+      "vs_target_pct": 37.97
     },
     "OSCR": {
       "clustered": false,
@@ -1913,7 +2094,7 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 19.6669,
+          "level": 19.9884,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -1922,39 +2103,39 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 19.6669,
+          "level": 19.9884,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 25.78579998970032,
-        "150": 21.591200008392335,
-        "200": 20.150799975395202,
-        "250": 19.939759994506836,
-        "60": 29.840000025431316
+        "100": 25.93869998931885,
+        "150": 21.690866673787436,
+        "200": 20.224449973106385,
+        "250": 19.988359992980957,
+        "60": 29.92866668701172
       },
       "name": "Oscar Health",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
-        "level": 19.6669,
+        "level": 19.9884,
         "multiplier": 1.0,
         "source": "250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 29.959999084472656,
-      "price_date": "2026-08-31",
+      "price": 29.829999923706055,
+      "price_date": "2026-09-01",
       "target_price": 32.2,
       "ticker": "OSCR",
       "tier": "T5",
-      "vs_fair_value_pct": -10.21,
-      "vs_target_pct": 7.48
+      "vs_fair_value_pct": -9.82,
+      "vs_target_pct": 7.95
     },
     "PLTR": {
       "clustered": true,
@@ -2006,11 +2187,11 @@
         }
       ],
       "mas": {
-        "100": 141.66874931335448,
-        "150": 142.98729955037436,
-        "200": 151.34854976654051,
-        "250": 156.90871981811523,
-        "60": 142.75983289082845
+        "100": 142.16304924011231,
+        "150": 143.08209955851237,
+        "200": 151.32729976654053,
+        "250": 157.00879983520508,
+        "60": 143.49966621398926
       },
       "name": "Palantir",
       "new_triggers_custom_today": [],
@@ -2026,13 +2207,13 @@
         "start_date": "2026-08-24",
         "type": "biweekly"
       },
-      "price": 186.3800048828125,
-      "price_date": "2026-08-31",
+      "price": 179.9199981689453,
+      "price_date": "2026-09-01",
       "target_price": 197.89,
       "ticker": "PLTR",
       "tier": "T2",
-      "vs_fair_value_pct": -17.91,
-      "vs_target_pct": 6.18
+      "vs_fair_value_pct": -14.96,
+      "vs_target_pct": 9.99
     },
     "PYPL": {
       "clustered": false,
@@ -2044,9 +2225,9 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-28",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 54.9303,
+          "level": 54.6315,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -2054,13 +2235,13 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 54.9303,
+          "level": 54.6315,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 52.1838,
+          "level": 51.8999,
           "multiplier": 2.0,
           "source": "5% drop #1"
         }
@@ -2069,39 +2250,48 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 54.9303,
+          "level": 54.6315,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 49.94305004119873,
-        "150": 48.30963338216146,
-        "200": 51.21255010604858,
-        "250": 54.700480087280276,
-        "60": 51.990583483378096
+        "100": 50.00725006103516,
+        "150": 48.28890007019043,
+        "200": 51.13855012893677,
+        "250": 54.631520095825195,
+        "60": 52.175750160217284
       },
       "name": "PayPal",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 54.6315,
+          "multiplier": 1.0,
+          "source": "250"
+        }
+      ],
       "next_rung": {
         "id": "below-ladder-drop-0",
-        "level": 52.1838,
+        "level": 51.8999,
         "multiplier": 2.0,
         "source": "5% drop #1"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 52.665000915527344,
-      "price_date": "2026-08-31",
+      "price": 52.400001525878906,
+      "price_date": "2026-09-01",
       "target_price": 58.76,
       "ticker": "PYPL",
       "tier": "T9",
-      "vs_fair_value_pct": 51.9,
-      "vs_target_pct": 11.57
+      "vs_fair_value_pct": 52.67,
+      "vs_target_pct": 12.14
     },
     "RKLB": {
       "clustered": false,
@@ -2113,132 +2303,195 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-150",
-          "level": 84.7342,
+          "level": 83.8684,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "amount": 900.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-200",
-          "level": 78.7848,
+          "level": 79.1882,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 74.0926,
+          "level": 74.5235,
           "multiplier": 2.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 70.388,
+          "level": 70.7973,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-26",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 66.8686,
+          "level": 67.2575,
           "multiplier": 2.0,
           "source": "5% drop #2"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-2",
+          "level": 63.8946,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-150",
-          "level": 84.7342,
+          "level": 83.8684,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 78.7848,
+          "level": 79.1882,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 74.0926,
+          "level": 74.5235,
           "multiplier": 2.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 70.388,
+          "level": 70.7973,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 66.8686,
+          "level": 67.2575,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
-          "level": 63.5251,
+          "level": 63.8946,
           "multiplier": 2.0,
           "source": "5% drop #3"
+        },
+        {
+          "id": "below-ladder-drop-3",
+          "level": 60.6999,
+          "multiplier": 2.0,
+          "source": "5% drop #4"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-150",
-          "level": 84.7342,
+          "level": 83.8684,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 78.7848,
+          "level": 79.1882,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 74.0926,
+          "level": 74.5235,
           "multiplier": 2.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 90.4885998916626,
-        "150": 84.03146667480469,
-        "200": 79.1253751373291,
-        "250": 74.44750006103516,
-        "60": 82.28083362579346
+        "100": 90.44659992218017,
+        "150": 83.86840001424153,
+        "200": 79.18822513580322,
+        "250": 74.52354006958008,
+        "60": 81.48850027720134
       },
       "name": "Rocket Lab",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-150",
+          "level": 83.8684,
+          "multiplier": 1.0,
+          "source": "150"
+        },
+        {
+          "amount": 900.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-200",
+          "level": 79.1882,
+          "multiplier": 1.5,
+          "source": "200"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 74.5235,
+          "multiplier": 2.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 70.7973,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 67.2575,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-2",
+          "level": 63.8946,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
+        }
+      ],
       "next_rung": {
-        "id": "below-ladder-drop-2",
-        "level": 63.5251,
+        "id": "below-ladder-drop-3",
+        "level": 60.6999,
         "multiplier": 2.0,
-        "source": "5% drop #3"
+        "source": "5% drop #4"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 63.91999816894531,
-      "price_date": "2026-08-31",
+      "price": 62.540000915527344,
+      "price_date": "2026-09-01",
       "target_price": 117.54,
       "ticker": "RKLB",
       "tier": "T3",
-      "vs_fair_value_pct": 20.78,
-      "vs_target_pct": 83.89
+      "vs_fair_value_pct": 23.44,
+      "vs_target_pct": 87.94
     },
     "SOFI": {
       "clustered": false,
@@ -2250,106 +2503,161 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 21.8596,
+          "level": 21.6934,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 20.7666,
+          "level": 20.6087,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 19.7283,
+          "level": 19.5783,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-2",
-          "level": 18.7419,
+          "level": 18.5994,
           "multiplier": 2.0,
           "source": "5% drop #3"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-3",
+          "level": 17.6694,
+          "multiplier": 2.0,
+          "source": "5% drop #4"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 21.8596,
+          "level": 21.6934,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 20.7666,
+          "level": 20.6087,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 19.7283,
+          "level": 19.5783,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
-          "level": 18.7419,
+          "level": 18.5994,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
-          "level": 17.8048,
+          "level": 17.6694,
           "multiplier": 2.0,
           "source": "5% drop #4"
+        },
+        {
+          "id": "below-ladder-drop-4",
+          "level": 16.7859,
+          "multiplier": 2.0,
+          "source": "5% drop #5"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-250",
-          "level": 21.8596,
+          "level": 21.6934,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 17.38514995574951,
-        "150": 17.846766668955485,
-        "200": 20.189424986839295,
-        "250": 21.72317999649048,
-        "60": 17.662166611353555
+        "100": 17.39294994354248,
+        "150": 17.79070000330607,
+        "200": 20.113624987602233,
+        "250": 21.693419994354247,
+        "60": 17.67916658719381
       },
       "name": "SoFi Technologies",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 21.6934,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 20.6087,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 19.5783,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-2",
+          "level": 18.5994,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-3",
+          "level": 17.6694,
+          "multiplier": 2.0,
+          "source": "5% drop #4"
+        }
+      ],
       "next_rung": {
-        "id": "below-ladder-drop-3",
-        "level": 17.8048,
+        "id": "below-ladder-drop-4",
+        "level": 16.7859,
         "multiplier": 2.0,
-        "source": "5% drop #4"
+        "source": "5% drop #5"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 17.8799991607666,
-      "price_date": "2026-08-31",
+      "price": 17.049999237060547,
+      "price_date": "2026-09-01",
       "target_price": 20.23,
       "ticker": "SOFI",
       "tier": "T5",
-      "vs_fair_value_pct": -2.13,
-      "vs_target_pct": 13.14
+      "vs_fair_value_pct": 2.64,
+      "vs_target_pct": 18.65
     },
     "TSLA": {
       "clustered": false,
@@ -2361,89 +2669,117 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 405.3072,
+          "level": 405.6236,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 385.0418,
+          "level": 385.3424,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 365.7897,
+          "level": 366.0753,
           "multiplier": 2.0,
           "source": "5% drop #2"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-08-26",
-          "id": "below-ladder-drop-2",
-          "level": 347.5003,
-          "multiplier": 2.0,
-          "source": "5% drop #3"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 405.3072,
+          "level": 405.6236,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 385.0418,
+          "level": 385.3424,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 365.7897,
+          "level": 366.0753,
           "multiplier": 2.0,
           "source": "5% drop #2"
+        },
+        {
+          "id": "below-ladder-drop-2",
+          "level": 347.7715,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-250",
-          "level": 405.3072,
+          "level": 405.6236,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 381.15519958496094,
-        "150": 386.65733256022133,
-        "200": 400.56999984741213,
-        "250": 405.53559985351563,
-        "60": 366.460498046875
+        "100": 381.259899597168,
+        "150": 386.1585992431641,
+        "200": 400.197449798584,
+        "250": 405.6235998535156,
+        "60": 365.87866465250653
       },
       "name": "Tesla",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
-      "next_rung": null,
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 405.6236,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 385.3424,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 366.0753,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        }
+      ],
+      "next_rung": {
+        "id": "below-ladder-drop-2",
+        "level": 347.7715,
+        "multiplier": 2.0,
+        "source": "5% drop #3"
+      },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 367.95001220703125,
-      "price_date": "2026-08-31",
+      "price": 356.0899963378906,
+      "price_date": "2026-09-01",
       "target_price": 393.62,
       "ticker": "TSLA",
       "tier": "T5",
-      "vs_fair_value_pct": 22.3,
-      "vs_target_pct": 6.98
+      "vs_fair_value_pct": 26.37,
+      "vs_target_pct": 10.54
     },
     "TSM": {
       "clustered": true,
@@ -2504,24 +2840,15 @@
         }
       ],
       "mas": {
-        "100": 414.05399993896486,
-        "150": 392.52413350423177,
-        "200": 370.1525500488281,
-        "250": 352.6175599975586,
-        "60": 423.499333190918
+        "100": 414.5391000366211,
+        "150": 393.0285335286458,
+        "200": 370.7694500732422,
+        "250": 353.348,
+        "60": 423.4798329671224
       },
       "name": "Taiwan Semiconductor",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-08-31",
-          "id": "ma-60+100",
-          "level": 418.7767,
-          "multiplier": 1.0,
-          "source": "60+100"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150",
         "level": 392.5241,
@@ -2533,13 +2860,13 @@
         "start_date": "2026-08-31",
         "type": "weekly"
       },
-      "price": 415.32000732421875,
-      "price_date": "2026-08-31",
+      "price": 414.0,
+      "price_date": "2026-09-01",
       "target_price": 545.67,
       "ticker": "TSM",
       "tier": "T1",
-      "vs_fair_value_pct": 28.58,
-      "vs_target_pct": 31.39
+      "vs_fair_value_pct": 28.99,
+      "vs_target_pct": 31.8
     },
     "V": {
       "clustered": false,
@@ -2552,7 +2879,7 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 334.5425,
+          "level": 335.1285,
           "multiplier": 1.0,
           "source": "250"
         }
@@ -2561,39 +2888,39 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 334.5425,
+          "level": 335.1285,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 340.24400146484373,
-        "150": 331.66119995117185,
-        "200": 333.1993997192383,
-        "250": 335.16419921875,
-        "60": 353.6638361612956
+        "100": 340.15470153808593,
+        "150": 331.6016666666667,
+        "200": 333.15474975585937,
+        "250": 335.12847924804686,
+        "60": 353.51500295003257
       },
       "name": "Visa",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
-        "level": 334.5425,
+        "level": 335.1285,
         "multiplier": 1.0,
         "source": "250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 379.3699951171875,
-      "price_date": "2026-08-31",
+      "price": 372.6700134277344,
+      "price_date": "2026-09-01",
       "target_price": 425.39,
       "ticker": "V",
       "tier": "T5",
-      "vs_fair_value_pct": -13.01,
-      "vs_target_pct": 12.13
+      "vs_fair_value_pct": -11.45,
+      "vs_target_pct": 14.15
     },
     "VITL": {
       "clustered": false,
@@ -2605,137 +2932,137 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 24.1229,
+          "level": 23.3044,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-0",
-          "level": 22.9168,
+          "level": 22.1392,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-1",
-          "level": 21.7709,
+          "level": 21.0322,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-2",
-          "level": 20.6824,
+          "level": 19.9806,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-3",
-          "level": 19.6483,
+          "level": 18.9816,
           "multiplier": 2.0,
           "source": "5% drop #4"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-4",
-          "level": 18.6658,
+          "level": 18.0325,
           "multiplier": 2.0,
           "source": "5% drop #5"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-5",
-          "level": 17.7325,
+          "level": 17.1309,
           "multiplier": 2.0,
           "source": "5% drop #6"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-6",
-          "level": 16.8459,
+          "level": 16.2743,
           "multiplier": 2.0,
           "source": "5% drop #7"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-7",
-          "level": 16.0036,
+          "level": 15.4606,
           "multiplier": 2.0,
           "source": "5% drop #8"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-8",
-          "level": 15.2034,
+          "level": 14.6876,
           "multiplier": 2.0,
           "source": "5% drop #9"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-9",
-          "level": 14.4433,
+          "level": 13.9532,
           "multiplier": 2.0,
           "source": "5% drop #10"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-10",
-          "level": 13.7211,
+          "level": 13.2555,
           "multiplier": 2.0,
           "source": "5% drop #11"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-11",
-          "level": 13.0351,
+          "level": 12.5928,
           "multiplier": 2.0,
           "source": "5% drop #12"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-12",
-          "level": 12.3833,
+          "level": 11.9631,
           "multiplier": 2.0,
           "source": "5% drop #13"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-13",
-          "level": 11.7641,
+          "level": 11.365,
           "multiplier": 2.0,
           "source": "5% drop #14"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-24",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-14",
-          "level": 11.1759,
+          "level": 10.7967,
           "multiplier": 2.0,
           "source": "5% drop #15"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-08-27",
+          "first_hit_date": "2026-09-01",
           "id": "below-ladder-drop-15",
-          "level": 10.6171,
+          "level": 10.2569,
           "multiplier": 2.0,
           "source": "5% drop #16"
         }
@@ -2743,139 +3070,287 @@
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 24.1229,
+          "level": 23.3044,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "below-ladder-drop-0",
-          "level": 22.9168,
+          "level": 22.1392,
           "multiplier": 2.0,
           "source": "5% drop #1"
         },
         {
           "id": "below-ladder-drop-1",
-          "level": 21.7709,
+          "level": 21.0322,
           "multiplier": 2.0,
           "source": "5% drop #2"
         },
         {
           "id": "below-ladder-drop-2",
-          "level": 20.6824,
+          "level": 19.9806,
           "multiplier": 2.0,
           "source": "5% drop #3"
         },
         {
           "id": "below-ladder-drop-3",
-          "level": 19.6483,
+          "level": 18.9816,
           "multiplier": 2.0,
           "source": "5% drop #4"
         },
         {
           "id": "below-ladder-drop-4",
-          "level": 18.6658,
+          "level": 18.0325,
           "multiplier": 2.0,
           "source": "5% drop #5"
         },
         {
           "id": "below-ladder-drop-5",
-          "level": 17.7325,
+          "level": 17.1309,
           "multiplier": 2.0,
           "source": "5% drop #6"
         },
         {
           "id": "below-ladder-drop-6",
-          "level": 16.8459,
+          "level": 16.2743,
           "multiplier": 2.0,
           "source": "5% drop #7"
         },
         {
           "id": "below-ladder-drop-7",
-          "level": 16.0036,
+          "level": 15.4606,
           "multiplier": 2.0,
           "source": "5% drop #8"
         },
         {
           "id": "below-ladder-drop-8",
-          "level": 15.2034,
+          "level": 14.6876,
           "multiplier": 2.0,
           "source": "5% drop #9"
         },
         {
           "id": "below-ladder-drop-9",
-          "level": 14.4433,
+          "level": 13.9532,
           "multiplier": 2.0,
           "source": "5% drop #10"
         },
         {
           "id": "below-ladder-drop-10",
-          "level": 13.7211,
+          "level": 13.2555,
           "multiplier": 2.0,
           "source": "5% drop #11"
         },
         {
           "id": "below-ladder-drop-11",
-          "level": 13.0351,
+          "level": 12.5928,
           "multiplier": 2.0,
           "source": "5% drop #12"
         },
         {
           "id": "below-ladder-drop-12",
-          "level": 12.3833,
+          "level": 11.9631,
           "multiplier": 2.0,
           "source": "5% drop #13"
         },
         {
           "id": "below-ladder-drop-13",
-          "level": 11.7641,
+          "level": 11.365,
           "multiplier": 2.0,
           "source": "5% drop #14"
         },
         {
           "id": "below-ladder-drop-14",
-          "level": 11.1759,
+          "level": 10.7967,
           "multiplier": 2.0,
           "source": "5% drop #15"
         },
         {
           "id": "below-ladder-drop-15",
-          "level": 10.6171,
+          "level": 10.2569,
           "multiplier": 2.0,
           "source": "5% drop #16"
+        },
+        {
+          "id": "below-ladder-drop-16",
+          "level": 9.744,
+          "multiplier": 2.0,
+          "source": "5% drop #17"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-250",
-          "level": 24.1229,
+          "level": 23.3044,
           "multiplier": 1.0,
           "source": "250"
         }
       ],
       "mas": {
-        "100": 11.510099983215332,
-        "150": 14.580399951934815,
-        "200": 18.79224995136261,
-        "250": 23.3066799659729,
-        "60": 11.788166650136311
+        "100": 11.504299983978271,
+        "150": 14.576533285776774,
+        "200": 18.78934995174408,
+        "250": 23.304359966278078,
+        "60": 11.778499984741211
       },
       "name": "Vital Farms",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
-      "next_rung": null,
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-01",
+          "id": "ma-250",
+          "level": 23.3044,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-0",
+          "level": 22.1392,
+          "multiplier": 2.0,
+          "source": "5% drop #1"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-1",
+          "level": 21.0322,
+          "multiplier": 2.0,
+          "source": "5% drop #2"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-2",
+          "level": 19.9806,
+          "multiplier": 2.0,
+          "source": "5% drop #3"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-3",
+          "level": 18.9816,
+          "multiplier": 2.0,
+          "source": "5% drop #4"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-4",
+          "level": 18.0325,
+          "multiplier": 2.0,
+          "source": "5% drop #5"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-5",
+          "level": 17.1309,
+          "multiplier": 2.0,
+          "source": "5% drop #6"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-6",
+          "level": 16.2743,
+          "multiplier": 2.0,
+          "source": "5% drop #7"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-7",
+          "level": 15.4606,
+          "multiplier": 2.0,
+          "source": "5% drop #8"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-8",
+          "level": 14.6876,
+          "multiplier": 2.0,
+          "source": "5% drop #9"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-9",
+          "level": 13.9532,
+          "multiplier": 2.0,
+          "source": "5% drop #10"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-10",
+          "level": 13.2555,
+          "multiplier": 2.0,
+          "source": "5% drop #11"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-11",
+          "level": 12.5928,
+          "multiplier": 2.0,
+          "source": "5% drop #12"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-12",
+          "level": 11.9631,
+          "multiplier": 2.0,
+          "source": "5% drop #13"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-13",
+          "level": 11.365,
+          "multiplier": 2.0,
+          "source": "5% drop #14"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-14",
+          "level": 10.7967,
+          "multiplier": 2.0,
+          "source": "5% drop #15"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-01",
+          "id": "below-ladder-drop-15",
+          "level": 10.2569,
+          "multiplier": 2.0,
+          "source": "5% drop #16"
+        }
+      ],
+      "next_rung": {
+        "id": "below-ladder-drop-16",
+        "level": 9.744,
+        "multiplier": 2.0,
+        "source": "5% drop #17"
+      },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 10.680000305175781,
-      "price_date": "2026-08-31",
+      "price": 10.210000038146973,
+      "price_date": "2026-09-01",
       "target_price": 15.2,
       "ticker": "VITL",
       "tier": "T9",
-      "vs_fair_value_pct": 73.5,
-      "vs_target_pct": 42.32
+      "vs_fair_value_pct": 81.49,
+      "vs_target_pct": 48.87
     },
     "XLV": {
       "clustered": true,
@@ -2887,19 +3362,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200+250",
-          "level": 152.9769,
+          "level": 153.7629,
           "multiplier": 1.0,
           "source": "200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 145.328,
+          "level": 146.0747,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 138.0616,
+          "level": 138.771,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -2908,46 +3383,46 @@
       "ladder": [
         {
           "id": "ma-200+250",
-          "level": 152.9769,
+          "level": 153.7629,
           "multiplier": 1.0,
           "source": "200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 145.328,
+          "level": 146.0747,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 138.0616,
+          "level": 138.771,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
       "mas": {
-        "100": 156.03960006713868,
-        "150": 154.8957334391276,
-        "200": 154.9737000274658,
-        "250": 152.3187598876953,
-        "60": 162.25349960327148
+        "100": 156.2630000305176,
+        "150": 155.00386678059897,
+        "200": 155.06794998168945,
+        "250": 152.45779986572265,
+        "60": 162.56449966430665
       },
       "name": "Health Care Select Sector SPDR",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200+250",
-        "level": 152.9769,
+        "level": 153.7629,
         "multiplier": 1.0,
         "source": "200+250"
       },
       "period": {
-        "key": "2026-08",
-        "start_date": "2026-08-01",
+        "key": "2026-09",
+        "start_date": "2026-09-01",
         "type": "monthly"
       },
-      "price": 170.5399932861328,
-      "price_date": "2026-08-31",
+      "price": 171.6699981689453,
+      "price_date": "2026-09-01",
       "ticker": "XLV",
       "tier": "T3.5"
     }
