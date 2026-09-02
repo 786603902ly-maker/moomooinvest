@@ -2,8 +2,10 @@
 
 Codifies your tiered, moving-average-based dollar-cost-averaging rules into
 an automated pipeline: prices refresh daily, thresholds are evaluated
-against your ladder rules, and a dashboard (published as a Claude Artifact)
-shows what's hit and lets you tick off what you've actually invested in.
+against your ladder rules, and a dashboard (hosted on Vercel — see
+[Hosting](#hosting-vercel) — with a Claude Artifact copy as a manual backup)
+shows what's hit and lets you tick off what you've actually invested in,
+synced across your devices.
 
 > **Trunk branch is `claude/investment-rules-stock-tiers-benvvw`** — both
 > the GitHub Actions cron and the daily dashboard-refresh Routine only ever
@@ -35,15 +37,20 @@ shows what's hit and lets you tick off what you've actually invested in.
    manual cron edits. When it does fire, it writes a live
    `intraday_price` / `intraday_price_at` per stock into `data/state.json`
    (on top of, not instead of, the daily close) and rebuilds
-   `dashboard/index.html` so the repo has a fresh static copy even before
-   the next Routine run publishes it.
+   `dashboard/index.html` so the repo has a fresh static copy — with
+   Vercel's git integration connected (see [Hosting](#hosting-vercel)),
+   this commit alone is enough to trigger a live redeploy, no Routine or
+   Claude session needed.
 3. **Daily + Weekly** (Claude scheduled routines, since only a Claude session
-   has the Artifact and WebSearch tools): pulls the latest `state.json`,
-   rebuilds `dashboard/index.html`, and republishes it to the same Artifact
-   URL. The "moomooinvest dashboard refresh" Routine's triggers are set to
-   fire shortly after both market-open snapshot times (currently ~9:50pm and
-   ~10:50pm SGT weekdays) so the published dashboard reflects the live
-   post-open price, not the prior day's close. On **Mondays** it used to
+   has WebSearch and can drive the Artifact): pulls the latest
+   `state.json`, rebuilds `dashboard/index.html`, and republishes it to the
+   Artifact backup URL. (The Vercel copy is already current by this point,
+   from step 1/2's own git push — this step exists to keep the Artifact
+   backup in sync, not to make the live dashboard fresh.) The "moomooinvest
+   dashboard refresh" Routine's triggers are set to fire shortly after both
+   market-open snapshot times (currently ~9:50pm and ~10:50pm SGT weekdays)
+   so the published dashboard reflects the live post-open price, not the
+   prior day's close. On **Mondays** it used to
    additionally web-search each stock's current Morningstar-style analyst
    target price and fair value and update `config/stocks.yaml` — that step
    has since been replaced by the user pasting exact moomoo App numbers
@@ -53,16 +60,56 @@ shows what's hit and lets you tick off what you've actually invested in.
    hit against the live price, place your GTC order(s) manually in moomoo,
    and tick the checkbox next to the rung you acted on.
 
-   **What the checkbox actually does**: purely a personal reminder. It's
-   written to `localStorage` in your browser only (key
-   `moomooinvest-ticks-v1`) — never committed to the repo, never read by
-   `run_check.py` or `engine.py`, and doesn't sync across devices. Its only
-   two effects: (1) it grays out that rung and moves it into the "Action
-   log" table below, and (2) that table is what "Export CSV" reads. It does
-   **not** change whether a rung is considered "fired," does not stop the
-   next period from re-offering the same rung, and does not affect
+   **What the checkbox actually does**: purely a personal reminder, not a
+   rule input. Checking it calls `api/ticks.js` (a small serverless
+   function, see [Hosting](#hosting-vercel)) which stores the tick in a
+   database — so it syncs across every device you open the dashboard on,
+   with a `localStorage` copy (key `moomooinvest-ticks-v1`) kept only as an
+   instant-paint cache for while that request is in flight. There's no
+   login on this endpoint: anyone with the dashboard link can view or check
+   things off, which is an accepted tradeoff for a personal tracker — don't
+   share the link if that's not okay. Ticks are never read by
+   `run_check.py` or `engine.py`. Its effects are all cosmetic/logging: (1)
+   it grays out that rung, tags it "✓ confirmed \<date\>", and moves it into
+   the "Action log" table below; (2) that table is what "Export CSV" reads.
+   It does **not** change whether a rung is considered "fired," does not
+   stop the next period from re-offering the same rung, and does not affect
    `data/state.json` at all. If you want an action to actually change
    future alerting behavior, use a **custom target** instead (below).
+
+## Hosting: Vercel
+
+The dashboard is a static file (`dashboard/index.html`) plus one tiny
+serverless function (`api/ticks.js`) for the cross-device tick sync — no
+build step. One-time setup, done from the Vercel dashboard (not by Claude —
+Claude doesn't have your Vercel login):
+
+1. **Import the repo**: on vercel.com, "Add New… → Project", import
+   `786603902ly-maker/moomooinvest`. Framework preset "Other" is fine —
+   `vercel.json` handles routing `/` to `dashboard/index.html`, and Vercel
+   auto-detects `api/ticks.js` as a serverless function regardless of
+   framework preset. No build command, no output directory setting needed.
+2. **Set the production branch** to `claude/investment-rules-stock-tiers-benvvw`
+   (Project Settings → Git) — that's this repo's trunk (see the branch note
+   at the top of this file / `CLAUDE.md`), so every push to it (the daily
+   GitHub Actions job, the Claude Routine, or a Claude session) triggers an
+   automatic redeploy. No manual "publish" step, unlike the Artifact.
+3. **Add a database for tick sync**: Project → Storage → connect a KV
+   store (Upstash-backed; free tier is plenty for this). Vercel injects the
+   `KV_REST_API_URL` / `KV_REST_API_TOKEN` env vars automatically —
+   `api/ticks.js` just needs them present, no other config. Until this step
+   is done, checkboxes still work per-device (falling back to the
+   `localStorage` cache) but won't sync across devices, and the dashboard
+   footer/sync-status line will say so.
+4. You get a stable `<project>.vercel.app` URL (or attach a custom domain
+   under Project Settings → Domains) that never changes across redeploys —
+   unlike an Artifact URL, which is one specific chat's publish target.
+
+The Claude Artifact copy (see `data/artifact_url.txt`) is kept as a manual
+backup/preview link — a Claude session can still republish it on request,
+but it isn't the primary link once Vercel is live, and its `/api/ticks`
+calls will silently fail (Artifacts sandbox out arbitrary network requests)
+so ticks there only ever work per-device.
 
 ## The rule engine (`scripts/engine.py`)
 
@@ -265,7 +312,13 @@ scripts/
   market_open_snapshot.py  live post-open snapshot -> intraday_price fields
   build_dashboard.py  renders dashboard/index.html from state + config
 dashboard/
-  index.html    generated dashboard (also what gets published as the Artifact)
+  index.html    generated dashboard (deployed to Vercel; also what gets
+                 published as the Artifact backup)
+api/
+  ticks.js      serverless function backing the cross-device tick sync
+                (see Hosting section) — needs a Vercel KV store connected
+vercel.json     routes "/" to dashboard/index.html
+package.json    declares api/ticks.js's one dependency (@vercel/kv)
 .github/workflows/
   daily-price-check.yml         daily close fetch, needs real internet access
   market-open-price-check.yml   live snapshot ~15min after NYSE open, also

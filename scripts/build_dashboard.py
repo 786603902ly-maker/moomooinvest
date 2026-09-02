@@ -143,6 +143,7 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
 .rung.custom.done{opacity:.55;}
 .rung.pending{opacity:.68; border-style:dashed;}
 .rung .dist{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
+.rung .confirmed-tag{color:var(--good); font-size:.72rem; white-space:nowrap; font-weight:600;}
 .rung-wrap{display:flex; flex-direction:column; gap:.15rem;}
 .note-input{
   width:100%; border:1px dashed var(--border); background:transparent; color:var(--text);
@@ -205,6 +206,7 @@ table.val-table td.bad{color:var(--bad);}
       <button class="export" id="export-btn">Export CSV</button>
       <button class="export" id="export-notes-btn">Download my notes</button>
       <span class="next-hint" id="export-hint"></span>
+      <span class="next-hint" id="sync-status"></span>
     </div>
     <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
   </div>
@@ -212,12 +214,13 @@ table.val-table td.bad{color:var(--bad);}
     __VALUATION_TAB__
   </div>
   <footer>
-    Ticks are stored locally in this browser only (not synced back to the repo). Rule assumptions that still need your confirmation are noted in <b>README.md</b> / <b>config/rules.yaml</b>.
+    Ticks sync across your devices via the tick backend (no login -- anyone with this link can view or check things off). Notes are still local to this browser until you download and re-paste them; see <b>README.md</b>. Rule assumptions that still need your confirmation are noted in <b>README.md</b> / <b>config/rules.yaml</b>.
   </footer>
 </div>
 <script>
 const STATE = __STATE_JSON__;
 const STORE_KEY = "moomooinvest-ticks-v1";
+const TICKS_API = "/api/ticks";
 
 document.querySelectorAll(".tab-btn").forEach(btn=>{
   btn.addEventListener("click", ()=>{
@@ -228,13 +231,18 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
   });
 });
 
-function loadTicks(){
+// Ticks live server-side (via TICKS_API, backed by a small database) so a
+// tick made on one device shows up on every other device -- localStorage is
+// kept only as an instant-paint cache for while the fetch is in flight.
+function loadTicksCache(){
   try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch(e){ return {}; }
 }
-function saveTicks(t){ localStorage.setItem(STORE_KEY, JSON.stringify(t)); }
+function saveTicksCache(t){ try { localStorage.setItem(STORE_KEY, JSON.stringify(t)); } catch(e){} }
+
+let ticksLoaded = false;
 
 function renderLog(){
-  const ticks = loadTicks();
+  const ticks = loadTicksCache();
   const rows = Object.values(ticks).sort((a,b)=> (b.tickedAt||"").localeCompare(a.tickedAt||""));
   const wrap = document.getElementById("log-wrap");
   if(!rows.length){ wrap.innerHTML = '<div class="empty-log">Nothing ticked yet.</div>'; return; }
@@ -246,22 +254,82 @@ function renderLog(){
   wrap.innerHTML = html;
 }
 
+function confirmedLabel(iso){
+  if(!iso) return "confirmed";
+  const d = new Date(iso);
+  if(isNaN(d)) return "confirmed";
+  const today = new Date();
+  const sameDay = d.toDateString() === today.toDateString();
+  return sameDay ? "confirmed today" : "confirmed " + d.toISOString().slice(0,10);
+}
+
+function applyTicksToDom(ticks){
+  document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
+    const entry = ticks[cb.dataset.id];
+    cb.checked = !!entry;
+    const rungEl = cb.closest(".rung");
+    if(rungEl){ rungEl.classList.toggle("done", !!entry); }
+  });
+  document.querySelectorAll('.confirmed-tag').forEach(tag=>{
+    const id = tag.dataset.confirmFor;
+    const entry = ticks[id];
+    tag.textContent = entry ? ("✓ " + confirmedLabel(entry.tickedAt)) : "";
+  });
+  renderLog();
+}
+
+function setSyncStatus(msg){
+  const el = document.getElementById("sync-status");
+  if(el) el.textContent = msg || "";
+}
+
+async function fetchTicks(){
+  const res = await fetch(TICKS_API, {method: "GET"});
+  if(!res.ok) throw new Error("bad status " + res.status);
+  return res.json();
+}
+
+async function pushTick(id, entry){
+  const res = await fetch(TICKS_API, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(entry ? {id, entry} : {id, remove: true}),
+  });
+  if(!res.ok) throw new Error("bad status " + res.status);
+  return res.json();
+}
+
+async function syncTicksFromServer(){
+  try {
+    const ticks = await fetchTicks();
+    saveTicksCache(ticks);
+    applyTicksToDom(ticks);
+    ticksLoaded = true;
+    setSyncStatus("");
+  } catch(e){
+    setSyncStatus("Couldn't reach the tick sync backend -- showing this device's last known state.");
+  }
+}
+
 function onToggle(cb){
-  const ticks = loadTicks();
+  const ticks = loadTicksCache();
   const id = cb.dataset.id;
+  let entry = null;
   if(cb.checked){
-    ticks[id] = {
+    entry = {
       ticker: cb.dataset.ticker, tier: cb.dataset.tier, source: cb.dataset.source,
       level: cb.dataset.level, multiplier: cb.dataset.multiplier, amount: cb.dataset.amount,
       firstHit: cb.dataset.firsthit, tickedAt: new Date().toISOString()
     };
+    ticks[id] = entry;
   } else {
     delete ticks[id];
   }
-  saveTicks(ticks);
-  const rungEl = cb.closest(".rung");
-  if(rungEl){ rungEl.classList.toggle("done", cb.checked); }
-  renderLog();
+  saveTicksCache(ticks);
+  applyTicksToDom(ticks);
+  pushTick(id, entry).catch(()=>{
+    setSyncStatus("Couldn't save that tick to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.");
+  });
 }
 
 document.addEventListener("change", (e)=>{
@@ -269,18 +337,13 @@ document.addEventListener("change", (e)=>{
 });
 
 function applyStoredTicks(){
-  const ticks = loadTicks();
-  document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
-    if(ticks[cb.dataset.id]){
-      cb.checked = true;
-      const rungEl = cb.closest(".rung");
-      if(rungEl){ rungEl.classList.add("done"); }
-    }
-  });
+  // Instant paint from the local cache while the network fetch is in
+  // flight; syncTicksFromServer() overwrites this once it lands.
+  applyTicksToDom(loadTicksCache());
 }
 
 async function exportCsv(){
-  const ticks = Object.values(loadTicks());
+  const ticks = Object.values(loadTicksCache());
   const header = "tickedAt,ticker,tier,source,level,multiplier,amount,firstHit";
   const lines = [header, ...ticks.map(r=>[r.tickedAt,r.ticker,r.tier,r.source,r.level,r.multiplier,r.amount,r.firstHit].map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(","))];
   const csv = lines.join("\n");
@@ -364,6 +427,7 @@ document.getElementById("export-notes-btn").addEventListener("click", exportNote
 applyStoredTicks();
 applyStoredNotes();
 renderLog();
+syncTicksFromServer();
 </script>
 """
 
@@ -405,6 +469,7 @@ def render_rung(
 ) -> str:
     status_cls = ("open " + extra_cls).strip() if is_open else extra_cls
     checkbox = ""
+    confirmed_tag = ""
     if is_open:
         rid = f"{ticker}|{rung.get('id')}|{rung.get('first_hit_date','')}"
         checkbox = (
@@ -413,6 +478,7 @@ def render_rung(
             f'data-multiplier="{rung.get("multiplier","-")}" data-amount="{rung.get("amount","")}" '
             f'data-firsthit="{rung.get("first_hit_date","")}">'
         )
+        confirmed_tag = f'<span class="confirmed-tag" data-confirm-for="{rid}"></span>'
     amt = f'{rung.get("amount"):,.0f}' if rung.get("amount") is not None else ""
     mult_txt = f'x{rung.get("multiplier")}' if rung.get("multiplier") is not None else "your target"
     dist_html = ""
@@ -430,7 +496,7 @@ def render_rung(
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
         f'<span class="amt">{mult_txt}{" &middot; " + amt if amt else ""}</span>'
-        f"{dist_html}"
+        f"{dist_html}{confirmed_tag}"
         f"</div>"
         f"{note_input}"
         f"</div>"

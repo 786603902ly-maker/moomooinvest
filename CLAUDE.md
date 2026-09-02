@@ -10,6 +10,11 @@ branch, and it's what both automations read from:
 - The "moomooinvest dashboard refresh" scheduled Routine (see
   `mcp__Claude_Code_Remote__list_triggers`) has this branch name hardcoded
   in its prompt — it clones, checks out, and pushes back to it directly.
+- The Vercel project's "Production Branch" setting (see README's Hosting
+  section) is also pinned to this branch name — that's what makes every
+  push here auto-deploy the live dashboard. If this branch is ever renamed,
+  update that Vercel setting too (Project Settings → Git), not just the
+  Routine's prompt and this file.
 
 The name looks like an ephemeral Claude-session branch (because it started
 as one) but it is not disposable — treat it as this repo's `main`.
