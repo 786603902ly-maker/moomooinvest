@@ -1,18 +1,21 @@
 # moomooinvest — DCA Alert System
 
 Codifies your tiered, moving-average-based dollar-cost-averaging rules into
-an automated pipeline: prices refresh daily, thresholds are evaluated
-against your ladder rules, and a dashboard (hosted on Vercel — see
-[Hosting](#hosting-vercel) — with a Claude Artifact copy as a manual backup)
-shows what's hit and lets you tick off what you've actually invested in,
-synced across your devices.
+an automated pipeline: prices refresh daily via GitHub Actions alone (no
+Claude session needed), thresholds are evaluated against your ladder rules,
+and a dashboard (hosted on Vercel — see [Hosting](#hosting-vercel), which
+auto-deploys on every push) shows what's hit and lets you tick off what
+you've actually invested in, synced across your devices. A Claude Artifact
+copy of the same dashboard still exists as a manual backup/preview link,
+but nothing refreshes it automatically anymore (see below) — ask in chat if
+you want it re-published.
 
-> **Trunk branch is `claude/investment-rules-stock-tiers-benvvw`** — both
-> the GitHub Actions cron and the daily dashboard-refresh Routine only ever
-> read/write this branch. If you're a Claude session working from a
-> different (session-specific) branch, merge into this one before you're
-> done — see `CLAUDE.md` for why this matters and what went wrong once
-> already when it wasn't.
+> **Trunk branch is `claude/investment-rules-stock-tiers-benvvw`** — the
+> GitHub Actions crons and Vercel's Production Branch setting all read/write
+> this branch. If you're a Claude session working from a different
+> (session-specific) branch, merge into this one before you're done — see
+> `CLAUDE.md` for why this matters and what went wrong once already when it
+> wasn't.
 
 ## How it works
 
@@ -41,21 +44,18 @@ synced across your devices.
    Vercel's git integration connected (see [Hosting](#hosting-vercel)),
    this commit alone is enough to trigger a live redeploy, no Routine or
    Claude session needed.
-3. **Daily + Weekly** (Claude scheduled routines, since only a Claude session
-   has WebSearch and can drive the Artifact): pulls the latest
-   `state.json`, rebuilds `dashboard/index.html`, and republishes it to the
-   Artifact backup URL. (The Vercel copy is already current by this point,
-   from step 1/2's own git push — this step exists to keep the Artifact
-   backup in sync, not to make the live dashboard fresh.) The "moomooinvest
-   dashboard refresh" Routine's triggers are set to fire shortly after both
-   market-open snapshot times (currently ~9:50pm and ~10:50pm SGT weekdays)
-   so the published dashboard reflects the live post-open price, not the
-   prior day's close. On **Mondays** it used to
-   additionally web-search each stock's current Morningstar-style analyst
-   target price and fair value and update `config/stocks.yaml` — that step
-   has since been replaced by the user pasting exact moomoo App numbers
-   into a chat conversation instead, so the Routine no longer touches
-   `config/stocks.yaml` at all.
+3. ~~Daily + Weekly Claude scheduled routines~~ — **disabled as of 2026-09-06**.
+   Two "moomooinvest dashboard refresh" Routines used to pull `state.json`,
+   rebuild `dashboard/index.html`, and republish it to the Artifact backup
+   URL shortly after each possible market-open time. Once Vercel's git
+   integration went live, steps 1/2 above already keep the real dashboard
+   current on their own — these Routines were only extending that to the
+   Artifact copy, so they were turned off rather than left running for no
+   reason. The Artifact backup is now static between whenever a Claude
+   session last published it; ask in chat if you want it refreshed. (Even
+   further back, this used to also web-search Morningstar-style target
+   price / fair value every Monday — replaced by you pasting exact moomoo
+   App numbers into chat instead, well before the Vercel move.)
 4. **You** open the dashboard link shortly after market open, see what's
    hit against the live price, place your GTC order(s) manually in moomoo,
    and tick the checkbox next to the rung you acted on.
