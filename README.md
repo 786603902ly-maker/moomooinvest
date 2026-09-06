@@ -79,26 +79,28 @@ you want it re-published.
 
 ## Hosting: Vercel
 
-The dashboard is a static file (`dashboard/index.html`) plus one tiny
-serverless function (`api/ticks.js`) for the cross-device tick sync — no
-build step. One-time setup, done from the Vercel dashboard (not by Claude —
-Claude doesn't have your Vercel login):
+The dashboard is a static file (`dashboard/index.html`) plus two tiny
+serverless functions (`api/ticks.js`, `api/notes.js`) for cross-device tick
+and note sync — no build step. One-time setup, done from the Vercel
+dashboard (not by Claude — Claude doesn't have your Vercel login):
 
 1. **Import the repo**: on vercel.com, "Add New… → Project", import
    `786603902ly-maker/moomooinvest`. Framework preset "Other" is fine —
    `vercel.json` handles routing `/` to `dashboard/index.html`, and Vercel
-   auto-detects `api/ticks.js` as a serverless function regardless of
-   framework preset. No build command, no output directory setting needed.
+   auto-detects everything under `api/` as serverless functions regardless
+   of framework preset. No build command, no output directory setting
+   needed.
 2. **Set the production branch** to `claude/investment-rules-stock-tiers-benvvw`
    (Project Settings → Git) — that's this repo's trunk (see the branch note
    at the top of this file / `CLAUDE.md`), so every push to it (the daily
-   GitHub Actions job, the Claude Routine, or a Claude session) triggers an
-   automatic redeploy. No manual "publish" step, unlike the Artifact.
-3. **Add a database for tick sync**: Project → Storage → connect a KV
+   GitHub Actions job or a Claude session) triggers an automatic redeploy.
+   No manual "publish" step, unlike the Artifact.
+3. **Add a database for tick/note sync**: Project → Storage → connect a KV
    store (Upstash-backed; free tier is plenty for this). Vercel injects the
-   `KV_REST_API_URL` / `KV_REST_API_TOKEN` env vars automatically —
-   `api/ticks.js` just needs them present, no other config. Until this step
-   is done, checkboxes still work per-device (falling back to the
+   `KV_REST_API_URL` / `KV_REST_API_TOKEN` env vars automatically — both
+   `api/ticks.js` and `api/notes.js` just need them present, no other
+   config, since they already share one store. Until this step is done,
+   checkboxes/notes still work per-device (falling back to the
    `localStorage` cache) but won't sync across devices, and the dashboard
    footer/sync-status line will say so.
 4. You get a stable `<project>.vercel.app` URL (or attach a custom domain
@@ -107,9 +109,9 @@ Claude doesn't have your Vercel login):
 
 The Claude Artifact copy (see `data/artifact_url.txt`) is kept as a manual
 backup/preview link — a Claude session can still republish it on request,
-but it isn't the primary link once Vercel is live, and its `/api/ticks`
-calls will silently fail (Artifacts sandbox out arbitrary network requests)
-so ticks there only ever work per-device.
+but it isn't the primary link once Vercel is live, and its `/api/ticks` and
+`/api/notes` calls will silently fail (Artifacts sandbox out arbitrary
+network requests) so ticks and notes there only ever work per-device.
 
 ## The rule engine (`scripts/engine.py`)
 
@@ -195,32 +197,35 @@ matches how cheap or expensive it actually looks — e.g. if a stock you put
 in T3 (slow accumulation) is sitting 35%+ under fair value, that's a signal
 its tier might deserve reconsidering.
 
-## Rung notes: annotate a specific price level, roundtrip through chat
+## Rung notes: annotate a specific price level
 
-Under every rung on the dashboard (fired or pending) there's now a small
-text field where you can type a note directly — reasoning, conviction,
-"wait for X to confirm", whatever. These are **purely informational**, not
-a trigger mechanism (see Custom targets below for that):
+Under every rung on the dashboard (fired or pending) there's a small text
+field where you can type a note directly — reasoning, conviction, "wait for
+X to confirm", whatever. These are **purely informational**, not a trigger
+mechanism (see Custom targets below for that):
 
-- Typing into a note field saves it to your browser's `localStorage`
-  immediately, same mechanism as the tick log — per-device, not synced.
-- **"Download my notes"** (next to Export CSV) exports every note you've
-  typed as a Markdown file, one section per rung, each carrying a `key`
-  like `NVDA|ma-60+100`.
-- To make notes visible on every device (not just the one you typed them
-  on), upload that Markdown file into a chat with Claude — it reads the
-  file and writes the notes into `config/rung_notes.yaml` (`ticker: {
-  rung_id: "note text" }`), which `build_dashboard.py` then renders as the
-  default value of each note field on every future rebuild. You don't have
-  to use the download/upload round trip either — just tell Claude in plain
-  English which stock/level you mean and what to write, and it'll edit
-  `config/rung_notes.yaml` directly.
+- Typing into a note field syncs it live across your devices via
+  `api/notes.js` (same small serverless backend + database as the tick
+  sync — see [Hosting](#hosting-vercel)), with a `localStorage` copy kept
+  only as an instant-paint cache. Same no-login tradeoff as ticks: anyone
+  with the dashboard link can read or edit them.
+- **"Backup my notes"** (next to Export CSV) is now just an optional local
+  export — a Markdown file, one section per rung, each carrying a `key`
+  like `NVDA|ma-60+100` — for your own offline record. You don't need to
+  download or paste anything back for notes to persist or sync anymore;
+  typing is enough.
+- `config/rung_notes.yaml` (`ticker: { rung_id: "note text" }`) still exists
+  as the seed value baked into `dashboard/index.html` at build time — it's
+  what a fresh page shows before the live fetch lands, and what the Claude
+  Artifact backup falls back to (its sandbox blocks the live fetch
+  entirely, same as ticks there). Ask in chat if you want a note committed
+  there directly instead of through the dashboard.
 - If a note implies you actually want an alert at a specific price, say so
   explicitly — notes alone don't create one; that's what Custom targets
   (below) are for. The eventual goal is for Claude to learn your reasoning
   patterns from accumulated notes well enough to weigh in on tier/ladder
-  judgment calls on its own — the notes round trip is the first concrete
-  step toward that, not the whole thing yet.
+  judgment calls on its own — this is a step toward that, not the whole
+  thing yet.
 
 ## Custom targets: your own buy levels, layered on top of the ladder
 
@@ -316,9 +321,10 @@ dashboard/
                  published as the Artifact backup)
 api/
   ticks.js      serverless function backing the cross-device tick sync
-                (see Hosting section) — needs a Vercel KV store connected
+  notes.js      serverless function backing the cross-device note sync
+                (both need a Vercel KV store connected -- see Hosting)
 vercel.json     routes "/" to dashboard/index.html
-package.json    declares api/ticks.js's one dependency (@vercel/kv)
+package.json    declares api/*.js's one shared dependency (@vercel/kv)
 .github/workflows/
   daily-price-check.yml         daily close fetch, needs real internet access
   market-open-price-check.yml   live snapshot ~15min after NYSE open, also

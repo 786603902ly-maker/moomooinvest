@@ -204,7 +204,7 @@ table.val-table td.bad{color:var(--bad);}
     <div class="section-title">Action log</div>
     <div class="actions-bar">
       <button class="export" id="export-btn">Export CSV</button>
-      <button class="export" id="export-notes-btn">Download my notes</button>
+      <button class="export" id="export-notes-btn">Backup my notes</button>
       <span class="next-hint" id="export-hint"></span>
       <span class="next-hint" id="sync-status"></span>
     </div>
@@ -214,7 +214,7 @@ table.val-table td.bad{color:var(--bad);}
     __VALUATION_TAB__
   </div>
   <footer>
-    Ticks sync across your devices via the tick backend (no login -- anyone with this link can view or check things off). Notes are still local to this browser until you download and re-paste them; see <b>README.md</b>. Rule assumptions that still need your confirmation are noted in <b>README.md</b> / <b>config/rules.yaml</b>.
+    Ticks and notes both sync across your devices via small backend endpoints (no login -- anyone with this link can view or edit them). Rule assumptions that still need your confirmation are noted in <b>README.md</b> / <b>config/rules.yaml</b>.
   </footer>
 </div>
 <script>
@@ -278,9 +278,13 @@ function applyTicksToDom(ticks){
   renderLog();
 }
 
-function setSyncStatus(msg){
+// Ticks and notes sync independently -- keep their statuses separate so
+// one channel succeeding doesn't silently clobber the other's error.
+const syncStatusByChannel = {ticks: "", notes: ""};
+function setSyncStatus(msg, channel){
+  syncStatusByChannel[channel || "ticks"] = msg || "";
   const el = document.getElementById("sync-status");
-  if(el) el.textContent = msg || "";
+  if(el) el.textContent = [syncStatusByChannel.ticks, syncStatusByChannel.notes].filter(Boolean).join(" ");
 }
 
 async function fetchTicks(){
@@ -305,9 +309,9 @@ async function syncTicksFromServer(){
     saveTicksCache(ticks);
     applyTicksToDom(ticks);
     ticksLoaded = true;
-    setSyncStatus("");
+    setSyncStatus("", "ticks");
   } catch(e){
-    setSyncStatus("Couldn't reach the tick sync backend -- showing this device's last known state.");
+    setSyncStatus("Couldn't reach the tick sync backend -- showing this device's last known state.", "ticks");
   }
 }
 
@@ -328,7 +332,7 @@ function onToggle(cb){
   saveTicksCache(ticks);
   applyTicksToDom(ticks);
   pushTick(id, entry).catch(()=>{
-    setSyncStatus("Couldn't save that tick to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.");
+    setSyncStatus("Couldn't save that tick to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.", "ticks");
   });
 }
 
@@ -364,25 +368,65 @@ async function exportCsv(){
 }
 document.getElementById("export-btn").addEventListener("click", exportCsv);
 
+// Notes sync server-side too, same pattern as ticks (api/notes.js backed
+// by the same database) -- localStorage is just the instant-paint cache.
 const NOTES_KEY = "moomooinvest-rung-notes-v1";
-function loadNotes(){ try { return JSON.parse(localStorage.getItem(NOTES_KEY) || "{}"); } catch(e){ return {}; } }
-function saveNotes(n){ localStorage.setItem(NOTES_KEY, JSON.stringify(n)); }
+const NOTES_API = "/api/notes";
+function loadNotesCache(){ try { return JSON.parse(localStorage.getItem(NOTES_KEY) || "{}"); } catch(e){ return {}; } }
+function saveNotesCache(n){ try { localStorage.setItem(NOTES_KEY, JSON.stringify(n)); } catch(e){} }
 
-function applyStoredNotes(){
-  const notes = loadNotes();
+function applyNotesToDom(notes){
   document.querySelectorAll('.note-input').forEach(inp=>{
     const key = inp.dataset.noteKey;
-    if(Object.prototype.hasOwnProperty.call(notes, key)){ inp.value = notes[key]; }
+    if(Object.prototype.hasOwnProperty.call(notes, key)){
+      if(document.activeElement !== inp){ inp.value = notes[key]; }
+    }
   });
+}
+
+function applyStoredNotes(){
+  // Instant paint from the local cache while the network fetch is in
+  // flight; syncNotesFromServer() overwrites this once it lands.
+  applyNotesToDom(loadNotesCache());
+}
+
+async function fetchNotes(){
+  const res = await fetch(NOTES_API, {method: "GET"});
+  if(!res.ok) throw new Error("bad status " + res.status);
+  return res.json();
+}
+
+async function pushNote(key, text){
+  const res = await fetch(NOTES_API, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({key, text}),
+  });
+  if(!res.ok) throw new Error("bad status " + res.status);
+  return res.json();
+}
+
+async function syncNotesFromServer(){
+  try {
+    const notes = await fetchNotes();
+    saveNotesCache(notes);
+    applyNotesToDom(notes);
+    setSyncStatus("", "notes");
+  } catch(e){
+    setSyncStatus("Couldn't reach the notes sync backend -- showing this device's last known state.", "notes");
+  }
 }
 
 document.addEventListener("change", (e)=>{
   if(!e.target.matches('.note-input')) return;
-  const notes = loadNotes();
+  const notes = loadNotesCache();
   const key = e.target.dataset.noteKey;
   const val = e.target.value.trim();
   if(val){ notes[key] = val; } else { delete notes[key]; }
-  saveNotes(notes);
+  saveNotesCache(notes);
+  pushNote(key, val).catch(()=>{
+    setSyncStatus("Couldn't save that note to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.", "notes");
+  });
 });
 
 async function exportNotes(){
@@ -398,8 +442,7 @@ async function exportNotes(){
     rows.push({ticker, key: inp.dataset.noteKey, level: lvl, source: src, note: val});
   });
   let md = "# My rung notes -- moomooinvest\n\n";
-  md += "Exported " + new Date().toISOString() + ".\n\n";
-  md += "Upload this file into a chat with Claude to persist these into config/rung_notes.yaml -- once there, they show on the dashboard on every device, not just this browser. Notes are informational only (reasoning/conviction on a level); if one implies an actual price you want alerted on, tell Claude explicitly so it can set up a real custom_targets entry instead.\n\n";
+  md += "Exported " + new Date().toISOString() + " -- a local backup copy only. Notes already sync live across your devices via the notes backend; you don't need this file for that.\n\n";
   if(!rows.length){
     md += "_(no notes yet -- type into any rung's note field on the dashboard, then re-download)_\n";
   }
@@ -428,6 +471,7 @@ applyStoredTicks();
 applyStoredNotes();
 renderLog();
 syncTicksFromServer();
+syncNotesFromServer();
 </script>
 """
 
