@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T23:23:15.454353Z",
+  "generated_at": "2026-09-12T23:06:12.149384Z",
   "stocks": {
     "AMD": {
       "clustered": false,
@@ -2900,16 +2900,7 @@
       },
       "name": "Vital Farms",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-11",
-          "id": "below-ladder-drop-16",
-          "level": 9.744,
-          "multiplier": 2.0,
-          "source": "5% drop #17"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "below-ladder-drop-17",
         "level": 9.2568,
