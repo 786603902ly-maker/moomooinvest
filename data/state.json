@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T23:23:44.060529Z",
+  "generated_at": "2026-09-19T23:15:50.984846Z",
   "stocks": {
     "AMD": {
       "clustered": false,
@@ -1032,16 +1032,7 @@
       },
       "name": "Grab Holdings",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-18",
-          "id": "below-ladder-drop-8",
-          "level": 2.7982,
-          "multiplier": 2.0,
-          "source": "5% drop #9"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "below-ladder-drop-9",
         "level": 2.6583,
