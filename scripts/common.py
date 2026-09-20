@@ -37,6 +37,29 @@ def load_rung_notes() -> dict:
     return load_yaml(RUNG_NOTES_PATH).get("notes") or {}
 
 
+def normalize_rung_id(rung_id: str | None) -> str | None:
+    """Canonicalise a cluster rung id so notes survive MA crossings.
+
+    A merged-support rung is named after its MAs in whatever order they
+    ranked that day: MA200 above MA100 gives "ma-200+100", and the moment
+    those two cross it becomes "ma-100+200" -- the same support level, a
+    different string, so a note keyed on the old spelling would silently
+    stop showing. Sorting the periods makes both spellings collapse to one
+    key. Non-MA ids ("rung-drop-1", "custom-...") pass through untouched.
+
+    Note this only fixes *ordering*. If MA100 drifts within cluster_merge_pct
+    of MA200 the two separate rungs "ma-200"/"ma-100" become one
+    "ma-200+100", which is a genuinely different rung and is left alone --
+    build_dashboard.py warns about those so the key can be re-pointed by hand.
+    """
+    if not rung_id or not rung_id.startswith("ma-"):
+        return rung_id
+    parts = rung_id[3:].split("+")
+    if not all(part.isdigit() for part in parts):
+        return rung_id
+    return "ma-" + "+".join(sorted(parts, key=int))
+
+
 def load_state() -> dict:
     if STATE_PATH.exists():
         with open(STATE_PATH, "r") as f:

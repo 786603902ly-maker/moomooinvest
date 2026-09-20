@@ -7,9 +7,10 @@ published as the Artifact dashboard.
 """
 import datetime as dt
 import json
+import sys
 from zoneinfo import ZoneInfo
 
-from common import DATA_DIR, ROOT, load_rules, load_rung_notes, load_state, load_stocks
+from common import DATA_DIR, ROOT, load_rules, load_rung_notes, load_state, load_stocks, normalize_rung_id
 
 TIER_ORDER = ["T1", "T2", "T3", "T3.5", "T5", "T9"]
 NY = ZoneInfo("America/New_York")
@@ -557,7 +558,12 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     base_amount = tier_cfg.get("base_amount")
     is_single_trigger = len(tier_cfg.get("ma_ladder", [])) == 1
     has_open = len(fired) > 0
-    ticker_notes = (rung_notes or {}).get(ticker) or {}
+    ticker_notes = {
+        normalize_rung_id(k): v for k, v in ((rung_notes or {}).get(ticker) or {}).items()
+    }
+
+    def note_for(rung_id):
+        return ticker_notes.get(normalize_rung_id(rung_id))
 
     pills = []
     if not s.get("is_etf") and s.get("vs_target_pct") is not None:
@@ -598,20 +604,20 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
         # drop cascade currently sits) instead of every cascade step ever
         # fired, which used to blow the card up into a wall of rungs.
         if next_rung:
-            note = ticker_notes.get(next_rung["id"])
+            note = note_for(next_rung["id"])
             preview = dict(next_rung)
             if base_amount is not None:
                 preview["amount"] = round(base_amount * next_rung["multiplier"], 2)
             rungs_html = render_rung(ticker, tier, preview, False, extra_cls="pending", price=price, note=note)
         elif fired:
             last_fired = fired[-1]
-            rungs_html = render_rung(ticker, tier, last_fired, True, note=ticker_notes.get(last_fired["id"]))
+            rungs_html = render_rung(ticker, tier, last_fired, True, note=note_for(last_fired["id"]))
         else:
             rungs_html = ""
     else:
         plan_rows = []
         for rung in ladder:
-            note = ticker_notes.get(rung["id"])
+            note = note_for(rung["id"])
             fired_entry = fired_by_id.get(rung["id"])
             if fired_entry:
                 plan_rows.append(render_rung(ticker, tier, fired_entry, True, note=note))
@@ -621,7 +627,7 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
                     preview["amount"] = round(base_amount * rung["multiplier"], 2)
                 plan_rows.append(render_rung(ticker, tier, preview, False, extra_cls="pending", price=price, note=note))
         extra_fired = [f for f in fired if f["id"] not in ladder_ids]
-        plan_rows += [render_rung(ticker, tier, f, True, note=ticker_notes.get(f["id"])) for f in extra_fired]
+        plan_rows += [render_rung(ticker, tier, f, True, note=note_for(f["id"])) for f in extra_fired]
         rungs_html = "".join(plan_rows)
 
     fired_custom_ids = {f["id"] for f in (s.get("fired_custom") or [])}
@@ -805,12 +811,42 @@ def render_valuation_tab(stocks_state: dict, stocks_cfg: dict, rules: dict) -> s
     return body or '<div class="empty-log">No fair value / target price data yet. Add it to config/stocks.yaml.</div>'
 
 
+def warn_orphan_notes(rung_notes: dict, stocks_state: dict) -> list[str]:
+    """Report note keys in config/rung_notes.yaml that match no current rung.
+
+    Rung ids are derived from the MAs, so they move: a merge or split of a
+    support cluster (MA100 drifting within cluster_merge_pct of MA200 and
+    back) renames the rung, and a note keyed on the old id then renders
+    nowhere -- silently, which is how a note can look lost. Ordering flips
+    are handled by normalize_rung_id; anything left over is printed here so
+    the key can be re-pointed by hand.
+    """
+    orphans = []
+    for ticker, notes in (rung_notes or {}).items():
+        s = stocks_state.get(ticker)
+        if not s:
+            orphans.append(f"{ticker}: ticker not in state.json")
+            continue
+        known = {
+            normalize_rung_id(r["id"])
+            for group in ("ladder", "full_ladder_today", "fired_this_period", "custom_rungs_today")
+            for r in (s.get(group) or [])
+        }
+        for key in notes or {}:
+            if normalize_rung_id(key) not in known:
+                orphans.append(f"{ticker}|{key}")
+    for orphan in orphans:
+        print(f"[rung_notes] note key matches no rung today: {orphan}", file=sys.stderr)
+    return orphans
+
+
 def build() -> str:
     rules = load_rules()
     state = load_state()
     stocks_cfg = {s["ticker"]: s for s in load_stocks()}
     stocks_state = state.get("stocks", {})
     rung_notes = load_rung_notes()
+    warn_orphan_notes(rung_notes, stocks_state)
 
     # Recompute target/fair-value figures from the current config against the
     # last known price, rather than trusting whatever run_check.py baked into

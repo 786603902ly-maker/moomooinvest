@@ -42,3 +42,40 @@ name) and this file.
 
 See `README.md` for the full DCA alert system design (tiers, MA ladder,
 custom targets, valuation dashboard, etc.).
+
+## Standing user preferences on ladder levels (recorded 2026-09-20)
+
+Read `config/rung_notes.yaml` and the README section **"Your standing ladder
+preferences"** before advising on, or changing, any rung level. The short
+version of the rule the user stated:
+
+- Default step between rungs is `drop_step_pct` = 5%. When a stock is in a
+  **clear downtrend and already at a low price**, they'd rather step down
+  **7%** instead — deeper entry, lower average cost — **but only where that
+  7% level is still above the next real MA support**. If an MA sits above
+  the 7% level, that MA stays the rung; the preference only widens steps
+  that were synthetic to begin with.
+- When several MAs are bunched (a few percent apart, so consecutive rungs
+  read as near-repeats) and price has already fallen well below them, they'd
+  rather **skip the shallow top rungs** and start the ladder at the deeper
+  support (e.g. RKLB: "start with ma250 directly").
+- ETFs are treated the other way: smaller expected drawdown, so the default
+  5% step is fine (XLV).
+
+As of 2026-09-20 this is **documentation, not engine behavior** — the engine
+still uses one global 5% step and never skips rungs. If the user asks to
+make it real, it needs a per-stock override in `config/stocks.yaml` plus
+`build_period_ladder` / `extend_with_drop_cascade` changes in
+`scripts/engine.py`, and the ladder is frozen per period, so a rebuild-on-
+config-change guard is needed too (state reuses the stored ladder while the
+period key is unchanged).
+
+### Rung note keys drift
+
+Rung ids come from the MAs, so they move. `normalize_rung_id` in
+`scripts/common.py` makes cluster-order flips (`ma-200+100` vs
+`ma-100+200`) resolve to the same note, but a cluster merging or splitting
+renames the rung for real. `build_dashboard.py` prints
+`[rung_notes] note key matches no rung today: ...` to stderr in that case —
+re-point the key in `config/rung_notes.yaml` when one shows up, rather than
+letting the note silently render nowhere.

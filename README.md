@@ -220,12 +220,78 @@ mechanism (see Custom targets below for that):
   Artifact backup falls back to (its sandbox blocks the live fetch
   entirely, same as ticks there). Ask in chat if you want a note committed
   there directly instead of through the dashboard.
+- **Note keys drift with the ladder.** A rung's id is derived from its MAs,
+  so it changes when they do. Order flips inside a merged cluster
+  (`ma-200+100` → `ma-100+200` once MA100 crosses above MA200) are
+  normalized away, so those notes keep matching on their own. A cluster
+  *merging or splitting* renames the rung for real; `build_dashboard.py`
+  prints `[rung_notes] note key matches no rung today: ...` to stderr when
+  that happens, so re-point the key in `config/rung_notes.yaml` instead of
+  letting the note silently render nowhere.
 - If a note implies you actually want an alert at a specific price, say so
   explicitly — notes alone don't create one; that's what Custom targets
   (below) are for. The eventual goal is for Claude to learn your reasoning
   patterns from accumulated notes well enough to weigh in on tier/ladder
   judgment calls on its own — this is a step toward that, not the whole
   thing yet.
+
+## Your standing ladder preferences (from your notes)
+
+Stated 2026-09-20, recorded here so a later session applies the same
+reasoning instead of re-deriving it from the raw note text. **These are
+your judgment rules, not engine behavior** — see "Status" at the end of
+this section.
+
+**The rule you gave, in your words:** *"i considered recent trend and
+price, if in a clear downtrend and at low price, then normally ok to choose
+bit lower price, like 7% drop, if lower than next ma."*
+
+Unpacked into the engine's vocabulary:
+
+- The engine's default step between rungs is `drop_step_pct` = 5%
+  (`config/rules.yaml`), and rule 3 already takes whichever is **lower** of
+  "next real MA support" and "prior rung − 5%".
+- When a stock is in a clear downtrend and already at a low price, you want
+  that step widened to **7%** — a deeper entry, to pull the average cost
+  down — *provided the 7% step doesn't jump past a real MA support*. If the
+  next MA sits above the 7% level, that MA is the rung; the 7% preference
+  only applies where the step would have been synthetic anyway.
+- The mirror-image case is when the MAs are bunched together
+  (`cluster_merge_pct` = 3% merges them, but MAs 4–6% apart still produce
+  rungs that feel like near-repeats). There you'd rather **skip the shallow
+  top rungs entirely** and start the ladder at the deeper support, because
+  price has already fallen well past them — e.g. your RKLB note, "start
+  with ma250 directly."
+- ETFs are the exception in the other direction: you expect a smaller drawdown
+  from them, so the default step is fine (your XLV note: *"ok since etf
+  expects less drop ratio"*).
+
+What each stock's notes ask for, as of the 2026-09-20 export:
+
+| Stock | Your note asks for | Against today's ladder (state.json, close 2026-09-18) |
+| --- | --- | --- |
+| AVGO | Skip rungs 1–2 (MA100 396.10, −5% 376.30); first buy at rung 3 (357.48), then the cascade level below | All five MAs sit in a 379.10–365.66 band — i.e. inside ~4% — so rungs 1–2 are near-repeats. "341.65" is the below-ladder cascade level the dashboard showed on 2026-09-04 (359.63 × 0.95) |
+| NVDA | Ladder as-is, all three rungs | 211.00 / 200.45 / 190.43 |
+| TSM | Skip rung 1 (MA60+MA100 cluster); start at MA150, then rung 3 as the next tier | "392.52" was the MA150 rung on 2026-09-04; the same rung reads 397.83 today |
+| IGV | Rung 1 as-is; rungs 2–3 at 7% steps instead of 5% | 94.06 / 89.36 / 84.89 today |
+| META | Rung 1 as-is; rungs 2–3 at 7% | 613.44 / 582.77 / 553.63 |
+| MSFT | Rung 1 as-is; rungs 2–3 at 7% | 429.92 / 408.42 / 388.00 |
+| PLTR | Rungs 2–3 at 7% | 151.39 / 143.72 / 136.54 |
+| AMD | MA150 as-is; then 7% steps rather than MA200 / MA250 | 376.58 / 337.72 / 311.06 |
+| AMZN | Rung 1 as-is; rungs 2–3 at 7% | 238.84 / 226.90 / 215.56 |
+| GOOG | Rung 1 as-is; rungs 2–3 at 7% | 337.07 / 318.38 / 302.46 |
+| RKLB | Skip MA150; start at MA250, then two 7% steps below it | 83.87 / 79.19 / 74.52 today, all above the 64.57 price |
+| FTNT | Rungs 2–3 at 7% | 108.53 / 103.10 / 97.95 |
+| LRCX | Rung 3 at 7% | 258.70 / 234.71 / 222.98 |
+| NBIS | MA250 rung and rung 3 at 7% | 152.87 / 144.13 / 136.92 |
+| XLV | Default step is fine (ETF) | 153.76 / 146.07 / 138.77 |
+
+**Status:** informational only, as of 2026-09-20. `drop_step_pct` is still a
+single global 5% and the engine still has no per-stock override and no
+rung-skipping. Making the ladder actually build this way needs a change to
+`config/rules.yaml` + `scripts/engine.py` (a per-stock step override and a
+"start the ladder at rung N / MA X" knob) — ask in chat if you want that
+wired up rather than applied by eye when you place the order.
 
 ## Custom targets: your own buy levels, layered on top of the ladder
 
