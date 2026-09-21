@@ -138,6 +138,16 @@ dashboard (not by Claude — Claude doesn't have your Vercel login):
    under Project Settings → Domains) that never changes across redeploys —
    unlike an Artifact URL, which is one specific chat's publish target.
 
+**The live dashboard is <https://moomooinvest.vercel.app/>** (project:
+`vercel.com/786603902ly-5925s-projects/moomooinvest`). Note that the Claude
+sandbox which develops this repo sits behind a network policy that denies
+both that host and the quote provider, so a Claude session **cannot check
+the live site or `/api/quote` directly**. To verify a deploy, run the
+**Live site smoke test** workflow (`.github/workflows/live-smoke-test.yml`,
+manual trigger only) — a GitHub runner has plain internet access and its
+logs are readable, so that is how a session confirms the deployed endpoint
+actually works.
+
 The Claude Artifact copy (see `data/artifact_url.txt`) is kept as a manual
 backup/preview link — a Claude session can still republish it on request,
 but it isn't the primary link once Vercel is live, and its `/api/ticks` and

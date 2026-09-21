@@ -1,0 +1,60 @@
+name: Live site smoke test
+
+# Manual only -- no cron. Checks that the deployed dashboard is up and that
+# api/quote.js can actually reach the upstream quote provider from Vercel's
+# network.
+#
+# Why a workflow rather than just curling it: the Claude sandbox that
+# develops this repo is behind a network policy that denies both
+# moomooinvest.vercel.app and the quote provider, so it cannot verify its own
+# deployment. A runner has plain internet access, and its logs are readable,
+# which makes this the one way to confirm the live endpoint works without
+# asking you to check by hand.
+#
+# Run it from the Actions tab after a deploy, or whenever the dashboard looks
+# stale, and read the summary it prints.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  SITE: https://moomooinvest.vercel.app
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dashboard page responds
+        run: |
+          code=$(curl -sS -o /tmp/page.html -w '%{http_code}' --max-time 30 "$SITE/")
+          echo "GET $SITE/ -> HTTP $code, $(wc -c < /tmp/page.html) bytes"
+          test "$code" = "200" || { echo "::error::dashboard did not return 200"; exit 1; }
+          grep -q '/api/quote' /tmp/page.html \
+            && echo "OK: deployed page contains the live-price client" \
+            || echo "::warning::deployed page has no /api/quote call -- Vercel may still be serving an older build"
+
+      - name: Live quote endpoint works
+        run: |
+          code=$(curl -sS -o /tmp/quote.json -w '%{http_code}' --max-time 45 \
+            "$SITE/api/quote?tickers=NVDA,TSM,AVGO,RKLB")
+          echo "GET /api/quote -> HTTP $code"
+          cat /tmp/quote.json
+          echo
+          test "$code" = "200" || { echo "::error::quote endpoint returned $code"; exit 1; }
+          python3 - <<'PY'
+          import json, sys
+          data = json.load(open("/tmp/quote.json"))
+          quotes, errors = data.get("quotes") or {}, data.get("errors") or {}
+          print(f"\nfetched_at: {data.get('fetched_at')}")
+          for ticker, q in sorted(quotes.items()):
+              print(f"  {ticker:6} {q['price']:>10.2f}  at {q.get('at')}  state={q.get('state')}")
+          for ticker, err in sorted(errors.items()):
+              print(f"  {ticker:6} FAILED: {err}")
+          if not quotes:
+              sys.exit("::error::no quotes returned -- upstream is unreachable or blocking Vercel")
+          if errors:
+              print(f"::warning::{len(errors)} ticker(s) failed upstream")
+          print(f"\nOK: {len(quotes)} live quote(s) returned from the deployed function")
+          PY
