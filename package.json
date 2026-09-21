@@ -1,7 +1,7 @@
 {
   "name": "moomooinvest-dashboard",
   "private": true,
-  "description": "Static DCA dashboard (dashboard/index.html) plus tiny serverless APIs (api/ticks.js, api/notes.js) that store checked-off buy rungs and per-rung notes in a small database so they sync across devices.",
+  "description": "Static DCA dashboard (dashboard/index.html) plus tiny serverless APIs: api/ticks.js and api/notes.js store checked-off buy rungs and per-rung notes in a small database so they sync across devices, and api/quote.js fetches live market prices on demand so the page isn't limited to the daily close committed by GitHub Actions.",
   "dependencies": {
     "@vercel/kv": "^2.0.0"
   }

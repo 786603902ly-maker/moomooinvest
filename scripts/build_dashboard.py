@@ -144,6 +144,10 @@ footer{color:var(--text-muted); font-size:.76rem; margin-top:2.5rem; border-top:
 .rung.custom.done{opacity:.55;}
 .rung.pending{opacity:.68; border-style:dashed;}
 .rung .dist{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
+.rung.live-hit{opacity:1; border-style:solid; border-color:var(--good); background:var(--good-soft);}
+.rung .live-hit-tag{color:var(--good); font-size:.72rem; font-weight:700; white-space:nowrap;}
+.live-status{color:var(--text-muted); font-size:.76rem; margin-left:.4rem;}
+.live-status.err{color:var(--bad);}
 .rung .confirmed-tag{color:var(--good); font-size:.72rem; white-space:nowrap; font-weight:600;}
 .rung-wrap{display:flex; flex-direction:column; gap:.15rem;}
 .note-input{
@@ -190,6 +194,7 @@ table.val-table td.bad{color:var(--bad);}
 <div class="wrap">
   <h1>DCA Alert Dashboard</h1>
   <div class="subtitle">Prices as of <b>__PRICE_DATE__</b>__LIVE_SNAPSHOT__ &middot; generated __GENERATED_AT__ &middot; fundamentals last refreshed <b>__FUND_DATE__</b></div>
+  <div class="subtitle"><button class="export" id="refresh-prices-btn">Refresh live prices</button><span class="live-status" id="live-status"></span></div>
   __STALE_BANNER__
   <div class="tabs">
     <button class="tab-btn active" data-tab="alerts">Alerts &amp; ladder</button>
@@ -468,11 +473,160 @@ async function exportNotes(){
 }
 document.getElementById("export-notes-btn").addEventListener("click", exportNotes);
 
+// ---------------------------------------------------------------------------
+// Live prices.
+//
+// data/state.json only ever holds the daily close plus, at best, one
+// intraday snapshot whenever GitHub got round to running the cron. /api/quote
+// fetches real quotes server-side on demand, so opening this page during the
+// session shows a price seconds old rather than hours.
+//
+// Display only: the MA ladder levels and which rungs have officially "fired"
+// are still decided by run_check.py off the daily close. What updates here is
+// the price shown, the distance to each pending rung, and a "hit now" flag on
+// any pending rung the live price has already reached.
+const QUOTE_API = "/api/quote";
+const LIVE_REFRESH_MS = 60000;
+
+function nyNow(){
+  const parts = {};
+  const fmt = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York", weekday: "short",
+    hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+  });
+  for(const part of fmt.formatToParts(new Date())) parts[part.type] = part.value;
+  return parts;
+}
+
+// Market holidays aren't tracked -- on one the quote just repeats the previous
+// session's last print, same as the rest of the page would show anyway.
+function marketOpenNow(){
+  const p = nyNow();
+  if(p.weekday === "Sat" || p.weekday === "Sun") return false;
+  const mins = (parseInt(p.hour, 10) % 24) * 60 + parseInt(p.minute, 10);
+  return mins >= 570 && mins <= 960;  // 09:30 - 16:00 ET
+}
+
+function fmtLivePrice(v){
+  return "$" + v.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+function etTimeLabel(iso){
+  if(!iso) return "";
+  return new Date(iso).toLocaleTimeString("en-US", {
+    timeZone: "America/New_York", hour: "numeric", minute: "2-digit",
+  }) + " ET";
+}
+
+function applyQuote(card, quote){
+  const price = quote && quote.price;
+  if(typeof price !== "number" || !isFinite(price)) return;
+
+  const priceEl = card.querySelector(".price");
+  if(priceEl) priceEl.textContent = fmtLivePrice(price);
+
+  const sub = card.querySelector(".price-sub");
+  if(sub){
+    const close = parseFloat(card.dataset.close);
+    const closeLine = isFinite(close)
+      ? '<div class="price-date" style="opacity:.65">close ' + fmtLivePrice(close) +
+        " &middot; " + (card.dataset.closeDate || "-") + "</div>"
+      : "";
+    sub.innerHTML = '<div class="price-date"><span class="live-tag">live</span>' +
+      etTimeLabel(quote.at) + "</div>" + closeLine;
+  }
+
+  card.querySelectorAll(".rung[data-level]").forEach((rung) => {
+    // Rungs already fired this period keep whatever run_check.py decided;
+    // re-labelling them from a live price would contradict the stored state.
+    if(rung.dataset.open === "1") return;
+    const level = parseFloat(rung.dataset.level);
+    if(!isFinite(level)) return;
+
+    const dist = rung.querySelector(".dist");
+    if(dist){
+      const pct = (level - price) / price * 100;
+      dist.textContent = (pct >= 0 ? "+" : "") + pct.toFixed(1) + "% away";
+    }
+
+    const hit = price <= level;
+    rung.classList.toggle("live-hit", hit);
+    let tag = rung.querySelector(".live-hit-tag");
+    if(hit && !tag){
+      tag = document.createElement("span");
+      tag.className = "live-hit-tag";
+      tag.textContent = "hit now";
+      rung.appendChild(tag);
+    }else if(!hit && tag){
+      tag.remove();
+    }
+  });
+}
+
+function setLiveStatus(msg, isError){
+  const el = document.getElementById("live-status");
+  if(!el) return;
+  el.textContent = msg || "";
+  el.classList.toggle("err", !!isError);
+}
+
+let liveRefreshInFlight = false;
+async function refreshLivePrices(manual){
+  if(liveRefreshInFlight) return;
+  const cards = [...document.querySelectorAll(".card[data-ticker]")];
+  const tickers = [...new Set(cards.map((c) => c.dataset.ticker).filter(Boolean))];
+  if(!tickers.length) return;
+
+  liveRefreshInFlight = true;
+  setLiveStatus("Fetching live prices…");
+  try{
+    const res = await fetch(QUOTE_API + "?tickers=" + encodeURIComponent(tickers.join(",")));
+    if(!res.ok) throw new Error("quote endpoint returned " + res.status);
+    const data = await res.json();
+    const quotes = (data && data.quotes) || {};
+    let applied = 0;
+    for(const card of cards){
+      const quote = quotes[card.dataset.ticker];
+      if(quote){ applyQuote(card, quote); applied++; }
+    }
+    if(!applied) throw new Error("no quotes returned");
+    const missing = tickers.length - applied;
+    setLiveStatus(
+      "Live as of " + new Date().toLocaleTimeString() +
+      (missing ? " (" + missing + " stock(s) unavailable, showing their last close)" : ""),
+      false
+    );
+  }catch(err){
+    // Failure is not a broken page: every card still shows the committed
+    // close from data/state.json, which is exactly the old behaviour.
+    setLiveStatus(
+      "Couldn't fetch live prices — showing the last close from the daily run." +
+      (manual ? " (" + String((err && err.message) || err) + ")" : ""),
+      true
+    );
+  }finally{
+    liveRefreshInFlight = false;
+  }
+}
+
+const refreshBtn = document.getElementById("refresh-prices-btn");
+if(refreshBtn) refreshBtn.addEventListener("click", () => refreshLivePrices(true));
+
 applyStoredTicks();
 applyStoredNotes();
 renderLog();
 syncTicksFromServer();
 syncNotesFromServer();
+
+// One fetch on load whatever the clock says (outside the session it simply
+// shows the last print, which is still more current than a day-old commit),
+// then keep it ticking only while the market is actually open.
+refreshLivePrices(false);
+setInterval(() => { if(marketOpenNow()) refreshLivePrices(false); }, LIVE_REFRESH_MS);
+// Coming back to a tab left open overnight should not keep showing yesterday.
+document.addEventListener("visibilitychange", () => {
+  if(!document.hidden) refreshLivePrices(false);
+});
 </script>
 """
 
@@ -537,7 +691,11 @@ def render_rung(
     )
     return (
         f'<div class="rung-wrap">'
-        f'<div class="rung {status_cls}">{checkbox}'
+        # data-level / data-open let the live-price refresher recompute
+        # "% away" and flag a rung the live price has reached, without
+        # re-rendering the card.
+        f'<div class="rung {status_cls}" data-level="{rung.get("level", "")}" '
+        f'data-open="{1 if is_open else 0}">{checkbox}'
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
         f'<span class="amt">{mult_txt}{" &middot; " + amt if amt else ""}</span>'
@@ -682,10 +840,10 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     else:
         price_sub = f'<div class="price-date">{s.get("price_date","-")}</div>'
 
-    return f"""<div class="card {'has-open' if has_open else ''}" data-ticker="{ticker}">
+    return f"""<div class="card {'has-open' if has_open else ''}" data-ticker="{ticker}" data-close="{s.get('price') if s.get('price') is not None else ''}" data-close-date="{s.get('price_date','-')}">
   <div class="card-head">
     <div><div class="name">{ticker} <span class="sub">{s.get('name','')}</span></div><div class="sub">{tier} &middot; {period_txt}</div></div>
-    <div style="text-align:right;"><div class="price">{fmt_price(price)}</div>{price_sub}</div>
+    <div class="price-box" style="text-align:right;"><div class="price">{fmt_price(price)}</div><div class="price-sub">{price_sub}</div></div>
   </div>
   <div class="pills">{''.join(pills)}</div>
   {valuation_line}

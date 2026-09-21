@@ -22,12 +22,26 @@ you want it re-published.
 1. **Daily** (GitHub Actions, `.github/workflows/daily-price-check.yml`,
    21:30 UTC ≈ 05:30 SGT next day, after US close): fetches fresh daily
    closes, recomputes MA60/100/150/200/250 per stock, evaluates each tier's
-   ladder against the new price, and commits the result to `data/state.json`.
+   ladder against the new price, and commits the result to `data/state.json`
+   along with a rebuilt `dashboard/index.html` (before 2026-09-21 it
+   committed the state alone, so the page Vercel served kept its previous
+   build until some later market-open run happened to rebuild it).
    This step needs real internet access to Yahoo/stooq, which the Claude
    sandbox that built this doesn't have — hence it runs on GitHub's own
    runners instead of as a Claude-scheduled job. This is the data the
    MA/ladder math is keyed off — it never changes intraday.
-2. **Market open** (GitHub Actions, `.github/workflows/market-open-price-check.yml`):
+2. **Live, on every page load** (`api/quote.js`, no cron involved): the
+   dashboard asks this small serverless function for current quotes when you
+   open it, then again every 60 seconds while the US market is open (and
+   whenever you switch back to the tab). It fetches server-side, so the price
+   you see is seconds old, not hours. It updates the displayed price, each
+   pending rung's "% away", and flags any pending rung the live price has
+   already reached as **hit now**. If the fetch fails, every card falls back
+   to the committed close — the page never ends up blank or wrong, just less
+   current. This is display only: which rungs have officially *fired* is
+   still decided by `run_check.py` off the daily close, so a "hit now" flag
+   is a heads-up to go look, not a state change.
+3. **Market open** (GitHub Actions, `.github/workflows/market-open-price-check.yml`):
    NYSE opens at 9:30am ET, which lands at either 9:30pm SGT (EDT, roughly
    Mar–Nov) or 10:30pm SGT (EST, roughly Nov–Mar) depending on the time of
    year. Rather than track the DST flip, this workflow fires at *both*
@@ -37,14 +51,28 @@ you want it re-published.
    genuinely within ~25 minutes of today's open — so whichever of the two
    firings doesn't match the current DST regime is a silent no-op, and the
    schedule self-adjusts across the March/November transitions with no
-   manual cron edits. When it does fire, it writes a live
+   manual cron edits.
+
+   **Treat this as a fallback, not the live-price mechanism** — step 2 is
+   that. GitHub queues scheduled runs behind everything else and was
+   starting this one **3.5–5 hours late** (measured Sept 2026: firings due
+   at 09:44 ET actually landed 13:13–14:52 ET). Until 2026-09-21 the script
+   also only accepted 09:30–09:55 ET, so *every* firing fell outside its own
+   window and skipped the fetch — `intraday_price` had never once been
+   written for any stock, and the job's only real effect was rebuilding the
+   dashboard, under a commit message that claimed otherwise. The window is
+   now the whole session (09:30–16:00 ET). You can also run it on demand
+   from the Actions tab (`workflow_dispatch`), which starts immediately —
+   the delay only affects `schedule` events.
+
+   When it does fire, it writes a live
    `intraday_price` / `intraday_price_at` per stock into `data/state.json`
    (on top of, not instead of, the daily close) and rebuilds
    `dashboard/index.html` so the repo has a fresh static copy — with
    Vercel's git integration connected (see [Hosting](#hosting-vercel)),
    this commit alone is enough to trigger a live redeploy, no Routine or
    Claude session needed.
-3. ~~Daily + Weekly Claude scheduled routines~~ — **disabled as of 2026-09-06**.
+4. ~~Daily + Weekly Claude scheduled routines~~ — **disabled as of 2026-09-06**.
    Two "moomooinvest dashboard refresh" Routines used to pull `state.json`,
    rebuild `dashboard/index.html`, and republish it to the Artifact backup
    URL shortly after each possible market-open time. Once Vercel's git
@@ -56,7 +84,7 @@ you want it re-published.
    further back, this used to also web-search Morningstar-style target
    price / fair value every Monday — replaced by you pasting exact moomoo
    App numbers into chat instead, well before the Vercel move.)
-4. **You** open the dashboard link shortly after market open, see what's
+5. **You** open the dashboard link any time during the session, see what's
    hit against the live price, place your GTC order(s) manually in moomoo,
    and tick the checkbox next to the rung you acted on.
 
@@ -79,9 +107,12 @@ you want it re-published.
 
 ## Hosting: Vercel
 
-The dashboard is a static file (`dashboard/index.html`) plus two tiny
-serverless functions (`api/ticks.js`, `api/notes.js`) for cross-device tick
-and note sync — no build step. One-time setup, done from the Vercel
+The dashboard is a static file (`dashboard/index.html`) plus three tiny
+serverless functions — `api/ticks.js` and `api/notes.js` for cross-device
+tick and note sync, and `api/quote.js` for live prices — no build step.
+`api/quote.js` needs no database and no env vars (it just proxies a public
+quote endpoint server-side, with a 30s edge cache so repeat loads don't
+re-hit upstream), so it works as soon as the project deploys. One-time setup, done from the Vercel
 dashboard (not by Claude — Claude doesn't have your Vercel login):
 
 1. **Import the repo**: on vercel.com, "Add New… → Project", import
