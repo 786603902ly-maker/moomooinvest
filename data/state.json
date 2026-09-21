@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T23:15:50.984846Z",
+  "generated_at": "2026-09-21T00:08:38.328402Z",
   "stocks": {
     "AMD": {
       "clustered": false,
@@ -12,19 +12,19 @@
       "full_ladder_today": [
         {
           "id": "ma-150",
-          "level": 376.5847,
+          "level": 399.0655,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 337.7204,
+          "level": 354.6241,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 311.0586,
+          "level": 327.708,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -33,23 +33,39 @@
       "ladder": [
         {
           "id": "ma-150",
-          "level": 376.5847,
+          "level": 399.0655,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 337.7204,
+          "level": 354.6241,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 311.0586,
+          "level": 327.708,
           "multiplier": 2.0,
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          150,
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 486.52450103759764,
         "150": 399.0655339558919,
@@ -62,7 +78,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150",
-        "level": 376.5847,
+        "level": 399.0655,
         "multiplier": 1.0,
         "source": "150"
       },
@@ -90,44 +106,60 @@
       "full_ladder_today": [
         {
           "id": "ma-150+200+250",
-          "level": 238.8448,
+          "level": 240.4696,
           "multiplier": 1.0,
           "source": "150+200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 226.9026,
+          "level": 223.6367,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 215.5575,
+          "level": 207.9821,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-150+200+250",
-          "level": 238.8448,
+          "level": 240.4696,
           "multiplier": 1.0,
           "source": "150+200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 226.9026,
+          "level": 223.6367,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 215.5575,
+          "level": 207.9821,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          150,
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 255.08080001831055,
         "150": 243.34433319091798,
@@ -140,7 +172,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150+200+250",
-        "level": 238.8448,
+        "level": 240.4696,
         "multiplier": 1.0,
         "source": "150+200+250"
       },
@@ -182,6 +214,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 1698.586199951172,
         "150": 1600.2886686197917,
@@ -329,6 +375,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 74.69719989776611,
         "150": 78.93483324686686,
@@ -360,56 +420,23 @@
       "error": null,
       "fair_value": 650.0,
       "fired_custom": [],
-      "fired_this_period": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-09-14",
-          "id": "ma-100",
-          "level": 396.1,
-          "multiplier": 1.0,
-          "source": "100"
-        },
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-09-14",
-          "id": "rung-drop-1",
-          "level": 376.295,
-          "multiplier": 1.5,
-          "source": "5% drop"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-14",
-          "id": "rung-drop-2",
-          "level": 357.4803,
-          "multiplier": 2.0,
-          "source": "5% drop"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-15",
-          "id": "below-ladder-drop-0",
-          "level": 339.6063,
-          "multiplier": 2.0,
-          "source": "5% drop #1"
-        }
-      ],
+      "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "ma-100",
-          "level": 396.1,
+          "id": "rung-drop-0",
+          "level": 354.774,
           "multiplier": 1.0,
-          "source": "100"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-1",
-          "level": 376.295,
+          "level": 337.0353,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 357.4803,
+          "level": 320.1835,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -417,24 +444,40 @@
       "is_etf": false,
       "ladder": [
         {
-          "id": "ma-100",
-          "level": 396.1,
+          "id": "rung-drop-0",
+          "level": 354.774,
           "multiplier": 1.0,
-          "source": "100"
+          "source": "5% drop"
         },
         {
           "id": "rung-drop-1",
-          "level": 376.295,
+          "level": 337.0353,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 357.4803,
+          "level": 320.1835,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          60,
+          100,
+          150
+        ],
+        "skip_top_rungs": 2,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 393.1013998413086,
         "150": 376.43426696777345,
@@ -445,7 +488,12 @@
       "name": "Broadcom",
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
-      "next_rung": null,
+      "next_rung": {
+        "id": "rung-drop-0",
+        "level": 354.774,
+        "multiplier": 1.0,
+        "source": "5% drop"
+      },
       "period": {
         "key": "2026-W38",
         "start_date": "2026-09-14",
@@ -484,6 +532,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 495.13819915771484,
         "150": 491.56373311360676,
@@ -589,6 +651,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 127.42105026245117,
         "150": 118.62136678059896,
@@ -624,44 +700,59 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 108.5265,
+          "level": 113.8825,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 103.1002,
+          "level": 105.9107,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 97.9452,
+          "level": 98.497,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 108.5265,
+          "level": 113.8825,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 103.1002,
+          "level": 105.9107,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 97.9452,
+          "level": 98.497,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 146.49999961853027,
         "150": 124.88446629842123,
@@ -674,7 +765,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 108.5265,
+        "level": 113.8825,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -744,6 +835,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 35.05400018692016,
         "150": 35.58220020294189,
@@ -782,7 +887,7 @@
           "amount": 600.0,
           "first_hit_date": "2026-09-01",
           "id": "ma-150+200",
-          "level": 337.0719,
+          "level": 338.5248,
           "multiplier": 1.0,
           "source": "150+200"
         }
@@ -790,44 +895,60 @@
       "full_ladder_today": [
         {
           "id": "ma-150+200",
-          "level": 337.0719,
+          "level": 338.5248,
           "multiplier": 1.0,
           "source": "150+200"
         },
         {
-          "id": "ma-250",
-          "level": 318.3752,
+          "id": "rung-drop-1",
+          "level": 314.8281,
           "multiplier": 1.5,
-          "source": "250"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 302.4564,
+          "level": 292.7901,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-150+200",
-          "level": 337.0719,
+          "level": 338.5248,
           "multiplier": 1.0,
           "source": "150+200"
         },
         {
-          "id": "ma-250",
-          "level": 318.3752,
+          "id": "rung-drop-1",
+          "level": 314.8281,
           "multiplier": 1.5,
-          "source": "250"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 302.4564,
+          "level": 292.7901,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          150,
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 356.632099609375,
         "150": 340.8709326171875,
@@ -839,10 +960,10 @@
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
-        "id": "ma-250",
-        "level": 318.3752,
+        "id": "rung-drop-1",
+        "level": 314.8281,
         "multiplier": 1.5,
-        "source": "250"
+        "source": "7% drop"
       },
       "period": {
         "key": "2026-09",
@@ -1023,6 +1144,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 3.532249991893768,
         "150": 3.6590999952952066,
@@ -1134,6 +1269,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 29.564199981689452,
         "150": 26.767733300526938,
@@ -1173,44 +1322,60 @@
       "full_ladder_today": [
         {
           "id": "ma-100+200",
-          "level": 94.062,
+          "level": 94.8185,
           "multiplier": 1.0,
           "source": "100+200"
         },
         {
           "id": "rung-drop-1",
-          "level": 89.3589,
+          "level": 88.1812,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 84.8909,
+          "level": 82.0085,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": true,
       "ladder": [
         {
           "id": "ma-100+200",
-          "level": 94.062,
+          "level": 94.8185,
           "multiplier": 1.0,
           "source": "100+200"
         },
         {
           "id": "rung-drop-1",
-          "level": 89.3589,
+          "level": 88.1812,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 84.8909,
+          "level": 82.0085,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          100,
+          150,
+          200
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 95.96249992370605,
         "150": 91.48139989217123,
@@ -1223,7 +1388,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-100+200",
-        "level": 94.062,
+        "level": 94.8185,
         "multiplier": 1.0,
         "source": "100+200"
       },
@@ -1248,44 +1413,59 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 258.6973,
+          "level": 267.2001,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 234.7147,
+          "level": 243.2083,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 222.9789,
+          "level": 226.1837,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 258.6973,
+          "level": 267.2001,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 234.7147,
+          "level": 243.2083,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 222.9789,
+          "level": 226.1837,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 317.3440986633301,
         "150": 290.1662657674154,
@@ -1298,7 +1478,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 258.6973,
+        "level": 267.2001,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -1326,44 +1506,60 @@
       "full_ladder_today": [
         {
           "id": "ma-200+150+100",
-          "level": 613.4444,
+          "level": 613.6196,
           "multiplier": 1.0,
           "source": "200+150+100"
         },
         {
           "id": "rung-drop-1",
-          "level": 582.7721,
+          "level": 570.6662,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 553.6335,
+          "level": 530.7196,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200+150+100",
-          "level": 613.4444,
+          "level": 613.6196,
           "multiplier": 1.0,
           "source": "200+150+100"
         },
         {
           "id": "rung-drop-1",
-          "level": 582.7721,
+          "level": 570.6662,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 553.6335,
+          "level": 530.7196,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          100,
+          150,
+          200
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 603.9334967041016,
         "150": 612.7667972819011,
@@ -1376,7 +1572,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200+150+100",
-        "level": 613.4444,
+        "level": 613.6196,
         "multiplier": 1.0,
         "source": "200+150+100"
       },
@@ -1418,6 +1614,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 222.88190002441405,
         "150": 183.0429335530599,
@@ -1457,45 +1667,61 @@
       "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "ma-200+100",
-          "level": 429.915,
+          "id": "ma-100+200+150",
+          "level": 429.1416,
           "multiplier": 1.0,
-          "source": "200+100"
+          "source": "100+200+150"
         },
         {
           "id": "rung-drop-1",
-          "level": 408.4193,
+          "level": 399.1017,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 387.9983,
+          "level": 371.1646,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
-          "id": "ma-200+100",
-          "level": 429.915,
+          "id": "ma-100+200+150",
+          "level": 429.1416,
           "multiplier": 1.0,
-          "source": "200+100"
+          "source": "100+200+150"
         },
         {
           "id": "rung-drop-1",
-          "level": 408.4193,
+          "level": 399.1017,
           "multiplier": 1.5,
-          "source": "5% drop"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 387.9983,
+          "level": 371.1646,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          100,
+          150,
+          200
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 434.58969848632813,
         "150": 421.2319989013672,
@@ -1507,10 +1733,10 @@
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
-        "id": "ma-200+100",
-        "level": 429.915,
+        "id": "ma-100+200+150",
+        "level": 429.1416,
         "multiplier": 1.0,
-        "source": "200+100"
+        "source": "100+200+150"
       },
       "period": {
         "key": "2026-B18",
@@ -1625,6 +1851,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 124.85359985351562,
         "150": 129.53199986775715,
@@ -1674,6 +1914,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 908.4021017456055,
         "150": 744.6071348063151,
@@ -1714,44 +1968,59 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 152.8735,
+          "level": 160.7051,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-250",
-          "level": 144.1268,
+          "id": "rung-drop-1",
+          "level": 149.4557,
           "multiplier": 1.5,
-          "source": "250"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 136.9204,
+          "level": 138.9938,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 152.8735,
+          "level": 160.7051,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-250",
-          "level": 144.1268,
+          "id": "rung-drop-1",
+          "level": 149.4557,
           "multiplier": 1.5,
-          "source": "250"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 136.9204,
+          "level": 138.9938,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 215.88040008544922,
         "150": 183.37236704508464,
@@ -1764,7 +2033,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 152.8735,
+        "level": 160.7051,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -1835,6 +2104,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 13.704499988555908,
         "150": 14.11606667836507,
@@ -1922,6 +2205,22 @@
           "source": "5% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          60,
+          100,
+          150
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 211.75789993286133,
         "150": 203.0447998046875,
@@ -1976,6 +2275,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 27.89810001373291,
         "150": 23.189266688028972,
@@ -2016,44 +2329,60 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 151.3867,
+          "level": 151.7527,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-100+150",
-          "level": 143.7245,
+          "id": "rung-drop-1",
+          "level": 141.13,
           "multiplier": 1.5,
-          "source": "100+150"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 136.5383,
+          "level": 131.2509,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
           "id": "ma-200",
-          "level": 151.3867,
+          "level": 151.7527,
           "multiplier": 1.0,
           "source": "200"
         },
         {
-          "id": "ma-100+150",
-          "level": 143.7245,
+          "id": "rung-drop-1",
+          "level": 141.13,
           "multiplier": 1.5,
-          "source": "100+150"
+          "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 136.5383,
+          "level": 131.2509,
           "multiplier": 2.0,
-          "source": "5% drop"
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          100,
+          150,
+          200
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 145.8996494293213,
         "150": 145.47683303833008,
@@ -2066,7 +2395,7 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 151.3867,
+        "level": 151.7527,
         "multiplier": 1.0,
         "source": "200"
       },
@@ -2123,6 +2452,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 50.50984996795654,
         "150": 49.00416666666667,
@@ -2163,111 +2506,91 @@
         {
           "amount": 600.0,
           "first_hit_date": "2026-09-01",
-          "id": "ma-150",
-          "level": 83.8684,
-          "multiplier": 1.0,
-          "source": "150"
-        },
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-09-01",
-          "id": "ma-200",
-          "level": 79.1882,
-          "multiplier": 1.5,
-          "source": "200"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-01",
           "id": "ma-250",
-          "level": 74.5235,
-          "multiplier": 2.0,
+          "level": 75.2889,
+          "multiplier": 1.0,
           "source": "250"
         },
         {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-01",
-          "id": "below-ladder-drop-0",
-          "level": 70.7973,
-          "multiplier": 2.0,
-          "source": "5% drop #1"
+          "amount": 900.0,
+          "first_hit_date": "2026-09-18",
+          "id": "rung-drop-1",
+          "level": 70.0187,
+          "multiplier": 1.5,
+          "source": "7% drop"
         },
         {
           "amount": 1200.0,
-          "first_hit_date": "2026-09-01",
-          "id": "below-ladder-drop-1",
-          "level": 67.2575,
+          "first_hit_date": "2026-09-18",
+          "id": "rung-drop-2",
+          "level": 65.1174,
           "multiplier": 2.0,
-          "source": "5% drop #2"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-01",
-          "id": "below-ladder-drop-2",
-          "level": 63.8946,
-          "multiplier": 2.0,
-          "source": "5% drop #3"
+          "source": "7% drop"
         }
       ],
       "full_ladder_today": [
         {
-          "id": "ma-150",
-          "level": 83.8684,
-          "multiplier": 1.0,
-          "source": "150"
-        },
-        {
-          "id": "ma-200",
-          "level": 79.1882,
-          "multiplier": 1.5,
-          "source": "200"
-        },
-        {
           "id": "ma-250",
-          "level": 74.5235,
-          "multiplier": 2.0,
+          "level": 75.2889,
+          "multiplier": 1.0,
           "source": "250"
         },
         {
+          "id": "rung-drop-1",
+          "level": 70.0187,
+          "multiplier": 1.5,
+          "source": "7% drop"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 65.1174,
+          "multiplier": 2.0,
+          "source": "7% drop"
+        },
+        {
           "id": "below-ladder-drop-0",
-          "level": 70.7973,
+          "level": 60.5592,
           "multiplier": 2.0,
-          "source": "5% drop #1"
-        },
-        {
-          "id": "below-ladder-drop-1",
-          "level": 67.2575,
-          "multiplier": 2.0,
-          "source": "5% drop #2"
-        },
-        {
-          "id": "below-ladder-drop-2",
-          "level": 63.8946,
-          "multiplier": 2.0,
-          "source": "5% drop #3"
+          "source": "7% drop #1"
         }
       ],
       "is_etf": false,
       "ladder": [
         {
-          "id": "ma-150",
-          "level": 83.8684,
-          "multiplier": 1.0,
-          "source": "150"
-        },
-        {
-          "id": "ma-200",
-          "level": 79.1882,
-          "multiplier": 1.5,
-          "source": "200"
-        },
-        {
           "id": "ma-250",
-          "level": 74.5235,
-          "multiplier": 2.0,
+          "level": 75.2889,
+          "multiplier": 1.0,
           "source": "250"
+        },
+        {
+          "id": "rung-drop-1",
+          "level": 70.0187,
+          "multiplier": 1.5,
+          "source": "7% drop"
+        },
+        {
+          "id": "rung-drop-2",
+          "level": 65.1174,
+          "multiplier": 2.0,
+          "source": "7% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 7.0,
+        "ma_ladder": [
+          150,
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": 250,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 88.46939987182617,
         "150": 82.94986671447754,
@@ -2277,8 +2600,30 @@
       },
       "name": "Rocket Lab",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
-      "next_rung": null,
+      "new_triggers_today": [
+        {
+          "amount": 900.0,
+          "first_hit_date": "2026-09-18",
+          "id": "rung-drop-1",
+          "level": 70.0187,
+          "multiplier": 1.5,
+          "source": "7% drop"
+        },
+        {
+          "amount": 1200.0,
+          "first_hit_date": "2026-09-18",
+          "id": "rung-drop-2",
+          "level": 65.1174,
+          "multiplier": 2.0,
+          "source": "7% drop"
+        }
+      ],
+      "next_rung": {
+        "id": "below-ladder-drop-0",
+        "level": 60.5592,
+        "multiplier": 2.0,
+        "source": "7% drop #1"
+      },
       "period": {
         "key": "2026-09",
         "start_date": "2026-09-01",
@@ -2396,6 +2741,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 17.276449909210204,
         "150": 17.461566651662192,
@@ -2488,6 +2847,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 379.4035986328125,
         "150": 381.70613260904946,
@@ -2518,38 +2891,29 @@
       "vs_target_pct": 8.06
     },
     "TSM": {
-      "clustered": true,
+      "clustered": false,
       "custom_rungs_today": [],
       "data_stale": false,
       "error": null,
       "fair_value": 534.0,
       "fired_custom": [],
-      "fired_this_period": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-09-14",
-          "id": "ma-60+100",
-          "level": 421.3282,
-          "multiplier": 1.0,
-          "source": "60+100"
-        }
-      ],
+      "fired_this_period": [],
       "full_ladder_today": [
         {
-          "id": "ma-60+100",
-          "level": 421.3282,
-          "multiplier": 1.0,
-          "source": "60+100"
-        },
-        {
           "id": "ma-150",
-          "level": 397.83,
-          "multiplier": 1.5,
+          "level": 399.4093,
+          "multiplier": 1.0,
           "source": "150"
         },
         {
+          "id": "rung-drop-1",
+          "level": 379.4388,
+          "multiplier": 1.5,
+          "source": "5% drop"
+        },
+        {
           "id": "rung-drop-2",
-          "level": 377.9385,
+          "level": 360.4669,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -2557,24 +2921,40 @@
       "is_etf": false,
       "ladder": [
         {
-          "id": "ma-60+100",
-          "level": 421.3282,
-          "multiplier": 1.0,
-          "source": "60+100"
-        },
-        {
           "id": "ma-150",
-          "level": 397.83,
-          "multiplier": 1.5,
+          "level": 399.4093,
+          "multiplier": 1.0,
           "source": "150"
         },
         {
+          "id": "rung-drop-1",
+          "level": 379.4388,
+          "multiplier": 1.5,
+          "source": "5% drop"
+        },
+        {
           "id": "rung-drop-2",
-          "level": 377.9385,
+          "level": 360.4669,
           "multiplier": 2.0,
           "source": "5% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          60,
+          100,
+          150
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": 150,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 420.245,
         "150": 399.409267171224,
@@ -2587,8 +2967,8 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150",
-        "level": 397.83,
-        "multiplier": 1.5,
+        "level": 399.4093,
+        "multiplier": 1.0,
         "source": "150"
       },
       "period": {
@@ -2629,6 +3009,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 348.18470153808596,
         "150": 335.47560038248696,
@@ -2906,6 +3300,20 @@
           "source": "250"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 11.190999975204468,
         "150": 13.128533299763998,
@@ -2978,6 +3386,21 @@
           "source": "5% drop"
         }
       ],
+      "ladder_config": {
+        "cluster_merge_pct": 3.0,
+        "drop_step_pct": 5.0,
+        "ma_ladder": [
+          200,
+          250
+        ],
+        "skip_top_rungs": 0,
+        "start_ma": null,
+        "step_multipliers": [
+          1.0,
+          1.5,
+          2.0
+        ]
+      },
       "mas": {
         "100": 158.88179992675782,
         "150": 156.0547332763672,

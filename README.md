@@ -128,7 +128,8 @@ rather than blindly following whichever MAs happen to be configured:
 2. **Rung 1 = the highest support**, multiplier ×1.
 3. **Each further rung = whichever is lower of** (a) the next real support
    level below the prior rung, or (b) the prior rung minus `drop_step_pct`
-   (5%). A real MA support only becomes a rung when it's already at least
+   (5% globally, overridable per stock — see "Your standing ladder
+   preferences"). A real MA support only becomes a rung when it's already at least
    5% below the one above it; otherwise that step is a plain 5% drop
    instead. This guarantees rungs are never bunched close together, and a
    rung is always a genuinely deeper level than the last, not a near-repeat
@@ -137,7 +138,17 @@ rather than blindly following whichever MAs happen to be configured:
 4. Within a period, each rung fires once; a new period resets all of them
    even if price never recovered.
 5. If price falls through the lowest rung, further trigger points are
-   generated every 5% below that, still capped at ×2 per trigger.
+   generated every `drop_step_pct` below that, still capped at ×2 per
+   trigger.
+6. A stock may override how its own ladder is built, via a `ladder:` block
+   in `config/stocks.yaml` — `drop_step_pct` (this stock's step),
+   `start_ma` (anchor the ladder at this MA, ignore shallower ones) and
+   `skip_top_rungs` (discard the N shallowest rungs, multipliers restarting
+   at ×1). Rule 3 is unchanged underneath: a widened step never overrides
+   an MA support that sits deeper than it. Changing any of these rebuilds
+   that stock's ladder on the next run rather than waiting out its period —
+   `ladder_config` in `state.json` is what that comparison reads, and rungs
+   that survive a rebuild keep their original `first_hit_date`.
 
 ## Tiers, as read from your watchlist screenshots
 
@@ -238,9 +249,9 @@ mechanism (see Custom targets below for that):
 ## Your standing ladder preferences (from your notes)
 
 Stated 2026-09-20, recorded here so a later session applies the same
-reasoning instead of re-deriving it from the raw note text. **These are
-your judgment rules, not engine behavior** — see "Status" at the end of
-this section.
+reasoning instead of re-deriving it from the raw note text. Implemented
+2026-09-21 as per-stock `ladder:` overrides in `config/stocks.yaml` — see
+"Status" at the end of this section.
 
 **The rule you gave, in your words:** *"i considered recent trend and
 price, if in a clear downtrend and at low price, then normally ok to choose
@@ -261,37 +272,51 @@ Unpacked into the engine's vocabulary:
   rungs that feel like near-repeats). There you'd rather **skip the shallow
   top rungs entirely** and start the ladder at the deeper support, because
   price has already fallen well past them — e.g. your RKLB note, "start
-  with ma250 directly."
+  with ma250 directly." Two knobs cover this: `start_ma` when a real MA is
+  the level you want to anchor on, `skip_top_rungs` when it isn't (AVGO's
+  wanted level is two steps below MA100, with no MA down there to name).
+  Multipliers restart at ×1 on whatever survives, so the ladder still steps
+  ×1 → ×1.5 → ×2 below it.
 - ETFs are the exception in the other direction: you expect a smaller drawdown
   from them, so the default step is fine (your XLV note: *"ok since etf
   expects less drop ratio"*).
 
-What each stock's notes ask for, as of the 2026-09-20 export:
+What each stock's notes ask for, and the override that now implements it.
+Levels are this period's ladder from `data/state.json` (close 2026-09-18):
 
-| Stock | Your note asks for | Against today's ladder (state.json, close 2026-09-18) |
-| --- | --- | --- |
-| AVGO | Skip rungs 1–2 (MA100 396.10, −5% 376.30); first buy at rung 3 (357.48), then the cascade level below | All five MAs sit in a 379.10–365.66 band — i.e. inside ~4% — so rungs 1–2 are near-repeats. "341.65" is the below-ladder cascade level the dashboard showed on 2026-09-04 (359.63 × 0.95) |
-| NVDA | Ladder as-is, all three rungs | 211.00 / 200.45 / 190.43 |
-| TSM | Skip rung 1 (MA60+MA100 cluster); start at MA150, then rung 3 as the next tier | "392.52" was the MA150 rung on 2026-09-04; the same rung reads 397.83 today |
-| IGV | Rung 1 as-is; rungs 2–3 at 7% steps instead of 5% | 94.06 / 89.36 / 84.89 today |
-| META | Rung 1 as-is; rungs 2–3 at 7% | 613.44 / 582.77 / 553.63 |
-| MSFT | Rung 1 as-is; rungs 2–3 at 7% | 429.92 / 408.42 / 388.00 |
-| PLTR | Rungs 2–3 at 7% | 151.39 / 143.72 / 136.54 |
-| AMD | MA150 as-is; then 7% steps rather than MA200 / MA250 | 376.58 / 337.72 / 311.06 |
-| AMZN | Rung 1 as-is; rungs 2–3 at 7% | 238.84 / 226.90 / 215.56 |
-| GOOG | Rung 1 as-is; rungs 2–3 at 7% | 337.07 / 318.38 / 302.46 |
-| RKLB | Skip MA150; start at MA250, then two 7% steps below it | 83.87 / 79.19 / 74.52 today, all above the 64.57 price |
-| FTNT | Rungs 2–3 at 7% | 108.53 / 103.10 / 97.95 |
-| LRCX | Rung 3 at 7% | 258.70 / 234.71 / 222.98 |
-| NBIS | MA250 rung and rung 3 at 7% | 152.87 / 144.13 / 136.92 |
-| XLV | Default step is fine (ETF) | 153.76 / 146.07 / 138.77 |
+| Stock | What your note asks for | Override in `stocks.yaml` | Ladder now |
+| --- | --- | --- | --- |
+| AVGO | Skip the two shallow rungs; first buy two steps below MA100 | `skip_top_rungs: 2` | 354.77 / 337.04 / 320.18 |
+| NVDA | Ladder as-is, all three rungs | none | 211.00 / 200.45 / 190.43 |
+| TSM | Skip the MA60+MA100 cluster; start at MA150 | `start_ma: 150` | 399.41 / 379.44 / 360.47 |
+| IGV | Rung 1 as-is; rungs 2–3 at 7% steps | `drop_step_pct: 7` | 94.82 / 88.18 / 82.01 |
+| META | Rung 1 as-is; rungs 2–3 at 7% steps | `drop_step_pct: 7` | 613.62 / 570.67 / 530.72 |
+| MSFT | Rung 1 as-is; rungs 2–3 at 7% steps | `drop_step_pct: 7` | 429.14 / 399.10 / 371.16 |
+| PLTR | Rungs 2–3 at 7% steps | `drop_step_pct: 7` | 151.75 / 141.13 / 131.25 |
+| AMD | MA150 as-is; 7% steps below it | `drop_step_pct: 7` | 399.07 / 354.62 / 327.71 |
+| AMZN | Rung 1 as-is; rungs 2–3 at 7% steps | `drop_step_pct: 7` | 240.47 / 223.64 / 207.98 |
+| GOOG | Rung 1 as-is; rungs 2–3 at 7% steps | `drop_step_pct: 7` | 338.52 / 314.83 / 292.79 |
+| RKLB | Start at MA250, then two 7% steps | `start_ma: 250`<br>`drop_step_pct: 7` | 75.29 / 70.02 / 65.12 |
+| FTNT | Rungs 2–3 at 7% steps | `drop_step_pct: 7` | 113.88 / 105.91 / 98.50 |
+| LRCX | Rung 3 at a 7% step | `drop_step_pct: 7` | 267.20 / 243.21 / 226.18 |
+| NBIS | Rungs 2–3 at 7% steps | `drop_step_pct: 7` | 160.71 / 149.46 / 138.99 |
+| XLV | Default 5% step is fine (ETF) | none | 153.76 / 146.07 / 138.77 |
 
-**Status:** informational only, as of 2026-09-20. `drop_step_pct` is still a
-single global 5% and the engine still has no per-stock override and no
-rung-skipping. Making the ladder actually build this way needs a change to
-`config/rules.yaml` + `scripts/engine.py` (a per-stock step override and a
-"start the ladder at rung N / MA X" knob) — ask in chat if you want that
-wired up rather than applied by eye when you place the order.
+**Status: implemented 2026-09-21.** The `ladder:` block in
+`config/stocks.yaml` is read by `scripts/engine.py`; the other 17 stocks
+carry no override and build exactly as before. Two things worth knowing:
+
+- **AMD's ladder didn't move.** Its MA150 → MA200 → MA250 gaps are already
+  wider than 7% (−11.1% and −7.6%), and rung selection still takes whichever
+  is *lower* of the next MA support and the drop level — which is your own
+  rule ("7% drop… if lower than next ma"). The override is set, so it starts
+  applying the moment those MAs bunch up. Same reasoning left LRCX's MA250
+  rung in place.
+- **A ladder rebuilds as soon as its config changes**, rather than waiting
+  for the period to roll over — `ladder_config` is stored in `state.json`
+  and compared on every run. Rungs that survive a rebuild keep their
+  original `first_hit_date`, so anything you'd already ticked off stays
+  ticked.
 
 ## Custom targets: your own buy levels, layered on top of the ladder
 

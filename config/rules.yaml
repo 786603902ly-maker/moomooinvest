@@ -27,6 +27,8 @@
 
 currency: SGD
 cap_multiplier: 2.0
+# Global default step. A stock can override it with `ladder.drop_step_pct`
+# in config/stocks.yaml -- see README "Your standing ladder preferences".
 drop_step_pct: 5.0
 cluster_merge_pct: 3.0
 step_multipliers: [1.0, 1.5, 2.0]

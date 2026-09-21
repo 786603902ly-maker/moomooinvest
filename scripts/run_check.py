@@ -64,6 +64,7 @@ def main() -> int:
             rules=rules,
             prev_stock_state=prev_stocks.get(ticker),
             base_amount=base_amount,
+            overrides=stock.get("ladder") or {},
         )
         result["ticker"] = ticker
         result["name"] = stock.get("name", ticker)

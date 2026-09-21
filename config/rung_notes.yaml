@@ -1,9 +1,13 @@
 # Your own annotations on specific ladder rungs (target price reasoning,
 # conviction, "wait for X to confirm", etc.) -- purely informational, shown
-# on the dashboard next to that rung. They do NOT change trigger behavior;
-# if a note implies an actual price you want alerts on, tell Claude in chat
-# and it'll set up a proper custom_targets entry in stocks.yaml instead
-# (see README "Custom targets").
+# on the dashboard next to that rung. They do NOT change trigger behavior.
+# Two mechanisms exist for that:
+#  - a per-stock `ladder:` block in stocks.yaml (drop_step_pct / start_ma /
+#    skip_top_rungs) changes how the whole ladder is built -- that's where
+#    the "use 7% drop instead" / "start with ma250 directly" notes below
+#    were implemented on 2026-09-21;
+#  - `custom_targets` in stocks.yaml for a fixed one-off price.
+# Tell Claude in chat which one you mean and it'll set it up.
 #
 # You can type notes directly in the dashboard (they sync across devices via
 # api/notes.js). This file is the seed copy baked into dashboard/index.html
@@ -18,27 +22,22 @@
 #  - Order inside a cluster id ("ma-200+100" vs "ma-100+200") flips whenever
 #    the MAs cross. build_dashboard.py normalizes that, so those keys keep
 #    matching on their own.
-#  - Cluster *membership* changing (MA100 drifting within 3% of MA200 turns
-#    two rungs "ma-200"/"ma-100" into one "ma-200+100") is a genuinely
-#    different rung id and is NOT auto-remapped. build_dashboard.py prints a
-#    "note key matches no rung" warning to stderr when that happens; re-point
-#    the key here when you see one. Three keys were re-pointed by hand on
-#    2026-09-20 for exactly this reason (MSFT ma-200 -> ma-200+100, plus
-#    IGV/PLTR cluster-order flips).
+#  - Cluster *membership* changing (MA150 drifting within 3% of MA200 turns
+#    "ma-200+100" into "ma-100+200+150"), or the ladder being re-anchored by
+#    a `ladder:` override, renames the rung for real and is NOT auto-remapped.
+#    build_dashboard.py prints a "note key matches no rung" warning to stderr
+#    when that happens; re-point the key here when you see one.
 #
-# Source of the current set: your dashboard note export of 2026-09-20,
-# transcribed verbatim. The reasoning behind the recurring "use 7% drop
-# instead" notes is written up in README -> "Your standing ladder
-# preferences" and CLAUDE.md; the short version is: in a clear downtrend at
-# an already-low price you'd rather step down 7% than the engine's default
-# 5%, provided that 7% step is still above (i.e. doesn't skip past) the next
-# real MA support.
+# Source: your dashboard note export of 2026-09-20, transcribed verbatim.
+# Keys were re-pointed on 2026-09-21 when the ladder overrides landed -- the
+# reasoning behind each is in README -> "Your standing ladder preferences".
 
 notes:
   AVGO:
-    ma-100: "price dropped far lower than this, and all ma quite close, would rather skip this and go next lower ma"
-    rung-drop-1: "price dropped far lower than this, and all ma quite close, would rather skip this and go next lower ma"
-    rung-drop-2: "ok to keep this one, and next one i will choose will be your below one 341.65"
+    # "skip this and go next lower ma" (was on ma-100 and the old rung-drop-1,
+    # 396.10 / 376.30) is now implemented as ladder.skip_top_rungs: 2, so
+    # those two rungs no longer exist. Kept here as the record of why.
+    rung-drop-0: "ok to keep this one, and next one i will choose will be your below one 341.65"
 
   NVDA:
     ma-100+60: "ok to keep"
@@ -46,8 +45,9 @@ notes:
     rung-drop-2: "ok"
 
   TSM:
-    ma-60+100: "all ma quite close, would rather go 392.52 directly"
-    rung-drop-2: "ok to keep as next tier after 392.52"
+    # "all ma quite close, would rather go [MA150] directly" (was on
+    # ma-60+100) is now implemented as ladder.start_ma: 150.
+    rung-drop-1: "ok to keep as next tier after 392.52"
 
   IGV:
     # exported as "ma-200+100"; same cluster, MA100/MA200 have since crossed
@@ -61,14 +61,16 @@ notes:
     rung-drop-2: "use another 7% drop instead to reduce avg cost"
 
   MSFT:
-    # exported as "ma-200"; MA100 has since merged into that same support
-    ma-200+100: "ok"
+    # exported as "ma-200"; MA100 and then MA150 have since merged into that
+    # same support, so the rung is now the three-MA cluster
+    ma-100+200+150: "ok"
     rung-drop-1: "use 7% drop instead"
     rung-drop-2: "use another 7% drop instead to reduce avg cost"
 
   PLTR:
-    # exported as "ma-150+100"; same cluster, MA100/MA150 have since crossed
-    ma-100+150: "use 7% drop instead"
+    # exported as "ma-150+100"; that cluster is no longer a rung -- at a 7%
+    # step the drop level lands below it, which is what the note asked for
+    rung-drop-1: "use 7% drop instead"
     rung-drop-2: "use another 7% drop instead to reduce avg cost"
 
   AMD:
@@ -83,13 +85,17 @@ notes:
 
   GOOG:
     ma-150+200: "ok"
-    ma-250: "use 7% drop instead to reduce avg cost"
+    # exported on "ma-250"; the 7% step now lands below MA250, so this rung
+    # is the drop the note asked for
+    rung-drop-1: "use 7% drop instead to reduce avg cost"
     rung-drop-2: "use another 7% drop instead to reduce avg cost"
 
   RKLB:
-    ma-150: "price dropped far lower than this, and all ma quite close, would rather skip this, higher chance to buy with low price, so start with ma250 directly"
-    ma-200: "drop 7% on top of ma250"
-    ma-250: "drop 7% on top of ma250"
+    # "skip this ... so start with ma250 directly" (was on ma-150) is now
+    # implemented as ladder.start_ma: 250; the two "drop 7% on top of ma250"
+    # notes are the two rungs below it.
+    rung-drop-1: "drop 7% on top of ma250"
+    rung-drop-2: "drop 7% on top of ma250"
 
   FTNT:
     rung-drop-1: "drop 7%"
@@ -99,7 +105,8 @@ notes:
     rung-drop-2: "drop 7%"
 
   NBIS:
-    ma-250: "drop 7%"
+    # exported on "ma-250"; the 7% step now lands below MA250
+    rung-drop-1: "drop 7%"
     rung-drop-2: "drop 7%"
 
   XLV:

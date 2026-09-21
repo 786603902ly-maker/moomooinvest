@@ -584,6 +584,16 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
         valuation_line = f'<div class="valuation-line">{" &middot; ".join(parts)}</div>'
     if s.get("clustered"):
         pills.append(pill("2+ MAs merged into one support", "neutral"))
+    # Surface an active per-stock ladder override, so a ladder that doesn't
+    # look like the tier's default has its reason visible on the card rather
+    # than only in stocks.yaml.
+    lcfg = s.get("ladder_config") or {}
+    if lcfg.get("drop_step_pct") is not None and lcfg["drop_step_pct"] != rules.get("drop_step_pct"):
+        pills.append(pill(f'{lcfg["drop_step_pct"]:g}% steps (not {rules.get("drop_step_pct"):g}%)', "neutral"))
+    if lcfg.get("start_ma"):
+        pills.append(pill(f'ladder starts at MA{lcfg["start_ma"]}', "neutral"))
+    if lcfg.get("skip_top_rungs"):
+        pills.append(pill(f'top {lcfg["skip_top_rungs"]} rung(s) skipped', "neutral"))
     custom_rungs = s.get("custom_rungs_today") or []
     if custom_rungs:
         pills.append(pill(f'{len(custom_rungs)} your target(s)', "custom"))

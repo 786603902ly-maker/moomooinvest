@@ -62,13 +62,22 @@ version of the rule the user stated:
 - ETFs are treated the other way: smaller expected drawdown, so the default
   5% step is fine (XLV).
 
-As of 2026-09-20 this is **documentation, not engine behavior** — the engine
-still uses one global 5% step and never skips rungs. If the user asks to
-make it real, it needs a per-stock override in `config/stocks.yaml` plus
-`build_period_ladder` / `extend_with_drop_cascade` changes in
-`scripts/engine.py`, and the ladder is frozen per period, so a rebuild-on-
-config-change guard is needed too (state reuses the stored ladder while the
-period key is unchanged).
+**Implemented 2026-09-21** as a `ladder:` block per stock in
+`config/stocks.yaml` (`drop_step_pct`, `start_ma`, `skip_top_rungs`), read
+by `build_period_ladder` / `extend_with_drop_cascade` in
+`scripts/engine.py`. 13 stocks carry one; the rest build exactly as before.
+Two invariants to preserve when touching this:
+
+- Rule 3 still decides every rung — whichever is **lower** of the next real
+  MA support and the drop level. A widened step therefore never overrides
+  an MA that sits deeper than it (this is why AMD's and LRCX's MA rungs
+  didn't move), and that is the user's own rule, not a limitation.
+- Ladders are frozen per refresh period, so `ladder_config` (the shape
+  inputs) is stored in `state.json` and compared on every run — a config
+  edit rebuilds that stock's ladder immediately instead of waiting out the
+  period. A rebuild clears `fired_this_period`, so `first_hit_date` is
+  carried over for rungs whose id survived; tick ids embed that date and
+  would otherwise lose the user's ✓.
 
 ### Rung note keys drift
 
