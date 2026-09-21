@@ -58,3 +58,20 @@ jobs:
               print(f"::warning::{len(errors)} ticker(s) failed upstream")
           print(f"\nOK: {len(quotes)} live quote(s) returned from the deployed function")
           PY
+
+      - name: Tick / note sync backend is live
+        run: |
+          # COUNTS ONLY. This repository is public, so its Actions logs are
+          # public too -- never print tick or note contents here. Which rungs
+          # were bought, when, and for how much is private; the count alone
+          # answers "is the database actually storing anything" without
+          # publishing any of it.
+          for endpoint in ticks notes; do
+            code=$(curl -sS -o /tmp/$endpoint.json -w '%{http_code}' --max-time 30 "$SITE/api/$endpoint")
+            n=$(python3 -c "import json,sys; d=json.load(open('/tmp/$endpoint.json')); print(len(d) if isinstance(d,dict) and 'error' not in d else -1)" 2>/dev/null || echo -1)
+            if [ "$code" != "200" ] || [ "$n" -lt 0 ]; then
+              echo "::error::/api/$endpoint returned HTTP $code -- the KV store is probably not connected (Vercel -> Storage)"
+              exit 1
+            fi
+            echo "/api/$endpoint -> HTTP 200, $n entries stored server-side"
+          done
