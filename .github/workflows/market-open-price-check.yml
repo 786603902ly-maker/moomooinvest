@@ -4,10 +4,16 @@ name: Market-open live snapshot
 # or 10:30pm SGT during EST (roughly Nov-Mar). Rather than track the DST
 # flip, this fires at both possible "~15 min after open" times every
 # weekday: 13:44 UTC (9:44am ET in EDT) and 14:44 UTC (9:44am ET in EST).
-# scripts/market_open_snapshot.py checks the real America/New_York clock
-# and no-ops unless it's actually ~15 minutes after today's open, so only
-# one of the two firings ever does anything on a given day -- no manual
-# cron edits needed across the March/November DST transitions.
+# scripts/market_open_snapshot.py checks the real America/New_York clock and
+# no-ops unless the market is actually open -- no manual cron edits needed
+# across the March/November DST transitions.
+#
+# Treat the timing here as best-effort only. GitHub queues scheduled runs
+# behind everything else and has been starting this one 3.5-5 hours late
+# (measured Sept 2026), so "~15 min after open" is aspirational; the script
+# accepts any time during the session precisely so a late firing still
+# records something. Run it by hand (workflow_dispatch) any time the market
+# is open to refresh the intraday price on demand.
 #
 # This only adds a live intraday_price snapshot on top of the daily close
 # data (see daily-price-check.yml for that); it does not touch the MA/
@@ -52,6 +58,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: market-open live price snapshot"
+            git commit -m "chore: intraday snapshot / dashboard rebuild"
             git push
           fi

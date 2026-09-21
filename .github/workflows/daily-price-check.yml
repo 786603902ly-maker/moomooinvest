@@ -5,8 +5,10 @@ name: Daily price check
 # trading day, so nothing changes and no commit is made). This job only
 # refreshes price/MA/threshold data in data/state.json; it does not touch
 # the Morningstar target price / fair value numbers (see the weekly Claude
-# routine for that) and does not publish the dashboard (also handled by the
-# Claude routines, which have Artifact + WebSearch access this job doesn't).
+# routine for that). It does rebuild dashboard/index.html, so the page Vercel
+# serves matches the state this run just wrote -- before that step existed the
+# HTML sat on its previous build until some later market-open run happened to
+# rebuild it, which made the live site lag the data by a day or more.
 on:
   schedule:
     - cron: "30 21 * * *"
@@ -34,11 +36,15 @@ jobs:
         working-directory: scripts
         run: python3 run_check.py
 
+      - name: Rebuild dashboard
+        working-directory: scripts
+        run: python3 build_dashboard.py
+
       - name: Commit updated state
         run: |
           git config user.name "moomooinvest-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/state.json data/prices
+          git add data/state.json data/prices dashboard/index.html
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
