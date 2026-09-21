@@ -75,9 +75,14 @@ Two invariants to preserve when touching this:
 - Ladders are frozen per refresh period, so `ladder_config` (the shape
   inputs) is stored in `state.json` and compared on every run — a config
   edit rebuilds that stock's ladder immediately instead of waiting out the
-  period. A rebuild clears `fired_this_period`, so `first_hit_date` is
-  carried over for rungs whose id survived; tick ids embed that date and
-  would otherwise lose the user's ✓.
+  period. A rebuild clears `fired_this_period`, so a fired record is
+  carried over — re-stated at the rung's new level, keeping its original
+  `first_hit_date` (tick ids embed that date, so this is what keeps the
+  user's ✓ attached). Two conditions, both required: the rung id survived
+  **and** its new level is at or above the level that actually fired. An id
+  alone is not enough — re-anchoring a ladder can leave `rung-drop-1`
+  pointing at a much deeper level that price never reached, and marking
+  that fired would hide a rung the user hasn't bought.
 
 ### Rung note keys drift
 
