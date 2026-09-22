@@ -84,6 +84,7 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 }
 .action-summary li:hover{outline:1px solid var(--accent);}
 .action-summary .s-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
+.rung .bought-tag{color:var(--good); font-size:.72rem; font-weight:600; white-space:nowrap;}
 .action-summary .s-tier{
   color:var(--text-muted); font-size:.7rem; font-weight:700; letter-spacing:.03em;
   border:1px solid var(--border); border-radius:999px; padding:.05rem .4rem; min-width:2.6rem;
@@ -682,44 +683,88 @@ function etDateStr(){
   }).format(new Date());
 }
 
-let liveCheckboxAdded = false;
-function syncLiveCheckbox(card, rung, hit){
-  const existing = rung.querySelector('input[type=checkbox][data-live-injected]');
+// Keep a rung's checkbox in step with the live price.
+//
+// A buy is only available while price is at or below the level, so that is
+// exactly when the box exists. Above it there is nothing to act on and the
+// row falls back to a pending preview. When price returns to the level the
+// box comes back -- pinned to the period's first_hit_date, so a tick made
+// the first time is still attached and the row reappears already confirmed
+// rather than inviting a second buy into the same level.
+function rungTickId(card, rung){
+  const firstHit = rung.dataset.firsthit || etDateStr();
+  return card.dataset.ticker + "|" + rung.dataset.rungId + "|" + firstHit;
+}
 
-  if(!hit || !marketOpenNow()){
-    // Never destroy a tick: if it's already checked, the buy happened and
-    // the row stays. Only an untouched box is cleaned up when price lifts
-    // back above the level.
-    if(existing && !existing.checked){
-      existing.remove();
-      const tag = rung.querySelector('.confirmed-tag[data-live-injected]');
-      if(tag) tag.remove();
-    }
+// `when` is null to remove the marker, or a date string to show it. An
+// empty string still shows it, just without a date -- a rung first hit
+// intraday has no server-side date yet, and losing the marker in that case
+// is exactly the double-buy this is meant to prevent.
+function setBoughtMarker(rung, when){
+  let tag = rung.querySelector(".bought-tag");
+  if(when === null || when === undefined){
+    if(tag) tag.remove();
     return;
   }
-  if(existing) return;
+  if(!tag){
+    tag = document.createElement("span");
+    tag.className = "bought-tag";
+    rung.appendChild(tag);
+  }
+  tag.textContent = "✓ already bought this period" + (when ? " (" + when + ")" : "");
+}
 
-  const id = card.dataset.ticker + "|" + rung.dataset.rungId + "|" + etDateStr();
-  const cb = document.createElement("input");
-  cb.type = "checkbox";
-  cb.dataset.liveInjected = "1";
-  cb.dataset.id = id;
-  cb.dataset.ticker = card.dataset.ticker;
-  cb.dataset.tier = card.dataset.tier || "";
-  cb.dataset.source = rung.dataset.source || "";
-  cb.dataset.level = rung.dataset.level || "";
-  cb.dataset.multiplier = rung.dataset.multiplier || "";
-  cb.dataset.amount = rung.dataset.amount || "";
-  cb.dataset.firsthit = etDateStr();
-  rung.insertBefore(cb, rung.firstChild);
+let liveCheckboxAdded = false;
+function syncLiveCheckbox(card, rung, hit){
+  let cb = rung.querySelector('input[type=checkbox][data-id]');
 
-  const tag = document.createElement("span");
-  tag.className = "confirmed-tag";
-  tag.dataset.confirmFor = id;
-  tag.dataset.liveInjected = "1";
-  rung.appendChild(tag);
+  if(hit){
+    setBoughtMarker(rung, null);
+    rung.classList.remove("pending");
+    if(cb) return;
+    // A rung carrying period memory already has its id fixed, so it can
+    // come back at any hour. A brand-new hit has to mint one from today's
+    // date, which is only meaningful during the session -- outside it,
+    // "today in New York" may not be a trading day and the id would never
+    // match what a later run renders.
+    if(!rung.dataset.firsthit && !marketOpenNow()) return;
+    const id = rungTickId(card, rung);
+    cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.dataset.liveInjected = "1";
+    cb.dataset.id = id;
+    cb.dataset.ticker = card.dataset.ticker;
+    cb.dataset.tier = card.dataset.tier || "";
+    cb.dataset.source = rung.dataset.source || "";
+    cb.dataset.level = rung.dataset.level || "";
+    cb.dataset.multiplier = rung.dataset.multiplier || "";
+    cb.dataset.amount = rung.dataset.amount || "";
+    cb.dataset.firsthit = rung.dataset.firsthit || etDateStr();
+    rung.insertBefore(cb, rung.firstChild);
 
-  liveCheckboxAdded = true;
+    const tag = document.createElement("span");
+    tag.className = "confirmed-tag";
+    tag.dataset.confirmFor = id;
+    tag.dataset.liveInjected = "1";
+    rung.appendChild(tag);
+    liveCheckboxAdded = true;
+    return;
+  }
+
+  // Price has risen back above this level.
+  if(cb){
+    cb.remove();
+    const tag = rung.querySelector(".confirmed-tag");
+    if(tag) tag.remove();
+  }
+  rung.classList.add("pending");
+  rung.classList.remove("done");
+  // The tick itself is never deleted -- only its row. Surfacing it as a
+  // marker is what tells you the level was already taken this period if
+  // price comes back down to it.
+  const ticks = loadTicksCache();
+  const entry = ticks[rungTickId(card, rung)];
+  setBoughtMarker(rung, entry ? (rung.dataset.firsthit || entry.firstHit || "") : null);
 }
 
 function setLiveStatus(msg, isError){
@@ -749,10 +794,10 @@ async function refreshLivePrices(manual){
       if(quote){ applyQuote(card, quote); applied++; }
     }
     if(!applied) throw new Error("no quotes returned");
-    if(liveCheckboxAdded){
-      liveCheckboxAdded = false;
-      applyTicksToDom(loadTicksCache());
-    }
+    // Rows may have gained or lost a checkbox; re-apply so checked state,
+    // the "done" styling and the summary all match what is on screen now.
+    liveCheckboxAdded = false;
+    applyTicksToDom(loadTicksCache());
     renderActionSummary();
     const missing = tickers.length - applied;
     setLiveStatus(
@@ -862,7 +907,8 @@ def render_rung(
         f'data-open="{1 if is_open else 0}" data-rung-id="{html_escape(rung.get("id", ""))}" '
         f'data-source="{html_escape(rung.get("source", ""))}" '
         f'data-multiplier="{rung.get("multiplier", "")}" '
-        f'data-amount="{rung.get("amount", "")}">{checkbox}'
+        f'data-amount="{rung.get("amount", "")}" '
+        f'data-firsthit="{rung.get("first_hit_date", "") or ""}">{checkbox}'
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
         f'<span class="amt">{mult_txt}{" &middot; " + amt if amt else ""}</span>'
@@ -873,12 +919,57 @@ def render_rung(
     )
 
 
+def live_trade_date(s: dict) -> str:
+    """The trading date a hit discovered right now belongs to.
+
+    With a live intraday price that is today in New York; otherwise it is the
+    date of the close the ladder was last evaluated against. Tick ids embed
+    this, and the browser derives the same value, so an intraday tick and the
+    evening run's checkbox end up with the identical id.
+    """
+    stamp = s.get("intraday_price_at")
+    if stamp:
+        try:
+            return dt.datetime.fromisoformat(stamp.replace("Z", "+00:00")).astimezone(NY).date().isoformat()
+        except ValueError:
+            pass
+    return s.get("price_date") or ""
+
+
+def rungs_to_show(s: dict, base_amount: float | None) -> list[dict]:
+    """Every rung worth a row on this card, deduped, shallowest first.
+
+    Three sources, in priority order: this period's frozen ladder, any
+    below-ladder cascade step today's price has reached, and any rung with
+    period memory -- one that fired earlier this period. That last source is
+    what stops a level you already bought from vanishing off the card once
+    price recovers past it, which is the whole point of keeping the memory.
+    """
+    rows: dict[str, dict] = {}
+    for group in ("ladder", "full_ladder_today", "fired_this_period"):
+        for rung in s.get(group) or []:
+            rows.setdefault(rung["id"], dict(rung))
+
+    # first_hit_date is the period memory and always wins: it fixes the tick
+    # id for the whole period, so a rung that goes away and comes back is
+    # still the same checkbox.
+    for fired in s.get("fired_this_period") or []:
+        if fired.get("first_hit_date") and fired["id"] in rows:
+            rows[fired["id"]]["first_hit_date"] = fired["first_hit_date"]
+
+    out = sorted((r for r in rows.values() if r.get("level") is not None),
+                 key=lambda r: -r["level"])
+    for rung in out:
+        if base_amount is not None and rung.get("multiplier") is not None:
+            rung["amount"] = round(base_amount * rung["multiplier"], 2)
+    return out
+
+
 def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = None) -> str:
     tier = s.get("tier", "?")
     currency = rules.get("currency", "SGD")
     price = s.get("display_price", s.get("price"))
     fired = s.get("fired_this_period", []) or []
-    fired_by_id = {f["id"]: f for f in fired}
     tier_cfg = rules.get("tiers", {}).get(tier) or {}
     base_amount = tier_cfg.get("base_amount")
     is_single_trigger = len(tier_cfg.get("ma_ladder", [])) == 1
@@ -950,19 +1041,28 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
         else:
             rungs_html = ""
     else:
+        # A rung gets a checkbox only while the current price is AT OR BELOW
+        # it -- that is the only time the buy is actually available. Once
+        # price recovers past a level there is nothing to act on, so the box
+        # goes away and the rung drops back to a pending preview. If price
+        # falls to it again later in the same period the box returns, and
+        # because its id is pinned to the period's first_hit_date, a tick
+        # made the first time is still attached: the row comes back already
+        # confirmed instead of inviting a second buy.
+        #
+        # This is why fired_this_period is kept even for rungs price has
+        # left behind -- it is the period's memory, not a display list.
+        default_hit_date = live_trade_date(s)
         plan_rows = []
-        for rung in ladder:
+        for rung in rungs_to_show(s, base_amount):
             note = note_for(rung["id"])
-            fired_entry = fired_by_id.get(rung["id"])
-            if fired_entry:
-                plan_rows.append(render_rung(ticker, tier, fired_entry, True, note=note))
+            if price is not None and price <= rung["level"]:
+                entry = dict(rung)
+                if not entry.get("first_hit_date"):
+                    entry["first_hit_date"] = default_hit_date
+                plan_rows.append(render_rung(ticker, tier, entry, True, note=note))
             else:
-                preview = dict(rung)
-                if base_amount is not None:
-                    preview["amount"] = round(base_amount * rung["multiplier"], 2)
-                plan_rows.append(render_rung(ticker, tier, preview, False, extra_cls="pending", price=price, note=note))
-        extra_fired = [f for f in fired if f["id"] not in ladder_ids]
-        plan_rows += [render_rung(ticker, tier, f, True, note=note_for(f["id"])) for f in extra_fired]
+                plan_rows.append(render_rung(ticker, tier, rung, False, extra_cls="pending", price=price, note=note))
         rungs_html = "".join(plan_rows)
 
     fired_custom_ids = {f["id"] for f in (s.get("fired_custom") or [])}

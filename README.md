@@ -233,6 +233,34 @@ rather than blindly following whichever MAs happen to be configured:
    `ladder_config` in `state.json` is what that comparison reads, and rungs
    that survive a rebuild keep their original `first_hit_date`.
 
+## A rung is only tickable while the buy is actually available
+
+Within a period, a rung's checkbox tracks the **current** price, not
+whatever the price did earlier:
+
+| Price vs the level | What you see |
+| --- | --- |
+| At or below | Checkbox — this buy is available right now |
+| Above, never bought | Pending preview with "% away" — nothing to act on |
+| Above, bought earlier this period | Pending preview plus **✓ already bought this period** |
+| Back at the level, bought earlier | Checkbox returns **already ticked** |
+
+The point of the last row: the tick id is pinned to the period's
+`first_hit_date`, not to the day price happens to touch the level again. So
+a level you took on Tuesday comes back on Thursday already confirmed
+instead of inviting a second buy into the same rung. `fired_this_period` is
+kept for rungs price has since risen above precisely so this memory exists —
+it is the period's record, not a display list.
+
+At the period boundary the memory is dropped along with everything else, the
+ladder rebuilds, and every rung is open again.
+
+Applies to the multi-rung tiers (T1, T2, T3, T3.5). T5/T9 are single-trigger
+and keep showing just their one live target as before. The rule is enforced
+twice: `build_dashboard.py` renders against the price the ladder was last
+evaluated at, and the browser re-applies it against the live price, so a
+level reached or lost intraday is reflected without waiting for a run.
+
 ## What needs acting on, at the top of the page
 
 The first thing on the Alerts tab is a summary of **every rung whose level

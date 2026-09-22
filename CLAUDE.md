@@ -111,6 +111,14 @@ not give you that history.
 - Only the user can change repository visibility; the GitHub MCP tools have
   no repo-settings operation.
 
+`fired_this_period` is the period's MEMORY, not a list of rows to render. A
+rung stays in it after price rises back above the level, and the dashboard
+renders a checkbox only while `price <= level`. That combination is what
+prevents a second buy into a level already taken this period: the tick id is
+pinned to `first_hit_date`, so when price returns the same checkbox comes
+back already ticked. Do not "tidy up" fired entries whose level is above the
+current price -- that silently re-opens levels the user already bought.
+
 Tick ids are `ticker|rung-id|first_hit_date`, and the dashboard's live-price
 code mints that same id client-side for a rung the live price reaches during
 the session (see `syncLiveCheckbox`). That is deliberate and load-bearing:
