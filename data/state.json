@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T12:03:23.379777Z",
+  "generated_at": "2026-09-22T15:21:13.700962Z",
   "stocks": {
     "AMD": {
       "clustered": false,
@@ -12,19 +12,19 @@
       "full_ladder_today": [
         {
           "id": "ma-150",
-          "level": 399.0655,
+          "level": 401.7869,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 354.6241,
+          "level": 356.6255,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 327.708,
+          "level": 329.5309,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -33,19 +33,19 @@
       "ladder": [
         {
           "id": "ma-150",
-          "level": 399.0655,
+          "level": 401.7869,
           "multiplier": 1.0,
           "source": "150"
         },
         {
           "id": "ma-200",
-          "level": 354.6241,
+          "level": 356.6255,
           "multiplier": 1.5,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 327.708,
+          "level": 329.5309,
           "multiplier": 2.0,
           "source": "250"
         }
@@ -78,14 +78,14 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150",
-        "level": 399.0655,
+        "level": 401.7869,
         "multiplier": 1.0,
         "source": "150"
       },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 615.52001953125,
       "price_date": "2026-09-21",
@@ -106,19 +106,19 @@
       "full_ladder_today": [
         {
           "id": "ma-150+200+250",
-          "level": 240.4696,
+          "level": 240.6833,
           "multiplier": 1.0,
           "source": "150+200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 223.6367,
+          "level": 223.8355,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 207.9821,
+          "level": 208.167,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -127,19 +127,19 @@
       "ladder": [
         {
           "id": "ma-150+200+250",
-          "level": 240.4696,
+          "level": 240.6833,
           "multiplier": 1.0,
           "source": "150+200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 223.6367,
+          "level": 223.8355,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 207.9821,
+          "level": 208.167,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -172,14 +172,14 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-150+200+250",
-        "level": 240.4696,
+        "level": 240.6833,
         "multiplier": 1.0,
         "source": "150+200+250"
       },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 258.45001220703125,
       "price_date": "2026-09-21",
@@ -688,19 +688,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 113.8825,
+          "level": 114.3439,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 105.9107,
+          "level": 106.3399,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 98.497,
+          "level": 98.8961,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -709,19 +709,19 @@
       "ladder": [
         {
           "id": "ma-200",
-          "level": 113.8825,
+          "level": 114.3439,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 105.9107,
+          "level": 106.3399,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 98.497,
+          "level": 98.8961,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -753,14 +753,14 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 113.8825,
+        "level": 114.3439,
         "multiplier": 1.0,
         "source": "200"
       },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 175.22999572753906,
       "price_date": "2026-09-21",
@@ -870,32 +870,23 @@
       "error": null,
       "fair_value": 433.0,
       "fired_custom": [],
-      "fired_this_period": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-09-01",
-          "id": "ma-150+200",
-          "level": 338.5248,
-          "multiplier": 1.0,
-          "source": "150+200"
-        }
-      ],
+      "fired_this_period": [],
       "full_ladder_today": [
         {
           "id": "ma-150+200",
-          "level": 338.5248,
+          "level": 338.7614,
           "multiplier": 1.0,
           "source": "150+200"
         },
         {
           "id": "rung-drop-1",
-          "level": 314.8281,
+          "level": 315.0481,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 292.7901,
+          "level": 292.9948,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -904,19 +895,19 @@
       "ladder": [
         {
           "id": "ma-150+200",
-          "level": 338.5248,
+          "level": 338.7614,
           "multiplier": 1.0,
           "source": "150+200"
         },
         {
           "id": "rung-drop-1",
-          "level": 314.8281,
+          "level": 315.0481,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 292.7901,
+          "level": 292.9948,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -948,15 +939,15 @@
       "new_triggers_custom_today": [],
       "new_triggers_today": [],
       "next_rung": {
-        "id": "rung-drop-1",
-        "level": 314.8281,
-        "multiplier": 1.5,
-        "source": "7% drop"
+        "id": "ma-150+200",
+        "level": 338.7614,
+        "multiplier": 1.0,
+        "source": "150+200"
       },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 350.8699951171875,
       "price_date": "2026-09-21",
@@ -1379,19 +1370,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 267.2001,
+          "level": 267.9206,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 243.2083,
+          "level": 243.8886,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 226.1837,
+          "level": 226.8164,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -1400,19 +1391,19 @@
       "ladder": [
         {
           "id": "ma-200",
-          "level": 267.2001,
+          "level": 267.9206,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "ma-250",
-          "level": 243.2083,
+          "level": 243.8886,
           "multiplier": 1.5,
           "source": "250"
         },
         {
           "id": "rung-drop-2",
-          "level": 226.1837,
+          "level": 226.8164,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -1444,14 +1435,14 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 267.2001,
+        "level": 267.9206,
         "multiplier": 1.0,
         "source": "200"
       },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 302.2799987792969,
       "price_date": "2026-09-21",
@@ -1922,19 +1913,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200",
-          "level": 160.7051,
+          "level": 161.3868,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 149.4557,
+          "level": 150.0897,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 138.9938,
+          "level": 139.5835,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -1943,19 +1934,19 @@
       "ladder": [
         {
           "id": "ma-200",
-          "level": 160.7051,
+          "level": 161.3868,
           "multiplier": 1.0,
           "source": "200"
         },
         {
           "id": "rung-drop-1",
-          "level": 149.4557,
+          "level": 150.0897,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 138.9938,
+          "level": 139.5835,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -1987,14 +1978,14 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
-        "level": 160.7051,
+        "level": 161.3868,
         "multiplier": 1.0,
         "source": "200"
       },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 232.8000030517578,
       "price_date": "2026-09-21",
@@ -2450,45 +2441,37 @@
       "fired_this_period": [
         {
           "amount": 600.0,
-          "first_hit_date": "2026-09-01",
+          "first_hit_date": "2026-09-21",
           "id": "ma-250",
-          "level": 75.2889,
+          "level": 75.3692,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "amount": 900.0,
-          "first_hit_date": "2026-09-18",
+          "first_hit_date": "2026-09-21",
           "id": "rung-drop-1",
-          "level": 70.0187,
+          "level": 70.0934,
           "multiplier": 1.5,
-          "source": "7% drop"
-        },
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-09-18",
-          "id": "rung-drop-2",
-          "level": 65.1174,
-          "multiplier": 2.0,
           "source": "7% drop"
         }
       ],
       "full_ladder_today": [
         {
           "id": "ma-250",
-          "level": 75.2889,
+          "level": 75.3692,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "rung-drop-1",
-          "level": 70.0187,
+          "level": 70.0934,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 65.1174,
+          "level": 65.1869,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -2497,19 +2480,19 @@
       "ladder": [
         {
           "id": "ma-250",
-          "level": 75.2889,
+          "level": 75.3692,
           "multiplier": 1.0,
           "source": "250"
         },
         {
           "id": "rung-drop-1",
-          "level": 70.0187,
+          "level": 70.0934,
           "multiplier": 1.5,
           "source": "7% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 65.1174,
+          "level": 65.1869,
           "multiplier": 2.0,
           "source": "7% drop"
         }
@@ -2539,12 +2522,34 @@
       },
       "name": "Rocket Lab",
       "new_triggers_custom_today": [],
-      "new_triggers_today": [],
-      "next_rung": null,
+      "new_triggers_today": [
+        {
+          "amount": 600.0,
+          "first_hit_date": "2026-09-21",
+          "id": "ma-250",
+          "level": 75.3692,
+          "multiplier": 1.0,
+          "source": "250"
+        },
+        {
+          "amount": 900.0,
+          "first_hit_date": "2026-09-21",
+          "id": "rung-drop-1",
+          "level": 70.0934,
+          "multiplier": 1.5,
+          "source": "7% drop"
+        }
+      ],
+      "next_rung": {
+        "id": "rung-drop-2",
+        "level": 65.1869,
+        "multiplier": 2.0,
+        "source": "7% drop"
+      },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 69.88999938964844,
       "price_date": "2026-09-21",
@@ -3254,19 +3259,19 @@
       "full_ladder_today": [
         {
           "id": "ma-200+250",
-          "level": 153.7629,
+          "level": 155.0297,
           "multiplier": 1.0,
           "source": "200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 146.0747,
+          "level": 147.2782,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 138.771,
+          "level": 139.9143,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -3275,19 +3280,19 @@
       "ladder": [
         {
           "id": "ma-200+250",
-          "level": 153.7629,
+          "level": 155.0297,
           "multiplier": 1.0,
           "source": "200+250"
         },
         {
           "id": "rung-drop-1",
-          "level": 146.0747,
+          "level": 147.2782,
           "multiplier": 1.5,
           "source": "5% drop"
         },
         {
           "id": "rung-drop-2",
-          "level": 138.771,
+          "level": 139.9143,
           "multiplier": 2.0,
           "source": "5% drop"
         }
@@ -3319,14 +3324,14 @@
       "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200+250",
-        "level": 153.7629,
+        "level": 155.0297,
         "multiplier": 1.0,
         "source": "200+250"
       },
       "period": {
-        "key": "2026-09",
-        "start_date": "2026-09-01",
-        "type": "monthly"
+        "key": "2026-B19",
+        "start_date": "2026-09-21",
+        "type": "biweekly"
       },
       "price": 169.00999450683594,
       "price_date": "2026-09-21",

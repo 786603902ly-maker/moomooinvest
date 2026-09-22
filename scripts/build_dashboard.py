@@ -70,6 +70,25 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
   background:var(--warn-soft); border:1px solid var(--warn); color:var(--warn);
   border-radius:10px; padding:.7rem 1rem; font-size:.88rem; margin-bottom:1.25rem;
 }
+.action-summary{
+  background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent);
+  border-radius:12px; padding:.9rem 1.1rem; margin-bottom:1.25rem;
+}
+.action-summary.clear{border-left-color:var(--good);}
+.action-summary h2{font-family:var(--font-display); font-size:1rem; margin:0 0 .15rem;}
+.action-summary .sum-sub{color:var(--text-muted); font-size:.78rem; margin-bottom:.6rem;}
+.action-summary ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem;}
+.action-summary li{
+  display:flex; gap:.6rem; align-items:baseline; flex-wrap:wrap;
+  padding:.35rem .5rem; border-radius:8px; background:var(--surface-2); cursor:pointer;
+}
+.action-summary li:hover{outline:1px solid var(--accent);}
+.action-summary .s-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
+.action-summary .s-lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
+.action-summary .s-src{color:var(--text-muted); flex:1; font-size:.8rem;}
+.action-summary .s-amt{font-variant-numeric:tabular-nums; font-weight:600;}
+.action-summary .s-when{color:var(--text-muted); font-size:.74rem; white-space:nowrap;}
+.action-summary .s-new{color:var(--accent); font-weight:700; font-size:.74rem; white-space:nowrap;}
 .summary-row{display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:1.75rem;}
 .stat{
   background:var(--surface); border:1px solid var(--border); border-radius:12px;
@@ -201,6 +220,7 @@ table.val-table td.bad{color:var(--bad);}
     <button class="tab-btn" data-tab="valuation">Valuation overview</button>
   </div>
   <div class="tabpanel active" id="tab-alerts">
+    <div class="action-summary" id="action-summary"></div>
     <div class="summary-row">
       <div class="stat hot"><div class="n">__OPEN_COUNT__</div><div class="l">open triggers</div></div>
       <div class="stat"><div class="n">__STOCK_COUNT__</div><div class="l">stocks tracked</div></div>
@@ -269,6 +289,74 @@ function confirmedLabel(iso){
   return sameDay ? "confirmed today" : "confirmed " + d.toISOString().slice(0,10);
 }
 
+// What still needs doing, at the top of the page: every rung that has a
+// checkbox (i.e. its level was reached) and is NOT ticked yet. Rungs you
+// already confirmed are deliberately left out -- the point is to answer
+// "what do I act on right now" in one glance, so anything already handled
+// is noise. It reads the checkboxes rather than state.json because only the
+// browser knows what's ticked: tick state lives in the sync backend, not in
+// the committed state the page is built from. That also means it covers
+// intraday live hits and custom targets for free, since those are checkboxes
+// too.
+const CURRENCY = "__CURRENCY__";
+
+function renderActionSummary(){
+  const el = document.getElementById("action-summary");
+  if(!el) return;
+
+  const rows = [];
+  document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
+    if(cb.checked) return;
+    rows.push({
+      id: cb.dataset.id,
+      ticker: cb.dataset.ticker || "",
+      level: cb.dataset.level,
+      source: cb.dataset.source || "",
+      amount: parseFloat(cb.dataset.amount) || 0,
+      firstHit: cb.dataset.firsthit || "",
+    });
+  });
+
+  if(!rows.length){
+    el.classList.add("clear");
+    el.innerHTML = '<h2>Nothing to act on</h2>' +
+      '<div class="sum-sub">No threshold is waiting for you. Anything already confirmed is in the Action log below.</div>';
+    return;
+  }
+
+  const today = etDateStr();
+  rows.sort((a, b) => (b.firstHit || "").localeCompare(a.firstHit || "") || a.ticker.localeCompare(b.ticker));
+  const total = rows.reduce((sum, r) => sum + r.amount, 0);
+  const todayCount = rows.filter(r => r.firstHit === today).length;
+
+  el.classList.remove("clear");
+  el.innerHTML =
+    '<h2>' + rows.length + ' threshold' + (rows.length === 1 ? '' : 's') + ' waiting — ' +
+      CURRENCY + ' ' + total.toLocaleString("en-US", {maximumFractionDigits: 0}) + ' if you take them all</h2>' +
+    '<div class="sum-sub">' +
+      (todayCount ? todayCount + ' hit today. ' : '') +
+      'Hit but not yet ticked. Confirmed ones are not listed.</div>' +
+    '<ul>' + rows.map(r =>
+      '<li data-goto="' + r.ticker + '">' +
+        '<span class="s-tick">' + r.ticker + '</span>' +
+        '<span class="s-lvl">' + fmtLivePrice(parseFloat(r.level)) + '</span>' +
+        '<span class="s-src">' + r.source + '</span>' +
+        '<span class="s-amt">' + CURRENCY + ' ' + r.amount.toLocaleString("en-US", {maximumFractionDigits: 0}) + '</span>' +
+        (r.firstHit === today
+          ? '<span class="s-new">hit today</span>'
+          : '<span class="s-when">hit ' + r.firstHit + '</span>') +
+      '</li>').join('') +
+    '</ul>';
+}
+
+// Jump to the stock's card from the summary.
+document.addEventListener("click", (e)=>{
+  const li = e.target.closest('.action-summary li[data-goto]');
+  if(!li) return;
+  const card = document.querySelector('.card[data-ticker="' + li.dataset.goto + '"]');
+  if(card) card.scrollIntoView({behavior: "smooth", block: "center"});
+});
+
 function applyTicksToDom(ticks){
   document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
     const entry = ticks[cb.dataset.id];
@@ -282,6 +370,7 @@ function applyTicksToDom(ticks){
     tag.textContent = entry ? ("✓ " + confirmedLabel(entry.tickedAt)) : "";
   });
   renderLog();
+  renderActionSummary();
 }
 
 // Ticks and notes sync independently -- keep their statuses separate so
@@ -657,6 +746,7 @@ async function refreshLivePrices(manual){
       liveCheckboxAdded = false;
       applyTicksToDom(loadTicksCache());
     }
+    renderActionSummary();
     const missing = tickers.length - applied;
     setLiveStatus(
       "Live as of " + new Date().toLocaleTimeString() +
@@ -1149,6 +1239,7 @@ def build() -> str:
     html = html.replace("__STALE_BANNER__", stale_banner)
     html = html.replace("__OPEN_COUNT__", str(open_count))
     html = html.replace("__STOCK_COUNT__", str(len(stocks_cfg)))
+    html = html.replace("__CURRENCY__", rules.get("currency", "SGD"))
     html = html.replace("__STALE_COUNT__", str(stale_count))
     html = html.replace("__TIER_SECTIONS__", "".join(sections))
     html = html.replace("__VALUATION_TAB__", valuation_html)

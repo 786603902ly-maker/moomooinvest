@@ -2,7 +2,8 @@
 #
 # How the ladder works (see README.md for full explanation):
 #  - Each tier has a set of MA (moving average) periods to watch.
-#  - Once per "period" (weekly for T1, biweekly for T2, monthly for T3+),
+#  - Once per "period" (weekly for T1; biweekly for T2, T3 and T3.5;
+#    monthly for T5 and T9),
 #    the current value of each MA in the tier's set is looked up. MAs within
 #    cluster_merge_pct of each other are treated as ONE support level (their
 #    average) -- e.g. MA60 and MA100 sitting 1% apart isn't two separate buy
@@ -44,11 +45,11 @@ tiers:
     ma_ladder: [100, 150, 200]
   T3:
     base_amount: 600
-    refresh: monthly
+    refresh: biweekly
     ma_ladder: [150, 200, 250]
   T3.5:
     base_amount: 600
-    refresh: monthly
+    refresh: biweekly
     ma_ladder: [200, 250]
   T5:
     base_amount: 600

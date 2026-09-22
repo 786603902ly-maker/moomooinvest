@@ -199,8 +199,8 @@ network requests) so ticks and notes there only ever work per-device.
 ## The rule engine (`scripts/engine.py`)
 
 For each tier, a fixed set of MA periods is watched (`config/rules.yaml`).
-Once per refresh period (weekly for T1, biweekly for T2, monthly for T3 and
-below), those MAs' current values are looked up and turned into that
+Once per refresh period (weekly for T1; biweekly for T2, T3 and T3.5;
+monthly for T5 and T9), those MAs' current values are looked up and turned into that
 period's ladder as follows, aimed at genuinely spaced-out support levels
 rather than blindly following whichever MAs happen to be configured:
 
@@ -233,14 +233,30 @@ rather than blindly following whichever MAs happen to be configured:
    `ladder_config` in `state.json` is what that comparison reads, and rungs
    that survive a rebuild keep their original `first_hit_date`.
 
+## What needs acting on, at the top of the page
+
+The first thing on the Alerts tab is a summary of **every rung whose level
+was reached and that you have not ticked yet** — ticker, level, what the
+level is, the amount, and whether it was hit today or on an earlier day of
+this period. Click a row to jump to that stock's card. Rungs you already
+confirmed are deliberately left out: the panel answers "what do I act on
+right now", so anything handled would only be noise (it is all still in the
+Action log at the bottom). When there is nothing outstanding it says so.
+
+It is rendered in the browser, not baked in at build time, because only the
+browser knows what is ticked — tick state lives in the sync backend, not in
+the committed `state.json` the page is built from. It therefore also covers
+intraday live hits and custom targets for free, and updates the moment you
+tick or untick something.
+
 ## Tiers, as read from your watchlist screenshots
 
 | Tier | Stocks | MA ladder | Refresh |
 |---|---|---|---|
 | T1 | NVDA, TSM, AVGO | MA60 → MA100 → MA150 | weekly |
 | T2 | PLTR, IGV*, MSFT, META | MA100 → MA150 → MA200 | **biweekly** |
-| T3 | GOOG, AMZN, RKLB, AMD | MA150 → MA200 → MA250 | monthly |
-| T3.5 | NBIS, LRCX, FTNT, XLV* | MA200 → MA250 (then 5% cascade) | monthly |
+| T3 | GOOG, AMZN, RKLB, AMD | MA150 → MA200 → MA250 | biweekly |
+| T3.5 | NBIS, LRCX, FTNT, XLV* | MA200 → MA250 (then 5% cascade) | biweekly |
 | T5 | MU, SOFI, V, ASML, GRAB, TSLA, FXI*, OSCR, ASTS, MRVL | MA250 only (then 5% cascade) | monthly |
 | T9 | BRK-B, HIMS, PYPL, DUOL, NU, MSTR, VITL | MA250 only (then 5% cascade) | monthly |
 

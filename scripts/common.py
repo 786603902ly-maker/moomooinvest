@@ -82,7 +82,7 @@ def period_key(tier_refresh: str, as_of: dt.date) -> str:
     biweekly -> ISO year + 2-week block, e.g. "2026-B16" (weeks 1-2 -> B00,
                 weeks 3-4 -> B01, ...). Approximate: a block can straddle a
                 year boundary near week 52/53, which is fine for a DCA cadence.
-    monthly  -> "2026-08" (T3 and below refresh on the 1st of the month).
+    monthly  -> "2026-08" (T5/T9 refresh on the 1st of the month).
     """
     if tier_refresh == "weekly":
         iso = as_of.isocalendar()
