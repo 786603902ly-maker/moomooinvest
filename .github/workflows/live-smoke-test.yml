@@ -17,7 +17,7 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: read
+  contents: read   # also what the repository-visibility lookup uses
 
 env:
   SITE: https://moomooinvest.vercel.app
@@ -60,12 +60,21 @@ jobs:
           PY
 
       - name: Tick / note sync backend is live
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # COUNTS ONLY. This repository is public, so its Actions logs are
-          # public too -- never print tick or note contents here. Which rungs
-          # were bought, when, and for how much is private; the count alone
-          # answers "is the database actually storing anything" without
-          # publishing any of it.
+          # Counts always; contents only when this repository is private.
+          # Actions logs inherit repository visibility, so on a public repo
+          # printing tick contents would publish which rungs were bought,
+          # when and for how much. The count alone still answers "is the
+          # database actually storing anything", which is what this checks.
+          # Visibility is read from the API each run rather than assumed, so
+          # the moment the repo goes private the detail appears by itself.
+          visibility=$(curl -sS -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}" \
+            | python3 -c "import json,sys; print('private' if json.load(sys.stdin).get('private') else 'public')")
+          echo "repository is $visibility"
           for endpoint in ticks notes; do
             code=$(curl -sS -o /tmp/$endpoint.json -w '%{http_code}' --max-time 30 "$SITE/api/$endpoint")
             n=$(python3 -c "import json,sys; d=json.load(open('/tmp/$endpoint.json')); print(len(d) if isinstance(d,dict) and 'error' not in d else -1)" 2>/dev/null || echo -1)
@@ -74,4 +83,11 @@ jobs:
               exit 1
             fi
             echo "/api/$endpoint -> HTTP 200, $n entries stored server-side"
+            if [ "$visibility" = "private" ]; then
+              echo "--- $endpoint contents ---"
+              python3 -m json.tool /tmp/$endpoint.json
+            fi
           done
+          if [ "$visibility" != "private" ]; then
+            echo "::notice::Repository is public, so contents are withheld from these logs. Counts only."
+          fi

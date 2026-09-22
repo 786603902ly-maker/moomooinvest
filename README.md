@@ -105,6 +105,29 @@ you want it re-published.
    `data/state.json` at all. If you want an action to actually change
    future alerting behavior, use a **custom target** instead (below).
 
+   **Where ticks live, and whether Claude can see them.** A tick is stored
+   server-side in the Vercel KV database, so it syncs to every device you
+   open the dashboard on. That database is *not* part of this git repo, so a
+   Claude session — which only ever clones the repo — cannot see your buy
+   history by default. Two things bridge that gap, and **both are gated on
+   the repository being private**, because buy history committed to a public
+   repo is published permanently and stays in git history even if the file
+   is later deleted:
+
+   - `daily-price-check.yml` archives the tick store to `data/ticks.json`
+     on each run, so every future session reads it straight from the repo.
+   - The **Live site smoke test** workflow prints the tick contents rather
+     than just counts.
+
+   Each checks the repository's actual visibility through the API on every
+   run, so while this repo is public they skip with a notice and nothing
+   leaks. Flip it to private (Settings → General → Change visibility) and
+   both start working on the next run with no code change.
+
+   Note that repository visibility and *dashboard* visibility are separate:
+   making the repo private does **not** make <https://moomooinvest.vercel.app/>
+   private, and the tick/note endpoints stay unauthenticated either way.
+
 ## Hosting: Vercel
 
 The dashboard is a static file (`dashboard/index.html`) plus three tiny

@@ -93,3 +93,32 @@ renames the rung for real. `build_dashboard.py` prints
 `[rung_notes] note key matches no rung today: ...` to stderr in that case —
 re-point the key in `config/rung_notes.yaml` when one shows up, rather than
 letting the note silently render nowhere.
+
+## Where the user's buy history lives
+
+Ticked-off rungs ("I actually bought this") are stored in the Vercel KV
+database behind `api/ticks.js`, **not** in this repo. Cloning the repo does
+not give you that history.
+
+- If `data/ticks.json` exists, that is the archive `daily-price-check.yml`
+  writes each run — read it.
+- If it does not exist, the repository is still public and the archive step
+  is deliberately skipping. Buy history in a public repo is published
+  permanently, git history included, so do not commit it and do not print
+  it into Actions logs (they inherit repository visibility). Both the daily
+  job and the smoke test read the real visibility from the API each run and
+  gate themselves on it — do not replace that check with an assumption.
+- Only the user can change repository visibility; the GitHub MCP tools have
+  no repo-settings operation.
+
+Ticks are a personal record only. `run_check.py` never reads them, and a
+ticked rung is still re-offered when its period resets — that is intended.
+An action meant to change future alerting is a `custom_targets` entry.
+
+## This sandbox cannot reach the live site
+
+The network policy denies both `moomooinvest.vercel.app` and the upstream
+quote provider, so you cannot curl the dashboard or `/api/quote` to check a
+deploy. Run the **Live site smoke test** workflow instead (manual trigger)
+and read its logs — a GitHub runner has plain internet access. Don't claim
+a deploy is working without doing that.

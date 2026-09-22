@@ -40,11 +40,52 @@ jobs:
         working-directory: scripts
         run: python3 build_dashboard.py
 
+      # The tick store (which rungs you actually bought) lives in Vercel KV,
+      # not in git, so a Claude session cloning this repo cannot see your buy
+      # history. Archiving it here puts it in git where every session reads it.
+      #
+      # GATED ON VISIBILITY ON PURPOSE. Buy history is private; committing it
+      # to a public repository publishes it permanently, and git history keeps
+      # it even if the file is deleted later. This step therefore checks the
+      # repository's actual visibility through the API on every run and does
+      # nothing while it is public. Flip the repo to private and it starts
+      # working by itself -- no code change, and no window where the data
+      # leaks because someone forgot the order of operations.
+      - name: Archive tick history (private repositories only)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SITE: https://moomooinvest.vercel.app
+        run: |
+          visibility=$(curl -sS -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}" \
+            | python3 -c "import json,sys; print('private' if json.load(sys.stdin).get('private') else 'public')")
+          if [ "$visibility" != "private" ]; then
+            echo "::notice::Repository is public -- not archiving tick history. Make the repo private (Settings -> General -> Change visibility) and this starts on the next run."
+            exit 0
+          fi
+          code=$(curl -sS -o /tmp/ticks.json -w '%{http_code}' --max-time 30 "$SITE/api/ticks")
+          if [ "$code" != "200" ]; then
+            echo "::warning::/api/ticks returned HTTP $code -- keeping the previous data/ticks.json"
+            exit 0
+          fi
+          python3 - <<'PY'
+          import json
+          ticks = json.load(open("/tmp/ticks.json"))
+          if not isinstance(ticks, dict) or "error" in ticks:
+              raise SystemExit("::warning::unexpected /api/ticks payload -- not overwriting")
+          with open("data/ticks.json", "w") as fh:
+              json.dump(ticks, fh, indent=2, sort_keys=True)
+              fh.write("\n")
+          print(f"Archived {len(ticks)} tick(s) to data/ticks.json")
+          PY
+
       - name: Commit updated state
         run: |
           git config user.name "moomooinvest-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/state.json data/prices dashboard/index.html
+          git add data/ticks.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
