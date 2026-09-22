@@ -26,6 +26,13 @@ you want it re-published.
    along with a rebuilt `dashboard/index.html` (before 2026-09-21 it
    committed the state alone, so the page Vercel served kept its previous
    build until some later market-open run happened to rebuild it).
+   Prices come from stooq with Yahoo as a second source, and the two are
+   **merged** rather than "first one that answers wins": stooq publishes US
+   closes on a lag, so it can return a perfectly valid series that stops a
+   day or two short. Each source is checked against the last expected
+   trading session and the next is consulted if it's behind — otherwise a
+   stale-but-successful response silently pins the dashboard to an old
+   close, which is exactly what happened on 2026-09-21.
    This step needs real internet access to Yahoo/stooq, which the Claude
    sandbox that built this doesn't have — hence it runs on GitHub's own
    runners instead of as a Claude-scheduled job. This is the data the

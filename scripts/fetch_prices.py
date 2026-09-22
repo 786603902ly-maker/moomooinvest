@@ -14,8 +14,11 @@ import datetime as dt
 import io
 import json
 import urllib.request
+from zoneinfo import ZoneInfo
 
 from common import PRICES_DIR
+
+NY = ZoneInfo("America/New_York")
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; moomooinvest-dca-bot/1.0)"}
 
@@ -118,22 +121,65 @@ def _save_cache(ticker: str, history: list[tuple[dt.date, float]]) -> None:
             writer.writerow([d.isoformat(), c])
 
 
+def last_expected_session(now_et: dt.datetime) -> dt.date:
+    """The most recent US trading day that should have a published close.
+
+    Before 16:00 ET today's session isn't finished, so the answer is the
+    previous weekday. Market holidays aren't tracked: on one this names a day
+    no source will ever have, which costs an extra fetch from the second
+    source and nothing else, since the result is merged either way.
+    """
+    day = now_et.date()
+    if now_et.time() < dt.time(16, 0):
+        day -= dt.timedelta(days=1)
+    while day.weekday() >= 5:  # Sat/Sun -> back to Friday
+        day -= dt.timedelta(days=1)
+    return day
+
+
 def get_history(ticker: str) -> tuple[list[tuple[dt.date, float]], str | None]:
     """Return (history, error). history is sorted ascending by date.
 
-    Falls back to the last cached copy (and reports the error) if every live
+    Sources are tried in order and their rows are MERGED, with a later
+    source's value winning for a date both cover, rather than the first
+    non-throwing source being taken whole. Two reasons:
+
+    1. A source can succeed and still be behind. stooq publishes US end-of-day
+       data on a lag, so on 2026-09-21 it returned a perfectly valid series
+       that simply stopped at the 18th -- no exception, so Yahoo (which had
+       the 21st) was never consulted and the dashboard sat on Friday's close
+       through Monday night. Each source is now checked against
+       last_expected_session and the next one is tried if it's behind.
+    2. Overwriting the cache with one source's window silently discards
+       history that source happens not to cover, which matters because MA250
+       needs 250 sessions. Merging into the cached rows keeps the longest
+       series anyone has seen.
+
+    Falls back to the cached copy alone (and reports the error) if every live
     source fails, so a bad network day degrades to "stale data" rather than
     a crash.
     """
     errors = []
+    merged = dict(_load_cache(ticker))
+    cutoff = last_expected_session(dt.datetime.now(dt.timezone.utc).astimezone(NY))
+    fetched_any = False
+
     for fetcher, name in ((_fetch_stooq, "stooq"), (_fetch_yahoo, "yahoo")):
         try:
-            history = fetcher(ticker)
-            _save_cache(ticker, history)
-            return history, None
+            rows = fetcher(ticker)
         except Exception as exc:  # noqa: BLE001
             errors.append(f"{name}: {exc}")
-    cached = _load_cache(ticker)
-    if cached:
-        return cached, "live fetch failed (" + "; ".join(errors) + "), using cached data"
-    return [], "live fetch failed (" + "; ".join(errors) + ") and no cached data available"
+            continue
+        fetched_any = True
+        merged.update(rows)
+        if rows[-1][0] >= cutoff:
+            break  # already current -- no need to ask the next source
+
+    if not merged:
+        return [], "live fetch failed (" + "; ".join(errors) + ") and no cached data available"
+
+    history = sorted(merged.items())
+    if not fetched_any:
+        return history, "live fetch failed (" + "; ".join(errors) + "), using cached data"
+    _save_cache(ticker, history)
+    return history, None
