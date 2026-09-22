@@ -560,7 +560,70 @@ function applyQuote(card, quote){
     }else if(!hit && tag){
       tag.remove();
     }
+    syncLiveCheckbox(card, rung, hit);
   });
+}
+
+// A rung the live price has reached needs a checkbox you can actually tick.
+//
+// The daily run only fires rungs against the closing price, so without this
+// a level touched at 10am that recovers by 4pm never becomes tickable at
+// all -- and even one that does hold only gets its checkbox hours later,
+// after the close. You buy during the session, so the box has to exist
+// during the session.
+//
+// The id is built the same way the server builds it --
+// ticker|rung-id|trading-date -- so when tonight's run fires this rung with
+// first_hit_date set to the same date, the server-rendered checkbox inherits
+// the tick and the ✓ simply stays put. Nothing needs reconciling.
+//
+// Only while the market is open: outside the session "today in New York"
+// may not be a trading day, and an id carrying a non-trading date would
+// never be matched by a later run.
+function etDateStr(){
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit",
+  }).format(new Date());
+}
+
+let liveCheckboxAdded = false;
+function syncLiveCheckbox(card, rung, hit){
+  const existing = rung.querySelector('input[type=checkbox][data-live-injected]');
+
+  if(!hit || !marketOpenNow()){
+    // Never destroy a tick: if it's already checked, the buy happened and
+    // the row stays. Only an untouched box is cleaned up when price lifts
+    // back above the level.
+    if(existing && !existing.checked){
+      existing.remove();
+      const tag = rung.querySelector('.confirmed-tag[data-live-injected]');
+      if(tag) tag.remove();
+    }
+    return;
+  }
+  if(existing) return;
+
+  const id = card.dataset.ticker + "|" + rung.dataset.rungId + "|" + etDateStr();
+  const cb = document.createElement("input");
+  cb.type = "checkbox";
+  cb.dataset.liveInjected = "1";
+  cb.dataset.id = id;
+  cb.dataset.ticker = card.dataset.ticker;
+  cb.dataset.tier = card.dataset.tier || "";
+  cb.dataset.source = rung.dataset.source || "";
+  cb.dataset.level = rung.dataset.level || "";
+  cb.dataset.multiplier = rung.dataset.multiplier || "";
+  cb.dataset.amount = rung.dataset.amount || "";
+  cb.dataset.firsthit = etDateStr();
+  rung.insertBefore(cb, rung.firstChild);
+
+  const tag = document.createElement("span");
+  tag.className = "confirmed-tag";
+  tag.dataset.confirmFor = id;
+  tag.dataset.liveInjected = "1";
+  rung.appendChild(tag);
+
+  liveCheckboxAdded = true;
 }
 
 function setLiveStatus(msg, isError){
@@ -590,6 +653,10 @@ async function refreshLivePrices(manual){
       if(quote){ applyQuote(card, quote); applied++; }
     }
     if(!applied) throw new Error("no quotes returned");
+    if(liveCheckboxAdded){
+      liveCheckboxAdded = false;
+      applyTicksToDom(loadTicksCache());
+    }
     const missing = tickers.length - applied;
     setLiveStatus(
       "Live as of " + new Date().toLocaleTimeString() +
@@ -695,7 +762,10 @@ def render_rung(
         # "% away" and flag a rung the live price has reached, without
         # re-rendering the card.
         f'<div class="rung {status_cls}" data-level="{rung.get("level", "")}" '
-        f'data-open="{1 if is_open else 0}">{checkbox}'
+        f'data-open="{1 if is_open else 0}" data-rung-id="{html_escape(rung.get("id", ""))}" '
+        f'data-source="{html_escape(rung.get("source", ""))}" '
+        f'data-multiplier="{rung.get("multiplier", "")}" '
+        f'data-amount="{rung.get("amount", "")}">{checkbox}'
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
         f'<span class="amt">{mult_txt}{" &middot; " + amt if amt else ""}</span>'
@@ -840,7 +910,7 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     else:
         price_sub = f'<div class="price-date">{s.get("price_date","-")}</div>'
 
-    return f"""<div class="card {'has-open' if has_open else ''}" data-ticker="{ticker}" data-close="{s.get('price') if s.get('price') is not None else ''}" data-close-date="{s.get('price_date','-')}">
+    return f"""<div class="card {'has-open' if has_open else ''}" data-ticker="{ticker}" data-tier="{tier}" data-close="{s.get('price') if s.get('price') is not None else ''}" data-close-date="{s.get('price_date','-')}">
   <div class="card-head">
     <div><div class="name">{ticker} <span class="sub">{s.get('name','')}</span></div><div class="sub">{tier} &middot; {period_txt}</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">{fmt_price(price)}</div><div class="price-sub">{price_sub}</div></div>

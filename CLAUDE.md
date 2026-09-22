@@ -111,6 +111,13 @@ not give you that history.
 - Only the user can change repository visibility; the GitHub MCP tools have
   no repo-settings operation.
 
+Tick ids are `ticker|rung-id|first_hit_date`, and the dashboard's live-price
+code mints that same id client-side for a rung the live price reaches during
+the session (see `syncLiveCheckbox`). That is deliberate and load-bearing:
+it is what lets an intraday tick survive into the evening run instead of
+needing reconciliation. If you change how either side builds the id, change
+both, or every intraday tick silently detaches.
+
 Ticks are a personal record only. `run_check.py` never reads them, and a
 ticked rung is still re-offered when its period resets — that is intended.
 An action meant to change future alerting is a `custom_targets` entry.

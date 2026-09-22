@@ -112,6 +112,18 @@ you want it re-published.
    `data/state.json` at all. If you want an action to actually change
    future alerting behavior, use a **custom target** instead (below).
 
+   **A rung hit intraday is tickable straight away.** The daily run only
+   fires rungs against the *closing* price, so a level touched at 10am that
+   recovers by 4pm would never get a checkbox, and one that does hold would
+   only get it hours later. Since you act during the session, the live
+   refresher adds a working checkbox to any rung the live price reaches
+   (only while the US market is open). Its id is built exactly as the server
+   builds one — `ticker|rung-id|trading-date` — so when that evening's run
+   fires the same rung, the server-rendered checkbox inherits the tick and
+   the ✓ stays put with nothing to reconcile. If price lifts back above the
+   level, an untouched box disappears again; one you already ticked stays,
+   because the buy happened.
+
    **Where ticks live, and whether Claude can see them.** A tick is stored
    server-side in the Vercel KV database, so it syncs to every device you
    open the dashboard on. That database is *not* part of this git repo, so a
