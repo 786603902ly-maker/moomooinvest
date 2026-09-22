@@ -236,9 +236,9 @@ rather than blindly following whichever MAs happen to be configured:
 ## What needs acting on, at the top of the page
 
 The first thing on the Alerts tab is a summary of **every rung whose level
-was reached and that you have not ticked yet** — ticker, level, what the
-level is, the amount, and whether it was hit today or on an earlier day of
-this period. Click a row to jump to that stock's card. Rungs you already
+was reached and that you have not ticked yet** — ticker, tier, level, what
+the level is, the amount, and whether it was hit today or on an earlier day
+of this period. Click a row to jump to that stock's card. Rungs you already
 confirmed are deliberately left out: the panel answers "what do I act on
 right now", so anything handled would only be noise (it is all still in the
 Action log at the bottom). When there is nothing outstanding it says so.

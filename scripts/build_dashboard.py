@@ -84,6 +84,11 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 }
 .action-summary li:hover{outline:1px solid var(--accent);}
 .action-summary .s-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
+.action-summary .s-tier{
+  color:var(--text-muted); font-size:.7rem; font-weight:700; letter-spacing:.03em;
+  border:1px solid var(--border); border-radius:999px; padding:.05rem .4rem; min-width:2.6rem;
+  text-align:center;
+}
 .action-summary .s-lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
 .action-summary .s-src{color:var(--text-muted); flex:1; font-size:.8rem;}
 .action-summary .s-amt{font-variant-numeric:tabular-nums; font-weight:600;}
@@ -310,6 +315,7 @@ function renderActionSummary(){
     rows.push({
       id: cb.dataset.id,
       ticker: cb.dataset.ticker || "",
+      tier: cb.dataset.tier || "",
       level: cb.dataset.level,
       source: cb.dataset.source || "",
       amount: parseFloat(cb.dataset.amount) || 0,
@@ -339,6 +345,7 @@ function renderActionSummary(){
     '<ul>' + rows.map(r =>
       '<li data-goto="' + r.ticker + '">' +
         '<span class="s-tick">' + r.ticker + '</span>' +
+        '<span class="s-tier">' + r.tier + '</span>' +
         '<span class="s-lvl">' + fmtLivePrice(parseFloat(r.level)) + '</span>' +
         '<span class="s-src">' + r.source + '</span>' +
         '<span class="s-amt">' + CURRENCY + ' ' + r.amount.toLocaleString("en-US", {maximumFractionDigits: 0}) + '</span>' +
