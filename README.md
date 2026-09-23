@@ -445,6 +445,57 @@ carry no override and build exactly as before. Two things worth knowing:
   original `first_hit_date`, so anything you'd already ticked off stays
   ticked.
 
+## Sell targets, and the sell-only tiers
+
+T5 and T9 are held to sell out of, not to accumulate. `buy_enabled: false`
+on those tiers in `config/rules.yaml` means **no buy ladder and no buy
+triggers are produced for them at all** — their cards show sell targets
+only. Set `buy_enabled: true` to turn buying back on for a tier.
+
+A sell target is the mirror image of a buy rung: it fires when price rises
+**to or above** the level, and follows the same availability rule, so the
+checkbox exists only while the sell is actually available and comes back
+already ticked if price revisits a level you already sold into. Like custom
+targets, and unlike the MA ladder, sell targets never reset on a period
+boundary — a sell is a one-off decision about a position, not a recurring
+rule. In `config/stocks.yaml`:
+
+```yaml
+  - ticker: HIMS
+    tier: T9
+    sell_targets:
+      - level: 39
+        action: "sell a covered call"
+      - level: 60
+        action: "sell half"
+```
+
+`action` is your own wording, shown verbatim and never interpreted. Nothing
+here sizes or places an order — it is an alert, same as every other rung.
+
+Current set (levels as given 2026-09-23; % is the rise needed from the
+2026-09-21 close):
+
+| Stock | Tier | Target | Action | Needs |
+| --- | --- | ---: | --- | ---: |
+| V | T5 | 385 | sell half | +4.1% |
+| BRK-B | T9 | 540 | sell half | +7.6% |
+| NU | T9 | 16 | sell all | +13.8% |
+| FXI | T5 | 41 | sell all | +17.4% |
+| VITL | T9 | 14.5 | sell half | +18.6% |
+| DUOL | T9 | 180 | sell all | +20.5% |
+| PYPL | T9 | 66 | sell half | +25.4% |
+| VITL | T9 | 16 | sell half | +30.8% |
+| HIMS | T9 | 39 | sell a covered call | +32.9% |
+| SOFI | T5 | 25 | sell half | +47.3% |
+| GRAB | T5 | 4.6 | sell half | +58.1% |
+| HIMS | T9 | 60 | sell half | +104.4% |
+| ASTS | T5 | 160 | sell all | +158.5% |
+
+MU, TSLA, OSCR, MRVL and MSTR are T5/T9 with **no sell target set**, so
+their cards are currently empty of actionable rows. Add a `sell_targets`
+entry for any of them, or move them to a buying tier.
+
 ## Custom targets: your own buy levels, layered on top of the ladder
 
 Sometimes you want to wait for a specific lower price on a stock regardless

@@ -84,6 +84,9 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 }
 .action-summary li:hover{outline:1px solid var(--accent);}
 .action-summary .s-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
+.rung.sell{border-color:var(--good); background:var(--good-soft);}
+.rung.sell.pending{background:transparent; border-style:dashed;}
+.rung.sell .amt{color:var(--good);}
 .rung .bought-tag{color:var(--good); font-size:.72rem; font-weight:600; white-space:nowrap;}
 .action-summary .s-tier{
   color:var(--text-muted); font-size:.7rem; font-weight:700; letter-spacing:.03em;
@@ -93,6 +96,10 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 .action-summary .s-lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
 .action-summary .s-src{color:var(--text-muted); flex:1; font-size:.8rem;}
 .action-summary .s-amt{font-variant-numeric:tabular-nums; font-weight:600;}
+.action-summary .s-sell{
+  color:var(--good); font-weight:700; font-variant-numeric:tabular-nums;
+}
+.action-summary li.sell{border-left:3px solid var(--good);}
 .action-summary .s-when{color:var(--text-muted); font-size:.74rem; white-space:nowrap;}
 .action-summary .s-new{color:var(--accent); font-weight:700; font-size:.74rem; white-space:nowrap;}
 .summary-row{display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:1.75rem;}
@@ -317,6 +324,7 @@ function renderActionSummary(){
       id: cb.dataset.id,
       ticker: cb.dataset.ticker || "",
       tier: cb.dataset.tier || "",
+      kind: cb.dataset.kind === "sell" ? "sell" : "buy",
       level: cb.dataset.level,
       source: cb.dataset.source || "",
       amount: parseFloat(cb.dataset.amount) || 0,
@@ -332,27 +340,40 @@ function renderActionSummary(){
   }
 
   const today = etDateStr();
-  rows.sort((a, b) => (b.firstHit || "").localeCompare(a.firstHit || "") || a.ticker.localeCompare(b.ticker));
-  const total = rows.reduce((sum, r) => sum + r.amount, 0);
+  // Sells first -- taking profit is time-sensitive in a way a DCA buy is not
+  // -- then most recently hit.
+  rows.sort((a, b) =>
+    (a.kind === b.kind ? 0 : a.kind === "sell" ? -1 : 1) ||
+    (b.firstHit || "").localeCompare(a.firstHit || "") ||
+    a.ticker.localeCompare(b.ticker));
+  const buys = rows.filter(r => r.kind === "buy");
+  const sells = rows.filter(r => r.kind === "sell");
+  const total = buys.reduce((sum, r) => sum + r.amount, 0);
   const todayCount = rows.filter(r => r.firstHit === today).length;
+
+  const parts = [];
+  if(sells.length) parts.push(sells.length + ' to sell');
+  if(buys.length) parts.push(buys.length + ' to buy (' + CURRENCY + ' ' +
+    total.toLocaleString("en-US", {maximumFractionDigits: 0}) + ')');
 
   el.classList.remove("clear");
   el.innerHTML =
-    '<h2>' + rows.length + ' threshold' + (rows.length === 1 ? '' : 's') + ' waiting — ' +
-      CURRENCY + ' ' + total.toLocaleString("en-US", {maximumFractionDigits: 0}) + ' if you take them all</h2>' +
+    '<h2>' + rows.length + ' waiting — ' + parts.join(', ') + '</h2>' +
     '<div class="sum-sub">' +
-      (todayCount ? todayCount + ' hit today. ' : '') +
-      'Hit but not yet ticked. Confirmed ones are not listed.</div>' +
+      (todayCount ? todayCount + ' reached today. ' : '') +
+      'Reached but not yet ticked. Confirmed ones are not listed.</div>' +
     '<ul>' + rows.map(r =>
-      '<li data-goto="' + r.ticker + '">' +
+      '<li class="' + r.kind + '" data-goto="' + r.ticker + '">' +
         '<span class="s-tick">' + r.ticker + '</span>' +
         '<span class="s-tier">' + r.tier + '</span>' +
         '<span class="s-lvl">' + fmtLivePrice(parseFloat(r.level)) + '</span>' +
         '<span class="s-src">' + r.source + '</span>' +
-        '<span class="s-amt">' + CURRENCY + ' ' + r.amount.toLocaleString("en-US", {maximumFractionDigits: 0}) + '</span>' +
+        (r.kind === "sell"
+          ? '<span class="s-sell">SELL</span>'
+          : '<span class="s-amt">' + CURRENCY + ' ' + r.amount.toLocaleString("en-US", {maximumFractionDigits: 0}) + '</span>') +
         (r.firstHit === today
-          ? '<span class="s-new">hit today</span>'
-          : '<span class="s-when">hit ' + r.firstHit + '</span>') +
+          ? '<span class="s-new">reached today</span>'
+          : '<span class="s-when">reached ' + r.firstHit + '</span>') +
       '</li>').join('') +
     '</ul>';
 }
@@ -646,13 +667,15 @@ function applyQuote(card, quote){
       dist.textContent = (pct >= 0 ? "+" : "") + pct.toFixed(1) + "% away";
     }
 
-    const hit = price <= level;
+    // Mirrored for sells: a buy is available at or below its level, a sell
+    // at or above it.
+    const hit = rung.dataset.kind === "sell" ? price >= level : price <= level;
     rung.classList.toggle("live-hit", hit);
     let tag = rung.querySelector(".live-hit-tag");
     if(hit && !tag){
       tag = document.createElement("span");
       tag.className = "live-hit-tag";
-      tag.textContent = "hit now";
+      tag.textContent = rung.dataset.kind === "sell" ? "sell now" : "hit now";
       rung.appendChild(tag);
     }else if(!hit && tag){
       tag.remove();
@@ -711,7 +734,10 @@ function setBoughtMarker(rung, when){
     tag.className = "bought-tag";
     rung.appendChild(tag);
   }
-  tag.textContent = "✓ already bought this period" + (when ? " (" + when + ")" : "");
+  // Sell targets never reset on a period boundary, so "this period" would be
+  // wrong for them.
+  const what = rung.dataset.kind === "sell" ? "✓ already sold" : "✓ already bought this period";
+  tag.textContent = what + (when ? " (" + when + ")" : "");
 }
 
 let liveCheckboxAdded = false;
@@ -739,6 +765,9 @@ function syncLiveCheckbox(card, rung, hit){
     cb.dataset.level = rung.dataset.level || "";
     cb.dataset.multiplier = rung.dataset.multiplier || "";
     cb.dataset.amount = rung.dataset.amount || "";
+    // Without this a live-injected sell would be filed as a buy by the
+    // summary, showing an SGD amount it does not have.
+    cb.dataset.kind = rung.dataset.kind || "buy";
     cb.dataset.firsthit = rung.dataset.firsthit || etDateStr();
     rung.insertBefore(cb, rung.firstChild);
 
@@ -875,6 +904,7 @@ def render_rung(
     price: float | None = None,
     note: str | None = None,
 ) -> str:
+    is_sell = bool(rung.get("is_sell"))
     status_cls = ("open " + extra_cls).strip() if is_open else extra_cls
     checkbox = ""
     confirmed_tag = ""
@@ -884,11 +914,15 @@ def render_rung(
             f'<input type="checkbox" data-id="{rid}" data-ticker="{ticker}" data-tier="{tier}" '
             f'data-source="{rung.get("source")}" data-level="{rung.get("level")}" '
             f'data-multiplier="{rung.get("multiplier","-")}" data-amount="{rung.get("amount","")}" '
+            f'data-kind="{"sell" if is_sell else "buy"}" '
             f'data-firsthit="{rung.get("first_hit_date","")}">'
         )
         confirmed_tag = f'<span class="confirmed-tag" data-confirm-for="{rid}"></span>'
     amt = f'{rung.get("amount"):,.0f}' if rung.get("amount") is not None else ""
-    mult_txt = f'x{rung.get("multiplier")}' if rung.get("multiplier") is not None else "your target"
+    if is_sell:
+        mult_txt = "sell"
+    else:
+        mult_txt = f'x{rung.get("multiplier")}' if rung.get("multiplier") is not None else "your target"
     dist_html = ""
     if not is_open and price and rung.get("level"):
         dist = (rung["level"] - price) / price * 100
@@ -908,6 +942,7 @@ def render_rung(
         f'data-source="{html_escape(rung.get("source", ""))}" '
         f'data-multiplier="{rung.get("multiplier", "")}" '
         f'data-amount="{rung.get("amount", "")}" '
+        f'data-kind="{"sell" if is_sell else "buy"}" '
         f'data-firsthit="{rung.get("first_hit_date", "") or ""}">{checkbox}'
         f'<span class="lvl">{fmt_price(rung.get("level"))}</span>'
         f'<span class="src">{rung.get("source")}</span>'
@@ -1024,7 +1059,11 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     ladder_ids = {r["id"] for r in ladder}
     next_rung = s.get("next_rung")
 
-    if is_single_trigger:
+    if not s.get("buy_enabled", True):
+        # Held to sell out of, not to accumulate -- the sell section below is
+        # the whole card.
+        rungs_html = ""
+    elif is_single_trigger:
         # T5/T9 are deliberately single-trigger: show just the one live
         # target (the MA level, or -- once that's fired -- wherever the
         # drop cascade currently sits) instead of every cascade step ever
@@ -1074,12 +1113,38 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
             rows.append(render_rung(ticker, tier, r, is_fired, extra_cls="custom", price=price))
         custom_html = f'<div class="card-sub-title">Your targets (always-on, no period reset)</div><div class="rungs">{"".join(rows)}</div>'
 
+    # Sell targets: same availability rule as a buy rung, mirrored. A sell is
+    # actionable once price has risen TO OR ABOVE the level; below it there is
+    # nothing to do, so the row is a pending preview showing how far it has to
+    # climb.
+    sell_rungs = s.get("sell_rungs_today") or []
+    fired_sell_by_id = {f["id"]: f for f in (s.get("fired_sell") or [])}
+    sell_html = ""
+    if sell_rungs:
+        rows = []
+        for rung in sell_rungs:
+            entry = dict(rung)
+            memory = fired_sell_by_id.get(rung["id"])
+            if memory and memory.get("first_hit_date"):
+                entry["first_hit_date"] = memory["first_hit_date"]
+            if price is not None and price >= rung["level"]:
+                if not entry.get("first_hit_date"):
+                    entry["first_hit_date"] = live_trade_date(s)
+                rows.append(render_rung(ticker, tier, entry, True, extra_cls="sell", note=note_for(rung["id"])))
+            else:
+                rows.append(render_rung(ticker, tier, entry, False, extra_cls="sell pending",
+                                        price=price, note=note_for(rung["id"])))
+        sell_html = ('<div class="card-sub-title">Sell targets (always-on, no period reset)</div>'
+                     f'<div class="rungs">{"".join(rows)}</div>')
+
     # Only surface "Next" separately when it's a below-the-ladder cascade
     # projection not already shown as a pending rung above (avoids showing
     # the same level twice). Single-trigger tiers already show that
     # projection as their one rung, so they never need this line.
     next_html = ""
-    if is_single_trigger:
+    if not s.get("buy_enabled", True):
+        pass
+    elif is_single_trigger:
         pass
     elif next_rung and price and next_rung["id"] not in ladder_ids:
         dist = (next_rung["level"] - price) / price * 100 if price else None
@@ -1117,6 +1182,7 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
   <div class="ma-strip">{ma_strip}</div>
   <div class="rungs">{rungs_html if rungs_html else '<div class="next-hint">No ladder available (missing MA data).</div>'}</div>
   {next_html}
+  {sell_html}
   {custom_html}
   {err_html}
 </div>"""

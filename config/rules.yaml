@@ -51,11 +51,18 @@ tiers:
     base_amount: 600
     refresh: biweekly
     ma_ladder: [200, 250]
+  # T5 and T9 are held to sell out of, not to accumulate: buy_enabled false
+  # means no ladder and no buy triggers are produced for them at all. Their
+  # sell_targets in stocks.yaml are what the dashboard shows instead.
+  # ma_ladder/base_amount stay so the tier is still well-formed if buying is
+  # ever switched back on.
   T5:
     base_amount: 600
     refresh: monthly
     ma_ladder: [250]
+    buy_enabled: false
   T9:
     base_amount: 600
     refresh: monthly
     ma_ladder: [250]
+    buy_enabled: false

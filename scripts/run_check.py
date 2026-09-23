@@ -11,7 +11,7 @@ import datetime as dt
 import sys
 
 from common import load_rules, load_state, load_stocks, save_state
-from engine import evaluate_custom_targets, evaluate_stock
+from engine import evaluate_custom_targets, evaluate_sell_targets, evaluate_stock
 from fetch_prices import get_history
 from indicators import moving_averages
 
@@ -83,6 +83,17 @@ def main() -> int:
         if custom_result.get("new_triggers_custom_today"):
             names = ", ".join(f"{t['source']} @ {t['level']}" for t in custom_result["new_triggers_custom_today"])
             print(f"[{ticker}] NEW CUSTOM TARGET HIT: {names}")
+
+        sell_result = evaluate_sell_targets(
+            price=price,
+            price_date=price_date,
+            sell_targets_cfg=stock.get("sell_targets") or [],
+            prev_fired_sell=(prev_stocks.get(ticker) or {}).get("fired_sell"),
+        )
+        result.update(sell_result)
+        if sell_result.get("new_triggers_sell_today"):
+            names = ", ".join(f"{t['source']} @ {t['level']}" for t in sell_result["new_triggers_sell_today"])
+            print(f"[{ticker}] SELL TARGET REACHED: {names}")
 
         if not stock.get("is_etf"):
             result["target_price"] = stock.get("target_price")

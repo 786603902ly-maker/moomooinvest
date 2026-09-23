@@ -137,3 +137,20 @@ quote provider, so you cannot curl the dashboard or `/api/quote` to check a
 deploy. Run the **Live site smoke test** workflow instead (manual trigger)
 and read its logs — a GitHub runner has plain internet access. Don't claim
 a deploy is working without doing that.
+
+## Sell targets and sell-only tiers (2026-09-23)
+
+T5/T9 carry `buy_enabled: false` in `config/rules.yaml`: the user holds them
+to sell out of, so `evaluate_stock` returns an empty ladder and no buy
+triggers for them, and their cards show `sell_targets` only.
+
+A sell target mirrors a buy rung -- it fires at or ABOVE its level -- and
+never resets on a period boundary, like a custom target. When touching
+either side, keep the two directions symmetric: `evaluate_sell_targets` in
+the engine, and in the dashboard both the server-side `price >= level` check
+and the browser's `rung.dataset.kind === "sell"` branch. A checkbox must
+always carry `data-kind`, including the live-injected one, or the summary
+files a sell as a buy.
+
+`action` text ("sell half", "sell a covered call") is the user's wording.
+Show it verbatim; do not infer position sizing from it.

@@ -7,6 +7,9 @@ import datetime as dt
 
 from common import period_key, period_start
 
+# Label for a rung anchored at a price the user named rather than at an MA.
+START_SOURCE = "your first buy level"
+
 
 def _cluster_supports(ma_values: list[tuple[str, float]], cluster_merge_pct: float) -> list[dict]:
     """ma_values: [(source_label, value), ...] with non-None values only.
@@ -61,6 +64,7 @@ def ladder_config(tier_cfg: dict, rules: dict, overrides: dict | None = None) ->
         "cluster_merge_pct": rules["cluster_merge_pct"],
         "drop_step_pct": effective_drop_step(rules, overrides),
         "start_ma": overrides.get("start_ma"),
+        "start_level": overrides.get("start_level"),
         "skip_top_rungs": int(overrides.get("skip_top_rungs") or 0),
     }
 
@@ -92,6 +96,10 @@ def build_period_ladder(
                       shallower one -- "start with ma250 directly", for a
                       stock whose MAs are bunched and whose price has
                       already fallen well past the shallow ones.
+      start_level     anchor the ladder at this PRICE, ignoring every MA
+                      support above it -- "don't start buying until 920".
+                      Unlike start_ma this needn't coincide with any MA, so
+                      it works when the level you want is nowhere near one.
       skip_top_rungs  build as usual, then discard the N shallowest rungs.
                       For the same intent when no MA sits low enough to
                       anchor on: the wanted level is a drop step or two
@@ -118,7 +126,15 @@ def build_period_ladder(
         return [], False
 
     supports = _cluster_supports(available, cluster_pct)
-    merged = any(len(s["sources"]) > 1 for s in supports)
+
+    start_level = overrides.get("start_level")
+    if start_level is not None:
+        # Your own first buy price replaces rung 1 and suppresses every MA
+        # above it; MAs below it still form the deeper rungs as usual.
+        supports = [sup for sup in supports if sup["level"] < float(start_level)]
+        supports.insert(0, {"sources": [START_SOURCE], "level": float(start_level)})
+
+    merged = any(len(s["sources"]) > 1 and s["sources"] != [START_SOURCE] for s in supports)
     # Single-trigger tiers are decided by how the *tier* is configured, not
     # by what start_ma narrowed the list down to -- filtering T1 down to one
     # MA must still produce a full ladder below that MA.
@@ -149,9 +165,15 @@ def build_period_ladder(
 
     rungs: list[dict] = []
     for i, ((level, source), mult) in enumerate(zip(levels[skip_top:], step_multipliers)):
+        if source == START_SOURCE:
+            rung_id = "start-level"
+        elif "drop" in source:
+            rung_id = f"rung-drop-{i}"
+        else:
+            rung_id = f"ma-{source}"
         rungs.append(
             {
-                "id": f"ma-{source}" if "drop" not in source else f"rung-drop-{i}",
+                "id": rung_id,
                 "source": source,
                 "level": round(level, 4),
                 "multiplier": mult,
@@ -246,6 +268,69 @@ def evaluate_custom_targets(
     }
 
 
+def _sell_rung_id(level: float, action: str | None) -> str:
+    action_part = (action or "").strip().lower().replace(" ", "-")
+    return f"sell-{round(float(level), 4)}-{action_part}" if action_part else f"sell-{round(float(level), 4)}"
+
+
+def evaluate_sell_targets(
+    price: float,
+    price_date: dt.date,
+    sell_targets_cfg: list[dict],
+    prev_fired_sell: list[dict] | None,
+) -> dict:
+    """Price levels to sell into, the mirror image of the buy ladder.
+
+    Fires when price rises to or ABOVE the level, where a buy rung fires at
+    or below. Like custom targets and unlike the MA ladder these never reset
+    on a period boundary: a sell is a one-off decision about a position, not
+    a recurring accumulation rule, so once it fires it stays fired until the
+    entry is edited or removed from stocks.yaml (which changes its id and
+    makes it new again).
+
+    The `action` text is the user's own wording -- "sell half", "sell all",
+    "sell a covered call" -- and is shown verbatim rather than interpreted.
+    Nothing here sizes or places an order; it is an alert.
+    """
+    sell_targets_cfg = sell_targets_cfg or []
+    current_ids = set()
+    rungs = []
+    for target in sell_targets_cfg:
+        level = target.get("level")
+        if level is None:
+            continue
+        rid = _sell_rung_id(level, target.get("action"))
+        current_ids.add(rid)
+        rungs.append(
+            {
+                "id": rid,
+                "source": target.get("action") or "sell",
+                "level": round(float(level), 4),
+                "note": target.get("note"),
+                "is_sell": True,
+            }
+        )
+    rungs.sort(key=lambda r: r["level"])  # nearest sell first
+
+    prev_fired_sell = prev_fired_sell or []
+    fired = [f for f in prev_fired_sell if f["id"] in current_ids]
+    fired_ids = {f["id"] for f in fired}
+
+    new_triggers = []
+    for rung in rungs:
+        if price >= rung["level"] and rung["id"] not in fired_ids:
+            trigger = {**rung, "first_hit_date": price_date.isoformat()}
+            fired.append(trigger)
+            new_triggers.append(trigger)
+            fired_ids.add(rung["id"])
+
+    return {
+        "sell_rungs_today": rungs,
+        "fired_sell": fired,
+        "new_triggers_sell_today": new_triggers,
+    }
+
+
 def evaluate_stock(
     tier: str,
     price: float,
@@ -258,12 +343,32 @@ def evaluate_stock(
 ) -> dict:
     tier_cfg = rules["tiers"][tier]
     refresh = tier_cfg["refresh"]
+    buy_enabled = tier_cfg.get("buy_enabled", True)
     pkey = period_key(refresh, price_date)
     pstart = period_start(refresh, price_date)
 
     prev_period = (prev_stock_state or {}).get("period", {})
     same_period = prev_period.get("key") == pkey
     cfg = ladder_config(tier_cfg, rules, overrides)
+
+    if not buy_enabled:
+        # A tier held only to sell out of: no ladder, no buy triggers. Its
+        # sell targets are evaluated separately by the caller.
+        return {
+            "tier": tier,
+            "price": price,
+            "price_date": price_date.isoformat(),
+            "mas": mas,
+            "period": {"type": refresh, "key": pkey, "start_date": pstart.isoformat()},
+            "ladder": [],
+            "ladder_config": cfg,
+            "clustered": False,
+            "full_ladder_today": [],
+            "fired_this_period": [],
+            "new_triggers_today": [],
+            "next_rung": None,
+            "buy_enabled": False,
+        }
 
     # Reuse this period's frozen ladder only while the config that shaped it
     # is unchanged -- editing rules.yaml or a stock's `ladder:` overrides
@@ -334,4 +439,5 @@ def evaluate_stock(
         "fired_this_period": fired,
         "new_triggers_today": new_triggers,
         "next_rung": next_rung,
+        "buy_enabled": True,
     }
