@@ -31,8 +31,8 @@
           "source": "250"
         }
       ],
-      "intraday_price": 610.3099975585938,
-      "intraday_price_at": "2026-09-29T18:52:38+00:00",
+      "intraday_price": 607.8499755859375,
+      "intraday_price_at": "2026-09-29T19:38:21+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -132,8 +132,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 248.43499755859375,
-      "intraday_price_at": "2026-09-29T18:52:45+00:00",
+      "intraday_price": 247.17999267578125,
+      "intraday_price_at": "2026-09-29T19:38:26+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -233,8 +233,8 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 1831.47998046875,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 1828.8199462890625,
+      "intraday_price_at": "2026-09-29T19:38:26+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -314,8 +314,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 59.15999984741211,
-      "intraday_price_at": "2026-09-29T18:52:41+00:00",
+      "intraday_price": 59.419898986816406,
+      "intraday_price_at": "2026-09-29T19:38:28+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -406,8 +406,8 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 356.1099853515625,
-      "intraday_price_at": "2026-09-29T18:52:39+00:00",
+      "intraday_price": 355.6499938964844,
+      "intraday_price_at": "2026-09-29T19:38:24+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -488,8 +488,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 502.28009033203125,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 502.67999267578125,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -552,8 +552,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 141.64999389648438,
-      "intraday_price_at": "2026-09-29T18:52:05+00:00",
+      "intraday_price": 141.71499633789062,
+      "intraday_price_at": "2026-09-29T19:38:21+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -635,8 +635,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 174.97999572753906,
-      "intraday_price_at": "2026-09-29T18:52:33+00:00",
+      "intraday_price": 175.99000549316406,
+      "intraday_price_at": "2026-09-29T19:38:18+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -715,8 +715,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 33.82500076293945,
-      "intraday_price_at": "2026-09-29T18:52:15+00:00",
+      "intraday_price": 33.875,
+      "intraday_price_at": "2026-09-29T19:38:28+00:00",
       "is_etf": true,
       "ladder": [],
       "ladder_config": {
@@ -804,8 +804,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 337.42999267578125,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 337.3988037109375,
+      "intraday_price_at": "2026-09-29T19:38:26+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -886,8 +886,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 3.119999885559082,
-      "intraday_price_at": "2026-09-29T18:52:41+00:00",
+      "intraday_price": 3.125,
+      "intraday_price_at": "2026-09-29T19:38:26+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -950,8 +950,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 28.511499404907227,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 28.575000762939453,
+      "intraday_price_at": "2026-09-29T19:38:16+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1039,8 +1039,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 104.69999694824219,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 105.09500122070312,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": true,
       "ladder": [
         {
@@ -1137,8 +1137,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 322.8399963378906,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 323.7099914550781,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1237,8 +1237,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 733.5499877929688,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 734.3800048828125,
+      "intraday_price_at": "2026-09-29T19:38:26+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1319,8 +1319,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 263.25,
-      "intraday_price_at": "2026-09-29T18:52:44+00:00",
+      "intraday_price": 262.8349914550781,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1394,8 +1394,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 510.95001220703125,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 511.1000061035156,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1476,8 +1476,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 154.6199951171875,
-      "intraday_price_at": "2026-09-29T18:52:42+00:00",
+      "intraday_price": 153.67689514160156,
+      "intraday_price_at": "2026-09-29T19:38:27+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1532,8 +1532,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 1071.8599853515625,
-      "intraday_price_at": "2026-09-29T18:52:45+00:00",
+      "intraday_price": 1068.8399658203125,
+      "intraday_price_at": "2026-09-29T19:38:26+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1607,8 +1607,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 239.60000610351562,
-      "intraday_price_at": "2026-09-29T18:52:44+00:00",
+      "intraday_price": 238.06500244140625,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1688,8 +1688,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 12.375,
-      "intraday_price_at": "2026-09-29T18:52:46+00:00",
+      "intraday_price": 12.369999885559082,
+      "intraday_price_at": "2026-09-29T19:38:27+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1771,8 +1771,8 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 228.30999755859375,
-      "intraday_price_at": "2026-09-29T18:52:42+00:00",
+      "intraday_price": 228.125,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1853,8 +1853,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 29.364999771118164,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 29.540000915527344,
+      "intraday_price_at": "2026-09-29T19:38:16+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1928,8 +1928,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 185.86000061035156,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 185.97999572753906,
+      "intraday_price_at": "2026-09-29T19:38:24+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2010,8 +2010,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 53.92499923706055,
-      "intraday_price_at": "2026-09-29T18:52:46+00:00",
+      "intraday_price": 53.8849983215332,
+      "intraday_price_at": "2026-09-29T19:38:27+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2110,8 +2110,8 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 70.13999938964844,
-      "intraday_price_at": "2026-09-29T18:52:44+00:00",
+      "intraday_price": 69.7699966430664,
+      "intraday_price_at": "2026-09-29T19:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2192,8 +2192,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 15.96500015258789,
-      "intraday_price_at": "2026-09-29T18:52:33+00:00",
+      "intraday_price": 15.944999694824219,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2256,8 +2256,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 354.33770751953125,
-      "intraday_price_at": "2026-09-29T18:52:45+00:00",
+      "intraday_price": 352.7900085449219,
+      "intraday_price_at": "2026-09-29T19:38:26+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2331,8 +2331,8 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 459.1199951171875,
-      "intraday_price_at": "2026-09-29T18:52:43+00:00",
+      "intraday_price": 458.489990234375,
+      "intraday_price_at": "2026-09-29T19:38:25+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2413,8 +2413,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 367.6499938964844,
-      "intraday_price_at": "2026-09-29T18:52:41+00:00",
+      "intraday_price": 366.9200134277344,
+      "intraday_price_at": "2026-09-29T19:38:11+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2477,8 +2477,8 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 9.039999961853027,
-      "intraday_price_at": "2026-09-29T18:52:46+00:00",
+      "intraday_price": 9.289999961853027,
+      "intraday_price_at": "2026-09-29T19:38:20+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2566,8 +2566,8 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 170.27499389648438,
-      "intraday_price_at": "2026-09-29T18:52:45+00:00",
+      "intraday_price": 170.60000610351562,
+      "intraday_price_at": "2026-09-29T19:38:20+00:00",
       "is_etf": true,
       "ladder": [
         {
