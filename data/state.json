@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:16:51.220662Z",
+  "generated_at": "2026-10-12T00:39:05.568689Z",
   "stocks": {
     "AMD": {
       "buy_enabled": true,
@@ -1665,16 +1665,7 @@
       },
       "name": "Nu Holdings",
       "new_triggers_custom_today": [],
-      "new_triggers_sell_today": [
-        {
-          "first_hit_date": "2026-10-09",
-          "id": "sell-16.0-sell-all",
-          "is_sell": true,
-          "level": 16.0,
-          "note": null,
-          "source": "sell all"
-        }
-      ],
+      "new_triggers_sell_today": [],
       "new_triggers_today": [],
       "next_rung": null,
       "period": {
@@ -2390,16 +2381,7 @@
       },
       "name": "Visa",
       "new_triggers_custom_today": [],
-      "new_triggers_sell_today": [
-        {
-          "first_hit_date": "2026-10-09",
-          "id": "sell-385.0-sell-half",
-          "is_sell": true,
-          "level": 385.0,
-          "note": null,
-          "source": "sell half"
-        }
-      ],
+      "new_triggers_sell_today": [],
       "new_triggers_today": [],
       "next_rung": null,
       "period": {
