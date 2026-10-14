@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-14T00:24:19.890895Z",
+  "generated_at": "2026-10-14T23:59:30.872025Z",
   "stocks": {
     "AMD": {
       "buy_enabled": true,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for AMD; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 530.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -31,8 +31,6 @@
           "source": "250"
         }
       ],
-      "intraday_price": 570.5698852539062,
-      "intraday_price_at": "2026-10-14T18:53:47+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -106,8 +104,8 @@
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for AMZN; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 300.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -132,8 +130,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 253.47999572753906,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -207,8 +203,8 @@
       "buy_enabled": true,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for ASML; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 2050.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -233,8 +229,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 1675.64501953125,
-      "intraday_price_at": "2026-10-14T18:53:48+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -307,15 +301,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for ASTS; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 76.29,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 42.39500045776367,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -397,8 +389,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 344.70001220703125,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -438,11 +428,11 @@
         ]
       },
       "mas": {
-        "100": 383.24250091552733,
-        "150": 379.6662674967448,
-        "200": 368.31175064086915,
-        "250": 366.9918002929688,
-        "60": 373.4385009765625
+        "100": 381.95480072021485,
+        "150": 379.79566752115886,
+        "200": 368.3178005981445,
+        "250": 367.0242003173828,
+        "60": 372.42016754150393
       },
       "name": "Broadcom",
       "new_triggers_custom_today": [],
@@ -459,28 +449,26 @@
         "start_date": "2026-10-12",
         "type": "weekly"
       },
-      "price": 354.7300109863281,
-      "price_date": "2026-10-12",
+      "price": 346.25,
+      "price_date": "2026-10-14",
       "sell_rungs_today": [],
       "target_price": 530.74,
       "ticker": "AVGO",
       "tier": "T1",
-      "vs_fair_value_pct": 83.24,
-      "vs_target_pct": 49.62
+      "vs_fair_value_pct": 87.73,
+      "vs_target_pct": 53.28
     },
     "BRK-B": {
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for BRK-B; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 510.0,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 526.0422973632812,
-      "intraday_price_at": "2026-10-14T18:53:41+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -536,15 +524,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for DUOL; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 153.71,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 139.4949951171875,
-      "intraday_price_at": "2026-10-14T18:52:00+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -600,8 +586,8 @@
       "buy_enabled": true,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for FTNT; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 143.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -626,8 +612,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 184.4499969482422,
-      "intraday_price_at": "2026-10-14T18:53:42+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -700,14 +684,12 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for FXI; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 33.82500076293945,
-      "intraday_price_at": "2026-10-14T18:53:32+00:00",
       "is_etf": true,
       "ladder": [],
       "ladder_config": {
@@ -760,8 +742,8 @@
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for GOOG; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 433.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -786,8 +768,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 343.2850036621094,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -861,15 +841,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for GRAB; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 5.6,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 2.876300096511841,
-      "intraday_price_at": "2026-10-14T18:53:42+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -925,15 +903,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for HIMS; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 23.0,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 27.709999084472656,
-      "intraday_price_at": "2026-10-14T18:53:30+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -996,8 +972,8 @@
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for IGV; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
@@ -1021,8 +997,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 107.45999908447266,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": true,
       "ladder": [
         {
@@ -1093,8 +1067,8 @@
       "buy_enabled": true,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for LRCX; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 310.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -1119,8 +1093,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 286.239990234375,
-      "intraday_price_at": "2026-10-14T18:53:43+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1193,8 +1165,8 @@
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for META; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 850.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -1219,8 +1191,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 736.1799926757812,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1301,8 +1271,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 251.00999450683594,
-      "intraday_price_at": "2026-10-14T18:53:49+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1321,11 +1289,11 @@
         ]
       },
       "mas": {
-        "100": 238.75649978637696,
-        "150": 202.9881332397461,
-        "200": 172.6727500152588,
-        "250": 155.664,
-        "60": 230.30483271280926
+        "100": 240.12169982910157,
+        "150": 205.18993326822917,
+        "200": 174.37865009307862,
+        "250": 157.01960003662109,
+        "60": 232.15666605631512
       },
       "name": "Marvell Technology",
       "new_triggers_custom_today": [],
@@ -1337,21 +1305,21 @@
         "start_date": "2026-10-01",
         "type": "monthly"
       },
-      "price": 265.8599853515625,
-      "price_date": "2026-10-12",
+      "price": 245.27999877929688,
+      "price_date": "2026-10-14",
       "sell_rungs_today": [],
       "target_price": 287.84,
       "ticker": "MRVL",
       "tier": "T5",
-      "vs_fair_value_pct": 1.56,
-      "vs_target_pct": 8.27
+      "vs_fair_value_pct": 10.08,
+      "vs_target_pct": 17.35
     },
     "MSFT": {
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for MSFT; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 600.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -1376,8 +1344,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 533.8900146484375,
-      "intraday_price_at": "2026-10-14T18:53:43+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1458,8 +1424,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 142.39999389648438,
-      "intraday_price_at": "2026-10-14T18:53:45+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1478,11 +1442,11 @@
         ]
       },
       "mas": {
-        "100": 121.8434994506836,
-        "150": 132.334133199056,
-        "200": 135.82984981536865,
-        "250": 152.47160012817383,
-        "60": 125.24316635131837
+        "100": 121.49109939575196,
+        "150": 132.45833312988282,
+        "200": 135.71934978485106,
+        "250": 151.26356002807617,
+        "60": 126.83733304341634
       },
       "name": "Strategy (MicroStrategy)",
       "new_triggers_custom_today": [],
@@ -1494,28 +1458,26 @@
         "start_date": "2026-10-01",
         "type": "monthly"
       },
-      "price": 152.67999267578125,
-      "price_date": "2026-10-12",
+      "price": 143.24000549316406,
+      "price_date": "2026-10-14",
       "sell_rungs_today": [],
       "target_price": 257.75,
       "ticker": "MSTR",
       "tier": "T9",
-      "vs_fair_value_pct": -33.85,
-      "vs_target_pct": 68.82
+      "vs_fair_value_pct": -29.49,
+      "vs_target_pct": 79.94
     },
     "MU": {
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for MU; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 850.0,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 922.3695068359375,
-      "intraday_price_at": "2026-10-14T18:53:48+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1563,8 +1525,8 @@
       "buy_enabled": true,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for NBIS; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 150.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -1589,8 +1551,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 183.75,
-      "intraday_price_at": "2026-10-14T18:53:43+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1663,8 +1623,8 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for NU; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 16.6,
       "fired_custom": [],
       "fired_sell": [
@@ -1679,8 +1639,6 @@
       ],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 14.898300170898438,
-      "intraday_price_at": "2026-10-14T18:53:50+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1736,8 +1694,8 @@
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for NVDA; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 280.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -1762,8 +1720,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 220.33999633789062,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1837,15 +1793,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for OSCR; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 26.9,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 34.0099983215332,
-      "intraday_price_at": "2026-10-14T18:53:15+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1893,8 +1847,8 @@
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for PLTR; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 153.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -1919,8 +1873,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 200.80599975585938,
-      "intraday_price_at": "2026-10-14T18:53:44+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1994,15 +1946,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for PYPL; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 80.0,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 55.70000076293945,
-      "intraday_price_at": "2026-10-14T18:53:35+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2058,8 +2008,8 @@
       "buy_enabled": true,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for RKLB; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 77.2,
       "fired_custom": [],
       "fired_sell": [],
@@ -2115,8 +2065,6 @@
           "source": "7% drop #1"
         }
       ],
-      "intraday_price": 59.22999954223633,
-      "intraday_price_at": "2026-10-14T18:53:45+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2190,15 +2138,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for SOFI; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 17.5,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 14.088000297546387,
-      "intraday_price_at": "2026-10-14T18:53:48+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2254,15 +2200,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for TSLA; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 450.0,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 364.3800048828125,
-      "intraday_price_at": "2026-10-14T18:53:44+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2310,8 +2254,8 @@
       "buy_enabled": true,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for TSM; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 534.0,
       "fired_custom": [],
       "fired_sell": [],
@@ -2336,8 +2280,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 429.1050109863281,
-      "intraday_price_at": "2026-10-14T18:53:46+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2411,8 +2353,8 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for V; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 330.0,
       "fired_custom": [],
       "fired_sell": [
@@ -2427,8 +2369,6 @@
       ],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 391.17999267578125,
-      "intraday_price_at": "2026-10-14T18:53:48+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2484,15 +2424,13 @@
       "buy_enabled": false,
       "clustered": false,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for VITL; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fair_value": 18.53,
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 8.904999732971191,
-      "intraday_price_at": "2026-10-14T18:53:48+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2555,8 +2493,8 @@
       "buy_enabled": true,
       "clustered": true,
       "custom_rungs_today": [],
-      "data_stale": false,
-      "error": null,
+      "data_stale": true,
+      "error": "live fetch failed (stooq: stooq: parsed 0 rows for XLV; yahoo: HTTP Error 429: Too Many Requests), using cached data",
       "fired_custom": [],
       "fired_sell": [],
       "fired_this_period": [],
@@ -2580,8 +2518,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 173.69500732421875,
-      "intraday_price_at": "2026-10-14T18:53:50+00:00",
       "is_etf": true,
       "ladder": [
         {
