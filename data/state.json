@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T23:42:55.791412Z",
+  "generated_at": "2026-10-17T23:13:42.170098Z",
   "stocks": {
     "AMD": {
       "buy_enabled": true,
@@ -446,16 +446,7 @@
       "name": "Broadcom",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-10-16",
-          "id": "rung-drop-0",
-          "level": 341.8511,
-          "multiplier": 1.0,
-          "source": "5% drop"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 324.7586,
@@ -843,16 +834,7 @@
       "name": "Alphabet",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-10-16",
-          "id": "ma-150+200",
-          "level": 340.4129,
-          "multiplier": 1.0,
-          "source": "150+200"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 316.584,
@@ -1185,16 +1167,7 @@
       "name": "Lam Research",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-10-16",
-          "id": "ma-200",
-          "level": 275.9791,
-          "multiplier": 1.0,
-          "source": "200"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
         "level": 251.3862,
@@ -1284,11 +1257,11 @@
         ]
       },
       "mas": {
-        "100": 627.9302459716797,
-        "150": 624.5490303548177,
-        "200": 631.9770721435547,
-        "250": 636.64441796875,
-        "60": 643.0445810953776
+        "100": 627.9302960205079,
+        "150": 624.5490637207031,
+        "200": 631.9770971679687,
+        "250": 636.6444379882812,
+        "60": 643.0446645100911
       },
       "name": "Meta Platforms",
       "new_triggers_custom_today": [],
@@ -1305,7 +1278,7 @@
         "start_date": "2026-10-05",
         "type": "biweekly"
       },
-      "price": 709.3250122070312,
+      "price": 709.3300170898438,
       "price_date": "2026-10-16",
       "sell_rungs_today": [],
       "target_price": 753.32,
@@ -1661,16 +1634,7 @@
       "name": "Nebius Group",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-10-16",
-          "id": "ma-200",
-          "level": 168.4977,
-          "multiplier": 1.0,
-          "source": "200"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
         "level": 155.9122,
@@ -1849,16 +1813,7 @@
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-10-16",
-          "id": "ma-60+100",
-          "level": 216.749,
-          "multiplier": 1.0,
-          "source": "60+100"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 205.9116,
@@ -2245,16 +2200,7 @@
       "name": "Rocket Lab",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 1200.0,
-          "first_hit_date": "2026-10-16",
-          "id": "below-ladder-drop-2",
-          "level": 53.0299,
-          "multiplier": 2.0,
-          "source": "7% drop #3"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "below-ladder-drop-3",
         "level": 49.3178,
