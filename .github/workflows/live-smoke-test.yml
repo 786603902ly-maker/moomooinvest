@@ -59,6 +59,69 @@ jobs:
           print(f"\nOK: {len(quotes)} live quote(s) returned from the deployed function")
           PY
 
+      - name: Installable as an app (PWA assets)
+        run: |
+          # Chrome will only offer "Install app" if the manifest, its icons
+          # and the service worker are all actually reachable with sane
+          # content types. Checking from a runner is the only way this repo
+          # can confirm that -- the dev sandbox cannot reach the site.
+          fail=0
+          check() {
+            local path="$1" expect="$2"
+            local out
+            out=$(curl -sS -o /tmp/asset -w '%{http_code} %{content_type}' --max-time 30 "$SITE$path")
+            local code="${out%% *}" ctype="${out#* }"
+            if [ "$code" != "200" ]; then
+              echo "::error::$path -> HTTP $code"; fail=1; return
+            fi
+            case "$ctype" in
+              *"$expect"*) echo "OK  $path -> 200 $ctype ($(wc -c < /tmp/asset) bytes)" ;;
+              *) echo "::error::$path served as '$ctype', expected $expect"; fail=1 ;;
+            esac
+          }
+          check /manifest.webmanifest json
+          check /sw.js javascript
+          check /icons/icon-192.png image/png
+          check /icons/icon-512.png image/png
+          check /icons/icon-maskable-512.png image/png
+          check /icons/apple-touch-icon.png image/png
+
+          curl -sS --max-time 30 "$SITE/manifest.webmanifest" -o /tmp/manifest.json
+          python3 - <<'PY'
+          import json, sys
+          m = json.load(open("/tmp/manifest.json"))
+          problems = []
+          for key in ("name", "start_url", "display", "icons"):
+              if not m.get(key):
+                  problems.append(f"manifest is missing {key}")
+          if m.get("display") not in ("standalone", "fullscreen", "minimal-ui"):
+              problems.append(f"display={m.get('display')!r} is not an installable mode")
+          sizes = {i.get("sizes") for i in m.get("icons", [])}
+          for need in ("192x192", "512x512"):
+              if need not in sizes:
+                  problems.append(f"no {need} icon")
+          if not any("maskable" in (i.get("purpose") or "") for i in m.get("icons", [])):
+              problems.append("no maskable icon (Android crops the icon to the launcher shape)")
+          for p in problems:
+              print(f"::error::{p}")
+          print("manifest:", m.get("name"), "| display:", m.get("display"), "| icons:", sorted(sizes))
+          sys.exit(1 if problems else 0)
+          PY
+
+          # The page has to link the manifest and register the worker, or none
+          # of the above is reached by the browser in the first place.
+          curl -sS --max-time 30 "$SITE/" -o /tmp/page.html
+          grep -q 'rel="manifest"' /tmp/page.html \
+            && echo "OK  page links the manifest" \
+            || { echo "::error::deployed page has no <link rel=manifest>"; fail=1; }
+          grep -q 'name="viewport"' /tmp/page.html \
+            && echo "OK  page has a viewport meta" \
+            || { echo "::error::deployed page has no viewport meta"; fail=1; }
+          grep -q "serviceWorker" /tmp/page.html \
+            && echo "OK  page registers a service worker" \
+            || { echo "::error::deployed page does not register a service worker"; fail=1; }
+          exit $fail
+
       - name: Tick / note sync backend is live
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

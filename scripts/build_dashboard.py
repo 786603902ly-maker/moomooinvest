@@ -27,7 +27,24 @@ def format_et_label(iso_ts: str | None) -> str:
         ts = ts.replace(tzinfo=dt.timezone.utc)
     return ts.astimezone(NY).strftime("%-I:%M %p ET")
 
-TEMPLATE = r"""<title>__TITLE__</title>
+TEMPLATE = r"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Without this Android renders the page at a 980px desktop width and
+     zooms out, which also stops it behaving as an installed app. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>__TITLE__</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<!-- Matches --bg in each scheme so the phone's status bar blends with the
+     page instead of banding against it. -->
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="moomooinvest">
 <style>
 :root{
   --bg:#f5f6f8; --surface:#ffffff; --surface-2:#eef0f3; --border:#dde1e7;
@@ -223,6 +240,8 @@ table.val-table td{font-variant-numeric:tabular-nums;}
 table.val-table td.good{color:var(--good);}
 table.val-table td.bad{color:var(--bad);}
 </style>
+</head>
+<body>
 <div class="wrap">
   <h1>DCA Alert Dashboard</h1>
   <div class="subtitle">Prices as of <b>__PRICE_DATE__</b>__LIVE_SNAPSHOT__ &middot; generated __GENERATED_AT__ &middot; fundamentals last refreshed <b>__FUND_DATE__</b></div>
@@ -865,7 +884,19 @@ setInterval(() => { if(marketOpenNow()) refreshLivePrices(false); }, LIVE_REFRES
 document.addEventListener("visibilitychange", () => {
   if(!document.hidden) refreshLivePrices(false);
 });
+
+// Registering a service worker is what makes Chrome on Android offer "Install
+// app" rather than only a plain home-screen shortcut. It deliberately never
+// caches /api/*, so installing cannot cost you price freshness -- see sw.js.
+// Failure is non-fatal: the page works identically without it.
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
 </script>
+</body>
+</html>
 """
 
 
