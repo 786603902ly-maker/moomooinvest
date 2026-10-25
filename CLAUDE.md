@@ -94,6 +94,17 @@ renames the rung for real. `build_dashboard.py` prints
 re-point the key in `config/rung_notes.yaml` when one shows up, rather than
 letting the note silently render nowhere.
 
+**Decided 2026-10-25: keep MA-composition keys. Do not switch to positional
+keys (rung 1 / 2 / 3), and do not re-propose it.** Positional keys would
+survive cluster splits, which is the drift that actually recurs — three
+re-points in five weeks (IGV, MSFT, NBIS). But they fail the worse way round:
+when a ladder is re-anchored by a `start_ma` / `start_level` / `skip_top_rungs`
+change, position 1 becomes a genuinely different price, and the note would
+silently follow it there and read as advice about a level the user never
+wrote it for. A key that stops matching is loud and gets fixed; a key that
+matches the wrong rung is silent and misleads. The user chose the loud
+failure. Periodic manual re-points are the accepted cost.
+
 ## Where the user's buy history lives
 
 Ticked-off rungs ("I actually bought this") are stored in the Vercel KV
