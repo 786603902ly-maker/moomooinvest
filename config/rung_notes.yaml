@@ -50,8 +50,11 @@ notes:
     rung-drop-1: "ok to keep as next tier after 392.52"
 
   IGV:
-    # exported as "ma-200+100"; same cluster, MA100/MA200 have since crossed
-    ma-100+200: "ok"
+    # exported as "ma-200+100", re-pointed to "ma-100+200" on 2026-09-21.
+    # By 2026-10-25 MA100 (100.04) and MA200 (93.82) had drifted 6.2% apart,
+    # past cluster_merge_pct, so the merged rung split and the top rung is
+    # MA100 on its own. Same support, third spelling.
+    ma-100: "ok"
     rung-drop-1: "use 7% drop instead"
     rung-drop-2: "use another 7% drop instead to reduce avg cost"
 
@@ -61,9 +64,11 @@ notes:
     rung-drop-2: "use another 7% drop instead to reduce avg cost"
 
   MSFT:
-    # exported as "ma-200"; MA100 and then MA150 have since merged into that
-    # same support, so the rung is now the three-MA cluster
-    ma-100+200+150: "ok"
+    # exported as "ma-200", became the three-MA cluster "ma-100+200+150" when
+    # MA100 and MA150 merged into it, and by 2026-10-25 had split again:
+    # MA100 (459.92) now sits 4%+ above MA150/MA200, so it is the top rung
+    # alone. The note has followed the same support throughout.
+    ma-100: "ok"
     rung-drop-1: "use 7% drop instead"
     rung-drop-2: "use another 7% drop instead to reduce avg cost"
 
@@ -105,8 +110,13 @@ notes:
     rung-drop-2: "drop 7%"
 
   NBIS:
-    # exported on "ma-250"; the 7% step now lands below MA250
-    rung-drop-1: "drop 7%"
+    # Originally written on "ma-250". On 2026-09-21 a 7% step from MA200 fell
+    # below MA250, so MA250 stopped being a rung and the note moved to
+    # "rung-drop-1". The MAs have since moved back: MA250 (160.12) is now
+    # below a 7% step from MA200 (162.64), so rule 3 picks the MA again and
+    # the note returns to where it started. This is the user's own rule
+    # working -- whichever level is deeper wins.
+    ma-250: "drop 7%"
     rung-drop-2: "drop 7%"
 
   XLV:
