@@ -311,6 +311,14 @@ the committed `state.json` the page is built from. It therefore also covers
 intraday live hits and custom targets for free, and updates the moment you
 tick or untick something.
 
+Each summary row has its own checkbox, so you can confirm a rung right there
+instead of scrolling to its card. It is a proxy for the card's checkbox:
+ticking it flips the card's box and goes through the same save path, so the
+two always agree (ticking the card updates the summary too). A row ticked
+from the summary stays listed, struck through, until the page is reloaded,
+so a mis-tap can be undone in place; the header count already excludes it.
+Tapping anywhere else on the row still jumps to the card.
+
 ## Tiers, as read from your watchlist screenshots
 
 | Tier | Stocks | MA ladder | Refresh |

@@ -101,6 +101,12 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 }
 .action-summary li:hover{outline:1px solid var(--accent);}
 .action-summary .s-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
+.action-summary .s-cb{
+  width:18px; height:18px; margin:0; align-self:center; flex:none;
+  accent-color:var(--accent); cursor:pointer;
+}
+.action-summary li.done{opacity:.5;}
+.action-summary li.done .s-lvl, .action-summary li.done .s-amt{text-decoration:line-through;}
 .rung.sell{border-color:var(--good); background:var(--good-soft);}
 .rung.sell.pending{background:transparent; border-style:dashed;}
 .rung.sell .amt{color:var(--good);}
@@ -332,15 +338,31 @@ function confirmedLabel(iso){
 // too.
 const CURRENCY = "__CURRENCY__";
 
+// Each summary row carries its own checkbox, a proxy for the card's: it has
+// no data-id (so nothing that scans card checkboxes picks it up) and ticking
+// it just flips the card checkbox and runs the normal onToggle path, so the
+// two can never disagree. A row ticked here stays listed, struck through,
+// until the page is reloaded -- otherwise a mis-tap would vanish with no way
+// to undo it from the summary.
+const summaryTickedThisSession = new Set();
+
+function findRungCheckbox(id){
+  for(const cb of document.querySelectorAll('input[type=checkbox][data-id]')){
+    if(cb.dataset.id === id) return cb;
+  }
+  return null;
+}
+
 function renderActionSummary(){
   const el = document.getElementById("action-summary");
   if(!el) return;
 
   const rows = [];
   document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
-    if(cb.checked) return;
+    if(cb.checked && !summaryTickedThisSession.has(cb.dataset.id)) return;
     rows.push({
       id: cb.dataset.id,
+      done: cb.checked,
       ticker: cb.dataset.ticker || "",
       tier: cb.dataset.tier || "",
       kind: cb.dataset.kind === "sell" ? "sell" : "buy",
@@ -350,6 +372,8 @@ function renderActionSummary(){
       firstHit: cb.dataset.firsthit || "",
     });
   });
+
+  const pending = rows.filter(r => !r.done);
 
   if(!rows.length){
     el.classList.add("clear");
@@ -365,24 +389,29 @@ function renderActionSummary(){
     (a.kind === b.kind ? 0 : a.kind === "sell" ? -1 : 1) ||
     (b.firstHit || "").localeCompare(a.firstHit || "") ||
     a.ticker.localeCompare(b.ticker));
-  const buys = rows.filter(r => r.kind === "buy");
-  const sells = rows.filter(r => r.kind === "sell");
+  const buys = pending.filter(r => r.kind === "buy");
+  const sells = pending.filter(r => r.kind === "sell");
   const total = buys.reduce((sum, r) => sum + r.amount, 0);
-  const todayCount = rows.filter(r => r.firstHit === today).length;
+  const todayCount = pending.filter(r => r.firstHit === today).length;
 
   const parts = [];
   if(sells.length) parts.push(sells.length + ' to sell');
   if(buys.length) parts.push(buys.length + ' to buy (' + CURRENCY + ' ' +
     total.toLocaleString("en-US", {maximumFractionDigits: 0}) + ')');
 
-  el.classList.remove("clear");
+  el.classList.toggle("clear", !pending.length);
   el.innerHTML =
-    '<h2>' + rows.length + ' waiting — ' + parts.join(', ') + '</h2>' +
+    (pending.length
+      ? '<h2>' + pending.length + ' waiting — ' + parts.join(', ') + '</h2>'
+      : '<h2>Nothing to act on</h2>') +
     '<div class="sum-sub">' +
       (todayCount ? todayCount + ' reached today. ' : '') +
-      'Reached but not yet ticked. Confirmed ones are not listed.</div>' +
+      'Reached but not yet ticked. Tick a row here to confirm it; ' +
+      'confirmed ones drop off on the next load.</div>' +
     '<ul>' + rows.map(r =>
-      '<li class="' + r.kind + '" data-goto="' + r.ticker + '">' +
+      '<li class="' + r.kind + (r.done ? ' done' : '') + '" data-goto="' + r.ticker + '">' +
+        '<input type="checkbox" class="s-cb" data-for="' + r.id.replace(/"/g, '&quot;') + '"' +
+          (r.done ? ' checked' : '') + ' aria-label="Confirm ' + r.ticker + ' ' + r.source + '">' +
         '<span class="s-tick">' + r.ticker + '</span>' +
         '<span class="s-tier">' + r.tier + '</span>' +
         '<span class="s-lvl">' + fmtLivePrice(parseFloat(r.level)) + '</span>' +
@@ -397,8 +426,19 @@ function renderActionSummary(){
     '</ul>';
 }
 
-// Jump to the stock's card from the summary.
+document.addEventListener("change", (e)=>{
+  if(!e.target.matches('.action-summary input.s-cb')) return;
+  const cb = findRungCheckbox(e.target.dataset.for);
+  if(!cb){ renderActionSummary(); return; }
+  summaryTickedThisSession.add(cb.dataset.id);
+  cb.checked = e.target.checked;
+  onToggle(cb);
+});
+
+// Jump to the stock's card from the summary (but not when the tap was on
+// the row's checkbox).
 document.addEventListener("click", (e)=>{
+  if(e.target.closest('.action-summary input.s-cb')) return;
   const li = e.target.closest('.action-summary li[data-goto]');
   if(!li) return;
   const card = document.querySelector('.card[data-ticker="' + li.dataset.goto + '"]');
