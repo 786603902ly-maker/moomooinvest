@@ -13,7 +13,7 @@ import sys
 from common import load_rules, load_state, load_stocks, save_state
 from engine import evaluate_custom_targets, evaluate_sell_targets, evaluate_stock
 from fetch_prices import get_history
-from indicators import moving_averages
+from indicators import moving_averages, trend_signals
 
 MA_WINDOWS = [60, 100, 150, 200, 250]
 
@@ -65,6 +65,8 @@ def main() -> int:
             prev_stock_state=prev_stocks.get(ticker),
             base_amount=base_amount,
             overrides=stock.get("ladder") or {},
+            trend=trend_signals(history, rules.get("trend_guard") or {}),
+            is_etf=bool(stock.get("is_etf")),
         )
         result["ticker"] = ticker
         result["name"] = stock.get("name", ticker)
@@ -105,6 +107,11 @@ def main() -> int:
         if result.get("new_triggers_today"):
             names = ", ".join(f"{t['source']} x{t['multiplier']}" for t in result["new_triggers_today"])
             print(f"[{ticker}] NEW TRIGGER: {names}")
+        guard = result.get("trend_guard") or {}
+        new_period = ((prev_stocks.get(ticker) or {}).get("period") or {}).get("key") != result["period"]["key"]
+        if guard.get("active") and new_period:
+            print(f"[{ticker}] DOWNTREND GUARD: ladder starts at {guard['ceiling']} "
+                  f"({guard['drop_step_pct']:g}% below {guard['anchor']}, {guard['anchor_source']})")
 
     state = {
         "generated_at": dt.datetime.utcnow().isoformat() + "Z",

@@ -105,6 +105,21 @@ wrote it for. A key that stops matching is loud and gets fixed; a key that
 matches the wrong rung is silent and misleads. The user chose the loud
 failure. Periodic manual re-points are the accepted cost.
 
+## Downtrend guard (2026-10-30)
+
+`trend_guard` in `config/rules.yaml`, `decide_trend_guard` in the engine.
+In a downtrend (price < MA200 and < MA60, MA60 falling) a new period's
+ladder is anchored 7% below the lower of the period-start price and the
+deepest rung fired last period, instead of re-offering MA rungs that sit
+above price. Invariants:
+
+- Decided only when a period starts; stored as `trend_guard` in state and
+  reused on any mid-period rebuild. Do not make it re-decide daily -- a
+  mid-period re-anchor drops rungs that already fired (their ids vanish).
+- It is deliberately NOT part of `ladder_config`, so adding it did not
+  rebuild every ladder mid-period.
+- `trend_today` is today's reading, display-only.
+
 ## Where the user's buy history lives
 
 Ticked-off rungs ("I actually bought this") are stored in the Vercel KV

@@ -66,3 +66,22 @@ tiers:
     refresh: monthly
     ma_ladder: [250]
     buy_enabled: false
+
+# Downtrend guard (see README "Downtrend guard"). Decided once per stock at
+# each period boundary and frozen with that period's ladder.
+#  - Downtrend = price below MA<long_ma> AND below MA<short_ma> AND MA<short_ma>
+#    down more than slope_threshold_pct over the last slope_lookback sessions.
+#  - In a downtrend the new period's ladder does NOT restart at the MAs (they
+#    are all above price and would fire on day one at today's price).
+#    Rung 1 sits drop_step_pct below the lower of the period-start price and
+#    the deepest rung that fired last period; deeper MAs still become rungs.
+#  - When any condition fails (price reclaims MA60, MA60 flattens/turns up,
+#    or price back above MA200) the next period uses the normal rules.
+#  - ETFs use the global drop_step_pct instead of the guard's step.
+trend_guard:
+  enabled: true
+  short_ma: 60
+  long_ma: 200
+  slope_lookback: 10
+  slope_threshold_pct: 0.5
+  drop_step_pct: 7.0

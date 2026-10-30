@@ -487,6 +487,50 @@ carry no override and build exactly as before. Two things worth knowing:
   original `first_hit_date`, so anything you'd already ticked off stays
   ticked.
 
+## Downtrend guard: the next period's ladder starts below the market
+
+**Problem it fixes.** A ladder is rebuilt from the current MAs at every
+period boundary. When a stock has already fallen through those MAs, every
+rebuilt MA rung sits *above* price, so they all fire on day one of the new
+period -- i.e. "buy at today's price" -- period after period, all the way
+down.
+
+**Rule** (`trend_guard` in `config/rules.yaml`, `decide_trend_guard` in
+`scripts/engine.py`, signals in `scripts/indicators.py`):
+
+| Signal | Downtrend when | Example (2026-10-28 close) |
+|---|---|---|
+| Price vs MA200 | below | LRCX -10.6% |
+| Price vs MA60 | below | LRCX -15.7% |
+| MA60 slope over 10 sessions | falling more than 0.5% | LRCX -2.33% |
+
+- All three hold at a period boundary -> **downtrend guard on** for that
+  period:
+  - anchor = lower of (period-start price, deepest rung that fired last
+    period)
+  - rung 1 = anchor x (1 - 7%); rungs below follow the usual rule 3
+    (lower of next real MA support and another 7% step); multipliers
+    x1 -> x1.5 -> x2 as usual.
+  - ETFs use the global 5% step instead of 7%.
+  - A user `start_level` that is already below the guard's rung 1 wins.
+- Any signal fails (price reclaims MA60 = bounce; MA60 flattens or turns up
+  = sideways/up; price back above MA200) -> the next period uses the normal
+  rules again.
+- Decided **once per period**, frozen with the ladder. A mid-period config
+  edit that rebuilds the ladder reuses that period's decision, so it never
+  removes rungs that already fired. Switching `enabled` on therefore first
+  takes effect at the next period boundary.
+- The card shows a `downtrend guard` pill and the anchor while it is on,
+  and a one-line heads-up when today's reading disagrees with this period's
+  decision (what the next refresh will do).
+
+Example: LRCX, simulated at the next boundary with 2026-10-28 data:
+
+| | Rung 1 | Rung 2 | Rung 3 | Fire on day one |
+|---|---|---|---|---|
+| Normal rules | MA200 283.89 | MA250 260.46 | 7% drop 242.23 | 2 |
+| Downtrend guard (anchor 240.22, last period's deepest fill) | 223.40 | 207.77 | 193.22 | 0 |
+
 ## Sell targets, and the sell-only tiers
 
 T5 and T9 are held to sell out of, not to accumulate. `buy_enabled: false`

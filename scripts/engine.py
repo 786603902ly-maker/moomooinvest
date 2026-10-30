@@ -9,6 +9,8 @@ from common import period_key, period_start
 
 # Label for a rung anchored at a price the user named rather than at an MA.
 START_SOURCE = "your first buy level"
+# Id of the first rung when the downtrend guard anchored the ladder.
+TREND_START_ID = "trend-start"
 
 
 def _cluster_supports(ma_values: list[tuple[str, float]], cluster_merge_pct: float) -> list[dict]:
@@ -70,7 +72,8 @@ def ladder_config(tier_cfg: dict, rules: dict, overrides: dict | None = None) ->
 
 
 def build_period_ladder(
-    tier_cfg: dict, mas: dict, rules: dict, overrides: dict | None = None
+    tier_cfg: dict, mas: dict, rules: dict, overrides: dict | None = None,
+    start_source: str = START_SOURCE, start_id: str = "start-level",
 ) -> tuple[list[dict], bool]:
     """Build the ladder snapshot for a fresh period. Returns (rungs, merged).
 
@@ -107,6 +110,9 @@ def build_period_ladder(
 
     Multipliers are assigned *after* skipping, so the surviving first rung
     is always x1 and the ladder still steps x1 -> x1.5 -> x2 below it.
+
+    `start_source` / `start_id` relabel a start_level rung that wasn't the
+    user's own number (the downtrend guard sets one).
     """
     tier_periods = tier_cfg["ma_ladder"]
     overrides = overrides or {}
@@ -132,9 +138,9 @@ def build_period_ladder(
         # Your own first buy price replaces rung 1 and suppresses every MA
         # above it; MAs below it still form the deeper rungs as usual.
         supports = [sup for sup in supports if sup["level"] < float(start_level)]
-        supports.insert(0, {"sources": [START_SOURCE], "level": float(start_level)})
+        supports.insert(0, {"sources": [start_source], "level": float(start_level)})
 
-    merged = any(len(s["sources"]) > 1 and s["sources"] != [START_SOURCE] for s in supports)
+    merged = any(len(s["sources"]) > 1 and s["sources"] != [start_source] for s in supports)
     # Single-trigger tiers are decided by how the *tier* is configured, not
     # by what start_ma narrowed the list down to -- filtering T1 down to one
     # MA must still produce a full ladder below that MA.
@@ -165,8 +171,8 @@ def build_period_ladder(
 
     rungs: list[dict] = []
     for i, ((level, source), mult) in enumerate(zip(levels[skip_top:], step_multipliers)):
-        if source == START_SOURCE:
-            rung_id = "start-level"
+        if source == start_source:
+            rung_id = start_id
         elif "drop" in source:
             rung_id = f"rung-drop-{i}"
         else:
@@ -181,6 +187,61 @@ def build_period_ladder(
         )
 
     return rungs, merged
+
+
+def decide_trend_guard(
+    trend: dict | None,
+    price: float,
+    rules: dict,
+    prev_stock_state: dict | None,
+    is_etf: bool = False,
+) -> dict | None:
+    """Decide, at a period boundary, whether this period's ladder starts
+    below the market instead of at the MAs.
+
+    Without this, a stock that fell through its MAs re-offers those same MA
+    rungs the moment a new period starts -- all of them sit above price, so
+    they fire on day one and recommend buying at today's price, period after
+    period, all the way down. In a downtrend (see indicators.trend_signals)
+    the guard instead anchors the new ladder `drop_step_pct` below the lower
+    of today's price and the deepest rung that fired last period, so each
+    new period's first buy sits a step under the last one and the average
+    keeps getting pulled down. Rung 3 still decides every rung below that:
+    an MA support deeper than the next drop level stays the rung.
+
+    The step is the user's downtrend step (7%); ETFs keep their own, smaller
+    expected drawdown, per their standing preference.
+
+    Returns None when the guard is off or there are no signals, otherwise
+    {"active": bool, "signals": ..., plus anchor/ceiling when active}.
+    """
+    cfg = rules.get("trend_guard") or {}
+    if not cfg.get("enabled") or trend is None:
+        return None
+    if not trend["downtrend"]:
+        return {"active": False, "signals": trend}
+
+    anchor, anchor_source = price, "price at period start"
+    prev_fired = [
+        f for f in (prev_stock_state or {}).get("fired_this_period", []) or []
+        if f.get("level") is not None and not f.get("is_custom")
+    ]
+    if prev_fired:
+        deepest = min(f["level"] for f in prev_fired)
+        if deepest < anchor:
+            anchor, anchor_source = deepest, "deepest rung fired last period"
+    step = float(cfg.get("drop_step_pct", 7.0))
+    if is_etf:
+        step = float(rules["drop_step_pct"])
+    ceiling = anchor * (1 - step / 100)
+    return {
+        "active": True,
+        "signals": trend,
+        "anchor": round(anchor, 4),
+        "anchor_source": anchor_source,
+        "drop_step_pct": step,
+        "ceiling": round(ceiling, 4),
+    }
 
 
 def extend_with_drop_cascade(base_rungs: list[dict], price: float, cap_multiplier: float, drop_step_pct: float) -> list[dict]:
@@ -340,6 +401,8 @@ def evaluate_stock(
     prev_stock_state: dict | None,
     base_amount: float,
     overrides: dict | None = None,
+    trend: dict | None = None,
+    is_etf: bool = False,
 ) -> dict:
     tier_cfg = rules["tiers"][tier]
     refresh = tier_cfg["refresh"]
@@ -368,7 +431,23 @@ def evaluate_stock(
             "new_triggers_today": [],
             "next_rung": None,
             "buy_enabled": False,
+            "trend_guard": None,
         }
+
+    # The downtrend guard is decided once, when a period starts, and frozen
+    # with the ladder -- "at the next refresh point", not day to day. A
+    # mid-period rebuild (a config edit) keeps whatever this period already
+    # decided, so a rebuild can't pull rungs that already fired out from
+    # under the user; turning the guard on mid-period therefore first takes
+    # effect at the next period.
+    if same_period:
+        guard = prev_stock_state.get("trend_guard")
+        if not (rules.get("trend_guard") or {}).get("enabled"):
+            guard = None
+    else:
+        guard = decide_trend_guard(trend, price, rules, prev_stock_state, is_etf)
+    guard_on = bool(guard and guard.get("active"))
+    drop_step = guard["drop_step_pct"] if guard_on else effective_drop_step(rules, overrides)
 
     # Reuse this period's frozen ladder only while the config that shaped it
     # is unchanged -- editing rules.yaml or a stock's `ladder:` overrides
@@ -379,6 +458,22 @@ def evaluate_stock(
         fired = list(prev_stock_state.get("fired_this_period", []))
     else:
         ladder, clustered = build_period_ladder(tier_cfg, mas, rules, overrides)
+        if guard_on and ladder and ladder[0]["level"] > guard["ceiling"]:
+            # Re-anchor below the market. start_level drops every MA above
+            # the ceiling; a user's own start_level that is lower still wins.
+            guarded = dict(overrides or {})
+            user_start = guarded.get("start_level")
+            if user_start is None or float(user_start) > guard["ceiling"]:
+                guarded["start_level"] = guard["ceiling"]
+                guarded["drop_step_pct"] = guard["drop_step_pct"]
+                # skip_top_rungs would discard the anchor itself; start_ma
+                # still applies -- it says which MAs count as support at all.
+                guarded["skip_top_rungs"] = 0
+                ladder, clustered = build_period_ladder(
+                    tier_cfg, mas, rules, guarded,
+                    start_source=f'downtrend: {guard["drop_step_pct"]:g}% below {guard["anchor"]:.2f}',
+                    start_id=TREND_START_ID,
+                )
         # A rebuild mid-period must not resurrect rungs that already fired:
         # the user may well have placed that order, and re-offering it would
         # read as a second buy. Carry a surviving rung's fired record over,
@@ -407,9 +502,7 @@ def evaluate_stock(
                 }
             )
 
-    full_ladder = extend_with_drop_cascade(
-        ladder, price, rules["cap_multiplier"], effective_drop_step(rules, overrides)
-    )
+    full_ladder = extend_with_drop_cascade(ladder, price, rules["cap_multiplier"], drop_step)
 
     fired_ids = {f["id"] for f in fired}
     new_triggers = []
@@ -440,4 +533,8 @@ def evaluate_stock(
         "new_triggers_today": new_triggers,
         "next_rung": next_rung,
         "buy_enabled": True,
+        "trend_guard": guard,
+        # Today's reading, unlike trend_guard (frozen at period start) -- lets
+        # the card say what the next refresh will do.
+        "trend_today": trend,
     }

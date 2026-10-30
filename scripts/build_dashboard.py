@@ -1116,6 +1116,26 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
         pills.append(pill(f'ladder starts at MA{lcfg["start_ma"]}', "neutral"))
     if lcfg.get("skip_top_rungs"):
         pills.append(pill(f'top {lcfg["skip_top_rungs"]} rung(s) skipped', "neutral"))
+    # Downtrend guard: what this period's ladder was built under, and -- when
+    # today's reading disagrees -- what the next refresh will switch to.
+    guard_html = ""
+    guard = s.get("trend_guard") or {}
+    today = s.get("trend_today") or {}
+    if s.get("buy_enabled", True) and (guard or today):
+        if guard.get("active"):
+            pills.append(pill("downtrend guard", "bad"))
+            msg = (f'Downtrend at period start: ladder starts {guard["drop_step_pct"]:g}% below '
+                   f'{fmt_price(guard["anchor"])} ({guard["anchor_source"]}) instead of at the MAs.')
+            if today and not today.get("downtrend"):
+                msg += " Downtrend no longer holds today &mdash; next refresh goes back to the normal rules."
+        elif today.get("downtrend"):
+            msg = (f'In a downtrend today (below MA{today["long_ma"]} and MA{today["short_ma"]}, '
+                   f'MA{today["short_ma"]} {today["short_ma_slope_pct"]:+.1f}% over {today["slope_lookback"]} sessions) '
+                   f'&mdash; if it still holds at the next refresh, that ladder starts below the market.')
+        else:
+            msg = ""
+        if msg:
+            guard_html = f'<div class="next-hint">{msg}</div>'
     custom_rungs = s.get("custom_rungs_today") or []
     if custom_rungs:
         pills.append(pill(f'{len(custom_rungs)} your target(s)', "custom"))
@@ -1251,6 +1271,7 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
   <div class="pills">{''.join(pills)}</div>
   {valuation_line}
   <div class="ma-strip">{ma_strip}</div>
+  {guard_html}
   <div class="rungs">{rungs_html if rungs_html else '<div class="next-hint">No ladder available (missing MA data).</div>'}</div>
   {next_html}
   {sell_html}
