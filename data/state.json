@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T00:13:31.793041Z",
+  "generated_at": "2026-11-02T00:54:37.322555Z",
   "stocks": {
     "AMD": {
       "buy_enabled": true,
@@ -2042,16 +2042,7 @@
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-10-30",
-          "id": "rung-drop-1",
-          "level": 210.6676,
-          "multiplier": 1.5,
-          "source": "5% drop"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-2",
         "level": 200.1342,
@@ -2691,16 +2682,7 @@
       "name": "Taiwan Semiconductor",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-10-30",
-          "id": "ma-150",
-          "level": 414.9632,
-          "multiplier": 1.0,
-          "source": "150"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 394.215,
