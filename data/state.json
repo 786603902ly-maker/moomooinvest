@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T02:58:00.237002Z",
+  "generated_at": "2026-11-04T01:51:23.824118Z",
   "stocks": {
     "AMD": {
       "buy_enabled": true,
@@ -40,8 +40,6 @@
           "source": "250"
         }
       ],
-      "intraday_price": 488.80999755859375,
-      "intraday_price_at": "2026-11-03T20:38:22+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -90,16 +88,7 @@
       "name": "Advanced Micro Devices",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-02",
-          "id": "ma-150",
-          "level": 477.8161,
-          "multiplier": 1.0,
-          "source": "150"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "ma-200",
         "level": 411.6833,
@@ -184,8 +173,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 252.07000732421875,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -234,16 +221,7 @@
       "name": "Amazon",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-02",
-          "id": "ma-150",
-          "level": 252.4323,
-          "multiplier": 1.0,
-          "source": "150"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 234.7621,
@@ -319,8 +297,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 1553.489990234375,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -425,8 +401,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 37.31999969482422,
-      "intraday_price_at": "2026-11-03T20:38:22+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -509,8 +483,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 332.5299987792969,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -629,8 +601,6 @@
       ],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 556.8300170898438,
-      "intraday_price_at": "2026-11-03T20:38:23+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -694,8 +664,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 130.72000122070312,
-      "intraday_price_at": "2026-11-03T20:38:15+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -787,8 +755,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 127.62999725341797,
-      "intraday_price_at": "2026-11-03T20:38:21+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -836,16 +802,7 @@
       "name": "Fortinet",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-02",
-          "id": "ma-200",
-          "level": 128.6337,
-          "multiplier": 1.0,
-          "source": "200"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
         "level": 119.1039,
@@ -901,8 +858,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 33.16999816894531,
-      "intraday_price_at": "2026-11-03T20:38:18+00:00",
       "is_etf": true,
       "ladder": [],
       "ladder_config": {
@@ -982,8 +937,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 277.706298828125,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1093,8 +1046,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 3.1050000190734863,
-      "intraday_price_at": "2026-11-03T20:38:23+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1158,8 +1109,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 25.625,
-      "intraday_price_at": "2026-11-03T20:38:19+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1248,8 +1197,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 102.71499633789062,
-      "intraday_price_at": "2026-11-03T20:38:17+00:00",
       "is_etf": true,
       "ladder": [
         {
@@ -1371,8 +1318,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 230.2100067138672,
-      "intraday_price_at": "2026-11-03T20:38:21+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1509,8 +1454,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 619.6199951171875,
-      "intraday_price_at": "2026-11-03T20:38:21+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1559,16 +1502,7 @@
       "name": "Meta Platforms",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-02",
-          "id": "ma-100+200+150",
-          "level": 630.9467,
-          "multiplier": 1.0,
-          "source": "100+200+150"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 586.7804,
@@ -1625,8 +1559,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 171.03970336914062,
-      "intraday_price_at": "2026-11-03T20:38:21+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1701,8 +1633,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 521.655029296875,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -1808,8 +1738,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 135.6699981689453,
-      "intraday_price_at": "2026-11-03T20:38:25+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1865,8 +1793,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 852.219970703125,
-      "intraday_price_at": "2026-11-03T20:38:23+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -1941,8 +1867,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 151.8800048828125,
-      "intraday_price_at": "2026-11-03T20:38:22+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2060,8 +1984,6 @@
       ],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 11.585000038146973,
-      "intraday_price_at": "2026-11-03T20:38:27+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2161,8 +2083,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 206.9969940185547,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2211,24 +2131,7 @@
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-02",
-          "id": "ma-60",
-          "level": 221.3042,
-          "multiplier": 1.0,
-          "source": "60"
-        },
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-11-02",
-          "id": "rung-drop-1",
-          "level": 210.239,
-          "multiplier": 1.5,
-          "source": "5% drop"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-2",
         "level": 199.727,
@@ -2285,8 +2188,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 32.540000915527344,
-      "intraday_price_at": "2026-11-03T20:38:24+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2361,8 +2262,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 174.84500122070312,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2468,8 +2367,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 58.38999938964844,
-      "intraday_price_at": "2026-11-03T20:38:17+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2552,8 +2449,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 53.779998779296875,
-      "intraday_price_at": "2026-11-03T20:38:21+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2663,8 +2558,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 16.735000610351562,
-      "intraday_price_at": "2026-11-03T20:38:20+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2728,8 +2621,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 397.30999755859375,
-      "intraday_price_at": "2026-11-03T20:38:24+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -2813,8 +2704,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 405.7149963378906,
-      "intraday_price_at": "2026-11-03T20:38:19+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2863,16 +2752,7 @@
       "name": "Taiwan Semiconductor",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-02",
-          "id": "ma-150",
-          "level": 417.9805,
-          "multiplier": 1.0,
-          "source": "150"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 397.0815,
@@ -2938,8 +2818,6 @@
       ],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 420.6000061035156,
-      "intraday_price_at": "2026-11-03T20:38:19+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -3003,8 +2881,6 @@
       "fired_sell": [],
       "fired_this_period": [],
       "full_ladder_today": [],
-      "intraday_price": 10.1850004196167,
-      "intraday_price_at": "2026-11-03T20:37:00+00:00",
       "is_etf": false,
       "ladder": [],
       "ladder_config": {
@@ -3093,8 +2969,6 @@
           "source": "5% drop"
         }
       ],
-      "intraday_price": 183.7449951171875,
-      "intraday_price_at": "2026-11-03T20:38:26+00:00",
       "is_etf": true,
       "ladder": [
         {
