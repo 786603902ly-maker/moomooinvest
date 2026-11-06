@@ -1136,6 +1136,17 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
             msg = ""
         if msg:
             guard_html = f'<div class="next-hint">{msg}</div>'
+    low = s.get("low_zone") or {}
+    if s.get("buy_enabled", True) and low:
+        if any(r["id"].startswith("low-") for r in (s.get("ladder") or [])):
+            pills.append(pill("low-zone mode", "custom"))
+        low_msg = (f'Low-zone mode: rungs not reached yet are capped by the {low["lookback"]}-day low '
+                   f'{fmt_price(low["recent_low"])} (rung 1 at most {fmt_price(low["rung1_cap"])}, rung 2 at most '
+                   f'the low); a reached rung stays where it fired.')
+        if low.get("dropped"):
+            levels = ", ".join(fmt_price(d["level"]) for d in low["dropped"])
+            low_msg += f' No longer offered (reached before this mode, above the low): {levels}.'
+        guard_html += f'<div class="next-hint">{low_msg}</div>'
     custom_rungs = s.get("custom_rungs_today") or []
     if custom_rungs:
         pills.append(pill(f'{len(custom_rungs)} your target(s)', "custom"))

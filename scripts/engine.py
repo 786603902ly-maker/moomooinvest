@@ -244,6 +244,76 @@ def decide_trend_guard(
     }
 
 
+def apply_low_zone(
+    base: list[dict],
+    fired: list[dict],
+    recent_low: float,
+    cfg: dict,
+    drop_step_pct: float,
+    first_time: bool,
+) -> tuple[list[dict], list[dict], list[dict]]:
+    """Pull a period's ladder down to the recent low ("buy at the lows").
+
+    The user's rule (2026-11-06, during a broad sell-off): they don't want to
+    buy a lot, they want to buy low, so even if rung 1 isn't at the recent
+    low, rung 2 must be. Concretely, with L = the lowest price of the last
+    `lookback` sessions:
+
+      rung 1 <= L x (1 + rung1_gap_pct)
+      rung 2 <= L (and at least rung1_gap_pct under rung 1)
+      rung 3+ <= the rung above minus drop_step_pct
+
+    Each cap is a ceiling, never a floor: a rung already below it (a deep MA
+    support, a user start_level) is left exactly where it is.
+
+    `base` is the period's frozen ladder; this runs on every evaluation, so
+    unfired rungs follow L down as new lows print. A rung that has FIRED is
+    pinned at the level it fired at -- otherwise every new low would move
+    rung 1 down under the price and fire it again, i.e. buy every new low.
+
+    On the first evaluation of a period in this mode (`first_time`), fired
+    rungs above rung 1's cap are dropped from the period's memory: they were
+    reached before the mode was on, sit well above the low, and the user
+    asked for them to stop being offered. Returned as the third value so the
+    card can say what was dropped. Ticks for them stay in the Action log.
+
+    A lowered rung gets the id "low-<position>", so a rung note written for
+    an MA rung never shows next to a level that is no longer that MA.
+    """
+    gap = float(cfg.get("rung1_gap_pct", 3.0))
+    cap1 = recent_low * (1 + gap / 100)
+    dropped: list[dict] = []
+    if first_time:
+        kept = []
+        for f in fired:
+            (dropped if f.get("level") is not None and f["level"] > cap1 else kept).append(f)
+        fired = kept
+    fired_by_id = {f["id"]: f for f in fired}
+
+    eff: list[dict] = []
+    prev = None
+    for k, rung in enumerate(base):
+        low_id = f"low-{k + 1}"
+        hit = fired_by_id.get(rung["id"]) or fired_by_id.get(low_id)
+        if hit:
+            eff.append({**rung, "id": hit["id"], "source": hit.get("source", rung["source"]),
+                        "level": hit["level"]})
+            prev = hit["level"]
+            continue
+        if k == 0:
+            cap, label = cap1, f"near {cfg.get('lookback', 20)}-day low (+{gap:g}%)"
+        elif k == 1:
+            cap, label = min(recent_low, prev * (1 - gap / 100)), f"{cfg.get('lookback', 20)}-day low"
+        else:
+            cap, label = prev * (1 - drop_step_pct / 100), f"{drop_step_pct:g}% drop"
+        if rung["level"] > cap * (1 + 1e-4):  # not a rounding-level difference
+            eff.append({**rung, "id": low_id, "source": label, "level": round(cap, 4)})
+        else:
+            eff.append(dict(rung))
+        prev = eff[-1]["level"]
+    return eff, fired, dropped
+
+
 def extend_with_drop_cascade(base_rungs: list[dict], price: float, cap_multiplier: float, drop_step_pct: float) -> list[dict]:
     """Append synthetic 5%-drop rungs below the lowest base rung, as many as
     needed to cover the current price, each capped at cap_multiplier."""
@@ -403,6 +473,7 @@ def evaluate_stock(
     overrides: dict | None = None,
     trend: dict | None = None,
     is_etf: bool = False,
+    recent_low: float | None = None,
 ) -> dict:
     tier_cfg = rules["tiers"][tier]
     refresh = tier_cfg["refresh"]
@@ -432,6 +503,7 @@ def evaluate_stock(
             "next_rung": None,
             "buy_enabled": False,
             "trend_guard": None,
+            "low_zone": None,
         }
 
     # The downtrend guard is decided once, when a period starts, and frozen
@@ -452,8 +524,11 @@ def evaluate_stock(
     # Reuse this period's frozen ladder only while the config that shaped it
     # is unchanged -- editing rules.yaml or a stock's `ladder:` overrides
     # takes effect on the next run instead of waiting out the period.
-    if same_period and prev_stock_state.get("ladder") and prev_stock_state.get("ladder_config") == cfg:
-        ladder = prev_stock_state["ladder"]
+    # "base_ladder" is the frozen period ladder; "ladder" may be its
+    # low-zone version (see apply_low_zone), which is recomputed every run.
+    prev_base = (prev_stock_state or {}).get("base_ladder") or (prev_stock_state or {}).get("ladder")
+    if same_period and prev_base and prev_stock_state.get("ladder_config") == cfg:
+        ladder = prev_base
         clustered = prev_stock_state.get("clustered", False)
         fired = list(prev_stock_state.get("fired_this_period", []))
     else:
@@ -501,6 +576,26 @@ def evaluate_stock(
                     "first_hit_date": prev_hit.get("first_hit_date") or price_date.isoformat(),
                 }
             )
+        # Low-zone rungs aren't part of the base shape, so the loop above
+        # can't match them; their level is pinned once fired, so keep them.
+        fired += [f for f in prev_fired.values() if f["id"].startswith("low-")]
+
+    base_ladder = ladder
+    low_cfg = rules.get("low_zone") or {}
+    low_zone = None
+    if low_cfg.get("enabled") and recent_low is not None and ladder:
+        prev_low = (prev_stock_state or {}).get("low_zone") if same_period else None
+        ladder, fired, dropped = apply_low_zone(
+            ladder, fired, recent_low, low_cfg, drop_step, first_time=not prev_low
+        )
+        low_zone = {
+            "recent_low": round(recent_low, 4),
+            "lookback": int(low_cfg.get("lookback", 20)),
+            "rung1_cap": round(recent_low * (1 + float(low_cfg.get("rung1_gap_pct", 3.0)) / 100), 4),
+            # What the first run of this period stopped offering; kept for
+            # the rest of the period so the card can keep saying so.
+            "dropped": dropped or (prev_low or {}).get("dropped", []),
+        }
 
     full_ladder = extend_with_drop_cascade(ladder, price, rules["cap_multiplier"], drop_step)
 
@@ -534,6 +629,8 @@ def evaluate_stock(
         "next_rung": next_rung,
         "buy_enabled": True,
         "trend_guard": guard,
+        "base_ladder": base_ladder,
+        "low_zone": low_zone,
         # Today's reading, unlike trend_guard (frozen at period start) -- lets
         # the card say what the next refresh will do.
         "trend_today": trend,

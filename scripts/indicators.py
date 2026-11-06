@@ -57,3 +57,21 @@ def trend_signals(history: list[tuple[dt.date, float]], cfg: dict) -> dict | Non
         "slope_lookback": lookback,
         "short_ma_falling": falling,
     }
+
+
+def recent_low(history: list[tuple[dt.date, float]], lookback: int,
+               intraday: tuple[dt.date, float] | None = None) -> float | None:
+    """Lowest close of the last `lookback` sessions, for the low-zone mode.
+
+    `intraday` is the latest intraday snapshot (date, price); it counts only
+    when it is from a session newer than the last close, i.e. a price the
+    daily history hasn't caught up with yet -- in a fast sell-off the daily
+    close data can lag the market by a day or two.
+    """
+    closes = [c for _, c in history[-lookback:]]
+    if not closes:
+        return None
+    low = min(closes)
+    if intraday and history and intraday[0] > history[-1][0] and intraday[1]:
+        low = min(low, float(intraday[1]))
+    return low

@@ -9,11 +9,12 @@ day's data is a no-op against an unchanged period/ladder.
 """
 import datetime as dt
 import sys
+from zoneinfo import ZoneInfo
 
 from common import load_rules, load_state, load_stocks, save_state
 from engine import evaluate_custom_targets, evaluate_sell_targets, evaluate_stock
 from fetch_prices import get_history
-from indicators import moving_averages, trend_signals
+from indicators import moving_averages, recent_low, trend_signals
 
 MA_WINDOWS = [60, 100, 150, 200, 250]
 
@@ -25,6 +26,19 @@ def pct_diff(price: float, ref: float | None) -> float | None:
     if ref is None or price == 0:
         return None
     return round((ref - price) / price * 100, 2)
+
+
+def intraday_snapshot(prev: dict | None) -> tuple[dt.date, float] | None:
+    """(New York trade date, price) of the last intraday snapshot, if any."""
+    prev = prev or {}
+    at, price = prev.get("intraday_price_at"), prev.get("intraday_price")
+    if not at or price is None:
+        return None
+    try:
+        ts = dt.datetime.fromisoformat(at)
+    except ValueError:
+        return None
+    return ts.astimezone(ZoneInfo("America/New_York")).date(), float(price)
 
 
 def main() -> int:
@@ -67,6 +81,11 @@ def main() -> int:
             overrides=stock.get("ladder") or {},
             trend=trend_signals(history, rules.get("trend_guard") or {}),
             is_etf=bool(stock.get("is_etf")),
+            recent_low=recent_low(
+                history,
+                int((rules.get("low_zone") or {}).get("lookback", 20)),
+                intraday_snapshot(prev_stocks.get(ticker)),
+            ),
         )
         result["ticker"] = ticker
         result["name"] = stock.get("name", ticker)

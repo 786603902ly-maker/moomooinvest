@@ -531,6 +531,45 @@ Example: LRCX, simulated at the next boundary with 2026-10-28 data:
 | Normal rules | MA200 283.89 | MA250 260.46 | 7% drop 242.23 | 2 |
 | Downtrend guard (anchor 240.22, last period's deepest fill) | 223.40 | 207.77 | 193.22 | 0 |
 
+## Low-zone mode: buy near the recent low (2026-11-06)
+
+Your instruction during the November sell-off: you don't need to buy a lot
+now, you want to buy as low as possible -- even if rung 1 isn't at the
+recent low, rung 2 must be close to it. `low_zone` in `config/rules.yaml`,
+`apply_low_zone` in `scripts/engine.py`.
+
+- L = lowest close of the last 20 sessions, plus the latest intraday
+  snapshot when the daily closes haven't caught up with it yet.
+- Ceilings, applied on top of the period's ladder (normal or downtrend
+  guard):
+
+  | Rung | Ceiling |
+  |---|---|
+  | 1 | L x 1.03 |
+  | 2 | L, and at least 3% under rung 1 |
+  | 3 | rung 2 minus the stock's drop step (7%, ETFs 5%) |
+
+  A rung already below its ceiling (a deep MA, ASML's 920 start level,
+  XLV's MA200+250) is not moved -- the mode only lowers, never raises.
+- Recomputed every daily run: rungs not reached yet follow new lows down.
+  A rung that has fired stays at the level it fired at, so a string of new
+  lows does not fire rung 1 again each day. A lowered rung is labelled
+  "near 20-day low" / "20-day low" and has id `low-<n>`.
+- Rungs reached before the mode was switched on and sitting above rung 1's
+  ceiling (e.g. NVDA's MA60 221.30 and 210.24) are no longer offered: they
+  leave the top summary and the card, and the card lists them once as "no
+  longer offered". Any you had ticked stay in the Action log.
+- Turn it off with `enabled: false`; the plain period ladder applies from
+  the next run.
+
+Example: NVDA with closes up to 2026-11-03 and the 2026-11-05 intraday
+snapshot of 182.14 as L:
+
+| | Rung 1 | Rung 2 | Rung 3 |
+|---|---|---|---|
+| Period ladder | MA60 221.30 | 210.24 | 199.73 |
+| Low-zone mode | 187.60 | 181.98 | 172.88 |
+
 ## Sell targets, and the sell-only tiers
 
 T5 and T9 are held to sell out of, not to accumulate. `buy_enabled: false`

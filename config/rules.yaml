@@ -85,3 +85,20 @@ trend_guard:
   slope_lookback: 10
   slope_threshold_pct: 0.5
   drop_step_pct: 7.0
+
+# Low-zone mode (see README "Low-zone mode"). Turned on 2026-11-06 during a
+# broad sell-off: "I don't need to buy a lot now, I want to buy at the lows --
+# even if rung 1 isn't at the low, rung 2 must be close to it."
+#  - L = lowest close of the last `lookback` sessions (plus the latest
+#    intraday snapshot when the daily closes haven't caught up with it).
+#  - rung 1 <= L x (1 + rung1_gap_pct), rung 2 <= L, rung 3 <= rung 2 minus
+#    the stock's drop step. Ceilings only: a rung already deeper stays put.
+#  - Recomputed every run, so unfired rungs follow new lows down; a rung
+#    that fired stays at the level it fired at.
+#  - Rungs reached before the mode was on and sitting above rung 1's cap
+#    are no longer offered (the user chose this).
+# Set enabled: false to go back to the plain period ladder.
+low_zone:
+  enabled: true
+  lookback: 20
+  rung1_gap_pct: 3.0

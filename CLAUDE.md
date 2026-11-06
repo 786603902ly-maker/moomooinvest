@@ -120,6 +120,19 @@ above price. Invariants:
   rebuild every ladder mid-period.
 - `trend_today` is today's reading, display-only.
 
+## Low-zone mode (2026-11-06)
+
+`low_zone` in rules.yaml, `apply_low_zone` in the engine. State now carries
+`base_ladder` (the frozen period ladder -- what the reuse/rebuild logic
+reads) and `ladder` (its low-zone version, recomputed each run). Invariants:
+
+- A fired rung is pinned at its fired level. Do not let unfired-rung
+  recomputation move it, or every new low re-fires rung 1.
+- The one-time drop of pre-mode fired rungs above rung 1's cap is the
+  user's explicit choice (asked 2026-11-06) and is the only exception to the
+  "never tidy fired entries" rule below. It runs only on the first low-zone
+  evaluation of a period (`low_zone` absent from that period's prev state).
+
 ## Where the user's buy history lives
 
 Ticked-off rungs ("I actually bought this") are stored in the Vercel KV
