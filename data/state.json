@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T00:33:13.145569Z",
+  "generated_at": "2026-11-06T01:40:14.832706Z",
   "stocks": {
     "AMD": {
       "base_ladder": [
@@ -123,16 +123,7 @@
       "name": "Advanced Micro Devices",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 416.532,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 404.036,
@@ -663,16 +654,7 @@
       "name": "Broadcom",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "trend-start",
-          "level": 299.6739,
-          "multiplier": 1.0,
-          "source": "downtrend: 7% below 322.23"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 278.6967,
@@ -980,16 +962,7 @@
       "name": "Fortinet",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 126.1853,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "ma-250",
         "level": 119.1039,
@@ -1496,16 +1469,7 @@
       "name": "iShares Expanded Tech-Software ETF",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "ma-100",
-          "level": 100.7679,
-          "multiplier": 1.0,
-          "source": "100"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 93.7141,
@@ -1660,16 +1624,7 @@
       "name": "Lam Research",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 190.756,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 185.0333,
@@ -1841,16 +1796,7 @@
       "name": "Meta Platforms",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 623.2324,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 586.7804,
@@ -2326,16 +2272,7 @@
       "name": "Nebius Group",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 123.9811,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 120.2617,
@@ -2588,16 +2525,7 @@
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 187.048,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 181.4366,
@@ -2812,16 +2740,7 @@
       "name": "Palantir",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 159.6397,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 151.4991,
@@ -3044,16 +2963,7 @@
       "name": "Rocket Lab",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 47.3697,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 45.0353,
@@ -3345,16 +3255,7 @@
       "name": "Taiwan Semiconductor",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-05",
-          "id": "low-1",
-          "level": 363.693,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 352.7822,
