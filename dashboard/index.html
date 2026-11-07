@@ -77,6 +77,32 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
   accent-color:var(--accent); cursor:pointer;
 }
 .action-summary li.done{opacity:.5;}
+.action-summary .s-skip{color:var(--text-muted); font-size:.72rem;}
+.action-summary .s-now{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
+.order-sheet{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:.9rem 1.1rem; margin-bottom:1.25rem;
+}
+.order-sheet h2{font-family:var(--font-display); font-size:1rem; margin:0 0 .15rem;}
+.order-sheet .sum-sub{color:var(--text-muted); font-size:.78rem; margin-bottom:.6rem;}
+.order-sheet ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem;}
+.order-sheet li{
+  display:flex; gap:.6rem; align-items:center; flex-wrap:wrap;
+  padding:.35rem .5rem; border-radius:8px; background:var(--surface-2);
+}
+.order-sheet .o-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
+.order-sheet .o-lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
+.order-sheet .o-src{color:var(--text-muted); flex:1; font-size:.8rem;}
+.order-sheet .o-amt{font-variant-numeric:tabular-nums; font-weight:600;}
+.order-sheet .o-status{font-size:.74rem; white-space:nowrap; color:var(--text-muted);}
+.order-sheet li.amend{border-left:3px solid var(--warn);}
+.order-sheet li.amend .o-status{color:var(--warn); font-weight:700;}
+.order-sheet li.placed .o-status{color:var(--good);}
+.order-sheet li.reached .o-status{color:var(--accent); font-weight:700;}
+.order-sheet button{
+  font:inherit; font-size:.72rem; padding:.15rem .5rem; border-radius:6px;
+  border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer;
+}
 .action-summary li.done .s-lvl, .action-summary li.done .s-amt{text-decoration:line-through;}
 .rung.sell{border-color:var(--good); background:var(--good-soft);}
 .rung.sell.pending{background:transparent; border-style:dashed;}
@@ -230,12 +256,13 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="tabpanel active" id="tab-alerts">
     <div class="action-summary" id="action-summary"></div>
+    <div class="order-sheet" id="order-sheet"><h2>Limit orders to keep at moomoo</h2><div class="sum-sub">Each stock&#39;s next rung, as a GTC limit buy (price in USD). Tap &ldquo;placed&rdquo; once it is in; a row turns amber when the level has moved more than 2% from what you placed.</div><ul><li data-order-ticker="AVGO" data-level="278.6967"><span class="o-tick">AVGO</span><span class="o-lvl">$278.70</span><span class="o-src">7% drop &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="NVDA" data-level="181.4366"><span class="o-tick">NVDA</span><span class="o-lvl">$181.44</span><span class="o-src">20-day low &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="TSM" data-level="352.7822"><span class="o-tick">TSM</span><span class="o-lvl">$352.78</span><span class="o-src">20-day low &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="IGV" data-level="93.7141"><span class="o-tick">IGV</span><span class="o-lvl">$93.71</span><span class="o-src">7% drop &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="META" data-level="586.7804"><span class="o-tick">META</span><span class="o-lvl">$586.78</span><span class="o-src">7% drop &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="MSFT" data-level="466.6164"><span class="o-tick">MSFT</span><span class="o-lvl">$466.62</span><span class="o-src">100 &middot; x1.0 <span class="o-dist"></span></span><span class="o-amt">SGD 600.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="PLTR" data-level="151.4991"><span class="o-tick">PLTR</span><span class="o-lvl">$151.50</span><span class="o-src">7% drop &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="AMD" data-level="404.036"><span class="o-tick">AMD</span><span class="o-lvl">$404.04</span><span class="o-src">20-day low &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="AMZN" data-level="247.5605"><span class="o-tick">AMZN</span><span class="o-lvl">$247.56</span><span class="o-src">near 20-day low (+3%) &middot; x1.0 <span class="o-dist"></span></span><span class="o-amt">SGD 600.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="GOOG" data-level="258.5772"><span class="o-tick">GOOG</span><span class="o-lvl">$258.58</span><span class="o-src">downtrend: 7% below 278.04 &middot; x1.0 <span class="o-dist"></span></span><span class="o-amt">SGD 600.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="RKLB" data-level="45.0353"><span class="o-tick">RKLB</span><span class="o-lvl">$45.04</span><span class="o-src">7% drop &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="ASML" data-level="920.0"><span class="o-tick">ASML</span><span class="o-lvl">$920.00</span><span class="o-src">your first buy level &middot; x1.0 <span class="o-dist"></span></span><span class="o-amt">SGD 600.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="FTNT" data-level="110.5212"><span class="o-tick">FTNT</span><span class="o-lvl">$110.52</span><span class="o-src">7% drop &middot; x2.0 <span class="o-dist"></span></span><span class="o-amt">SGD 1,200.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="LRCX" data-level="185.0333"><span class="o-tick">LRCX</span><span class="o-lvl">$185.03</span><span class="o-src">20-day low &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="NBIS" data-level="120.2617"><span class="o-tick">NBIS</span><span class="o-lvl">$120.26</span><span class="o-src">20-day low &middot; x1.5 <span class="o-dist"></span></span><span class="o-amt">SGD 900.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li><li data-order-ticker="XLV" data-level="158.3228"><span class="o-tick">XLV</span><span class="o-lvl">$158.32</span><span class="o-src">200+250 &middot; x1.0 <span class="o-dist"></span></span><span class="o-amt">SGD 600.00</span><span class="o-status"></span><button type="button" class="o-btn"></button></li></ul></div>
     <div class="summary-row">
       <div class="stat hot"><div class="n">12</div><div class="l">open triggers</div></div>
       <div class="stat"><div class="n">32</div><div class="l">stocks tracked</div></div>
       <div class="stat"><div class="n">0</div><div class="l">stale data</div></div>
     </div>
-    <div class="tier-section"><div class="tier-head"><h2>T1</h2><span class="meta">base SGD 600.00 &middot; refresh weekly &middot; MA60/100/150</span></div><div class="cards"><div class="card has-open" data-ticker="AVGO" data-tier="T1" data-close="293.69000244140625" data-close-date="2026-11-06">
+    <div class="tier-section"><div class="tier-head"><h2>T1</h2><span class="meta">base SGD 600.00 &middot; refresh weekly &middot; MA60/100/150</span></div><div class="cards"><div class="card has-open" data-ticker="AVGO" data-tier="T1" data-close="293.69000244140625" data-price="293.69000244140625" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">AVGO <span class="sub">Broadcom</span></div><div class="sub">T1 &middot; weekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$293.69</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -249,7 +276,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="NVDA" data-tier="T1" data-close="186.63999938964844" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="NVDA" data-tier="T1" data-close="186.63999938964844" data-price="186.63999938964844" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">NVDA <span class="sub">NVIDIA</span></div><div class="sub">T1 &middot; weekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$186.64</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -263,7 +290,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="TSM" data-tier="T1" data-close="375.44000244140625" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="TSM" data-tier="T1" data-close="375.44000244140625" data-price="375.44000244140625" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">TSM <span class="sub">Taiwan Semiconductor</span></div><div class="sub">T1 &middot; weekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$375.44</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -277,7 +304,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div></div></div><div class="tier-section"><div class="tier-head"><h2>T2</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA100/150/200</span></div><div class="cards"><div class="card has-open" data-ticker="IGV" data-tier="T2" data-close="98.87999725341797" data-close-date="2026-11-06">
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T2</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA100/150/200</span></div><div class="cards"><div class="card has-open" data-ticker="IGV" data-tier="T2" data-close="98.87999725341797" data-price="98.87999725341797" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">IGV <span class="sub">iShares Expanded Tech-Software ETF</span></div><div class="sub">T2 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$98.88</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -291,7 +318,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="META" data-tier="T2" data-close="610.1500244140625" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="META" data-tier="T2" data-close="610.1500244140625" data-price="610.1500244140625" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">META <span class="sub">Meta Platforms</span></div><div class="sub">T2 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$610.15</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -305,7 +332,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="MSFT" data-tier="T2" data-close="530.6099853515625" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="MSFT" data-tier="T2" data-close="530.6099853515625" data-price="530.6099853515625" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">MSFT <span class="sub">Microsoft</span></div><div class="sub">T2 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$530.61</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -319,7 +346,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="PLTR" data-tier="T2" data-close="160.3800048828125" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="PLTR" data-tier="T2" data-close="160.3800048828125" data-price="160.3800048828125" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">PLTR <span class="sub">Palantir</span></div><div class="sub">T2 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$160.38</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -333,7 +360,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div></div></div><div class="tier-section"><div class="tier-head"><h2>T3</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA150/200/250</span></div><div class="cards"><div class="card has-open" data-ticker="AMD" data-tier="T3" data-close="449.0400085449219" data-close-date="2026-11-06">
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T3</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA150/200/250</span></div><div class="cards"><div class="card has-open" data-ticker="AMD" data-tier="T3" data-close="449.0400085449219" data-price="449.0400085449219" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">AMD <span class="sub">Advanced Micro Devices</span></div><div class="sub">T3 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$449.04</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -347,7 +374,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="AMZN" data-tier="T3" data-close="259.29998779296875" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="AMZN" data-tier="T3" data-close="259.29998779296875" data-price="259.29998779296875" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">AMZN <span class="sub">Amazon</span></div><div class="sub">T3 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$259.30</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -361,7 +388,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="GOOG" data-tier="T3" data-close="283.92999267578125" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="GOOG" data-tier="T3" data-close="283.92999267578125" data-price="283.92999267578125" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">GOOG <span class="sub">Alphabet</span></div><div class="sub">T3 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$283.93</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -375,7 +402,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="RKLB" data-tier="T3" data-close="53.06999969482422" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="RKLB" data-tier="T3" data-close="53.06999969482422" data-price="53.06999969482422" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">RKLB <span class="sub">Rocket Lab</span></div><div class="sub">T3 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$53.07</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -389,7 +416,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div></div></div><div class="tier-section"><div class="tier-head"><h2>T3.5</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA200/250</span></div><div class="cards"><div class="card " data-ticker="ASML" data-tier="T3.5" data-close="1424.75" data-close-date="2026-11-06">
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T3.5</h2><span class="meta">base SGD 600.00 &middot; refresh biweekly &middot; MA200/250</span></div><div class="cards"><div class="card " data-ticker="ASML" data-tier="T3.5" data-close="1424.75" data-price="1424.75" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">ASML <span class="sub">ASML Holding</span></div><div class="sub">T3.5 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$1,424.75</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -403,7 +430,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="FTNT" data-tier="T3.5" data-close="118.83999633789062" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="FTNT" data-tier="T3.5" data-close="118.83999633789062" data-price="118.83999633789062" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">FTNT <span class="sub">Fortinet</span></div><div class="sub">T3.5 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$118.84</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -417,7 +444,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="LRCX" data-tier="T3.5" data-close="200.44000244140625" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="LRCX" data-tier="T3.5" data-close="200.44000244140625" data-price="200.44000244140625" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">LRCX <span class="sub">Lam Research</span></div><div class="sub">T3.5 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$200.44</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -431,7 +458,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card has-open" data-ticker="NBIS" data-tier="T3.5" data-close="129.49000549316406" data-close-date="2026-11-06">
+</div><div class="card has-open" data-ticker="NBIS" data-tier="T3.5" data-close="129.49000549316406" data-price="129.49000549316406" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">NBIS <span class="sub">Nebius Group</span></div><div class="sub">T3.5 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$129.49</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -445,7 +472,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="XLV" data-tier="T3.5" data-close="184.8000030517578" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="XLV" data-tier="T3.5" data-close="184.8000030517578" data-price="184.8000030517578" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">XLV <span class="sub">Health Care Select Sector SPDR</span></div><div class="sub">T3.5 &middot; biweekly · resets after 2026-11-02</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$184.80</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -459,7 +486,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div></div></div><div class="tier-section"><div class="tier-head"><h2>T5</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card " data-ticker="ASTS" data-tier="T5" data-close="32.33000183105469" data-close-date="2026-11-06">
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T5</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card " data-ticker="ASTS" data-tier="T5" data-close="32.33000183105469" data-price="32.33000183105469" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">ASTS <span class="sub">AST SpaceMobile</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$32.33</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -473,7 +500,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="160.0" data-open="0" data-rung-id="sell-160.0-sell-all" data-source="sell all" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$160.00</span><span class="src">sell all</span><span class="amt">sell</span><span class="dist">+394.9% away</span></div><input type="text" class="note-input" data-note-key="ASTS|sell-160.0-sell-all" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="FXI" data-tier="T5" data-close="34.95000076293945" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="FXI" data-tier="T5" data-close="34.95000076293945" data-price="34.95000076293945" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">FXI <span class="sub">iShares China Large-Cap ETF</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$34.95</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -487,7 +514,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="41.0" data-open="0" data-rung-id="sell-41.0-sell-all" data-source="sell all" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$41.00</span><span class="src">sell all</span><span class="amt">sell</span><span class="dist">+17.3% away</span></div><input type="text" class="note-input" data-note-key="FXI|sell-41.0-sell-all" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="GRAB" data-tier="T5" data-close="3.4100000858306885" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="GRAB" data-tier="T5" data-close="3.4100000858306885" data-price="3.4100000858306885" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">GRAB <span class="sub">Grab Holdings</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$3.41</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -501,7 +528,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="4.6" data-open="0" data-rung-id="sell-4.6-sell-half" data-source="sell half" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$4.60</span><span class="src">sell half</span><span class="amt">sell</span><span class="dist">+34.9% away</span></div><input type="text" class="note-input" data-note-key="GRAB|sell-4.6-sell-half" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="MRVL" data-tier="T5" data-close="141.1999969482422" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="MRVL" data-tier="T5" data-close="141.1999969482422" data-price="141.1999969482422" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">MRVL <span class="sub">Marvell Technology</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$141.20</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -515,7 +542,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="MU" data-tier="T5" data-close="690.0" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="MU" data-tier="T5" data-close="690.0" data-price="690.0" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">MU <span class="sub">Micron Technology</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$690.00</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -529,7 +556,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="OSCR" data-tier="T5" data-close="30.649999618530273" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="OSCR" data-tier="T5" data-close="30.649999618530273" data-price="30.649999618530273" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">OSCR <span class="sub">Oscar Health</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$30.65</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -543,7 +570,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="SOFI" data-tier="T5" data-close="16.209999084472656" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="SOFI" data-tier="T5" data-close="16.209999084472656" data-price="16.209999084472656" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">SOFI <span class="sub">SoFi Technologies</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$16.21</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -557,7 +584,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="25.0" data-open="0" data-rung-id="sell-25.0-sell-half" data-source="sell half" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$25.00</span><span class="src">sell half</span><span class="amt">sell</span><span class="dist">+54.2% away</span></div><input type="text" class="note-input" data-note-key="SOFI|sell-25.0-sell-half" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="TSLA" data-tier="T5" data-close="358.2200012207031" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="TSLA" data-tier="T5" data-close="358.2200012207031" data-price="358.2200012207031" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">TSLA <span class="sub">Tesla</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$358.22</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -571,7 +598,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="V" data-tier="T5" data-close="422.6499938964844" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="V" data-tier="T5" data-close="422.6499938964844" data-price="422.6499938964844" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">V <span class="sub">Visa</span></div><div class="sub">T5 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$422.65</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -585,7 +612,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung open sell" data-level="385.0" data-open="1" data-rung-id="sell-385.0-sell-half" data-source="sell half" data-multiplier="" data-amount="" data-kind="sell" data-firsthit="2026-10-09"><input type="checkbox" data-id="V|sell-385.0-sell-half|2026-10-09" data-ticker="V" data-tier="T5" data-source="sell half" data-level="385.0" data-multiplier="-" data-amount="" data-kind="sell" data-firsthit="2026-10-09"><span class="lvl">$385.00</span><span class="src">sell half</span><span class="amt">sell</span><span class="confirmed-tag" data-confirm-for="V|sell-385.0-sell-half|2026-10-09"></span></div><input type="text" class="note-input" data-note-key="V|sell-385.0-sell-half" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div></div></div><div class="tier-section"><div class="tier-head"><h2>T9</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card " data-ticker="BRK-B" data-tier="T9" data-close="570.8900146484375" data-close-date="2026-11-06">
+</div></div></div><div class="tier-section"><div class="tier-head"><h2>T9</h2><span class="meta">base SGD 600.00 &middot; refresh monthly &middot; MA250</span></div><div class="cards"><div class="card " data-ticker="BRK-B" data-tier="T9" data-close="570.8900146484375" data-price="570.8900146484375" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">BRK-B <span class="sub">Berkshire Hathaway B</span></div><div class="sub">T9 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$570.89</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -599,7 +626,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung open sell" data-level="540.0" data-open="1" data-rung-id="sell-540.0-sell-half" data-source="sell half" data-multiplier="" data-amount="" data-kind="sell" data-firsthit="2026-10-22"><input type="checkbox" data-id="BRK-B|sell-540.0-sell-half|2026-10-22" data-ticker="BRK-B" data-tier="T9" data-source="sell half" data-level="540.0" data-multiplier="-" data-amount="" data-kind="sell" data-firsthit="2026-10-22"><span class="lvl">$540.00</span><span class="src">sell half</span><span class="amt">sell</span><span class="confirmed-tag" data-confirm-for="BRK-B|sell-540.0-sell-half|2026-10-22"></span></div><input type="text" class="note-input" data-note-key="BRK-B|sell-540.0-sell-half" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="DUOL" data-tier="T9" data-close="160.4199981689453" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="DUOL" data-tier="T9" data-close="160.4199981689453" data-price="160.4199981689453" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">DUOL <span class="sub">Duolingo</span></div><div class="sub">T9 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$160.42</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -613,7 +640,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="180.0" data-open="0" data-rung-id="sell-180.0-sell-all" data-source="sell all" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$180.00</span><span class="src">sell all</span><span class="amt">sell</span><span class="dist">+12.2% away</span></div><input type="text" class="note-input" data-note-key="DUOL|sell-180.0-sell-all" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="HIMS" data-tier="T9" data-close="26.0" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="HIMS" data-tier="T9" data-close="26.0" data-price="26.0" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">HIMS <span class="sub">Hims & Hers Health</span></div><div class="sub">T9 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$26.00</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -627,7 +654,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="39.0" data-open="0" data-rung-id="sell-39.0-sell-a-covered-call" data-source="sell a covered call" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$39.00</span><span class="src">sell a covered call</span><span class="amt">sell</span><span class="dist">+50.0% away</span></div><input type="text" class="note-input" data-note-key="HIMS|sell-39.0-sell-a-covered-call" value="" placeholder="add a note: target price / reasoning..."></div><div class="rung-wrap"><div class="rung sell pending" data-level="60.0" data-open="0" data-rung-id="sell-60.0-sell-half" data-source="sell half" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$60.00</span><span class="src">sell half</span><span class="amt">sell</span><span class="dist">+130.8% away</span></div><input type="text" class="note-input" data-note-key="HIMS|sell-60.0-sell-half" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="MSTR" data-tier="T9" data-close="128.92999267578125" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="MSTR" data-tier="T9" data-close="128.92999267578125" data-price="128.92999267578125" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">MSTR <span class="sub">Strategy (MicroStrategy)</span></div><div class="sub">T9 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$128.93</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -641,7 +668,7 @@ table.val-table td.bad{color:var(--bad);}
   
   
   
-</div><div class="card " data-ticker="NU" data-tier="T9" data-close="12.029999732971191" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="NU" data-tier="T9" data-close="12.029999732971191" data-price="12.029999732971191" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">NU <span class="sub">Nu Holdings</span></div><div class="sub">T9 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$12.03</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -655,7 +682,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="16.0" data-open="0" data-rung-id="sell-16.0-sell-all" data-source="sell all" data-multiplier="" data-amount="" data-kind="sell" data-firsthit="2026-10-09"><span class="lvl">$16.00</span><span class="src">sell all</span><span class="amt">sell</span><span class="dist">+33.0% away</span></div><input type="text" class="note-input" data-note-key="NU|sell-16.0-sell-all" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="PYPL" data-tier="T9" data-close="59.2400016784668" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="PYPL" data-tier="T9" data-close="59.2400016784668" data-price="59.2400016784668" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">PYPL <span class="sub">PayPal</span></div><div class="sub">T9 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$59.24</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -669,7 +696,7 @@ table.val-table td.bad{color:var(--bad);}
   <div class="card-sub-title">Sell targets (always-on, no period reset)</div><div class="rungs"><div class="rung-wrap"><div class="rung sell pending" data-level="66.0" data-open="0" data-rung-id="sell-66.0-sell-half" data-source="sell half" data-multiplier="" data-amount="" data-kind="sell" data-firsthit=""><span class="lvl">$66.00</span><span class="src">sell half</span><span class="amt">sell</span><span class="dist">+11.4% away</span></div><input type="text" class="note-input" data-note-key="PYPL|sell-66.0-sell-half" value="" placeholder="add a note: target price / reasoning..."></div></div>
   
   
-</div><div class="card " data-ticker="VITL" data-tier="T9" data-close="9.520000457763672" data-close-date="2026-11-06">
+</div><div class="card " data-ticker="VITL" data-tier="T9" data-close="9.520000457763672" data-price="9.520000457763672" data-close-date="2026-11-06">
   <div class="card-head">
     <div><div class="name">VITL <span class="sub">Vital Farms</span></div><div class="sub">T9 &middot; monthly · resets after 2026-11-01</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">$9.52</div><div class="price-sub"><div class="price-date">2026-11-06</div></div></div>
@@ -864,7 +891,7 @@ let ticksLoaded = false;
 
 function renderLog(){
   const ticks = loadTicksCache();
-  const rows = Object.values(ticks).sort((a,b)=> (b.tickedAt||"").localeCompare(a.tickedAt||""));
+  const rows = Object.values(ticks).filter(r => r.kind !== "order").sort((a,b)=> (b.tickedAt||"").localeCompare(a.tickedAt||""));
   const wrap = document.getElementById("log-wrap");
   if(!rows.length){ wrap.innerHTML = '<div class="empty-log">Nothing ticked yet.</div>'; return; }
   let html = '<table class="log"><thead><tr><th>Ticked</th><th>Ticker</th><th>Tier</th><th>Rung</th><th>Level</th><th>Multiplier</th><th>Amount</th><th>First hit</th></tr></thead><tbody>';
@@ -910,26 +937,53 @@ function findRungCheckbox(id){
   return null;
 }
 
+// The live price of a card: what the last quote refresh set, else the price
+// the page was built with.
+function cardPrice(ticker){
+  const card = document.querySelector('.card[data-ticker="' + ticker + '"]');
+  if(!card) return NaN;
+  const live = parseFloat(card.dataset.live);
+  return isFinite(live) ? live : parseFloat(card.dataset.price);
+}
+
+// Buys are grouped per stock and only the DEEPEST reached rung is offered
+// (the user's rule, 2026-11-07: they check the page every few days, and by
+// then several rungs of one stock may be open; they want one buy at the
+// lowest of them, not the sum of all). Ticking the row ticks that rung and
+// files every shallower open rung of the stock as "skipped", so they leave
+// the list too. Sells stay one row per target.
 function renderActionSummary(){
   const el = document.getElementById("action-summary");
   if(!el) return;
 
-  const rows = [];
+  const groups = new Map();
   document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
-    if(cb.checked && !summaryTickedThisSession.has(cb.dataset.id)) return;
-    rows.push({
+    const kept = summaryTickedThisSession.has(cb.dataset.id) ||
+      summaryTickedThisSession.has(cb.dataset.skippedBy || "");
+    if(cb.checked && !kept) return;
+    const kind = cb.dataset.kind === "sell" ? "sell" : "buy";
+    const r = {
       id: cb.dataset.id,
       done: cb.checked,
       ticker: cb.dataset.ticker || "",
       tier: cb.dataset.tier || "",
-      kind: cb.dataset.kind === "sell" ? "sell" : "buy",
-      level: cb.dataset.level,
+      kind,
+      level: parseFloat(cb.dataset.level),
       source: cb.dataset.source || "",
       amount: parseFloat(cb.dataset.amount) || 0,
       firstHit: cb.dataset.firsthit || "",
-    });
+    };
+    const key = kind === "buy" ? "buy|" + r.ticker : "sell|" + r.id;
+    if(!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(r);
   });
 
+  const rows = [...groups.values()].map(rungs => {
+    rungs.sort((a, b) => a.level - b.level);
+    const deepest = rungs[0];
+    return {...deepest, others: rungs.slice(1), done: rungs.every(r => r.done),
+            price: cardPrice(deepest.ticker)};
+  });
   const pending = rows.filter(r => !r.done);
 
   if(!rows.length){
@@ -949,33 +1003,34 @@ function renderActionSummary(){
   const buys = pending.filter(r => r.kind === "buy");
   const sells = pending.filter(r => r.kind === "sell");
   const total = buys.reduce((sum, r) => sum + r.amount, 0);
-  const todayCount = pending.filter(r => r.firstHit === today).length;
+  const fmtAmt = v => CURRENCY + ' ' + v.toLocaleString("en-US", {maximumFractionDigits: 0});
 
   const parts = [];
   if(sells.length) parts.push(sells.length + ' to sell');
-  if(buys.length) parts.push(buys.length + ' to buy (' + CURRENCY + ' ' +
-    total.toLocaleString("en-US", {maximumFractionDigits: 0}) + ')');
+  if(buys.length) parts.push(buys.length + ' to buy (' + fmtAmt(total) + ')');
 
   el.classList.toggle("clear", !pending.length);
   el.innerHTML =
     (pending.length
-      ? '<h2>' + pending.length + ' waiting — ' + parts.join(', ') + '</h2>'
+      ? '<h2>' + pending.length + ' to act on now — ' + parts.join(', ') + '</h2>'
       : '<h2>Nothing to act on</h2>') +
-    '<div class="sum-sub">' +
-      (todayCount ? todayCount + ' reached today. ' : '') +
-      'Reached but not yet ticked. Tick a row here to confirm it; ' +
-      'confirmed ones drop off on the next load.</div>' +
+    '<div class="sum-sub">One row per stock: the deepest rung price has reached, ' +
+      'at its amount only. Ticking it files the shallower ones as skipped.</div>' +
     '<ul>' + rows.map(r =>
       '<li class="' + r.kind + (r.done ? ' done' : '') + '" data-goto="' + r.ticker + '">' +
         '<input type="checkbox" class="s-cb" data-for="' + r.id.replace(/"/g, '&quot;') + '"' +
+          ' data-skip="' + r.others.map(o => o.id).join("\n").replace(/"/g, '&quot;') + '"' +
           (r.done ? ' checked' : '') + ' aria-label="Confirm ' + r.ticker + ' ' + r.source + '">' +
         '<span class="s-tick">' + r.ticker + '</span>' +
         '<span class="s-tier">' + r.tier + '</span>' +
-        '<span class="s-lvl">' + fmtLivePrice(parseFloat(r.level)) + '</span>' +
-        '<span class="s-src">' + r.source + '</span>' +
+        '<span class="s-lvl">' + fmtLivePrice(r.level) + '</span>' +
+        '<span class="s-src">' + r.source +
+          (r.others.length ? ' <span class="s-skip">+' + r.others.length + ' shallower</span>' : '') +
+          (isFinite(r.price) ? ' <span class="s-now">now ' + fmtLivePrice(r.price) + '</span>' : '') +
+        '</span>' +
         (r.kind === "sell"
           ? '<span class="s-sell">SELL</span>'
-          : '<span class="s-amt">' + CURRENCY + ' ' + r.amount.toLocaleString("en-US", {maximumFractionDigits: 0}) + '</span>') +
+          : '<span class="s-amt">' + fmtAmt(r.amount) + '</span>') +
         (r.firstHit === today
           ? '<span class="s-new">reached today</span>'
           : '<span class="s-when">reached ' + r.firstHit + '</span>') +
@@ -983,11 +1038,84 @@ function renderActionSummary(){
     '</ul>';
 }
 
+// Order-sheet marks share the tick store (so they sync across devices) under
+// "order|TICKER" ids with kind "order"; the Action log and CSV skip them.
+const ORDER_AMEND_PCT = 2.0;
+
+function renderOrderSheet(ticks){
+  document.querySelectorAll('#order-sheet li[data-order-ticker]').forEach(li=>{
+    const ticker = li.dataset.orderTicker;
+    const level = parseFloat(li.dataset.level);
+    const price = cardPrice(ticker);
+    const placed = ticks["order|" + ticker];
+    const status = li.querySelector(".o-status");
+    const btn = li.querySelector(".o-btn");
+    const dist = li.querySelector(".o-dist");
+    if(dist) dist.textContent = isFinite(price) ? (((level - price) / price * 100).toFixed(1) + "% from now") : "";
+    li.classList.remove("amend", "placed", "reached");
+    const moved = placed && Math.abs(level - placed.level) / placed.level * 100 > ORDER_AMEND_PCT;
+    if(isFinite(price) && price <= level){
+      li.classList.add("reached");
+      status.textContent = "price is here — see the list above";
+    } else if(!placed){
+      status.textContent = "not placed";
+    } else if(moved){
+      li.classList.add("amend");
+      status.textContent = "amend: placed " + fmtLivePrice(placed.level) + " → " + fmtLivePrice(level);
+    } else {
+      li.classList.add("placed");
+      status.textContent = "placed " + fmtLivePrice(placed.level) + " ✓";
+    }
+    btn.textContent = !placed ? "placed" : moved ? "amended" : "clear";
+    btn.dataset.action = placed && !moved ? "clear" : "place";
+  });
+}
+
+document.addEventListener("click", (e)=>{
+  const btn = e.target.closest('#order-sheet .o-btn');
+  if(!btn) return;
+  const li = btn.closest("li[data-order-ticker]");
+  const id = "order|" + li.dataset.orderTicker;
+  const entry = btn.dataset.action === "clear" ? null : {
+    kind: "order", ticker: li.dataset.orderTicker,
+    level: parseFloat(li.dataset.level), placedAt: new Date().toISOString(),
+  };
+  const ticks = loadTicksCache();
+  if(entry) ticks[id] = entry; else delete ticks[id];
+  saveTicksCache(ticks);
+  renderOrderSheet(ticks);
+  pushTick(id, entry).catch(()=>{
+    setSyncStatus("Couldn't save that order mark to the sync backend -- it's saved on this device only for now.", "ticks");
+  });
+});
+
+function skippedEntry(cb, deepestId){
+  return {
+    ticker: cb.dataset.ticker, tier: cb.dataset.tier,
+    source: (cb.dataset.source || "") + " (skipped)",
+    level: cb.dataset.level, multiplier: cb.dataset.multiplier, amount: "0",
+    firstHit: cb.dataset.firsthit, tickedAt: new Date().toISOString(),
+    skipped: true, skippedBy: deepestId,
+  };
+}
+
 document.addEventListener("change", (e)=>{
   if(!e.target.matches('.action-summary input.s-cb')) return;
   const cb = findRungCheckbox(e.target.dataset.for);
   if(!cb){ renderActionSummary(); return; }
   summaryTickedThisSession.add(cb.dataset.id);
+  const skipIds = (e.target.dataset.skip || "").split("\n").filter(Boolean);
+  const ticks = loadTicksCache();
+  for(const id of skipIds){
+    const other = findRungCheckbox(id);
+    if(!other) continue;
+    const entry = e.target.checked ? skippedEntry(other, cb.dataset.id) : null;
+    if(entry) ticks[id] = entry; else delete ticks[id];
+    pushTick(id, entry).catch(()=>{
+      setSyncStatus("Couldn't save that tick to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.", "ticks");
+    });
+  }
+  saveTicksCache(ticks);
   cb.checked = e.target.checked;
   onToggle(cb);
 });
@@ -1006,16 +1134,22 @@ function applyTicksToDom(ticks){
   document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
     const entry = ticks[cb.dataset.id];
     cb.checked = !!entry;
+    // Lets the summary keep a stock's row (with its skipped rungs) listed
+    // for the session after it was ticked there.
+    if(entry && entry.skippedBy) cb.dataset.skippedBy = entry.skippedBy;
+    else delete cb.dataset.skippedBy;
     const rungEl = cb.closest(".rung");
     if(rungEl){ rungEl.classList.toggle("done", !!entry); }
   });
   document.querySelectorAll('.confirmed-tag').forEach(tag=>{
     const id = tag.dataset.confirmFor;
     const entry = ticks[id];
-    tag.textContent = entry ? ("✓ " + confirmedLabel(entry.tickedAt)) : "";
+    tag.textContent = !entry ? "" :
+      entry.skipped ? "skipped (bought a deeper rung)" : ("✓ " + confirmedLabel(entry.tickedAt));
   });
   renderLog();
   renderActionSummary();
+  renderOrderSheet(ticks);
 }
 
 // Ticks and notes sync independently -- keep their statuses separate so
@@ -1087,7 +1221,7 @@ function applyStoredTicks(){
 }
 
 async function exportCsv(){
-  const ticks = Object.values(loadTicksCache());
+  const ticks = Object.values(loadTicksCache()).filter(r => r.kind !== "order");
   const header = "tickedAt,ticker,tier,source,level,multiplier,amount,firstHit";
   const lines = [header, ...ticks.map(r=>[r.tickedAt,r.ticker,r.tier,r.source,r.level,r.multiplier,r.amount,r.firstHit].map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(","))];
   const csv = lines.join("\n");
@@ -1256,6 +1390,7 @@ function applyQuote(card, quote){
   const price = quote && quote.price;
   if(typeof price !== "number" || !isFinite(price)) return;
 
+  card.dataset.live = String(price);
   const priceEl = card.querySelector(".price");
   if(priceEl) priceEl.textContent = fmtLivePrice(price);
 

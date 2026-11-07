@@ -133,6 +133,16 @@ reads) and `ladder` (its low-zone version, recomputed each run). Invariants:
   "never tidy fired entries" rule below. It runs only on the first low-zone
   evaluation of a period (`low_zone` absent from that period's prev state).
 
+## Summary grouping and order sheet (2026-11-07)
+
+- The top summary groups buys per stock and offers only the deepest reached
+  rung (user's choice). Ticking it writes `skipped: true, skippedBy: <id>`
+  tick entries for the shallower open rungs -- they are real tick ids, so
+  the card boxes show as ticked. Keep that pairing if you touch either.
+- Order-sheet marks live in the same KV tick map as `order|TICKER` entries
+  with `kind: "order"`. Anything that lists ticks (Action log, CSV, any
+  future reader of `data/ticks.json`) must skip `kind == "order"`.
+
 ## Where the user's buy history lives
 
 Ticked-off rungs ("I actually bought this") are stored in the Vercel KV

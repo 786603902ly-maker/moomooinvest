@@ -531,6 +531,33 @@ Example: LRCX, simulated at the next boundary with 2026-10-28 data:
 | Normal rules | MA200 283.89 | MA250 260.46 | 7% drop 242.23 | 2 |
 | Downtrend guard (anchor 240.22, last period's deepest fill) | 223.40 | 207.77 | 193.22 | 0 |
 
+## Checking every few days: one row per stock, and a limit-order sheet (2026-11-07)
+
+You don't open the page every day, so by the time you do, rungs from
+earlier days are either gone (price bounced) or stacked up several deep.
+
+**Top summary = what to do now.**
+- One row per stock: the deepest rung price has reached, at that rung's
+  amount only (your choice: not the sum of every reached rung). The row
+  also shows the live price and "+N shallower" when more rungs are open.
+- Ticking the row ticks the deepest rung and files the shallower open
+  rungs as *skipped* (amount 0, "(skipped)" in the Action log; the card
+  shows "skipped (bought a deeper rung)"). Unticking the row undoes both.
+- Sells are still one row per target.
+
+**Limit-order sheet ("Limit orders to keep at moomoo").**
+- One row per buying stock: its next rung not yet hit (`next_rung`), as a
+  GTC limit buy. Price in USD, amount as the rule's SGD amount; no share
+  count, since the system has no FX rate.
+- Tap **placed** after entering the order. The mark syncs across devices
+  through the tick store (id `order|TICKER`, `kind: "order"`; excluded from
+  the Action log and CSV).
+- A row turns amber ("amend: placed X -> Y") when the rung has moved more
+  than `order_amend_pct` (2%) from the placed level -- low-zone mode moves
+  unfired rungs with new lows, and the next rung changes once one fills.
+- A row whose level the price has already reached says so and points to
+  the summary above.
+
 ## Low-zone mode: buy near the recent low (2026-11-06)
 
 Your instruction during the November sell-off: you don't need to buy a lot

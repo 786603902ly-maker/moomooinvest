@@ -102,3 +102,7 @@ low_zone:
   enabled: true
   lookback: 20
   rung1_gap_pct: 3.0
+
+# Order sheet (dashboard): flag a placed limit order for amending once its
+# rung level has moved more than this many percent from the placed level.
+order_amend_pct: 2.0

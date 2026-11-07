@@ -106,6 +106,32 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
   accent-color:var(--accent); cursor:pointer;
 }
 .action-summary li.done{opacity:.5;}
+.action-summary .s-skip{color:var(--text-muted); font-size:.72rem;}
+.action-summary .s-now{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
+.order-sheet{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:.9rem 1.1rem; margin-bottom:1.25rem;
+}
+.order-sheet h2{font-family:var(--font-display); font-size:1rem; margin:0 0 .15rem;}
+.order-sheet .sum-sub{color:var(--text-muted); font-size:.78rem; margin-bottom:.6rem;}
+.order-sheet ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem;}
+.order-sheet li{
+  display:flex; gap:.6rem; align-items:center; flex-wrap:wrap;
+  padding:.35rem .5rem; border-radius:8px; background:var(--surface-2);
+}
+.order-sheet .o-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
+.order-sheet .o-lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
+.order-sheet .o-src{color:var(--text-muted); flex:1; font-size:.8rem;}
+.order-sheet .o-amt{font-variant-numeric:tabular-nums; font-weight:600;}
+.order-sheet .o-status{font-size:.74rem; white-space:nowrap; color:var(--text-muted);}
+.order-sheet li.amend{border-left:3px solid var(--warn);}
+.order-sheet li.amend .o-status{color:var(--warn); font-weight:700;}
+.order-sheet li.placed .o-status{color:var(--good);}
+.order-sheet li.reached .o-status{color:var(--accent); font-weight:700;}
+.order-sheet button{
+  font:inherit; font-size:.72rem; padding:.15rem .5rem; border-radius:6px;
+  border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer;
+}
 .action-summary li.done .s-lvl, .action-summary li.done .s-amt{text-decoration:line-through;}
 .rung.sell{border-color:var(--good); background:var(--good-soft);}
 .rung.sell.pending{background:transparent; border-style:dashed;}
@@ -259,6 +285,7 @@ table.val-table td.bad{color:var(--bad);}
   </div>
   <div class="tabpanel active" id="tab-alerts">
     <div class="action-summary" id="action-summary"></div>
+    __ORDER_SHEET__
     <div class="summary-row">
       <div class="stat hot"><div class="n">__OPEN_COUNT__</div><div class="l">open triggers</div></div>
       <div class="stat"><div class="n">__STOCK_COUNT__</div><div class="l">stocks tracked</div></div>
@@ -307,7 +334,7 @@ let ticksLoaded = false;
 
 function renderLog(){
   const ticks = loadTicksCache();
-  const rows = Object.values(ticks).sort((a,b)=> (b.tickedAt||"").localeCompare(a.tickedAt||""));
+  const rows = Object.values(ticks).filter(r => r.kind !== "order").sort((a,b)=> (b.tickedAt||"").localeCompare(a.tickedAt||""));
   const wrap = document.getElementById("log-wrap");
   if(!rows.length){ wrap.innerHTML = '<div class="empty-log">Nothing ticked yet.</div>'; return; }
   let html = '<table class="log"><thead><tr><th>Ticked</th><th>Ticker</th><th>Tier</th><th>Rung</th><th>Level</th><th>Multiplier</th><th>Amount</th><th>First hit</th></tr></thead><tbody>';
@@ -353,26 +380,53 @@ function findRungCheckbox(id){
   return null;
 }
 
+// The live price of a card: what the last quote refresh set, else the price
+// the page was built with.
+function cardPrice(ticker){
+  const card = document.querySelector('.card[data-ticker="' + ticker + '"]');
+  if(!card) return NaN;
+  const live = parseFloat(card.dataset.live);
+  return isFinite(live) ? live : parseFloat(card.dataset.price);
+}
+
+// Buys are grouped per stock and only the DEEPEST reached rung is offered
+// (the user's rule, 2026-11-07: they check the page every few days, and by
+// then several rungs of one stock may be open; they want one buy at the
+// lowest of them, not the sum of all). Ticking the row ticks that rung and
+// files every shallower open rung of the stock as "skipped", so they leave
+// the list too. Sells stay one row per target.
 function renderActionSummary(){
   const el = document.getElementById("action-summary");
   if(!el) return;
 
-  const rows = [];
+  const groups = new Map();
   document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
-    if(cb.checked && !summaryTickedThisSession.has(cb.dataset.id)) return;
-    rows.push({
+    const kept = summaryTickedThisSession.has(cb.dataset.id) ||
+      summaryTickedThisSession.has(cb.dataset.skippedBy || "");
+    if(cb.checked && !kept) return;
+    const kind = cb.dataset.kind === "sell" ? "sell" : "buy";
+    const r = {
       id: cb.dataset.id,
       done: cb.checked,
       ticker: cb.dataset.ticker || "",
       tier: cb.dataset.tier || "",
-      kind: cb.dataset.kind === "sell" ? "sell" : "buy",
-      level: cb.dataset.level,
+      kind,
+      level: parseFloat(cb.dataset.level),
       source: cb.dataset.source || "",
       amount: parseFloat(cb.dataset.amount) || 0,
       firstHit: cb.dataset.firsthit || "",
-    });
+    };
+    const key = kind === "buy" ? "buy|" + r.ticker : "sell|" + r.id;
+    if(!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(r);
   });
 
+  const rows = [...groups.values()].map(rungs => {
+    rungs.sort((a, b) => a.level - b.level);
+    const deepest = rungs[0];
+    return {...deepest, others: rungs.slice(1), done: rungs.every(r => r.done),
+            price: cardPrice(deepest.ticker)};
+  });
   const pending = rows.filter(r => !r.done);
 
   if(!rows.length){
@@ -392,33 +446,34 @@ function renderActionSummary(){
   const buys = pending.filter(r => r.kind === "buy");
   const sells = pending.filter(r => r.kind === "sell");
   const total = buys.reduce((sum, r) => sum + r.amount, 0);
-  const todayCount = pending.filter(r => r.firstHit === today).length;
+  const fmtAmt = v => CURRENCY + ' ' + v.toLocaleString("en-US", {maximumFractionDigits: 0});
 
   const parts = [];
   if(sells.length) parts.push(sells.length + ' to sell');
-  if(buys.length) parts.push(buys.length + ' to buy (' + CURRENCY + ' ' +
-    total.toLocaleString("en-US", {maximumFractionDigits: 0}) + ')');
+  if(buys.length) parts.push(buys.length + ' to buy (' + fmtAmt(total) + ')');
 
   el.classList.toggle("clear", !pending.length);
   el.innerHTML =
     (pending.length
-      ? '<h2>' + pending.length + ' waiting — ' + parts.join(', ') + '</h2>'
+      ? '<h2>' + pending.length + ' to act on now — ' + parts.join(', ') + '</h2>'
       : '<h2>Nothing to act on</h2>') +
-    '<div class="sum-sub">' +
-      (todayCount ? todayCount + ' reached today. ' : '') +
-      'Reached but not yet ticked. Tick a row here to confirm it; ' +
-      'confirmed ones drop off on the next load.</div>' +
+    '<div class="sum-sub">One row per stock: the deepest rung price has reached, ' +
+      'at its amount only. Ticking it files the shallower ones as skipped.</div>' +
     '<ul>' + rows.map(r =>
       '<li class="' + r.kind + (r.done ? ' done' : '') + '" data-goto="' + r.ticker + '">' +
         '<input type="checkbox" class="s-cb" data-for="' + r.id.replace(/"/g, '&quot;') + '"' +
+          ' data-skip="' + r.others.map(o => o.id).join("\n").replace(/"/g, '&quot;') + '"' +
           (r.done ? ' checked' : '') + ' aria-label="Confirm ' + r.ticker + ' ' + r.source + '">' +
         '<span class="s-tick">' + r.ticker + '</span>' +
         '<span class="s-tier">' + r.tier + '</span>' +
-        '<span class="s-lvl">' + fmtLivePrice(parseFloat(r.level)) + '</span>' +
-        '<span class="s-src">' + r.source + '</span>' +
+        '<span class="s-lvl">' + fmtLivePrice(r.level) + '</span>' +
+        '<span class="s-src">' + r.source +
+          (r.others.length ? ' <span class="s-skip">+' + r.others.length + ' shallower</span>' : '') +
+          (isFinite(r.price) ? ' <span class="s-now">now ' + fmtLivePrice(r.price) + '</span>' : '') +
+        '</span>' +
         (r.kind === "sell"
           ? '<span class="s-sell">SELL</span>'
-          : '<span class="s-amt">' + CURRENCY + ' ' + r.amount.toLocaleString("en-US", {maximumFractionDigits: 0}) + '</span>') +
+          : '<span class="s-amt">' + fmtAmt(r.amount) + '</span>') +
         (r.firstHit === today
           ? '<span class="s-new">reached today</span>'
           : '<span class="s-when">reached ' + r.firstHit + '</span>') +
@@ -426,11 +481,84 @@ function renderActionSummary(){
     '</ul>';
 }
 
+// Order-sheet marks share the tick store (so they sync across devices) under
+// "order|TICKER" ids with kind "order"; the Action log and CSV skip them.
+const ORDER_AMEND_PCT = __ORDER_AMEND_PCT__;
+
+function renderOrderSheet(ticks){
+  document.querySelectorAll('#order-sheet li[data-order-ticker]').forEach(li=>{
+    const ticker = li.dataset.orderTicker;
+    const level = parseFloat(li.dataset.level);
+    const price = cardPrice(ticker);
+    const placed = ticks["order|" + ticker];
+    const status = li.querySelector(".o-status");
+    const btn = li.querySelector(".o-btn");
+    const dist = li.querySelector(".o-dist");
+    if(dist) dist.textContent = isFinite(price) ? (((level - price) / price * 100).toFixed(1) + "% from now") : "";
+    li.classList.remove("amend", "placed", "reached");
+    const moved = placed && Math.abs(level - placed.level) / placed.level * 100 > ORDER_AMEND_PCT;
+    if(isFinite(price) && price <= level){
+      li.classList.add("reached");
+      status.textContent = "price is here — see the list above";
+    } else if(!placed){
+      status.textContent = "not placed";
+    } else if(moved){
+      li.classList.add("amend");
+      status.textContent = "amend: placed " + fmtLivePrice(placed.level) + " → " + fmtLivePrice(level);
+    } else {
+      li.classList.add("placed");
+      status.textContent = "placed " + fmtLivePrice(placed.level) + " ✓";
+    }
+    btn.textContent = !placed ? "placed" : moved ? "amended" : "clear";
+    btn.dataset.action = placed && !moved ? "clear" : "place";
+  });
+}
+
+document.addEventListener("click", (e)=>{
+  const btn = e.target.closest('#order-sheet .o-btn');
+  if(!btn) return;
+  const li = btn.closest("li[data-order-ticker]");
+  const id = "order|" + li.dataset.orderTicker;
+  const entry = btn.dataset.action === "clear" ? null : {
+    kind: "order", ticker: li.dataset.orderTicker,
+    level: parseFloat(li.dataset.level), placedAt: new Date().toISOString(),
+  };
+  const ticks = loadTicksCache();
+  if(entry) ticks[id] = entry; else delete ticks[id];
+  saveTicksCache(ticks);
+  renderOrderSheet(ticks);
+  pushTick(id, entry).catch(()=>{
+    setSyncStatus("Couldn't save that order mark to the sync backend -- it's saved on this device only for now.", "ticks");
+  });
+});
+
+function skippedEntry(cb, deepestId){
+  return {
+    ticker: cb.dataset.ticker, tier: cb.dataset.tier,
+    source: (cb.dataset.source || "") + " (skipped)",
+    level: cb.dataset.level, multiplier: cb.dataset.multiplier, amount: "0",
+    firstHit: cb.dataset.firsthit, tickedAt: new Date().toISOString(),
+    skipped: true, skippedBy: deepestId,
+  };
+}
+
 document.addEventListener("change", (e)=>{
   if(!e.target.matches('.action-summary input.s-cb')) return;
   const cb = findRungCheckbox(e.target.dataset.for);
   if(!cb){ renderActionSummary(); return; }
   summaryTickedThisSession.add(cb.dataset.id);
+  const skipIds = (e.target.dataset.skip || "").split("\n").filter(Boolean);
+  const ticks = loadTicksCache();
+  for(const id of skipIds){
+    const other = findRungCheckbox(id);
+    if(!other) continue;
+    const entry = e.target.checked ? skippedEntry(other, cb.dataset.id) : null;
+    if(entry) ticks[id] = entry; else delete ticks[id];
+    pushTick(id, entry).catch(()=>{
+      setSyncStatus("Couldn't save that tick to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.", "ticks");
+    });
+  }
+  saveTicksCache(ticks);
   cb.checked = e.target.checked;
   onToggle(cb);
 });
@@ -449,16 +577,22 @@ function applyTicksToDom(ticks){
   document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
     const entry = ticks[cb.dataset.id];
     cb.checked = !!entry;
+    // Lets the summary keep a stock's row (with its skipped rungs) listed
+    // for the session after it was ticked there.
+    if(entry && entry.skippedBy) cb.dataset.skippedBy = entry.skippedBy;
+    else delete cb.dataset.skippedBy;
     const rungEl = cb.closest(".rung");
     if(rungEl){ rungEl.classList.toggle("done", !!entry); }
   });
   document.querySelectorAll('.confirmed-tag').forEach(tag=>{
     const id = tag.dataset.confirmFor;
     const entry = ticks[id];
-    tag.textContent = entry ? ("✓ " + confirmedLabel(entry.tickedAt)) : "";
+    tag.textContent = !entry ? "" :
+      entry.skipped ? "skipped (bought a deeper rung)" : ("✓ " + confirmedLabel(entry.tickedAt));
   });
   renderLog();
   renderActionSummary();
+  renderOrderSheet(ticks);
 }
 
 // Ticks and notes sync independently -- keep their statuses separate so
@@ -530,7 +664,7 @@ function applyStoredTicks(){
 }
 
 async function exportCsv(){
-  const ticks = Object.values(loadTicksCache());
+  const ticks = Object.values(loadTicksCache()).filter(r => r.kind !== "order");
   const header = "tickedAt,ticker,tier,source,level,multiplier,amount,firstHit";
   const lines = [header, ...ticks.map(r=>[r.tickedAt,r.ticker,r.tier,r.source,r.level,r.multiplier,r.amount,r.firstHit].map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(","))];
   const csv = lines.join("\n");
@@ -699,6 +833,7 @@ function applyQuote(card, quote){
   const price = quote && quote.price;
   if(typeof price !== "number" || !isFinite(price)) return;
 
+  card.dataset.live = String(price);
   const priceEl = card.querySelector(".price");
   if(priceEl) priceEl.textContent = fmtLivePrice(price);
 
@@ -1071,6 +1206,48 @@ def rungs_to_show(s: dict, base_amount: float | None) -> list[dict]:
     return out
 
 
+def render_order_sheet(stocks_state: dict, stocks_cfg: dict, rules: dict) -> str:
+    """One standing limit order per buying stock: its next rung not yet hit.
+
+    Meant to be placed as a GTC limit buy at moomoo, so a rung fills on its
+    own when price touches it -- an intraday wick included -- instead of
+    depending on the page being open that day. Levels can move (low-zone
+    mode follows new lows), so the browser compares each against the level
+    you marked as placed and flags it for amending; see renderOrderSheet.
+    Prices are in USD; the amount is the rule's SGD amount -- there is no FX
+    rate in this system, so no share count is computed.
+    """
+    currency = rules.get("currency", "SGD")
+    rows = []
+    for tier in TIER_ORDER:
+        for ticker in sorted(t for t, c in stocks_cfg.items() if c.get("tier") == tier):
+            s = stocks_state.get(ticker) or {}
+            tier_cfg = rules.get("tiers", {}).get(tier) or {}
+            nxt = s.get("next_rung")
+            if not s.get("buy_enabled", True) or not nxt or tier_cfg.get("base_amount") is None:
+                continue
+            amount = round(tier_cfg["base_amount"] * nxt["multiplier"], 2)
+            rows.append(
+                f'<li data-order-ticker="{ticker}" data-level="{nxt["level"]}">'
+                f'<span class="o-tick">{ticker}</span>'
+                f'<span class="o-lvl">{fmt_price(nxt["level"])}</span>'
+                f'<span class="o-src">{html_escape(nxt["source"])} &middot; x{nxt["multiplier"]} '
+                f'<span class="o-dist"></span></span>'
+                f'<span class="o-amt">{fmt_money(amount, currency)}</span>'
+                f'<span class="o-status"></span><button type="button" class="o-btn"></button>'
+                f'</li>'
+            )
+    if not rows:
+        return ""
+    return (
+        '<div class="order-sheet" id="order-sheet"><h2>Limit orders to keep at moomoo</h2>'
+        '<div class="sum-sub">Each stock&#39;s next rung, as a GTC limit buy (price in USD). '
+        'Tap &ldquo;placed&rdquo; once it is in; a row turns amber when the level has moved more than '
+        f'{rules.get("order_amend_pct", 2.0):g}% from what you placed.</div>'
+        f'<ul>{"".join(rows)}</ul></div>'
+    )
+
+
 def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = None) -> str:
     tier = s.get("tier", "?")
     currency = rules.get("currency", "SGD")
@@ -1274,7 +1451,7 @@ def render_card(ticker: str, s: dict, rules: dict, rung_notes: dict | None = Non
     else:
         price_sub = f'<div class="price-date">{s.get("price_date","-")}</div>'
 
-    return f"""<div class="card {'has-open' if has_open else ''}" data-ticker="{ticker}" data-tier="{tier}" data-close="{s.get('price') if s.get('price') is not None else ''}" data-close-date="{s.get('price_date','-')}">
+    return f"""<div class="card {'has-open' if has_open else ''}" data-ticker="{ticker}" data-tier="{tier}" data-close="{s.get('price') if s.get('price') is not None else ''}" data-price="{price if price is not None else ''}" data-close-date="{s.get('price_date','-')}">
   <div class="card-head">
     <div><div class="name">{ticker} <span class="sub">{s.get('name','')}</span></div><div class="sub">{tier} &middot; {period_txt}</div></div>
     <div class="price-box" style="text-align:right;"><div class="price">{fmt_price(price)}</div><div class="price-sub">{price_sub}</div></div>
@@ -1518,6 +1695,8 @@ def build() -> str:
     html = html.replace("__CURRENCY__", rules.get("currency", "SGD"))
     html = html.replace("__STALE_COUNT__", str(stale_count))
     html = html.replace("__TIER_SECTIONS__", "".join(sections))
+    html = html.replace("__ORDER_SHEET__", render_order_sheet(stocks_state, stocks_cfg, rules))
+    html = html.replace("__ORDER_AMEND_PCT__", str(float(rules.get("order_amend_pct", 2.0))))
     html = html.replace("__VALUATION_TAB__", valuation_html)
     html = html.replace("__STATE_JSON__", json.dumps(state).replace("</", "<\\/"))
     return html
