@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T00:59:31.241809Z",
+  "generated_at": "2026-11-08T00:48:20.015963Z",
   "stocks": {
     "AMD": {
       "base_ladder": [
@@ -970,16 +970,7 @@
       "name": "Fortinet",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-11-06",
-          "id": "low-2",
-          "level": 118.84,
-          "multiplier": 1.5,
-          "source": "20-day low"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-3",
         "level": 110.5212,
