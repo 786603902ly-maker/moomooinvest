@@ -196,25 +196,12 @@ stocks:
 
   - ticker: LRCX
     name: Lam Research
-    tier: T3.5
-    ladder:
-      drop_step_pct: 7.0       # note: "drop 7%" on rung 3
+    tier: T5                   # 2026-11-09 watchlist: "T3.5->5" -- now held to
+                               # sell out of, so no buy ladder (T5 is sell-only).
     target_price: 395.00
     target_price_prev: 220
     fair_value: 310.00
     fair_value_prev: 313
-    fundamentals_updated: "2026-08-22"
-    fundamentals_source: "moomoo (user CSV export)"
-
-  - ticker: FTNT
-    name: Fortinet
-    tier: T3.5
-    ladder:
-      drop_step_pct: 7.0       # note: "drop 7%" / "another 7% drop"
-    target_price: 173.42
-    target_price_prev: 108
-    fair_value: 143.00
-    fair_value_prev: 86
     fundamentals_updated: "2026-08-22"
     fundamentals_source: "moomoo (user CSV export)"
 
@@ -248,7 +235,9 @@ stocks:
 
   - ticker: V
     name: Visa
-    tier: T5
+    tier: T3.5                 # 2026-11-09 watchlist: "T3.5 |V" (was T5). Buys
+                               # again on the T3.5 ladder; the sell target below
+                               # is kept as it was.
     sell_targets:
       - level: 385
         action: "sell half"

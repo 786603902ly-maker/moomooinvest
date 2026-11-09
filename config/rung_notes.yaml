@@ -102,10 +102,6 @@ notes:
     rung-drop-1: "drop 7% on top of ma250"
     rung-drop-2: "drop 7% on top of ma250"
 
-  FTNT:
-    rung-drop-1: "drop 7%"
-    rung-drop-2: "another 7% drop"
-
   LRCX:
     rung-drop-2: "drop 7%"
 

@@ -11,6 +11,7 @@ import sys
 from zoneinfo import ZoneInfo
 
 from common import DATA_DIR, ROOT, load_rules, load_rung_notes, load_state, load_stocks, normalize_rung_id
+from engine import extend_with_drop_cascade
 
 TIER_ORDER = ["T1", "T2", "T3", "T3.5", "T5", "T9"]
 NY = ZoneInfo("America/New_York")
@@ -87,70 +88,43 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
   background:var(--warn-soft); border:1px solid var(--warn); color:var(--warn);
   border-radius:10px; padding:.7rem 1rem; font-size:.88rem; margin-bottom:1.25rem;
 }
-.action-summary{
+.order-sheet{
   background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent);
   border-radius:12px; padding:.9rem 1.1rem; margin-bottom:1.25rem;
 }
-.action-summary.clear{border-left-color:var(--good);}
-.action-summary h2{font-family:var(--font-display); font-size:1rem; margin:0 0 .15rem;}
-.action-summary .sum-sub{color:var(--text-muted); font-size:.78rem; margin-bottom:.6rem;}
-.action-summary ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem;}
-.action-summary li{
-  display:flex; gap:.6rem; align-items:baseline; flex-wrap:wrap;
-  padding:.35rem .5rem; border-radius:8px; background:var(--surface-2); cursor:pointer;
-}
-.action-summary li:hover{outline:1px solid var(--accent);}
-.action-summary .s-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
-.action-summary .s-cb{
-  width:18px; height:18px; margin:0; align-self:center; flex:none;
-  accent-color:var(--accent); cursor:pointer;
-}
-.action-summary li.done{opacity:.5;}
-.action-summary .s-skip{color:var(--text-muted); font-size:.72rem;}
-.action-summary .s-now{color:var(--text-muted); font-size:.72rem; white-space:nowrap;}
-.order-sheet{
-  background:var(--surface); border:1px solid var(--border); border-radius:12px;
-  padding:.9rem 1.1rem; margin-bottom:1.25rem;
-}
+.order-sheet.clear{border-left-color:var(--good);}
 .order-sheet h2{font-family:var(--font-display); font-size:1rem; margin:0 0 .15rem;}
 .order-sheet .sum-sub{color:var(--text-muted); font-size:.78rem; margin-bottom:.6rem;}
-.order-sheet ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.3rem;}
-.order-sheet li{
-  display:flex; gap:.6rem; align-items:center; flex-wrap:wrap;
-  padding:.35rem .5rem; border-radius:8px; background:var(--surface-2);
+.order-sheet ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.35rem;}
+.order-sheet ul + ul{margin-top:.35rem;}
+.order-sheet li{padding:.4rem .55rem; border-radius:8px; background:var(--surface-2); cursor:pointer;}
+.order-sheet li:hover{outline:1px solid var(--accent);}
+.order-sheet li.needs{border-left:3px solid var(--accent);}
+.order-sheet .o-head{display:flex; gap:.5rem; align-items:baseline; flex-wrap:wrap;}
+.order-sheet .o-tick{font-family:var(--font-display); font-weight:700;}
+.order-sheet .o-tier{
+  color:var(--text-muted); font-size:.7rem; font-weight:700; border:1px solid var(--border);
+  border-radius:999px; padding:.05rem .4rem;
 }
-.order-sheet .o-tick{font-family:var(--font-display); font-weight:700; min-width:4.2rem;}
-.order-sheet .o-lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
-.order-sheet .o-src{color:var(--text-muted); flex:1; font-size:.8rem;}
-.order-sheet .o-amt{font-variant-numeric:tabular-nums; font-weight:600;}
-.order-sheet .o-status{font-size:.74rem; white-space:nowrap; color:var(--text-muted);}
-.order-sheet li.amend{border-left:3px solid var(--warn);}
-.order-sheet li.amend .o-status{color:var(--warn); font-weight:700;}
-.order-sheet li.placed .o-status{color:var(--good);}
-.order-sheet li.reached .o-status{color:var(--accent); font-weight:700;}
+.order-sheet .o-rule{color:var(--text-muted); font-size:.72rem; flex:1;}
+.order-sheet .o-line{display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; font-size:.82rem; margin-top:.25rem;}
+.order-sheet .o-text{flex:1; font-variant-numeric:tabular-nums;}
+.order-sheet .o-dist, .order-sheet .o-then{color:var(--text-muted); font-size:.74rem; white-space:nowrap;}
+.order-sheet .o-status{font-size:.74rem; white-space:nowrap; color:var(--text-muted); margin-left:.3rem;}
+.order-sheet .o-line.todo .o-status{color:var(--accent); font-weight:700;}
+.order-sheet .o-line.amend .o-status{color:var(--warn); font-weight:700;}
+.order-sheet .o-line.placed .o-status{color:var(--good);}
+.order-sheet .o-line.now{color:var(--accent); font-weight:600;}
+.order-sheet .o-line.filled{color:var(--good);}
+.order-sheet .o-line.sell{color:var(--good); font-weight:600;}
 .order-sheet button{
   font:inherit; font-size:.72rem; padding:.15rem .5rem; border-radius:6px;
   border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer;
 }
-.action-summary li.done .s-lvl, .action-summary li.done .s-amt{text-decoration:line-through;}
 .rung.sell{border-color:var(--good); background:var(--good-soft);}
 .rung.sell.pending{background:transparent; border-style:dashed;}
 .rung.sell .amt{color:var(--good);}
 .rung .bought-tag{color:var(--good); font-size:.72rem; font-weight:600; white-space:nowrap;}
-.action-summary .s-tier{
-  color:var(--text-muted); font-size:.7rem; font-weight:700; letter-spacing:.03em;
-  border:1px solid var(--border); border-radius:999px; padding:.05rem .4rem; min-width:2.6rem;
-  text-align:center;
-}
-.action-summary .s-lvl{font-variant-numeric:tabular-nums; font-weight:600; min-width:5.2rem;}
-.action-summary .s-src{color:var(--text-muted); flex:1; font-size:.8rem;}
-.action-summary .s-amt{font-variant-numeric:tabular-nums; font-weight:600;}
-.action-summary .s-sell{
-  color:var(--good); font-weight:700; font-variant-numeric:tabular-nums;
-}
-.action-summary li.sell{border-left:3px solid var(--good);}
-.action-summary .s-when{color:var(--text-muted); font-size:.74rem; white-space:nowrap;}
-.action-summary .s-new{color:var(--accent); font-weight:700; font-size:.74rem; white-space:nowrap;}
 .summary-row{display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:1.75rem;}
 .stat{
   background:var(--surface); border:1px solid var(--border); border-radius:12px;
@@ -284,7 +258,6 @@ table.val-table td.bad{color:var(--bad);}
     <button class="tab-btn" data-tab="valuation">Valuation overview</button>
   </div>
   <div class="tabpanel active" id="tab-alerts">
-    <div class="action-summary" id="action-summary"></div>
     __ORDER_SHEET__
     <div class="summary-row">
       <div class="stat hot"><div class="n">__OPEN_COUNT__</div><div class="l">open triggers</div></div>
@@ -354,24 +327,24 @@ function confirmedLabel(iso){
   return sameDay ? "confirmed today" : "confirmed " + d.toISOString().slice(0,10);
 }
 
-// What still needs doing, at the top of the page: every rung that has a
-// checkbox (i.e. its level was reached) and is NOT ticked yet. Rungs you
-// already confirmed are deliberately left out -- the point is to answer
-// "what do I act on right now" in one glance, so anything already handled
-// is noise. It reads the checkboxes rather than state.json because only the
-// browser knows what's ticked: tick state lives in the sync backend, not in
-// the committed state the page is built from. That also means it covers
-// intraday live hits and custom targets for free, since those are checkboxes
-// too.
+// The top panel: one row per buying stock, saying which standing limit order
+// to have at moomoo right now. It replaced the "reached but not ticked" list
+// (2026-11-09): the user always skips the shallower of several reached
+// rungs, so ticking to skip was noise, and they don't open the page daily, so
+// the useful question is "what order should be sitting at the broker".
+//
+// Discipline it follows (the user's own rules):
+//  - each rung buys at most once per refresh period, but several rungs can
+//    buy within one period as price keeps falling -- so once an order's level
+//    is reached, the row adds the NEXT lower rung to place;
+//  - when price has fallen through several rungs since the last visit, only
+//    the deepest one is offered (buy at market), never the shallower ones;
+//  - levels can move (low-zone mode, a period reset), so a placed order whose
+//    level drifted more than ORDER_AMEND_PCT is flagged to amend.
+// Rung data comes from the server (data-plan); placed marks and buys come
+// from the synced tick store, so every device agrees.
 const CURRENCY = "__CURRENCY__";
-
-// Each summary row carries its own checkbox, a proxy for the card's: it has
-// no data-id (so nothing that scans card checkboxes picks it up) and ticking
-// it just flips the card checkbox and runs the normal onToggle path, so the
-// two can never disagree. A row ticked here stays listed, struck through,
-// until the page is reloaded -- otherwise a mis-tap would vanish with no way
-// to undo it from the summary.
-const summaryTickedThisSession = new Set();
+const ORDER_AMEND_PCT = __ORDER_AMEND_PCT__;
 
 function findRungCheckbox(id){
   for(const cb of document.querySelectorAll('input[type=checkbox][data-id]')){
@@ -389,185 +362,192 @@ function cardPrice(ticker){
   return isFinite(live) ? live : parseFloat(card.dataset.price);
 }
 
-// Buys are grouped per stock and only the DEEPEST reached rung is offered
-// (the user's rule, 2026-11-07: they check the page every few days, and by
-// then several rungs of one stock may be open; they want one buy at the
-// lowest of them, not the sum of all). Ticking the row ticks that rung and
-// files every shallower open rung of the stock as "skipped", so they leave
-// the list too. Sells stay one row per target.
-function renderActionSummary(){
-  const el = document.getElementById("action-summary");
-  if(!el) return;
-
-  const groups = new Map();
-  document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
-    const kept = summaryTickedThisSession.has(cb.dataset.id) ||
-      summaryTickedThisSession.has(cb.dataset.skippedBy || "");
-    if(cb.checked && !kept) return;
-    const kind = cb.dataset.kind === "sell" ? "sell" : "buy";
-    const r = {
-      id: cb.dataset.id,
-      done: cb.checked,
-      ticker: cb.dataset.ticker || "",
-      tier: cb.dataset.tier || "",
-      kind,
-      level: parseFloat(cb.dataset.level),
-      source: cb.dataset.source || "",
-      amount: parseFloat(cb.dataset.amount) || 0,
-      firstHit: cb.dataset.firsthit || "",
-    };
-    const key = kind === "buy" ? "buy|" + r.ticker : "sell|" + r.id;
-    if(!groups.has(key)) groups.set(key, []);
-    groups.get(key).push(r);
-  });
-
-  const rows = [...groups.values()].map(rungs => {
-    rungs.sort((a, b) => a.level - b.level);
-    const deepest = rungs[0];
-    return {...deepest, others: rungs.slice(1), done: rungs.every(r => r.done),
-            price: cardPrice(deepest.ticker)};
-  });
-  const pending = rows.filter(r => !r.done);
-
-  if(!rows.length){
-    el.classList.add("clear");
-    el.innerHTML = '<h2>Nothing to act on</h2>' +
-      '<div class="sum-sub">No threshold is waiting for you. Anything already confirmed is in the Action log below.</div>';
-    return;
-  }
-
-  const today = etDateStr();
-  // Sells first -- taking profit is time-sensitive in a way a DCA buy is not
-  // -- then most recently hit.
-  rows.sort((a, b) =>
-    (a.kind === b.kind ? 0 : a.kind === "sell" ? -1 : 1) ||
-    (b.firstHit || "").localeCompare(a.firstHit || "") ||
-    a.ticker.localeCompare(b.ticker));
-  const buys = pending.filter(r => r.kind === "buy");
-  const sells = pending.filter(r => r.kind === "sell");
-  const total = buys.reduce((sum, r) => sum + r.amount, 0);
-  const fmtAmt = v => CURRENCY + ' ' + v.toLocaleString("en-US", {maximumFractionDigits: 0});
-
-  const parts = [];
-  if(sells.length) parts.push(sells.length + ' to sell');
-  if(buys.length) parts.push(buys.length + ' to buy (' + fmtAmt(total) + ')');
-
-  el.classList.toggle("clear", !pending.length);
-  el.innerHTML =
-    (pending.length
-      ? '<h2>' + pending.length + ' to act on now — ' + parts.join(', ') + '</h2>'
-      : '<h2>Nothing to act on</h2>') +
-    '<div class="sum-sub">One row per stock: the deepest rung price has reached, ' +
-      'at its amount only. Ticking it files the shallower ones as skipped.</div>' +
-    '<ul>' + rows.map(r =>
-      '<li class="' + r.kind + (r.done ? ' done' : '') + '" data-goto="' + r.ticker + '">' +
-        '<input type="checkbox" class="s-cb" data-for="' + r.id.replace(/"/g, '&quot;') + '"' +
-          ' data-skip="' + r.others.map(o => o.id).join("\n").replace(/"/g, '&quot;') + '"' +
-          (r.done ? ' checked' : '') + ' aria-label="Confirm ' + r.ticker + ' ' + r.source + '">' +
-        '<span class="s-tick">' + r.ticker + '</span>' +
-        '<span class="s-tier">' + r.tier + '</span>' +
-        '<span class="s-lvl">' + fmtLivePrice(r.level) + '</span>' +
-        '<span class="s-src">' + r.source +
-          (r.others.length ? ' <span class="s-skip">+' + r.others.length + ' shallower</span>' : '') +
-          (isFinite(r.price) ? ' <span class="s-now">now ' + fmtLivePrice(r.price) + '</span>' : '') +
-        '</span>' +
-        (r.kind === "sell"
-          ? '<span class="s-sell">SELL</span>'
-          : '<span class="s-amt">' + fmtAmt(r.amount) + '</span>') +
-        (r.firstHit === today
-          ? '<span class="s-new">reached today</span>'
-          : '<span class="s-when">reached ' + r.firstHit + '</span>') +
-      '</li>').join('') +
-    '</ul>';
+function fmtAmt(v){
+  return CURRENCY + ' ' + Number(v || 0).toLocaleString("en-US", {maximumFractionDigits: 0});
 }
 
-// Order-sheet marks share the tick store (so they sync across devices) under
-// "order|TICKER" ids with kind "order"; the Action log and CSV skip them.
-const ORDER_AMEND_PCT = __ORDER_AMEND_PCT__;
+// Same id the card's checkbox (server-rendered or live-injected) carries.
+function planTickId(ticker, r){
+  return ticker + "|" + r.id + "|" + (r.hit || etDateStr());
+}
+
+function orderState(plan, price, ticks){
+  const live = isFinite(price);
+  const reached = r => r.fired || (live && price <= r.level);
+  const open = plan.rungs.filter(r => !reached(r));          // highest first
+  const next = open[0] || null;
+  const then = open[1] || null;
+
+  const mark = ticks["order|" + plan.ticker] || null;
+  let filled = null;
+  if(mark){
+    const since = (mark.placedAt || "").slice(0, 10);
+    const hitByClose = plan.rungs.some(r =>
+      r.fired && (r.hit || "") >= since && r.level <= mark.level * (1 + 1e-6));
+    if((live && price <= mark.level) || hitByClose){
+      filled = plan.rungs.find(r => r.id === mark.rungId) ||
+        {id: mark.rungId, level: mark.level, mult: mark.mult, amount: mark.amount,
+         source: mark.source, hit: mark.hit};
+    }
+  }
+
+  // Deepest rung price is still at or below. Offered only if neither it nor
+  // the filled order already took this level -- the shallower ones are
+  // never offered, which is the "skip" the user always wants.
+  let buyNow = null;
+  if(live){
+    const under = plan.rungs.filter(r => price <= r.level);
+    const deepest = under[under.length - 1];
+    if(deepest && !ticks[planTickId(plan.ticker, deepest)] && !(filled && filled.id === deepest.id)){
+      buyNow = deepest;
+    }
+  }
+
+  const moved = !!(mark && !filled && next &&
+    Math.abs(next.level - mark.level) / mark.level * 100 > ORDER_AMEND_PCT);
+  return {next, then, mark, filled, buyNow, moved};
+}
+
+function buyEntry(plan, r){
+  return {
+    ticker: plan.ticker, tier: plan.tier, source: r.source, level: String(r.level),
+    multiplier: String(r.mult), amount: String(r.amount), firstHit: r.hit || etDateStr(),
+    tickedAt: new Date().toISOString(),
+  };
+}
+
+function markEntry(r){
+  return {kind: "order", rungId: r.id, level: r.level, mult: r.mult, amount: r.amount,
+          source: r.source, hit: r.hit || "", placedAt: new Date().toISOString()};
+}
+
+function writeTicks(changes){
+  const ticks = loadTicksCache();
+  for(const [id, entry] of changes){
+    if(entry) ticks[id] = entry; else delete ticks[id];
+    pushTick(id, entry).catch(()=>{
+      setSyncStatus("Couldn't save that to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.", "ticks");
+    });
+  }
+  saveTicksCache(ticks);
+  applyTicksToDom(ticks);
+}
+
+function line(cls, text, actions){
+  return '<div class="o-line ' + cls + '"><span class="o-text">' + text + '</span>' +
+    actions.map(([act, label]) => '<button type="button" class="o-btn" data-act="' + act + '">' + label + '</button>').join('') +
+    '</div>';
+}
 
 function renderOrderSheet(ticks){
-  document.querySelectorAll('#order-sheet li[data-order-ticker]').forEach(li=>{
-    const ticker = li.dataset.orderTicker;
-    const level = parseFloat(li.dataset.level);
-    const price = cardPrice(ticker);
-    const placed = ticks["order|" + ticker];
-    const status = li.querySelector(".o-status");
-    const btn = li.querySelector(".o-btn");
-    const dist = li.querySelector(".o-dist");
-    if(dist) dist.textContent = isFinite(price) ? (((level - price) / price * 100).toFixed(1) + "% from now") : "";
-    li.classList.remove("amend", "placed", "reached");
-    const moved = placed && Math.abs(level - placed.level) / placed.level * 100 > ORDER_AMEND_PCT;
-    if(isFinite(price) && price <= level){
-      li.classList.add("reached");
-      status.textContent = "price is here — see the list above";
-    } else if(!placed){
-      status.textContent = "not placed";
-    } else if(moved){
-      li.classList.add("amend");
-      status.textContent = "amend: placed " + fmtLivePrice(placed.level) + " → " + fmtLivePrice(level);
-    } else {
-      li.classList.add("placed");
-      status.textContent = "placed " + fmtLivePrice(placed.level) + " ✓";
+  const sheet = document.getElementById("order-sheet");
+  if(!sheet) return;
+  let todo = 0;
+
+  // Sell targets reached and not yet done -- the only kind of row that is
+  // not an order, kept here so the panel stays the one place to look.
+  const sells = [...document.querySelectorAll('input[type=checkbox][data-id][data-kind="sell"]')]
+    .filter(cb => !cb.checked);
+  const sellBox = sheet.querySelector(".o-sells");
+  if(sellBox){
+    sellBox.innerHTML = sells.map(cb =>
+      '<li data-goto="' + cb.dataset.ticker + '" data-sell-id="' + cb.dataset.id.replace(/"/g, '&quot;') + '">' +
+        '<div class="o-head"><span class="o-tick">' + cb.dataset.ticker + '</span>' +
+        '<span class="o-tier">' + (cb.dataset.tier || '') + '</span></div>' +
+        line("sell", 'SELL at ' + fmtLivePrice(parseFloat(cb.dataset.level)) + ' &middot; ' + cb.dataset.source +
+          ' &middot; now ' + fmtLivePrice(cardPrice(cb.dataset.ticker)), [["sold", "done"]]) +
+      '</li>').join('');
+    todo += sells.length;
+  }
+
+  sheet.querySelectorAll('li[data-plan]').forEach(li=>{
+    const plan = JSON.parse(li.dataset.plan);
+    const price = cardPrice(plan.ticker);
+    const st = orderState(plan, price, ticks);
+    const lines = [];
+
+    if(st.buyNow){
+      lines.push(line("now",
+        'Price ' + fmtLivePrice(price) + ' is under ' + fmtLivePrice(st.buyNow.level) +
+        ' (' + st.buyNow.source + (st.buyNow.hit ? ', reached ' + st.buyNow.hit : '') +
+        ') &mdash; buy at market: <b>' + fmtAmt(st.buyNow.amount) + '</b>',
+        [["bought", "bought"]]));
     }
-    btn.textContent = !placed ? "placed" : moved ? "amended" : "clear";
-    btn.dataset.action = placed && !moved ? "clear" : "place";
+    if(st.filled){
+      lines.push(line("filled",
+        '✓ Order at ' + fmtLivePrice(st.filled.level) + ' reached &mdash; counts as this period&#39;s buy at that rung', []));
+    }
+
+    if(st.next){
+      const dist = isFinite(price) ? ' <span class="o-dist">' + ((st.next.level - price) / price * 100).toFixed(1) + '%</span>' : '';
+      const then = st.then ? ' <span class="o-then">then ' + fmtLivePrice(st.then.level) + '</span>' : '';
+      const order = 'Limit buy <b>' + fmtLivePrice(st.next.level) + '</b> &middot; ' + fmtAmt(st.next.amount) +
+        ' &middot; x' + st.next.mult + dist + then;
+      let cls, status, actions;
+      if(st.filled){
+        cls = "todo"; status = "next order"; actions = [["place", "placed"]];
+      } else if(!st.mark){
+        cls = "todo"; status = "not placed"; actions = [["place", "placed"]];
+      } else if(st.moved){
+        cls = "amend"; status = "amend: placed " + fmtLivePrice(st.mark.level);
+        actions = [["place", "amended"]];
+      } else {
+        cls = "placed"; status = "placed ✓"; actions = [["filled", "filled"], ["clear", "×"]];
+      }
+      lines.push(line(cls, order + ' <span class="o-status">' + status + '</span>', actions));
+    } else {
+      lines.push(line("placed", "No lower rung left this period.", []));
+    }
+
+    const needs = !!(st.buyNow || st.filled || !st.mark || st.moved);
+    if(needs) todo++;
+    li.classList.toggle("needs", needs);
+    li.querySelector(".o-lines").innerHTML = lines.join('');
+    li._state = st;
+    li._plan = plan;
   });
+
+  const h = sheet.querySelector("h2");
+  if(h) h.textContent = todo ? todo + " to act on — orders to keep at moomoo" : "All set — orders to keep at moomoo";
+  sheet.classList.toggle("clear", !todo);
 }
 
 document.addEventListener("click", (e)=>{
   const btn = e.target.closest('#order-sheet .o-btn');
-  if(!btn) return;
-  const li = btn.closest("li[data-order-ticker]");
-  const id = "order|" + li.dataset.orderTicker;
-  const entry = btn.dataset.action === "clear" ? null : {
-    kind: "order", ticker: li.dataset.orderTicker,
-    level: parseFloat(li.dataset.level), placedAt: new Date().toISOString(),
-  };
-  const ticks = loadTicksCache();
-  if(entry) ticks[id] = entry; else delete ticks[id];
-  saveTicksCache(ticks);
-  renderOrderSheet(ticks);
-  pushTick(id, entry).catch(()=>{
-    setSyncStatus("Couldn't save that order mark to the sync backend -- it's saved on this device only for now.", "ticks");
-  });
-});
-
-function skippedEntry(cb, deepestId){
-  return {
-    ticker: cb.dataset.ticker, tier: cb.dataset.tier,
-    source: (cb.dataset.source || "") + " (skipped)",
-    level: cb.dataset.level, multiplier: cb.dataset.multiplier, amount: "0",
-    firstHit: cb.dataset.firsthit, tickedAt: new Date().toISOString(),
-    skipped: true, skippedBy: deepestId,
-  };
-}
-
-document.addEventListener("change", (e)=>{
-  if(!e.target.matches('.action-summary input.s-cb')) return;
-  const cb = findRungCheckbox(e.target.dataset.for);
-  if(!cb){ renderActionSummary(); return; }
-  summaryTickedThisSession.add(cb.dataset.id);
-  const skipIds = (e.target.dataset.skip || "").split("\n").filter(Boolean);
-  const ticks = loadTicksCache();
-  for(const id of skipIds){
-    const other = findRungCheckbox(id);
-    if(!other) continue;
-    const entry = e.target.checked ? skippedEntry(other, cb.dataset.id) : null;
-    if(entry) ticks[id] = entry; else delete ticks[id];
-    pushTick(id, entry).catch(()=>{
-      setSyncStatus("Couldn't save that tick to the sync backend -- it's saved on this device only for now. Reload once it's back to retry.", "ticks");
-    });
+  if(btn){
+    const li = btn.closest("li");
+    const act = btn.dataset.act;
+    if(act === "sold"){
+      const cb = findRungCheckbox(li.dataset.sellId);
+      if(cb){ cb.checked = true; onToggle(cb); }
+      return;
+    }
+    const plan = li._plan, st = li._state;
+    if(!plan || !st) return;
+    const key = "order|" + plan.ticker;
+    const changes = [];
+    if(act === "bought"){
+      changes.push([planTickId(plan.ticker, st.buyNow), buyEntry(plan, st.buyNow)]);
+    } else if(act === "place"){
+      // Placing the next order after a fill also records that fill as a buy.
+      if(st.filled && !loadTicksCache()[planTickId(plan.ticker, st.filled)]){
+        changes.push([planTickId(plan.ticker, st.filled), buyEntry(plan, st.filled)]);
+      }
+      changes.push([key, markEntry(st.next)]);
+    } else if(act === "filled" && st.mark){
+      const r = plan.rungs.find(x => x.id === st.mark.rungId) ||
+        {id: st.mark.rungId, level: st.mark.level, mult: st.mark.mult, amount: st.mark.amount, source: st.mark.source, hit: st.mark.hit};
+      changes.push([planTickId(plan.ticker, r), buyEntry(plan, r)]);
+      changes.push([key, null]);
+    } else if(act === "clear"){
+      changes.push([key, null]);
+    }
+    if(changes.length) writeTicks(changes);
+    return;
   }
-  saveTicksCache(ticks);
-  cb.checked = e.target.checked;
-  onToggle(cb);
-});
-
-// Jump to the stock's card from the summary (but not when the tap was on
-// the row's checkbox).
-document.addEventListener("click", (e)=>{
-  if(e.target.closest('.action-summary input.s-cb')) return;
-  const li = e.target.closest('.action-summary li[data-goto]');
+  // Anywhere else on a row: jump to that stock's card, where the whole
+  // ladder (including the rungs after "then") is listed.
+  const li = e.target.closest('#order-sheet li[data-goto]');
   if(!li) return;
   const card = document.querySelector('.card[data-ticker="' + li.dataset.goto + '"]');
   if(card) card.scrollIntoView({behavior: "smooth", block: "center"});
@@ -577,10 +557,6 @@ function applyTicksToDom(ticks){
   document.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
     const entry = ticks[cb.dataset.id];
     cb.checked = !!entry;
-    // Lets the summary keep a stock's row (with its skipped rungs) listed
-    // for the session after it was ticked there.
-    if(entry && entry.skippedBy) cb.dataset.skippedBy = entry.skippedBy;
-    else delete cb.dataset.skippedBy;
     const rungEl = cb.closest(".rung");
     if(rungEl){ rungEl.classList.toggle("done", !!entry); }
   });
@@ -591,7 +567,6 @@ function applyTicksToDom(ticks){
       entry.skipped ? "skipped (bought a deeper rung)" : ("✓ " + confirmedLabel(entry.tickedAt));
   });
   renderLog();
-  renderActionSummary();
   renderOrderSheet(ticks);
 }
 
@@ -1021,7 +996,6 @@ async function refreshLivePrices(manual){
     // the "done" styling and the summary all match what is on screen now.
     liveCheckboxAdded = false;
     applyTicksToDom(loadTicksCache());
-    renderActionSummary();
     const missing = tickers.length - applied;
     setLiveStatus(
       "Live as of " + new Date().toLocaleTimeString() +
@@ -1206,45 +1180,90 @@ def rungs_to_show(s: dict, base_amount: float | None) -> list[dict]:
     return out
 
 
-def render_order_sheet(stocks_state: dict, stocks_cfg: dict, rules: dict) -> str:
-    """One standing limit order per buying stock: its next rung not yet hit.
+PERIOD_WORDS = {"weekly": "week", "biweekly": "2 weeks", "monthly": "month"}
 
-    Meant to be placed as a GTC limit buy at moomoo, so a rung fills on its
-    own when price touches it -- an intraday wick included -- instead of
-    depending on the page being open that day. Levels can move (low-zone
-    mode follows new lows), so the browser compares each against the level
-    you marked as placed and flags it for amending; see renderOrderSheet.
-    Prices are in USD; the amount is the rule's SGD amount -- there is no FX
-    rate in this system, so no share count is computed.
+
+def next_reset(period: dict) -> str:
+    """The date this stock's ladder rebuilds (start of its next period)."""
+    start = period.get("start_date")
+    if not start:
+        return "-"
+    d = dt.date.fromisoformat(start)
+    if period.get("type") == "weekly":
+        return (d + dt.timedelta(days=7)).isoformat()
+    if period.get("type") == "biweekly":
+        return (d + dt.timedelta(days=14)).isoformat()
+    return (d.replace(day=28) + dt.timedelta(days=4)).replace(day=1).isoformat()
+
+
+def order_plan(ticker: str, s: dict, rules: dict) -> dict | None:
+    """Every rung of this period, highest first, for the browser to pick the
+    standing order from (renderOrderSheet).
+
+    The ladder plus its drop cascade projected well below today's price, with
+    the same ids and levels run_check would give them, so a fill the evening
+    run later sees lines up with the order the page suggested.
     """
-    currency = rules.get("currency", "SGD")
+    tier_cfg = rules.get("tiers", {}).get(s.get("tier")) or {}
+    base = tier_cfg.get("base_amount")
+    ladder = s.get("ladder") or []
+    price = s.get("display_price") or s.get("price")
+    if not s.get("buy_enabled", True) or base is None or not ladder or not price:
+        return None
+    guard = s.get("trend_guard") or {}
+    step = (guard.get("drop_step_pct") if guard.get("active") else None) \
+        or (s.get("ladder_config") or {}).get("drop_step_pct") or rules["drop_step_pct"]
+    full = extend_with_drop_cascade(ladder, min(price, ladder[-1]["level"]) * 0.6,
+                                    rules["cap_multiplier"], float(step))
+    fired = {f["id"]: f for f in s.get("fired_this_period") or []}
+    rows = {r["id"]: r for r in full}
+    for f in fired.values():  # a fired rung the ladder no longer lists
+        rows.setdefault(f["id"], f)
+    rungs = []
+    for r in sorted(rows.values(), key=lambda r: -r["level"]):
+        if r.get("multiplier") is None:
+            continue
+        hit = fired.get(r["id"], {}).get("first_hit_date") or ""
+        rungs.append({
+            "id": r["id"], "level": r["level"], "mult": r["multiplier"],
+            "amount": round(base * r["multiplier"], 2), "source": r.get("source", ""),
+            "fired": r["id"] in fired, "hit": hit,
+        })
+    period = s.get("period") or {}
+    return {"ticker": ticker, "tier": s.get("tier"), "rungs": rungs,
+            "refresh": period.get("type"), "reset": next_reset(period)}
+
+
+def render_order_sheet(stocks_state: dict, stocks_cfg: dict, rules: dict) -> str:
+    """The top panel: which limit order each buying stock should have at
+    moomoo right now. Rows are filled in by renderOrderSheet in the browser,
+    because placed orders and buys live in the tick store, not in state.json.
+    Prices are USD; amounts are the rule's SGD amounts (no FX in this system).
+    """
     rows = []
     for tier in TIER_ORDER:
+        if not (rules.get("tiers", {}).get(tier) or {}).get("buy_enabled", True):
+            continue  # sell-only tier, even if state.json still predates the move
         for ticker in sorted(t for t, c in stocks_cfg.items() if c.get("tier") == tier):
-            s = stocks_state.get(ticker) or {}
-            tier_cfg = rules.get("tiers", {}).get(tier) or {}
-            nxt = s.get("next_rung")
-            if not s.get("buy_enabled", True) or not nxt or tier_cfg.get("base_amount") is None:
+            plan = order_plan(ticker, stocks_state.get(ticker) or {}, rules)
+            if not plan:
                 continue
-            amount = round(tier_cfg["base_amount"] * nxt["multiplier"], 2)
+            words = PERIOD_WORDS.get(plan["refresh"], plan["refresh"] or "period")
+            rule = f'{plan["refresh"]}: each rung buys once per {words}, deeper rungs can buy again &middot; resets {plan["reset"]}'
             rows.append(
-                f'<li data-order-ticker="{ticker}" data-level="{nxt["level"]}">'
-                f'<span class="o-tick">{ticker}</span>'
-                f'<span class="o-lvl">{fmt_price(nxt["level"])}</span>'
-                f'<span class="o-src">{html_escape(nxt["source"])} &middot; x{nxt["multiplier"]} '
-                f'<span class="o-dist"></span></span>'
-                f'<span class="o-amt">{fmt_money(amount, currency)}</span>'
-                f'<span class="o-status"></span><button type="button" class="o-btn"></button>'
-                f'</li>'
+                f'<li data-goto="{ticker}" data-plan="{html_escape(json.dumps(plan))}">'
+                f'<div class="o-head"><span class="o-tick">{ticker}</span><span class="o-tier">{plan["tier"]}</span>'
+                f'<span class="o-rule">{rule}</span></div><div class="o-lines"></div></li>'
             )
     if not rows:
         return ""
     return (
-        '<div class="order-sheet" id="order-sheet"><h2>Limit orders to keep at moomoo</h2>'
-        '<div class="sum-sub">Each stock&#39;s next rung, as a GTC limit buy (price in USD). '
-        'Tap &ldquo;placed&rdquo; once it is in; a row turns amber when the level has moved more than '
-        f'{rules.get("order_amend_pct", 2.0):g}% from what you placed.</div>'
-        f'<ul>{"".join(rows)}</ul></div>'
+        '<div class="order-sheet" id="order-sheet"><h2>Orders to keep at moomoo</h2>'
+        '<div class="sum-sub">One GTC limit buy per stock at its next rung (USD). Tap <b>placed</b> once it is in. '
+        'When price reaches it, the row moves on to the next lower rung; if price has dropped through several '
+        'rungs, only the deepest is offered. Amber = level moved more than '
+        f'{rules.get("order_amend_pct", 2.0):g}% from your order. Tap a row for the full ladder.</div>'
+        f'<ul class="o-sells"></ul><ul>{"".join(rows)}</ul></div>'
     )
 
 

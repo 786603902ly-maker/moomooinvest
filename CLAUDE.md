@@ -133,15 +133,22 @@ reads) and `ladder` (its low-zone version, recomputed each run). Invariants:
   "never tidy fired entries" rule below. It runs only on the first low-zone
   evaluation of a period (`low_zone` absent from that period's prev state).
 
-## Summary grouping and order sheet (2026-11-07)
+## Top panel = order sheet (2026-11-09)
 
-- The top summary groups buys per stock and offers only the deepest reached
-  rung (user's choice). Ticking it writes `skipped: true, skippedBy: <id>`
-  tick entries for the shallower open rungs -- they are real tick ids, so
-  the card boxes show as ticked. Keep that pairing if you touch either.
-- Order-sheet marks live in the same KV tick map as `order|TICKER` entries
-  with `kind: "order"`. Anything that lists ticks (Action log, CSV, any
-  future reader of `data/ticks.json`) must skip `kind == "order"`.
+The "reached but not ticked" summary is gone (user: skipping shallower rungs
+by ticking was redundant). `render_order_sheet` / `order_plan` embed each
+buying stock's rungs (ladder + drop cascade, same ids as the engine) and
+`renderOrderSheet` in the browser picks: next unreached rung as the standing
+order, a fill of the placed order, and the deepest reached-unbought rung as
+"buy at market" -- never a shallower one. Invariants:
+
+- Buys recorded from the panel must use the card's tick id
+  (`ticker|rung-id|first_hit_date`, live date when not fired yet), so the
+  card checkbox shows them ticked.
+- Order marks are `order|TICKER` with `kind: "order"` in the KV tick map.
+  Anything that lists ticks must skip them.
+- Older `skipped: true` tick entries (from the 2026-11-07 grouped summary)
+  can still exist; the card still labels them.
 
 ## Where the user's buy history lives
 

@@ -326,9 +326,12 @@ Tapping anywhere else on the row still jumps to the card.
 | T1 | NVDA, TSM, AVGO | MA60 → MA100 → MA150 | weekly |
 | T2 | PLTR, IGV*, MSFT, META | MA100 → MA150 → MA200 | **biweekly** |
 | T3 | GOOG, AMZN, RKLB, AMD | MA150 → MA200 → MA250 | biweekly |
-| T3.5 | NBIS, LRCX, FTNT, XLV* | MA200 → MA250 (then 5% cascade) | biweekly |
-| T5 | MU, SOFI, V, ASML, GRAB, TSLA, FXI*, OSCR, ASTS, MRVL | MA250 only (then 5% cascade) | monthly |
-| T9 | BRK-B, HIMS, PYPL, DUOL, NU, MSTR, VITL | MA250 only (then 5% cascade) | monthly |
+| T3.5 | NBIS, XLV*, ASML, V | MA200 → MA250 (then 5% cascade) | biweekly |
+| T5 | MU, LRCX, SOFI, GRAB, TSLA, FXI*, OSCR, ASTS, MRVL | sell-only (no buy ladder) | monthly |
+| T9 | BRK-B, HIMS, PYPL, DUOL, NU, MSTR, VITL | sell-only (no buy ladder) | monthly |
+
+Updated 2026-11-09 from the watchlist screenshots: FTNT removed, LRCX
+T3.5 -> T5, V T5 -> T3.5 (its sell target is kept).
 
 T5/T9 were added from your "T3.9 above" moomoo watchlist screenshots. Per
 your instruction they deliberately use only **one** trigger (break below
@@ -531,32 +534,36 @@ Example: LRCX, simulated at the next boundary with 2026-10-28 data:
 | Normal rules | MA200 283.89 | MA250 260.46 | 7% drop 242.23 | 2 |
 | Downtrend guard (anchor 240.22, last period's deepest fill) | 223.40 | 207.77 | 193.22 | 0 |
 
-## Checking every few days: one row per stock, and a limit-order sheet (2026-11-07)
+## The top panel: orders to keep at moomoo (2026-11-07, reworked 2026-11-09)
 
-You don't open the page every day, so by the time you do, rungs from
-earlier days are either gone (price bounced) or stacked up several deep.
+You check the page every few days, not daily, and you always skip the
+shallower of several reached rungs. So the top of the Alerts tab is no
+longer a list of reached rungs to tick; it is one row per buying stock
+saying which GTC limit buy should be sitting at moomoo right now.
 
-**Top summary = what to do now.**
-- One row per stock: the deepest rung price has reached, at that rung's
-  amount only (your choice: not the sum of every reached rung). The row
-  also shows the live price and "+N shallower" when more rungs are open.
-- Ticking the row ticks the deepest rung and files the shallower open
-  rungs as *skipped* (amount 0, "(skipped)" in the Action log; the card
-  shows "skipped (bought a deeper rung)"). Unticking the row undoes both.
-- Sells are still one row per target.
+Per row (USD prices; amounts are the rule's SGD amounts, no FX conversion):
 
-**Limit-order sheet ("Limit orders to keep at moomoo").**
-- One row per buying stock: its next rung not yet hit (`next_rung`), as a
-  GTC limit buy. Price in USD, amount as the rule's SGD amount; no share
-  count, since the system has no FX rate.
-- Tap **placed** after entering the order. The mark syncs across devices
-  through the tick store (id `order|TICKER`, `kind: "order"`; excluded from
-  the Action log and CSV).
-- A row turns amber ("amend: placed X -> Y") when the rung has moved more
-  than `order_amend_pct` (2%) from the placed level -- low-zone mode moves
-  unfired rungs with new lows, and the next rung changes once one fills.
-- A row whose level the price has already reached says so and points to
-  the summary above.
+| Line | When | Button |
+|---|---|---|
+| Limit buy at the next rung below price, with "then" = the rung after | always | **placed** / **amended** / **filled**, **x** |
+| ✓ Order at X reached | live price or a daily close has reached your placed level | -- |
+| Next order | after a fill: the next lower rung of the same period | **placed** (also records the fill as a buy) |
+| Price is under X -- buy at market | price has fallen through rungs with no order covering them | **bought** |
+| SELL at X | a sell target reached and not done | **done** |
+
+- Your discipline, as the panel applies it: each rung buys at most once
+  per refresh period (T1 weekly, T2/T3/T3.5 biweekly), but deeper rungs in
+  the same period can buy again -- so after a fill the row moves on to the
+  next lower rung. When price has dropped through several rungs since your
+  last visit, only the deepest is offered; the shallower ones are skipped
+  without asking. Each row shows its cadence and the next reset date.
+- A placed order turns amber once the rung's level moves more than
+  `order_amend_pct` (2%) from it -- low-zone mode moves unfired rungs with
+  new lows, and a period reset rebuilds the ladder.
+- Tap a row (not a button) to jump to the stock's card for the full ladder.
+- Placed orders are `order|TICKER` entries (`kind: "order"`) in the synced
+  tick store, so all devices agree; the Action log and CSV skip them. Buys
+  recorded from the panel use the same tick ids as the card checkboxes.
 
 ## Low-zone mode: buy near the recent low (2026-11-06)
 
