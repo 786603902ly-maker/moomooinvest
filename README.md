@@ -331,7 +331,7 @@ Tapping anywhere else on the row still jumps to the card.
 | T9 | BRK-B, HIMS, PYPL, DUOL, NU, MSTR, VITL | sell-only (no buy ladder) | monthly |
 
 Updated 2026-11-09 from the watchlist screenshots: FTNT removed, LRCX
-T3.5 -> T5, V T5 -> T3.5 (its sell target is kept).
+T3.5 -> T5, V T5 -> T3.5 (its 385 sell target removed).
 
 T5/T9 were added from your "T3.9 above" moomoo watchlist screenshots. Per
 your instruction they deliberately use only **one** trigger (break below
