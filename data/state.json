@@ -2163,6 +2163,8 @@
           "source": "7% drop"
         }
       ],
+      "intraday_price": 168.3000030517578,
+      "intraday_price_at": "2026-11-10T20:36:50+00:00",
       "is_etf": false,
       "ladder": [
         {
