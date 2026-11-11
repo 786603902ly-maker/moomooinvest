@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:19:41.273141Z",
+  "generated_at": "2026-11-11T08:11:22.270759Z",
   "stocks": {
     "AMD": {
       "base_ladder": [
@@ -114,11 +114,11 @@
         "rung1_cap": 416.532
       },
       "mas": {
-        "100": 526.8745989990234,
-        "150": 486.22846649169924,
-        "200": 417.22199981689454,
-        "250": 377.9753999023437,
-        "60": 535.7053314208985
+        "100": 526.6529992675781,
+        "150": 488.1177332560221,
+        "200": 418.5414999389648,
+        "250": 379.0861599731445,
+        "60": 535.8588317871094
       },
       "name": "Advanced Micro Devices",
       "new_triggers_custom_today": [],
@@ -135,9 +135,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 508.5799865722656,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 515.2100219726562,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-689.0-sell-1/5-(30%-above-fair-value-530)",
+          "is_sell": true,
+          "level": 689.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 530)"
+        }
+      ],
       "target_price": 661.65,
       "ticker": "AMD",
       "tier": "T3",
@@ -160,14 +168,14 @@
         "below_short_ma": true,
         "downtrend": false,
         "long_ma": 200,
-        "price": 508.58,
+        "price": 515.21,
         "short_ma": 60,
         "short_ma_falling": false,
-        "short_ma_slope_pct": 0.4,
+        "short_ma_slope_pct": 0.2,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 4.21,
-      "vs_target_pct": 30.1
+      "vs_fair_value_pct": 2.87,
+      "vs_target_pct": 28.42
     },
     "AMZN": {
       "base_ladder": [
@@ -273,11 +281,11 @@
         "rung1_cap": 247.5605
       },
       "mas": {
-        "100": 252.80969955444337,
-        "150": 254.08559987386067,
-        "200": 244.07899993896484,
-        "250": 241.73575994873048,
-        "60": 255.15749969482422
+        "100": 253.07449951171876,
+        "150": 254.4163998413086,
+        "200": 244.24124992370605,
+        "250": 241.82283990478516,
+        "60": 255.31683298746745
       },
       "name": "Amazon",
       "new_triggers_custom_today": [],
@@ -294,9 +302,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 266.92999267578125,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 270.8699951171875,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-390.0-sell-1/5-(30%-above-fair-value-300)",
+          "is_sell": true,
+          "level": 390.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 300)"
+        }
+      ],
       "target_price": 334.26,
       "ticker": "AMZN",
       "tier": "T3",
@@ -319,14 +335,14 @@
         "below_short_ma": false,
         "downtrend": false,
         "long_ma": 200,
-        "price": 266.93,
+        "price": 270.87,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -1.2,
+        "short_ma_slope_pct": -0.94,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 12.39,
-      "vs_target_pct": 25.22
+      "vs_fair_value_pct": 10.75,
+      "vs_target_pct": 23.4
     },
     "ASML": {
       "base_ladder": [
@@ -422,11 +438,11 @@
         "rung1_cap": 1397.3495
       },
       "mas": {
-        "100": 1720.9030993652343,
-        "150": 1670.5416666666667,
-        "200": 1600.770951538086,
-        "250": 1505.9527983398436,
-        "60": 1688.2125040690105
+        "100": 1716.6847985839843,
+        "150": 1671.1203328450522,
+        "200": 1601.243451538086,
+        "250": 1507.8945183105468,
+        "60": 1681.9580037434896
       },
       "name": "ASML Holding",
       "new_triggers_custom_today": [],
@@ -443,9 +459,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 1513.25,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 1507.8499755859375,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-2665.0-sell-1/5-(30%-above-fair-value-2050)",
+          "is_sell": true,
+          "level": 2665.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 2050)"
+        }
+      ],
       "target_price": 2470.8,
       "ticker": "ASML",
       "tier": "T3.5",
@@ -468,14 +492,14 @@
         "below_short_ma": true,
         "downtrend": true,
         "long_ma": 200,
-        "price": 1513.25,
+        "price": 1507.85,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -2.03,
+        "short_ma_slope_pct": -2.39,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 35.47,
-      "vs_target_pct": 63.28
+      "vs_fair_value_pct": 35.96,
+      "vs_target_pct": 63.86
     },
     "ASTS": {
       "buy_enabled": false,
@@ -507,11 +531,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 59.824699897766116,
-        "150": 69.4628667195638,
-        "200": 75.22537494659424,
-        "250": 75.51233990478515,
-        "60": 53.820000076293944
+        "100": 59.35499984741211,
+        "150": 69.04440004984538,
+        "200": 74.8699249458313,
+        "250": 75.3755399017334,
+        "60": 53.195833396911624
       },
       "name": "AST SpaceMobile",
       "new_triggers_custom_today": [],
@@ -523,8 +547,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 36.88999938964844,
-      "price_date": "2026-11-09",
+      "price": 33.689998626708984,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-160.0-sell-all",
@@ -538,8 +562,8 @@
       "ticker": "ASTS",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": 106.8,
-      "vs_target_pct": 143.07
+      "vs_fair_value_pct": 126.45,
+      "vs_target_pct": 166.16
     },
     "AVGO": {
       "base_ladder": [
@@ -636,11 +660,11 @@
         "rung1_cap": 300.2759
       },
       "mas": {
-        "100": 366.50350006103514,
-        "150": 381.15553385416666,
-        "200": 367.0888505554199,
-        "250": 364.88664025878904,
-        "60": 350.3965001424154
+        "100": 365.7098001098633,
+        "150": 381.03120056152346,
+        "200": 367.124500579834,
+        "250": 364.80672033691405,
+        "60": 349.3890004475912
       },
       "name": "Broadcom",
       "new_triggers_custom_today": [],
@@ -657,9 +681,17 @@
         "start_date": "2026-11-09",
         "type": "weekly"
       },
-      "price": 319.4800109863281,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 331.9800109863281,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-845.0-sell-1/5-(30%-above-fair-value-650)",
+          "is_sell": true,
+          "level": 845.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 650)"
+        }
+      ],
       "target_price": 530.74,
       "ticker": "AVGO",
       "tier": "T1",
@@ -686,14 +718,14 @@
         "below_short_ma": true,
         "downtrend": true,
         "long_ma": 200,
-        "price": 319.48,
+        "price": 331.98,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -4.07,
+        "short_ma_slope_pct": -4.13,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 103.46,
-      "vs_target_pct": 66.13
+      "vs_fair_value_pct": 95.79,
+      "vs_target_pct": 59.87
     },
     "BRK-B": {
       "buy_enabled": false,
@@ -734,11 +766,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 512.3338995361328,
-        "150": 501.20639953613284,
-        "200": 498.20434997558596,
-        "250": 498.5186798095703,
-        "60": 519.4001673380534
+        "100": 513.2726998901367,
+        "150": 501.8969997151693,
+        "200": 498.7037001037598,
+        "250": 498.8637598876953,
+        "60": 520.8186676025391
       },
       "name": "Berkshire Hathaway B",
       "new_triggers_custom_today": [],
@@ -750,8 +782,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 575.25,
-      "price_date": "2026-11-09",
+      "price": 583.3400268554688,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-540.0-sell-half",
@@ -765,8 +797,8 @@
       "ticker": "BRK-B",
       "tier": "T9",
       "trend_guard": null,
-      "vs_fair_value_pct": -11.34,
-      "vs_target_pct": -0.56
+      "vs_fair_value_pct": -12.57,
+      "vs_target_pct": -1.94
     },
     "DUOL": {
       "buy_enabled": false,
@@ -798,11 +830,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 139.06135055541992,
-        "150": 128.76756688435873,
-        "200": 123.82317520141602,
-        "250": 134.85668017578126,
-        "60": 145.35333404541015
+        "100": 139.37245056152344,
+        "150": 129.20496688842775,
+        "200": 123.84872520446777,
+        "250": 134.70380017089843,
+        "60": 145.79516728719076
       },
       "name": "Duolingo",
       "new_triggers_custom_today": [],
@@ -814,8 +846,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 154.25,
-      "price_date": "2026-11-09",
+      "price": 156.6699981689453,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-180.0-sell-all",
@@ -829,8 +861,8 @@
       "ticker": "DUOL",
       "tier": "T9",
       "trend_guard": null,
-      "vs_fair_value_pct": -0.35,
-      "vs_target_pct": -10.86
+      "vs_fair_value_pct": -1.89,
+      "vs_target_pct": -12.24
     },
     "FXI": {
       "buy_enabled": false,
@@ -861,11 +893,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 34.25599988937378,
-        "150": 34.90026671091716,
-        "200": 35.51200009346008,
-        "250": 36.27180002593994,
-        "60": 34.2743330637614
+        "100": 34.267099895477294,
+        "150": 34.887333386739094,
+        "200": 35.48680008888245,
+        "250": 36.246400032043454,
+        "60": 34.26283308664958
       },
       "name": "iShares China Large-Cap ETF",
       "new_triggers_custom_today": [],
@@ -877,8 +909,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 34.65999984741211,
-      "price_date": "2026-11-09",
+      "price": 34.40999984741211,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-41.0-sell-all",
@@ -987,11 +1019,11 @@
         "rung1_cap": 286.3812
       },
       "mas": {
-        "100": 338.32859924316404,
-        "150": 346.74179911295573,
-        "200": 337.3120491027832,
-        "250": 332.5377192382812,
-        "60": 330.74016621907555
+        "100": 337.5031994628906,
+        "150": 346.5429992675781,
+        "200": 337.0686991882324,
+        "250": 332.51043933105467,
+        "60": 329.7979995727539
       },
       "name": "Alphabet",
       "new_triggers_custom_today": [],
@@ -1008,9 +1040,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 286.010009765625,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 284.9200134277344,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-562.9-sell-1/5-(30%-above-fair-value-433)",
+          "is_sell": true,
+          "level": 562.9,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 433)"
+        }
+      ],
       "target_price": 434.75,
       "ticker": "GOOG",
       "tier": "T3",
@@ -1037,14 +1077,14 @@
         "below_short_ma": true,
         "downtrend": true,
         "long_ma": 200,
-        "price": 286.01,
+        "price": 284.92,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -3.18,
+        "short_ma_slope_pct": -3.19,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 51.39,
-      "vs_target_pct": 52.01
+      "vs_fair_value_pct": 51.97,
+      "vs_target_pct": 52.59
     },
     "GRAB": {
       "buy_enabled": false,
@@ -1076,11 +1116,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 3.3431999945640563,
-        "150": 3.44799999554952,
-        "200": 3.5947999966144564,
-        "250": 3.8901999959945677,
-        "60": 3.146833324432373
+        "100": 3.3409999942779542,
+        "150": 3.446133327484131,
+        "200": 3.5887499964237213,
+        "250": 3.8800799951553344,
+        "60": 3.1429999907811483
       },
       "name": "Grab Holdings",
       "new_triggers_custom_today": [],
@@ -1092,8 +1132,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 3.440000057220459,
-      "price_date": "2026-11-09",
+      "price": 3.3499999046325684,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-4.6-sell-half",
@@ -1107,8 +1147,8 @@
       "ticker": "GRAB",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": 62.79,
-      "vs_target_pct": 69.48
+      "vs_fair_value_pct": 67.16,
+      "vs_target_pct": 74.03
     },
     "HIMS": {
       "buy_enabled": false,
@@ -1140,11 +1180,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 30.211699924468995,
-        "150": 28.915266621907552,
-        "200": 26.87249997138977,
-        "250": 28.546639961242676,
-        "60": 28.69149990081787
+        "100": 30.04829990386963,
+        "150": 28.913533287048338,
+        "200": 26.816749963760376,
+        "250": 28.46415995788574,
+        "60": 28.533499876658123
       },
       "name": "Hims & Hers Health",
       "new_triggers_custom_today": [],
@@ -1156,8 +1196,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 22.940000534057617,
-      "price_date": "2026-11-09",
+      "price": 19.1299991607666,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-39.0-sell-a-covered-call",
@@ -1178,8 +1218,8 @@
       "ticker": "HIMS",
       "tier": "T9",
       "trend_guard": null,
-      "vs_fair_value_pct": 0.26,
-      "vs_target_pct": 58.67
+      "vs_fair_value_pct": 20.23,
+      "vs_target_pct": 90.28
     },
     "IGV": {
       "base_ladder": [
@@ -1284,11 +1324,11 @@
         "rung1_cap": 101.8464
       },
       "mas": {
-        "100": 101.27529983520508,
-        "150": 97.43633331298828,
-        "200": 94.07789985656738,
-        "250": 96.2549598388672,
-        "60": 106.09599990844727
+        "100": 101.38769989013672,
+        "150": 97.57353332519531,
+        "200": 94.08549987792969,
+        "250": 96.21215985107422,
+        "60": 106.06833330790202
       },
       "name": "iShares Expanded Tech-Software ETF",
       "new_triggers_custom_today": [],
@@ -1305,8 +1345,8 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 101.45999908447266,
-      "price_date": "2026-11-09",
+      "price": 100.33000183105469,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [],
       "ticker": "IGV",
       "tier": "T2",
@@ -1329,10 +1369,10 @@
         "below_short_ma": true,
         "downtrend": false,
         "long_ma": 200,
-        "price": 101.46,
+        "price": 100.33,
         "short_ma": 60,
         "short_ma_falling": false,
-        "short_ma_slope_pct": 0.29,
+        "short_ma_slope_pct": 0.03,
         "slope_lookback": 10
       }
     },
@@ -1366,11 +1406,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 306.9819996643066,
-        "150": 303.0909325154622,
-        "200": 284.0272992706299,
-        "250": 262.4246793823242,
-        "60": 288.32416712443035
+        "100": 305.3154995727539,
+        "150": 302.93026580810545,
+        "200": 284.0248992919922,
+        "250": 262.6775194091797,
+        "60": 286.3000005086263
       },
       "name": "Lam Research",
       "new_triggers_custom_today": [],
@@ -1382,15 +1422,15 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 221.30999755859375,
-      "price_date": "2026-11-09",
+      "price": 222.38999938964844,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [],
       "target_price": 395.0,
       "ticker": "LRCX",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": 40.08,
-      "vs_target_pct": 78.48
+      "vs_fair_value_pct": 39.39,
+      "vs_target_pct": 77.62
     },
     "META": {
       "base_ladder": [
@@ -1505,11 +1545,11 @@
         "rung1_cap": 623.2324
       },
       "mas": {
-        "100": 634.1646966552735,
-        "150": 630.310664469401,
-        "200": 631.8519473266601,
-        "250": 633.4141982421875,
-        "60": 656.9664998372396
+        "100": 634.8063970947265,
+        "150": 630.5037980143229,
+        "200": 631.6970974731445,
+        "250": 633.4714382324219,
+        "60": 658.1735005696614
       },
       "name": "Meta Platforms",
       "new_triggers_custom_today": [],
@@ -1526,9 +1566,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 641.3699951171875,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 641.3900146484375,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-1105.0-sell-1/5-(30%-above-fair-value-850)",
+          "is_sell": true,
+          "level": 1105.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 850)"
+        }
+      ],
       "target_price": 753.32,
       "ticker": "META",
       "tier": "T2",
@@ -1551,13 +1599,13 @@
         "below_short_ma": true,
         "downtrend": false,
         "long_ma": 200,
-        "price": 641.37,
+        "price": 641.39,
         "short_ma": 60,
         "short_ma_falling": false,
-        "short_ma_slope_pct": 0.72,
+        "short_ma_slope_pct": 0.82,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 32.53,
+      "vs_fair_value_pct": 32.52,
       "vs_target_pct": 17.45
     },
     "MRVL": {
@@ -1590,11 +1638,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 230.8104995727539,
-        "150": 218.54679987589518,
-        "200": 185.42494998931886,
-        "250": 165.52916003417968,
-        "60": 233.3624994913737
+        "100": 229.24859970092774,
+        "150": 218.8130665588379,
+        "200": 185.78805000305175,
+        "250": 165.78940002441405,
+        "60": 232.03016611735026
       },
       "name": "Marvell Technology",
       "new_triggers_custom_today": [],
@@ -1606,15 +1654,15 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 154.60000610351562,
-      "price_date": "2026-11-09",
+      "price": 154.38999938964844,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [],
       "target_price": 287.84,
       "ticker": "MRVL",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": 74.64,
-      "vs_target_pct": 86.18
+      "vs_fair_value_pct": 74.88,
+      "vs_target_pct": 86.44
     },
     "MSFT": {
       "base_ladder": [
@@ -1711,11 +1759,11 @@
         "rung1_cap": 522.3336
       },
       "mas": {
-        "100": 473.9656991577148,
-        "150": 453.60193237304685,
-        "200": 440.2434991455078,
-        "250": 448.3962794189453,
-        "60": 512.8100001017252
+        "100": 475.5032989501953,
+        "150": 454.6607989501953,
+        "200": 440.55789901733397,
+        "250": 448.49419934082033,
+        "60": 513.6901662190755
       },
       "name": "Microsoft",
       "new_triggers_custom_today": [],
@@ -1732,9 +1780,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 545.1799926757812,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 533.1599731445312,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-780.0-sell-1/5-(30%-above-fair-value-600)",
+          "is_sell": true,
+          "level": 780.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 600)"
+        }
+      ],
       "target_price": 566.14,
       "ticker": "MSFT",
       "tier": "T2",
@@ -1757,14 +1813,14 @@
         "below_short_ma": false,
         "downtrend": false,
         "long_ma": 200,
-        "price": 545.18,
+        "price": 533.16,
         "short_ma": 60,
         "short_ma_falling": false,
-        "short_ma_slope_pct": 1.14,
+        "short_ma_slope_pct": 1.17,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 10.06,
-      "vs_target_pct": 3.84
+      "vs_fair_value_pct": 12.54,
+      "vs_target_pct": 6.19
     },
     "MSTR": {
       "buy_enabled": false,
@@ -1796,11 +1852,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 122.31349937438965,
-        "150": 133.13393290201822,
-        "200": 133.5552495956421,
-        "250": 141.71151986694335,
-        "60": 139.7174991607666
+        "100": 122.39889938354492,
+        "150": 133.08573287963867,
+        "200": 133.35769958496093,
+        "250": 141.2703998413086,
+        "60": 140.10733248392742
       },
       "name": "Strategy (MicroStrategy)",
       "new_triggers_custom_today": [],
@@ -1812,15 +1868,15 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 125.58999633789062,
-      "price_date": "2026-11-09",
+      "price": 121.06999969482422,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [],
       "target_price": 257.75,
       "ticker": "MSTR",
       "tier": "T9",
       "trend_guard": null,
-      "vs_fair_value_pct": -19.58,
-      "vs_target_pct": 105.23
+      "vs_fair_value_pct": -16.58,
+      "vs_target_pct": 112.89
     },
     "MU": {
       "buy_enabled": false,
@@ -1852,11 +1908,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 956.3227026367188,
-        "150": 876.9664685058593,
-        "200": 758.3926512145996,
-        "250": 662.2669205932617,
-        "60": 956.0476674397786
+        "100": 952.2339025878906,
+        "150": 879.0890016682943,
+        "200": 760.072751159668,
+        "250": 664.2029205322266,
+        "60": 951.2703338623047
       },
       "name": "Micron Technology",
       "new_triggers_custom_today": [],
@@ -1868,15 +1924,15 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 733.1500244140625,
-      "price_date": "2026-11-09",
+      "price": 725.1099853515625,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [],
       "target_price": 1568.39,
       "ticker": "MU",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": 15.94,
-      "vs_target_pct": 113.92
+      "vs_fair_value_pct": 17.22,
+      "vs_target_pct": 116.3
     },
     "NBIS": {
       "base_ladder": [
@@ -1981,11 +2037,11 @@
         "rung1_cap": 123.9811
       },
       "mas": {
-        "100": 209.86055030822754,
-        "150": 204.5607004292806,
-        "200": 178.61080051422118,
-        "250": 161.53084045410156,
-        "60": 204.53625043233237
+        "100": 208.33365028381348,
+        "150": 204.6207004292806,
+        "200": 178.82350051879882,
+        "250": 161.65796044921876,
+        "60": 202.2887503306071
       },
       "name": "Nebius Group",
       "new_triggers_custom_today": [],
@@ -2002,9 +2058,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 141.4499969482422,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 134.0,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-195.0-sell-1/5-(30%-above-fair-value-150)",
+          "is_sell": true,
+          "level": 195.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 150)"
+        }
+      ],
       "target_price": 300.67,
       "ticker": "NBIS",
       "tier": "T3.5",
@@ -2031,14 +2095,14 @@
         "below_short_ma": true,
         "downtrend": true,
         "long_ma": 200,
-        "price": 141.45,
+        "price": 134.0,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -5.39,
+        "short_ma_slope_pct": -6.13,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 6.04,
-      "vs_target_pct": 112.56
+      "vs_fair_value_pct": 11.94,
+      "vs_target_pct": 124.38
     },
     "NU": {
       "buy_enabled": false,
@@ -2079,11 +2143,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 13.97,
-        "150": 13.820000012715658,
-        "200": 14.298150014877319,
-        "250": 14.786920028686524,
-        "60": 14.087666686375936
+        "100": 13.96369999885559,
+        "150": 13.803800010681153,
+        "200": 14.267650012969971,
+        "250": 14.769680030822753,
+        "60": 14.043333355585734
       },
       "name": "Nu Holdings",
       "new_triggers_custom_today": [],
@@ -2095,8 +2159,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 12.359999656677246,
-      "price_date": "2026-11-09",
+      "price": 12.079999923706055,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-16.0-sell-all",
@@ -2110,8 +2174,8 @@
       "ticker": "NU",
       "tier": "T9",
       "trend_guard": null,
-      "vs_fair_value_pct": 34.3,
-      "vs_target_pct": 40.45
+      "vs_fair_value_pct": 37.42,
+      "vs_target_pct": 43.71
     },
     "NVDA": {
       "base_ladder": [
@@ -2204,15 +2268,15 @@
       "low_zone": {
         "dropped": [],
         "lookback": 20,
-        "recent_low": 168.3,
-        "rung1_cap": 173.349
+        "recent_low": 168.89,
+        "rung1_cap": 173.9567
       },
       "mas": {
-        "100": 213.72780014038085,
-        "150": 212.06493367513022,
-        "200": 204.62760017395019,
-        "250": 200.46728033447266,
-        "60": 218.706334177653
+        "100": 213.3098001098633,
+        "150": 211.97700032552083,
+        "200": 204.5397001647949,
+        "250": 200.37020031738282,
+        "60": 217.77100092569987
       },
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
@@ -2229,9 +2293,17 @@
         "start_date": "2026-11-09",
         "type": "weekly"
       },
-      "price": 178.6699981689453,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 168.88999938964844,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-364.0-sell-1/5-(30%-above-fair-value-280)",
+          "is_sell": true,
+          "level": 364.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 280)"
+        }
+      ],
       "target_price": 300.0,
       "ticker": "NVDA",
       "tier": "T1",
@@ -2258,14 +2330,14 @@
         "below_short_ma": true,
         "downtrend": true,
         "long_ma": 200,
-        "price": 178.67,
+        "price": 168.89,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -1.37,
+        "short_ma_slope_pct": -1.88,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 56.71,
-      "vs_target_pct": 67.91
+      "vs_fair_value_pct": 65.79,
+      "vs_target_pct": 77.63
     },
     "OSCR": {
       "buy_enabled": false,
@@ -2297,11 +2369,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 31.04060005187988,
-        "150": 27.713266677856446,
-        "200": 24.090750017166137,
-        "250": 22.43511999130249,
-        "60": 31.782833321889242
+        "100": 31.09130006790161,
+        "150": 27.83880001703898,
+        "200": 24.179600024223326,
+        "250": 22.509599994659425,
+        "60": 31.81483335494995
       },
       "name": "Oscar Health",
       "new_triggers_custom_today": [],
@@ -2313,15 +2385,23 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 32.13999938964844,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 33.470001220703125,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-38.0-sell-all",
+          "is_sell": true,
+          "level": 38.0,
+          "note": null,
+          "source": "sell all"
+        }
+      ],
       "target_price": 32.2,
       "ticker": "OSCR",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": -16.3,
-      "vs_target_pct": 0.19
+      "vs_fair_value_pct": -19.63,
+      "vs_target_pct": -3.79
     },
     "PLTR": {
       "base_ladder": [
@@ -2427,11 +2507,11 @@
         "rung1_cap": 159.6397
       },
       "mas": {
-        "100": 164.6423991394043,
-        "150": 155.98816594441732,
-        "200": 153.53077449798585,
-        "250": 158.20503970336915,
-        "60": 184.1414993286133
+        "100": 165.04589920043946,
+        "150": 156.17523269653321,
+        "200": 153.5375245285034,
+        "250": 158.11647970581055,
+        "60": 184.0793327331543
       },
       "name": "Palantir",
       "new_triggers_custom_today": [],
@@ -2448,9 +2528,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 169.1999969482422,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 168.82000732421875,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-198.9-sell-1/5-(30%-above-fair-value-153)",
+          "is_sell": true,
+          "level": 198.9,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 153)"
+        }
+      ],
       "target_price": 197.89,
       "ticker": "PLTR",
       "tier": "T2",
@@ -2473,14 +2561,14 @@
         "below_short_ma": true,
         "downtrend": false,
         "long_ma": 200,
-        "price": 169.2,
+        "price": 168.82,
         "short_ma": 60,
         "short_ma_falling": false,
-        "short_ma_slope_pct": 1.26,
+        "short_ma_slope_pct": 0.55,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": -9.57,
-      "vs_target_pct": 16.96
+      "vs_fair_value_pct": -9.37,
+      "vs_target_pct": 17.22
     },
     "PYPL": {
       "buy_enabled": false,
@@ -2512,11 +2600,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 54.522199897766114,
-        "150": 51.65759991963704,
-        "200": 50.05764995574951,
-        "250": 52.07358003234863,
-        "60": 56.133999824523926
+        "100": 54.68489990234375,
+        "150": 51.74379992167155,
+        "200": 50.068549957275394,
+        "250": 52.0391000213623,
+        "60": 56.10583311716716
       },
       "name": "PayPal",
       "new_triggers_custom_today": [],
@@ -2528,8 +2616,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 60.04999923706055,
-      "price_date": "2026-11-09",
+      "price": 58.779998779296875,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-66.0-sell-half",
@@ -2543,8 +2631,8 @@
       "ticker": "PYPL",
       "tier": "T9",
       "trend_guard": null,
-      "vs_fair_value_pct": 33.22,
-      "vs_target_pct": -2.15
+      "vs_fair_value_pct": 36.1,
+      "vs_target_pct": -0.03
     },
     "RKLB": {
       "base_ladder": [
@@ -2650,11 +2738,11 @@
         "rung1_cap": 47.3697
       },
       "mas": {
-        "100": 70.19159999847412,
-        "150": 81.17526654561361,
-        "200": 78.71774997711182,
-        "250": 75.73866007995605,
-        "60": 63.96933314005534
+        "100": 69.74630001068115,
+        "150": 81.1327998606364,
+        "200": 78.62889995574952,
+        "250": 75.78454006958007,
+        "60": 63.64649976094564
       },
       "name": "Rocket Lab",
       "new_triggers_custom_today": [],
@@ -2671,9 +2759,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 58.86000061035156,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 62.709999084472656,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-100.36-sell-1/5-(30%-above-fair-value-77.2)",
+          "is_sell": true,
+          "level": 100.36,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 77.2)"
+        }
+      ],
       "target_price": 117.54,
       "ticker": "RKLB",
       "tier": "T3",
@@ -2700,14 +2796,14 @@
         "below_short_ma": true,
         "downtrend": true,
         "long_ma": 200,
-        "price": 58.86,
+        "price": 62.71,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -5.71,
+        "short_ma_slope_pct": -5.9,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 31.16,
-      "vs_target_pct": 99.69
+      "vs_fair_value_pct": 23.11,
+      "vs_target_pct": 87.43
     },
     "SOFI": {
       "buy_enabled": false,
@@ -2739,11 +2835,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 17.07784993171692,
-        "150": 17.0229332669576,
-        "200": 17.50624997138977,
-        "250": 19.469079971313477,
-        "60": 16.68091654777527
+        "100": 17.062449941635133,
+        "150": 17.02213327407837,
+        "200": 17.459099979400634,
+        "250": 19.410759971618653,
+        "60": 16.64858323733012
       },
       "name": "SoFi Technologies",
       "new_triggers_custom_today": [],
@@ -2755,8 +2851,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 16.75,
-      "price_date": "2026-11-09",
+      "price": 16.3700008392334,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-25.0-sell-half",
@@ -2770,8 +2866,8 @@
       "ticker": "SOFI",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": 4.48,
-      "vs_target_pct": 20.78
+      "vs_fair_value_pct": 6.9,
+      "vs_target_pct": 23.58
     },
     "TSLA": {
       "buy_enabled": false,
@@ -2803,11 +2899,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 366.5984979248047,
-        "150": 378.17986572265625,
-        "200": 383.5100489807129,
-        "250": 395.2873194580078,
-        "60": 368.6669982910156
+        "100": 366.3913980102539,
+        "150": 378.42339904785155,
+        "200": 383.2329489135742,
+        "250": 395.04795947265626,
+        "60": 369.34166514078777
       },
       "name": "Tesla",
       "new_triggers_custom_today": [],
@@ -2819,15 +2915,15 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 378.04998779296875,
-      "price_date": "2026-11-09",
+      "price": 379.7799987792969,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [],
       "target_price": 393.62,
       "ticker": "TSLA",
       "tier": "T5",
       "trend_guard": null,
-      "vs_fair_value_pct": 19.03,
-      "vs_target_pct": 4.12
+      "vs_fair_value_pct": 18.49,
+      "vs_target_pct": 3.64
     },
     "TSM": {
       "base_ladder": [
@@ -2924,11 +3020,11 @@
         "rung1_cap": 363.693
       },
       "mas": {
-        "100": 427.24870025634766,
-        "150": 419.3948667399089,
-        "200": 401.74630020141603,
-        "250": 381.83844018554686,
-        "60": 428.9118336995443
+        "100": 426.59230041503906,
+        "150": 419.59873352050784,
+        "200": 402.0651502990723,
+        "250": 382.2596801757812,
+        "60": 428.3370005289714
       },
       "name": "Taiwan Semiconductor",
       "new_triggers_custom_today": [],
@@ -2945,9 +3041,17 @@
         "start_date": "2026-11-09",
         "type": "weekly"
       },
-      "price": 388.6199951171875,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 396.4800109863281,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-694.2-sell-1/5-(30%-above-fair-value-534)",
+          "is_sell": true,
+          "level": 694.2,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 534)"
+        }
+      ],
       "target_price": 545.67,
       "ticker": "TSM",
       "tier": "T1",
@@ -2974,14 +3078,14 @@
         "below_short_ma": true,
         "downtrend": true,
         "long_ma": 200,
-        "price": 388.62,
+        "price": 396.48,
         "short_ma": 60,
         "short_ma_falling": true,
-        "short_ma_slope_pct": -0.66,
+        "short_ma_slope_pct": -0.91,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": 37.41,
-      "vs_target_pct": 40.41
+      "vs_fair_value_pct": 34.69,
+      "vs_target_pct": 37.63
     },
     "V": {
       "base_ladder": [
@@ -3077,11 +3181,11 @@
         "rung1_cap": 403.1729
       },
       "mas": {
-        "100": 372.53150268554685,
-        "150": 355.24460164388023,
-        "200": 345.15500045776366,
-        "250": 343.7285202636719,
-        "60": 384.49683583577473
+        "100": 373.4891027832031,
+        "150": 356.00486836751304,
+        "200": 345.6275505065918,
+        "250": 344.06484020996095,
+        "60": 385.5661692301432
       },
       "name": "Visa",
       "new_triggers_custom_today": [],
@@ -3098,9 +3202,17 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 422.1600036621094,
-      "price_date": "2026-11-09",
-      "sell_rungs_today": [],
+      "price": 423.0,
+      "price_date": "2026-11-10",
+      "sell_rungs_today": [
+        {
+          "id": "sell-429.0-sell-1/5-(30%-above-fair-value-330)",
+          "is_sell": true,
+          "level": 429.0,
+          "note": null,
+          "source": "sell 1/5 (30% above fair value 330)"
+        }
+      ],
       "target_price": 425.39,
       "ticker": "V",
       "tier": "T3.5",
@@ -3123,14 +3235,14 @@
         "below_short_ma": false,
         "downtrend": false,
         "long_ma": 200,
-        "price": 422.16,
+        "price": 423.0,
         "short_ma": 60,
         "short_ma_falling": false,
-        "short_ma_slope_pct": 2.34,
+        "short_ma_slope_pct": 2.46,
         "slope_lookback": 10
       },
-      "vs_fair_value_pct": -21.83,
-      "vs_target_pct": 0.77
+      "vs_fair_value_pct": -21.99,
+      "vs_target_pct": 0.57
     },
     "VITL": {
       "buy_enabled": false,
@@ -3162,11 +3274,11 @@
       },
       "low_zone": null,
       "mas": {
-        "100": 10.845850009918212,
-        "150": 10.906366672515869,
-        "200": 13.433674974441528,
-        "250": 17.05397996520996,
-        "60": 9.857416677474976
+        "100": 10.8418000125885,
+        "150": 10.887933336893717,
+        "200": 13.346199975013732,
+        "250": 16.962519969940185,
+        "60": 9.838166681925456
       },
       "name": "Vital Farms",
       "new_triggers_custom_today": [],
@@ -3178,8 +3290,8 @@
         "start_date": "2026-11-01",
         "type": "monthly"
       },
-      "price": 10.050000190734863,
-      "price_date": "2026-11-09",
+      "price": 10.005000114440918,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [
         {
           "id": "sell-14.5-sell-half",
@@ -3200,8 +3312,8 @@
       "ticker": "VITL",
       "tier": "T9",
       "trend_guard": null,
-      "vs_fair_value_pct": 84.38,
-      "vs_target_pct": 51.24
+      "vs_fair_value_pct": 85.21,
+      "vs_target_pct": 51.92
     },
     "XLV": {
       "base_ladder": [
@@ -3292,15 +3404,15 @@
       "low_zone": {
         "dropped": [],
         "lookback": 20,
-        "recent_low": 169.66,
-        "rung1_cap": 174.7498
+        "recent_low": 173.96,
+        "rung1_cap": 179.1788
       },
       "mas": {
-        "100": 168.73339965820313,
-        "150": 161.79519999186198,
-        "200": 159.5405500793457,
-        "250": 158.6442799682617,
-        "60": 173.53216603597005
+        "100": 169.1281997680664,
+        "150": 162.0566000366211,
+        "200": 159.6944500732422,
+        "250": 158.79708001708985,
+        "60": 173.89599939982097
       },
       "name": "Health Care Select Sector SPDR",
       "new_triggers_custom_today": [],
@@ -3317,8 +3429,8 @@
         "start_date": "2026-11-02",
         "type": "biweekly"
       },
-      "price": 188.3300018310547,
-      "price_date": "2026-11-09",
+      "price": 188.8800048828125,
+      "price_date": "2026-11-10",
       "sell_rungs_today": [],
       "ticker": "XLV",
       "tier": "T3.5",
@@ -3341,10 +3453,10 @@
         "below_short_ma": false,
         "downtrend": false,
         "long_ma": 200,
-        "price": 188.33,
+        "price": 188.88,
         "short_ma": 60,
         "short_ma_falling": false,
-        "short_ma_slope_pct": 1.81,
+        "short_ma_slope_pct": 1.85,
         "slope_lookback": 10
       }
     }
