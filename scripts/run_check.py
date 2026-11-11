@@ -41,6 +41,28 @@ def intraday_snapshot(prev: dict | None) -> tuple[dt.date, float] | None:
     return ts.astimezone(ZoneInfo("America/New_York")).date(), float(price)
 
 
+def fair_value_sell_target(stock: dict, rules: dict) -> dict | None:
+    """The standing "price is well above fair value, trim" alert.
+
+    User's rule (2026-11-11): for T1-T3.5, once price is more than
+    premium_pct above the stock's fair value, sell 1/5. Built as an ordinary
+    sell target, so it behaves like the hand-written ones: fires at or above
+    its level, once, and never resets on a period boundary. Its level comes
+    from fair_value, so updating fair_value in stocks.yaml gives it a new id
+    and re-arms it.
+    """
+    cfg = rules.get("fair_value_sell") or {}
+    fair = stock.get("fair_value")
+    if not cfg.get("enabled") or fair is None or stock.get("tier") not in (cfg.get("tiers") or []):
+        return None
+    premium = float(cfg.get("premium_pct", 30))
+    return {
+        "level": round(float(fair) * (1 + premium / 100), 2),
+        # Not the user's own wording, so it carries its reason with it.
+        "action": f'{cfg.get("action", "sell 1/5")} ({premium:g}% above fair value {float(fair):g})',
+    }
+
+
 def main() -> int:
     rules = load_rules()
     stocks = load_stocks()
@@ -108,7 +130,8 @@ def main() -> int:
         sell_result = evaluate_sell_targets(
             price=price,
             price_date=price_date,
-            sell_targets_cfg=stock.get("sell_targets") or [],
+            sell_targets_cfg=(stock.get("sell_targets") or [])
+            + [t for t in [fair_value_sell_target(stock, rules)] if t],
             prev_fired_sell=(prev_stocks.get(ticker) or {}).get("fired_sell"),
         )
         result.update(sell_result)

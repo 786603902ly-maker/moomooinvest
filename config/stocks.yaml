@@ -292,6 +292,9 @@ stocks:
   - ticker: OSCR
     name: Oscar Health
     tier: T5
+    sell_targets:
+      - level: 38
+        action: "sell all"     # 2026-11-11
     target_price: 32.20
     fair_value: 26.90
     fundamentals_updated: "2026-08-22"

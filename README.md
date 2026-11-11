@@ -565,6 +565,16 @@ Per row (USD prices; amounts are the rule's SGD amounts, no FX conversion):
   tick store, so all devices agree; the Action log and CSV skip them. Buys
   recorded from the panel use the same tick ids as the card checkboxes.
 
+## Fair-value trim: sell 1/5 when 30% above fair value (2026-11-11)
+
+`fair_value_sell` in `config/rules.yaml`, `fair_value_sell_target` in
+`scripts/run_check.py`. For T1-T3.5 stocks with a `fair_value`, a sell target
+at fair_value x 1.3 ("sell 1/5 (30% above fair value X)") is added to the
+stock's own `sell_targets` each run. It is an ordinary sell target: fires at
+or above the level, once, never resets on a period boundary, and shows in
+the top panel as a SELL row. Editing `fair_value` changes its level and id,
+which re-arms it. ETFs have no fair value and get none.
+
 ## Low-zone mode: buy near the recent low (2026-11-06)
 
 Your instruction during the November sell-off: you don't need to buy a lot

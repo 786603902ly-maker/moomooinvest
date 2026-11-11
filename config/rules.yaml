@@ -106,3 +106,13 @@ low_zone:
 # Order sheet (dashboard): flag a placed limit order for amending once its
 # rung level has moved more than this many percent from the placed level.
 order_amend_pct: 2.0
+
+# Fair-value trim (2026-11-11): for these tiers, alert "sell 1/5" once price
+# is more than premium_pct above the stock's fair_value (stocks.yaml). Built as
+# a normal sell target: fires once, never resets, re-arms when fair_value is
+# edited (its level, and so its id, changes).
+fair_value_sell:
+  enabled: true
+  tiers: [T1, T2, T3, T3.5]
+  premium_pct: 30
+  action: "sell 1/5"
