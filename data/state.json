@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T03:39:31.785586Z",
+  "generated_at": "2026-11-11T01:19:41.273141Z",
   "stocks": {
     "AMD": {
       "base_ladder": [
@@ -2163,8 +2163,6 @@
           "source": "7% drop"
         }
       ],
-      "intraday_price": 168.3000030517578,
-      "intraday_price_at": "2026-11-10T20:36:50+00:00",
       "is_etf": false,
       "ladder": [
         {
@@ -2206,8 +2204,8 @@
       "low_zone": {
         "dropped": [],
         "lookback": 20,
-        "recent_low": 178.67,
-        "rung1_cap": 184.0301
+        "recent_low": 168.3,
+        "rung1_cap": 173.349
       },
       "mas": {
         "100": 213.72780014038085,
