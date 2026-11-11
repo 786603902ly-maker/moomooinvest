@@ -147,6 +147,7 @@ h1{font-family:var(--font-display); font-weight:600; font-size:1.9rem; margin:0 
 .ma-strip span b{color:var(--text);}
 .err{color:var(--bad); font-size:.78rem;}
 .section-title{font-family:var(--font-display); font-size:1.15rem; margin:2rem 0 .6rem; font-weight:600;}
+.log-details > summary{cursor:pointer;}
 table.log{width:100%; border-collapse:collapse; font-size:.85rem; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;}
 table.log th, table.log td{text-align:left; padding:.5rem .7rem; border-bottom:1px solid var(--border);}
 table.log th{background:var(--surface-2); color:var(--text-muted); font-weight:600; font-size:.74rem; text-transform:uppercase; letter-spacing:.03em;}
@@ -669,14 +670,18 @@ table.val-table td.bad{color:var(--bad);}
   
   
 </div></div></div>
-    <div class="section-title">Action log</div>
-    <div class="actions-bar">
-      <button class="export" id="export-btn">Export CSV</button>
-      <button class="export" id="export-notes-btn">Backup my notes</button>
-      <span class="next-hint" id="export-hint"></span>
-      <span class="next-hint" id="sync-status"></span>
-    </div>
-    <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
+    <span class="next-hint" id="sync-status"></span>
+    <!-- Collapsed by default (user, 2026-11-11); sync-status stays outside
+         so a failed save is still visible with the log closed. -->
+    <details class="log-details">
+      <summary class="section-title">Action log</summary>
+      <div class="actions-bar">
+        <button class="export" id="export-btn">Export CSV</button>
+        <button class="export" id="export-notes-btn">Backup my notes</button>
+        <span class="next-hint" id="export-hint"></span>
+      </div>
+      <div id="log-wrap"><div class="empty-log">Nothing ticked yet.</div></div>
+    </details>
   </div>
   <div class="tabpanel" id="tab-valuation">
     
