@@ -914,12 +914,15 @@ function planTickId(ticker, r){
   return ticker + "|" + r.id + "|" + (r.hit || etDateStr());
 }
 
-function orderState(plan, price, ticks){
+function orderState(plan, price, ticks, dayLow){
   const live = isFinite(price);
-  const reached = r => r.fired || (live && price <= r.level);
-  const open = plan.rungs.filter(r => !reached(r));          // highest first
-  const next = open[0] || null;
-  const then = open[1] || null;
+  const low = live && isFinite(dayLow) ? Math.min(dayLow, price) : price;
+  // A rung is used up only by a buy or a skip you recorded this period --
+  // not by price merely touching it (2026-11-12: NBIS's first rung was
+  // touched on 11-05, never bought, and the panel had silently moved on).
+  // Everything at or above the deepest used rung counts as used too: the
+  // shallower ones are skipped, the user's standing rule.
+  const usedLevels = plan.rungs.filter(r => ticks[planTickId(plan.ticker, r)]).map(r => r.level);
 
   const mark = ticks["order|" + plan.ticker] || null;
   let filled = null;
@@ -927,28 +930,32 @@ function orderState(plan, price, ticks){
     const since = (mark.placedAt || "").slice(0, 10);
     const hitByClose = plan.rungs.some(r =>
       r.fired && (r.hit || "") >= since && r.level <= mark.level * (1 + 1e-6));
-    if((live && price <= mark.level) || hitByClose){
+    if((live && low <= mark.level) || hitByClose){
       filled = plan.rungs.find(r => r.id === mark.rungId) ||
         {id: mark.rungId, level: mark.level, mult: mark.mult, amount: mark.amount,
          source: mark.source, hit: mark.hit};
+      usedLevels.push(filled.level);
     }
   }
+  const floor = usedLevels.length ? Math.min(...usedLevels) : Infinity;
+  const avail = plan.rungs.filter(r => r.level < floor * (1 - 1e-9));   // highest first
 
-  // Deepest rung price is still at or below. Offered only if neither it nor
-  // the filled order already took this level -- the shallower ones are
-  // never offered, which is the "skip" the user always wants.
-  let buyNow = null;
-  if(live){
-    const under = plan.rungs.filter(r => price <= r.level);
-    const deepest = under[under.length - 1];
-    if(deepest && !ticks[planTickId(plan.ticker, deepest)] && !(filled && filled.id === deepest.id)){
-      buyNow = deepest;
-    }
-  }
+  // Price is at or below a rung right now: offer the deepest such one.
+  const under = live ? avail.filter(r => price <= r.level) : [];
+  const buyNow = under.length ? under[under.length - 1] : null;
+  // Touched today and bounced: the dip reached it but price is back above.
+  // Yours to decide -- buy now anyway, or skip it and wait lower.
+  const dipped = !buyNow && live ? avail.filter(r => r.level < price && low <= r.level) : [];
+  const touched = dipped.length ? dipped[dipped.length - 1] : null;
+
+  const ceiling = buyNow ? buyNow.level : touched ? touched.level : (live ? price : Infinity);
+  const open = avail.filter(r => r.level < ceiling * (1 - 1e-9));
+  const next = open[0] || null;
+  const then = open[1] || null;
 
   const moved = !!(mark && !filled && next &&
     Math.abs(next.level - mark.level) / mark.level * 100 > ORDER_AMEND_PCT);
-  return {next, then, mark, filled, buyNow, moved};
+  return {next, then, mark, filled, buyNow, touched, low, moved};
 }
 
 function buyEntry(plan, r){
@@ -957,6 +964,10 @@ function buyEntry(plan, r){
     multiplier: String(r.mult), amount: String(r.amount), firstHit: r.hit || etDateStr(),
     tickedAt: new Date().toISOString(),
   };
+}
+
+function skipEntry(plan, r){
+  return {...buyEntry(plan, r), amount: "0", source: r.source + " (skipped)", skipped: true};
 }
 
 function markEntry(r){
@@ -1006,7 +1017,8 @@ function renderOrderSheet(ticks){
   sheet.querySelectorAll('li[data-plan]').forEach(li=>{
     const plan = JSON.parse(li.dataset.plan);
     const price = cardPrice(plan.ticker);
-    const st = orderState(plan, price, ticks);
+    const card = document.querySelector('.card[data-ticker="' + plan.ticker + '"]');
+    const st = orderState(plan, price, ticks, card ? parseFloat(card.dataset.dayLow) : NaN);
     const lines = [];
 
     if(st.buyNow){
@@ -1016,6 +1028,13 @@ function renderOrderSheet(ticks){
         ') &mdash; buy at market: <b>' + fmtAmt(st.buyNow.amount) + '</b>',
         [["bought", "bought"]]));
     }
+    if(st.touched){
+      lines.push(line("now",
+        'Dipped to ' + fmtLivePrice(st.low) + ' today, through ' + fmtLivePrice(st.touched.level) +
+        ' (' + st.touched.source + ', ' + fmtAmt(st.touched.amount) + '); now ' + fmtLivePrice(price) +
+        ' &mdash; not bought. Buy anyway, or skip it and wait lower',
+        [["bought-touched", "bought"], ["skip-touched", "skip"]]));
+    }
     if(st.filled){
       lines.push(line("filled",
         '✓ Order at ' + fmtLivePrice(st.filled.level) + ' reached &mdash; counts as this period&#39;s buy at that rung', []));
@@ -1024,8 +1043,9 @@ function renderOrderSheet(ticks){
     if(st.next){
       const dist = isFinite(price) ? ' <span class="o-dist">' + ((st.next.level - price) / price * 100).toFixed(1) + '%</span>' : '';
       const then = st.then ? ' <span class="o-then">then ' + fmtLivePrice(st.then.level) + '</span>' : '';
+      const missed = st.next.fired ? ' <span class="o-then">reached ' + st.next.hit + ', not bought</span>' : '';
       const order = 'Limit buy <b>' + fmtLivePrice(st.next.level) + '</b> &middot; ' + fmtAmt(st.next.amount) +
-        ' &middot; x' + st.next.mult + dist + then;
+        ' &middot; x' + st.next.mult + dist + then + missed;
       let cls, status, actions;
       if(st.filled){
         cls = "todo"; status = "next order"; actions = [["place", "placed"]];
@@ -1042,7 +1062,7 @@ function renderOrderSheet(ticks){
       lines.push(line("placed", "No lower rung left this period.", []));
     }
 
-    const needs = !!(st.buyNow || st.filled || !st.mark || st.moved);
+    const needs = !!(st.buyNow || st.touched || st.filled || !st.mark || st.moved);
     if(needs) todo++;
     li.classList.toggle("needs", needs);
     li.querySelector(".o-lines").innerHTML = lines.join('');
@@ -1071,6 +1091,10 @@ document.addEventListener("click", (e)=>{
     const changes = [];
     if(act === "bought"){
       changes.push([planTickId(plan.ticker, st.buyNow), buyEntry(plan, st.buyNow)]);
+    } else if(act === "bought-touched"){
+      changes.push([planTickId(plan.ticker, st.touched), buyEntry(plan, st.touched)]);
+    } else if(act === "skip-touched"){
+      changes.push([planTickId(plan.ticker, st.touched), skipEntry(plan, st.touched)]);
     } else if(act === "place"){
       // Placing the next order after a fill also records that fill as a buy.
       if(st.filled && !loadTicksCache()[planTickId(plan.ticker, st.filled)]){
@@ -1352,6 +1376,7 @@ function applyQuote(card, quote){
   if(typeof price !== "number" || !isFinite(price)) return;
 
   card.dataset.live = String(price);
+  if(typeof quote.dayLow === "number" && isFinite(quote.dayLow)) card.dataset.dayLow = String(quote.dayLow);
   const priceEl = card.querySelector(".price");
   if(priceEl) priceEl.textContent = fmtLivePrice(price);
 

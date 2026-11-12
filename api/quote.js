@@ -8,8 +8,9 @@
 // price that is seconds old instead of hours.
 //
 // This is display-only. The MA/ladder math stays keyed off the daily close
-// in data/state.json, which run_check.py owns -- nothing here is persisted
-// or feeds a trigger decision.
+// (plus the intraday low the hourly snapshot workflow records) in
+// data/state.json, which run_check.py owns -- nothing here is persisted or
+// feeds a trigger decision.
 //
 // No auth, same tradeoff as api/ticks.js: whoever has the dashboard link
 // can call it. It only reads public market data and writes nothing.
@@ -60,8 +61,20 @@ async function fetchQuote(ticker) {
     }
     if (typeof price !== "number" || !isFinite(price)) throw new Error("no usable price");
 
+    // The session's low so far, so the page can tell a rung was touched
+    // intraday even when price has since recovered above it.
+    let dayLow = typeof meta.regularMarketDayLow === "number" ? meta.regularMarketDayLow : null;
+    if (dayLow === null) {
+      const lows =
+        ((result.indicators && result.indicators.quote && result.indicators.quote[0] &&
+          result.indicators.quote[0].low) || []).filter((v) => typeof v === "number");
+      if (lows.length) dayLow = Math.min(...lows);
+    }
+    if (dayLow !== null) dayLow = Math.min(dayLow, price);
+
     return {
       price,
+      dayLow,
       at: at ? new Date(at * 1000).toISOString() : null,
       state: meta.marketState || null,
       currency: meta.currency || null,

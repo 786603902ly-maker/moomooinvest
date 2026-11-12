@@ -20,12 +20,21 @@ name: Market-open live snapshot
 # ladder math, which stays keyed off the daily close.
 on:
   schedule:
-    - cron: "44 13 * * 1-5"
-    - cron: "44 14 * * 1-5"
+    # Hourly through the session (13:44-20:44 UTC covers both EDT and EST),
+    # so the recorded session low catches intraday dips (2026-11-12: an NBIS
+    # dip was missed with one snapshot a day). Each run keeps the lowest
+    # price seen for the day; off-session firings no-op.
+    - cron: "44 13-20 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
   contents: write
+
+# Shared with daily-price-check.yml: both rewrite data/state.json and push,
+# so they must not run at the same time.
+concurrency:
+  group: state-writer
+  cancel-in-progress: false
 
 jobs:
   snapshot:

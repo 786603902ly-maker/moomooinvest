@@ -560,6 +560,16 @@ Per row (USD prices; amounts are the rule's SGD amounts, no FX conversion):
 - A placed order turns amber once the rung's level moves more than
   `order_amend_pct` (2%) from it -- low-zone mode moves unfired rungs with
   new lows, and a period reset rebuilds the ladder.
+- A rung is used up only when you record a buy (or a skip) for it -- not
+  when price merely touches it. A rung reached earlier in the period that
+  you never bought stays the standing order, marked "reached DATE, not
+  bought" (fixed 2026-11-12 after NBIS's 123.98 rung, touched on 11-05,
+  had silently dropped out). Everything above the deepest rung you bought
+  or skipped counts as skipped.
+- Intraday dips: the live quote's day low is checked too. If price dipped
+  through a rung and bounced, the row says so ("Dipped to X today ... not
+  bought") with **bought** / **skip**, and the next order moves below it.
+  A placed order whose level the day low reached counts as filled.
 - Tap a row (not a button) to jump to the stock's card for the full ladder.
 - Placed orders are `order|TICKER` entries (`kind: "order"`) in the synced
   tick store, so all devices agree; the Action log and CSV skip them. Buys

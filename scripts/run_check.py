@@ -29,8 +29,14 @@ def pct_diff(price: float, ref: float | None) -> float | None:
 
 
 def intraday_snapshot(prev: dict | None) -> tuple[dt.date, float] | None:
-    """(New York trade date, price) of the last intraday snapshot, if any."""
+    """(New York trade date, lowest price seen) of the last intraday snapshots.
+
+    Uses the session low the hourly snapshots recorded when there is one,
+    else the last snapshot price.
+    """
     prev = prev or {}
+    if prev.get("intraday_low_date") and prev.get("intraday_low") is not None:
+        return dt.date.fromisoformat(prev["intraday_low_date"]), float(prev["intraday_low"])
     at, price = prev.get("intraday_price_at"), prev.get("intraday_price")
     if not at or price is None:
         return None
@@ -61,6 +67,14 @@ def fair_value_sell_target(stock: dict, rules: dict) -> dict | None:
         # Not the user's own wording, so it carries its reason with it.
         "action": f'{cfg.get("action", "sell 1/5")} ({premium:g}% above fair value {float(fair):g})',
     }
+
+
+def session_low(price_date: dt.date, snap: tuple[dt.date, float] | None) -> float | None:
+    """The intraday low of the session whose close we are evaluating, if the
+    snapshots caught one -- a rung touched intraday counts as reached."""
+    if snap and snap[0] == price_date:
+        return snap[1]
+    return None
 
 
 def main() -> int:
@@ -103,6 +117,7 @@ def main() -> int:
             overrides=stock.get("ladder") or {},
             trend=trend_signals(history, rules.get("trend_guard") or {}),
             is_etf=bool(stock.get("is_etf")),
+            session_low=session_low(price_date, intraday_snapshot(prev_stocks.get(ticker))),
             recent_low=recent_low(
                 history,
                 int((rules.get("low_zone") or {}).get("lookback", 20)),

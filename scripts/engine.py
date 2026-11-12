@@ -474,6 +474,7 @@ def evaluate_stock(
     trend: dict | None = None,
     is_etf: bool = False,
     recent_low: float | None = None,
+    session_low: float | None = None,
 ) -> dict:
     tier_cfg = rules["tiers"][tier]
     refresh = tier_cfg["refresh"]
@@ -597,12 +598,16 @@ def evaluate_stock(
             "dropped": dropped or (prev_low or {}).get("dropped", []),
         }
 
-    full_ladder = extend_with_drop_cascade(ladder, price, rules["cap_multiplier"], drop_step)
+    # A rung fires when the session traded at or below it: the close, or the
+    # intraday low the hourly snapshots caught (a limit order would have
+    # filled on that dip even if the close recovered).
+    hit_price = min(price, session_low) if session_low is not None else price
+    full_ladder = extend_with_drop_cascade(ladder, hit_price, rules["cap_multiplier"], drop_step)
 
     fired_ids = {f["id"] for f in fired}
     new_triggers = []
     for rung in full_ladder:
-        if price <= rung["level"] and rung["id"] not in fired_ids:
+        if hit_price <= rung["level"] and rung["id"] not in fired_ids:
             trigger = {
                 **rung,
                 "amount": round(base_amount * rung["multiplier"], 2),

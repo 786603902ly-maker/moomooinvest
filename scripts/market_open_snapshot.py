@@ -54,13 +54,21 @@ def main() -> int:
     for stock in stocks:
         ticker = stock["ticker"]
         try:
-            ts, price = get_intraday_quote(ticker)
+            ts, price, low = get_intraday_quote(ticker)
         except Exception as exc:  # noqa: BLE001
             print(f"[{ticker}] intraday fetch failed: {exc}", file=sys.stderr)
             continue
         entry = stocks_state.setdefault(ticker, {})
         entry["intraday_price"] = price
         entry["intraday_price_at"] = ts.isoformat()
+        # The session's low so far. Snapshots now run hourly; keep the lowest
+        # seen for this New York date, so run_check.py can fire a rung that
+        # was touched intraday even if the close recovered above it.
+        session = ts.astimezone(NY).date().isoformat()
+        if entry.get("intraday_low_date") == session and entry.get("intraday_low") is not None:
+            low = min(low, entry["intraday_low"])
+        entry["intraday_low"] = low
+        entry["intraday_low_date"] = session
         fetched += 1
 
     if fetched:

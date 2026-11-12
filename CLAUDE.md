@@ -149,6 +149,19 @@ order, a fill of the placed order, and the deepest reached-unbought rung as
   Anything that lists ticks must skip them.
 - Older `skipped: true` tick entries (from the 2026-11-07 grouped summary)
   can still exist; the card still labels them.
+- A rung is consumed by a recorded buy/skip tick, never by `fired` alone:
+  `orderState` takes the deepest ticked (or filled-order) level as a floor
+  and only offers rungs below it. Don't go back to treating fired as bought.
+
+## Intraday lows (2026-11-12)
+
+`market-open-price-check.yml` now runs hourly through the session and
+records `intraday_low` / `intraday_low_date` (lowest 1-minute low of that New
+York session). `run_check.py` passes it as `session_low` when it matches the
+close's date, and the engine fires rungs on `min(close, session_low)`.
+`/api/quote` returns `dayLow` for the page. Both workflows share the
+`state-writer` concurrency group because both push `data/state.json`.
+
 
 ## Where the user's buy history lives
 

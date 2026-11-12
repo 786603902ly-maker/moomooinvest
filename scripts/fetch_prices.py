@@ -70,8 +70,12 @@ def _fetch_yahoo(ticker: str) -> list[tuple[dt.date, float]]:
     return sorted(out)
 
 
-def get_intraday_quote(ticker: str) -> tuple[dt.datetime, float]:
-    """Return (utc_timestamp, price) for the most recent intraday tick.
+def get_intraday_quote(ticker: str) -> tuple[dt.datetime, float, float | None]:
+    """Return (utc_timestamp, price, session_low) for the most recent intraday tick.
+
+    session_low is the lowest 1-minute low of the session so far, so a dip
+    that recovered before the snapshot ran is still seen (a GTC limit order
+    at that level would have filled on it).
 
     Distinct from get_history: this is a live snapshot for display only, not
     used for MA/ladder math (which stays keyed off the daily close). Raises
@@ -86,10 +90,14 @@ def get_intraday_quote(ticker: str) -> tuple[dt.datetime, float]:
         payload = json.load(resp)
     result = payload["chart"]["result"][0]
     timestamps = result["timestamp"]
-    closes = result["indicators"]["quote"][0]["close"]
+    quote = result["indicators"]["quote"][0]
+    closes = quote["close"]
+    lows = [v for v in (quote.get("low") or []) if v is not None]
+    session_low = float(min(lows)) if lows else None
     for ts, c in reversed(list(zip(timestamps, closes))):
         if c is not None:
-            return dt.datetime.fromtimestamp(ts, tz=dt.timezone.utc), float(c)
+            low = min(session_low, float(c)) if session_low is not None else float(c)
+            return dt.datetime.fromtimestamp(ts, tz=dt.timezone.utc), float(c), low
     raise FetchError(f"yahoo intraday: no ticks for {ticker}")
 
 

@@ -14,6 +14,11 @@ on:
     - cron: "30 21 * * *"
   workflow_dispatch: {}
 
+# Shared with market-open-price-check.yml (both write data/state.json).
+concurrency:
+  group: state-writer
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
