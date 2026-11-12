@@ -575,6 +575,33 @@ Per row (USD prices; amounts are the rule's SGD amounts, no FX conversion):
   tick store, so all devices agree; the Action log and CSV skip them. Buys
   recorded from the panel use the same tick ids as the card checkboxes.
 
+## Push notifications (2026-11-12)
+
+Tap **Enable alerts** next to "Refresh live prices" on each phone you want
+alerts on, then **Send test alert** to check. On iPhone this only works
+from the app installed to the home screen (iOS 16.4+); on Android, Chrome
+works either way.
+
+| Alert | When | Sent |
+|---|---|---|
+| "X dipped to $L, through your $R rung" / "X is under your $R rung" | the day's low reached a rung you haven't bought or skipped | once per rung per refresh period, deepest rung only |
+| "X: your $R order should have filled" | the day's low reached the order you marked **placed** | once per placed order |
+| "X reached $S: sell ..." | the day's high reached a sell target not marked done | once |
+
+How it works: `api/notify.js` reads `dashboard/plans.json` (written by
+`build_dashboard.py`), live quotes and your ticks, applies the same rules as
+the top panel, and sends only events it hasn't sent before (`api/push.js`
+keeps the subscriptions; the VAPID keys are generated on first use and kept
+in KV, so there is nothing to configure).
+
+What calls it:
+- the hourly snapshot and the daily run, after they finish (GitHub starts
+  these hours late, so they are a backstop, not the alarm clock);
+- a Vercel cron at 21:10 UTC on weekdays (around the US close);
+- **for alerts within minutes**, a free external scheduler hitting
+  `https://moomooinvest.vercel.app/api/notify` every 10 minutes during US
+  hours (e.g. cron-job.org). Calling it more often never duplicates alerts.
+
 ## Fair-value trim: sell 1/5 when 30% above fair value (2026-11-11)
 
 `fair_value_sell` in `config/rules.yaml`, `fair_value_sell_target` in

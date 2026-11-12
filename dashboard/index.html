@@ -222,7 +222,7 @@ table.val-table td.bad{color:var(--bad);}
 <div class="wrap">
   <h1>DCA Alert Dashboard</h1>
   <div class="subtitle">Prices as of <b>2026-11-10</b> &middot; live snapshot <b>9:55 AM ET</b> &middot; generated 2026-11-12T02:19:40.310420Z &middot; fundamentals last refreshed <b>2026-08-25</b></div>
-  <div class="subtitle"><button class="export" id="refresh-prices-btn">Refresh live prices</button><span class="live-status" id="live-status"></span></div>
+  <div class="subtitle"><button class="export" id="refresh-prices-btn">Refresh live prices</button><button class="export" id="push-btn" hidden>Enable alerts</button><span class="live-status" id="live-status"></span><span class="live-status" id="push-status"></span></div>
   
   <div class="tabs">
     <button class="tab-btn active" data-tab="alerts">Alerts &amp; ladder</button>
@@ -1608,7 +1608,52 @@ document.addEventListener("visibilitychange", () => {
 // Failure is non-fatal: the page works identically without it.
 if("serviceWorker" in navigator){
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+    navigator.serviceWorker.register("/sw.js").then(initPush).catch(() => {});
+  });
+}
+
+// Push notifications: "Enable alerts" subscribes this device (api/push.js);
+// api/notify.js then pushes when a rung or sell target is reached. Once on,
+// the same button sends a test. On iPhone this only works from the app
+// installed to the home screen; on Android, Chrome works either way.
+function b64ToBytes(b64){
+  const pad = "=".repeat((4 - b64.length % 4) % 4);
+  const raw = atob((b64 + pad).replace(/-/g, "+").replace(/_/g, "/"));
+  return Uint8Array.from(raw, c => c.charCodeAt(0));
+}
+
+async function initPush(reg){
+  const btn = document.getElementById("push-btn");
+  const status = document.getElementById("push-status");
+  if(!btn || !("PushManager" in window) || !("Notification" in window)) return;
+  btn.hidden = false;
+  const say = (t) => { if(status) status.textContent = t; };
+  let sub = await reg.pushManager.getSubscription();
+  const paint = () => { btn.textContent = sub ? "Send test alert" : "Enable alerts"; };
+  paint();
+  if(sub){
+    // Re-save on every visit: cheap, and repairs a device the server dropped.
+    fetch("/api/push", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({subscription: sub.toJSON()})}).catch(() => {});
+  }
+  btn.addEventListener("click", async () => {
+    try{
+      if(sub){
+        const r = await fetch("/api/push", {method: "POST", headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({test: true})});
+        say(r.status === 429 ? "Wait a minute between tests." : r.ok ? "Test sent." : "Test failed.");
+        return;
+      }
+      if(await Notification.requestPermission() !== "granted"){ say("Notifications are blocked for this site."); return; }
+      const {publicKey} = await (await fetch("/api/push")).json();
+      sub = await reg.pushManager.subscribe({userVisibleOnly: true, applicationServerKey: b64ToBytes(publicKey)});
+      const r = await fetch("/api/push", {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({subscription: sub.toJSON()})});
+      say(r.ok ? "Alerts on for this device." : "Couldn't save the subscription.");
+      paint();
+    }catch(e){
+      say("Couldn't enable alerts: " + (e && e.message || e));
+    }
   });
 }
 </script>

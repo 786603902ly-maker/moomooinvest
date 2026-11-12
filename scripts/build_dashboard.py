@@ -252,7 +252,7 @@ table.val-table td.bad{color:var(--bad);}
 <div class="wrap">
   <h1>DCA Alert Dashboard</h1>
   <div class="subtitle">Prices as of <b>__PRICE_DATE__</b>__LIVE_SNAPSHOT__ &middot; generated __GENERATED_AT__ &middot; fundamentals last refreshed <b>__FUND_DATE__</b></div>
-  <div class="subtitle"><button class="export" id="refresh-prices-btn">Refresh live prices</button><span class="live-status" id="live-status"></span></div>
+  <div class="subtitle"><button class="export" id="refresh-prices-btn">Refresh live prices</button><button class="export" id="push-btn" hidden>Enable alerts</button><span class="live-status" id="live-status"></span><span class="live-status" id="push-status"></span></div>
   __STALE_BANNER__
   <div class="tabs">
     <button class="tab-btn active" data-tab="alerts">Alerts &amp; ladder</button>
@@ -1070,7 +1070,52 @@ document.addEventListener("visibilitychange", () => {
 // Failure is non-fatal: the page works identically without it.
 if("serviceWorker" in navigator){
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+    navigator.serviceWorker.register("/sw.js").then(initPush).catch(() => {});
+  });
+}
+
+// Push notifications: "Enable alerts" subscribes this device (api/push.js);
+// api/notify.js then pushes when a rung or sell target is reached. Once on,
+// the same button sends a test. On iPhone this only works from the app
+// installed to the home screen; on Android, Chrome works either way.
+function b64ToBytes(b64){
+  const pad = "=".repeat((4 - b64.length % 4) % 4);
+  const raw = atob((b64 + pad).replace(/-/g, "+").replace(/_/g, "/"));
+  return Uint8Array.from(raw, c => c.charCodeAt(0));
+}
+
+async function initPush(reg){
+  const btn = document.getElementById("push-btn");
+  const status = document.getElementById("push-status");
+  if(!btn || !("PushManager" in window) || !("Notification" in window)) return;
+  btn.hidden = false;
+  const say = (t) => { if(status) status.textContent = t; };
+  let sub = await reg.pushManager.getSubscription();
+  const paint = () => { btn.textContent = sub ? "Send test alert" : "Enable alerts"; };
+  paint();
+  if(sub){
+    // Re-save on every visit: cheap, and repairs a device the server dropped.
+    fetch("/api/push", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({subscription: sub.toJSON()})}).catch(() => {});
+  }
+  btn.addEventListener("click", async () => {
+    try{
+      if(sub){
+        const r = await fetch("/api/push", {method: "POST", headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({test: true})});
+        say(r.status === 429 ? "Wait a minute between tests." : r.ok ? "Test sent." : "Test failed.");
+        return;
+      }
+      if(await Notification.requestPermission() !== "granted"){ say("Notifications are blocked for this site."); return; }
+      const {publicKey} = await (await fetch("/api/push")).json();
+      sub = await reg.pushManager.subscribe({userVisibleOnly: true, applicationServerKey: b64ToBytes(publicKey)});
+      const r = await fetch("/api/push", {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({subscription: sub.toJSON()})});
+      say(r.ok ? "Alerts on for this device." : "Couldn't save the subscription.");
+      paint();
+    }catch(e){
+      say("Couldn't enable alerts: " + (e && e.message || e));
+    }
   });
 }
 </script>
@@ -1262,6 +1307,34 @@ def order_plan(ticker: str, s: dict, rules: dict) -> dict | None:
     period = s.get("period") or {}
     return {"ticker": ticker, "tier": s.get("tier"), "rungs": rungs,
             "refresh": period.get("type"), "reset": next_reset(period)}
+
+
+def export_plans(stocks_state: dict, stocks_cfg: dict, rules: dict) -> dict:
+    """What api/notify.js needs to decide on a push notification, as a
+    static file next to the page (dashboard/plans.json): each buying stock's
+    rungs (same as the order panel's) and every stock's sell targets."""
+    out = {}
+    for ticker, cfg in stocks_cfg.items():
+        s = stocks_state.get(ticker) or {}
+        buying = (rules.get("tiers", {}).get(cfg.get("tier")) or {}).get("buy_enabled", True)
+        plan = order_plan(ticker, s, rules) if buying else None
+        fired_sell = {f["id"]: f.get("first_hit_date") for f in s.get("fired_sell") or []}
+        sells = [
+            {"id": r["id"], "level": r["level"], "source": r.get("source", ""), "hit": fired_sell.get(r["id"]) or ""}
+            for r in s.get("sell_rungs_today") or []
+        ]
+        if not plan and not sells:
+            continue
+        out[ticker] = {
+            "tier": cfg.get("tier"),
+            "period": (s.get("period") or {}).get("key"),
+            "rungs": (plan or {}).get("rungs", []),
+            "sells": sells,
+        }
+    return {"currency": rules.get("currency", "SGD"), "stocks": out}
+
+
+LAST_PLANS: dict = {}
 
 
 def render_order_sheet(stocks_state: dict, stocks_cfg: dict, rules: dict) -> str:
@@ -1745,6 +1818,8 @@ def build() -> str:
     html = html.replace("__STALE_COUNT__", str(stale_count))
     html = html.replace("__TIER_SECTIONS__", "".join(sections))
     html = html.replace("__ORDER_SHEET__", render_order_sheet(stocks_state, stocks_cfg, rules))
+    LAST_PLANS.clear()
+    LAST_PLANS.update(export_plans(stocks_state, stocks_cfg, rules))
     html = html.replace("__ORDER_AMEND_PCT__", str(float(rules.get("order_amend_pct", 2.0))))
     html = html.replace("__VALUATION_TAB__", valuation_html)
     html = html.replace("__STATE_JSON__", json.dumps(state).replace("</", "<\\/"))
@@ -1758,6 +1833,9 @@ def main():
     out_path = out_dir / "index.html"
     out_path.write_text(html)
     print(f"Wrote {out_path}")
+    plans_path = out_dir / "plans.json"
+    plans_path.write_text(json.dumps(LAST_PLANS, indent=1, sort_keys=True) + "\n")
+    print(f"Wrote {plans_path}")
 
 
 if __name__ == "__main__":

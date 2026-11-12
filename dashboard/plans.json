@@ -1,0 +1,1895 @@
+{
+ "currency": "SGD",
+ "stocks": {
+  "AMD": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": true,
+     "hit": "2026-11-05",
+     "id": "low-1",
+     "level": 416.532,
+     "mult": 1.0,
+     "source": "near 20-day low (+3%)"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "low-2",
+     "level": 404.036,
+     "mult": 1.5,
+     "source": "20-day low"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "ma-250",
+     "level": 373.523,
+     "mult": 2.0,
+     "source": "250"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 347.3764,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 323.06,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 300.4458,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 279.4146,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 259.8556,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 241.6657,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 224.7491,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 209.0167,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-689.0-sell-1/5-(30%-above-fair-value-530)",
+     "level": 689.0,
+     "source": "sell 1/5 (30% above fair value 530)"
+    }
+   ],
+   "tier": "T3"
+  },
+  "AMZN": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "low-1",
+     "level": 247.5605,
+     "mult": 1.0,
+     "source": "near 20-day low (+3%)"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 234.7621,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 218.3287,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 203.0457,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 188.8325,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 175.6142,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 163.3212,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 151.8887,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 141.2565,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 131.3686,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 122.1728,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-390.0-sell-1/5-(30%-above-fair-value-300)",
+     "level": 390.0,
+     "source": "sell 1/5 (30% above fair value 300)"
+    }
+   ],
+   "tier": "T3"
+  },
+  "ASML": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "start-level",
+     "level": 920.0,
+     "mult": 1.0,
+     "source": "your first buy level"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 874.0,
+     "mult": 1.5,
+     "source": "5% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 830.3,
+     "mult": 2.0,
+     "source": "5% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 788.785,
+     "mult": 2.0,
+     "source": "5% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 749.3457,
+     "mult": 2.0,
+     "source": "5% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 711.8785,
+     "mult": 2.0,
+     "source": "5% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 676.2845,
+     "mult": 2.0,
+     "source": "5% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 642.4703,
+     "mult": 2.0,
+     "source": "5% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 610.3468,
+     "mult": 2.0,
+     "source": "5% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 579.8295,
+     "mult": 2.0,
+     "source": "5% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 550.838,
+     "mult": 2.0,
+     "source": "5% drop #8"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-8",
+     "level": 523.2961,
+     "mult": 2.0,
+     "source": "5% drop #9"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-9",
+     "level": 497.1313,
+     "mult": 2.0,
+     "source": "5% drop #10"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-2665.0-sell-1/5-(30%-above-fair-value-2050)",
+     "level": 2665.0,
+     "source": "sell 1/5 (30% above fair value 2050)"
+    }
+   ],
+   "tier": "T3.5"
+  },
+  "ASTS": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-160.0-sell-all",
+     "level": 160.0,
+     "source": "sell all"
+    }
+   ],
+   "tier": "T5"
+  },
+  "AVGO": {
+   "period": "2026-W46",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 278.6967,
+     "mult": 1.0,
+     "source": "downtrend: 7% below 299.67"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 259.1879,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 241.0448,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 224.1717,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 208.4796,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 193.8861,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 180.314,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 167.6921,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 155.9536,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 145.0369,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 134.8843,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-845.0-sell-1/5-(30%-above-fair-value-650)",
+     "level": 845.0,
+     "source": "sell 1/5 (30% above fair value 650)"
+    }
+   ],
+   "tier": "T1"
+  },
+  "BRK-B": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "2026-10-22",
+     "id": "sell-540.0-sell-half",
+     "level": 540.0,
+     "source": "sell half"
+    }
+   ],
+   "tier": "T9"
+  },
+  "DUOL": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-180.0-sell-all",
+     "level": 180.0,
+     "source": "sell all"
+    }
+   ],
+   "tier": "T9"
+  },
+  "FXI": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-41.0-sell-all",
+     "level": 41.0,
+     "source": "sell all"
+    }
+   ],
+   "tier": "T5"
+  },
+  "GOOG": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 258.5772,
+     "mult": 1.0,
+     "source": "downtrend: 7% below 278.04"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 240.4768,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 223.6434,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 207.9884,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 193.4292,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 179.8891,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 167.2969,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 155.5861,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 144.6951,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 134.5664,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 125.1468,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-562.9-sell-1/5-(30%-above-fair-value-433)",
+     "level": 562.9,
+     "source": "sell 1/5 (30% above fair value 433)"
+    }
+   ],
+   "tier": "T3"
+  },
+  "GRAB": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-4.6-sell-half",
+     "level": 4.6,
+     "source": "sell half"
+    }
+   ],
+   "tier": "T5"
+  },
+  "HIMS": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-39.0-sell-a-covered-call",
+     "level": 39.0,
+     "source": "sell a covered call"
+    },
+    {
+     "hit": "",
+     "id": "sell-60.0-sell-half",
+     "level": 60.0,
+     "source": "sell half"
+    }
+   ],
+   "tier": "T9"
+  },
+  "IGV": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": true,
+     "hit": "2026-11-05",
+     "id": "ma-100",
+     "level": 100.7679,
+     "mult": 1.0,
+     "source": "100"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 93.7141,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 87.1542,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 81.0534,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 75.3797,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 70.1031,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 65.1959,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 60.6322,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 56.3879,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 52.4408,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 48.7699,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [],
+   "tier": "T2"
+  },
+  "META": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": true,
+     "hit": "2026-11-05",
+     "id": "low-1",
+     "level": 623.2324,
+     "mult": 1.0,
+     "source": "near 20-day low (+3%)"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 586.7804,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 545.7058,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 507.5064,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 471.9809,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 438.9423,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 408.2163,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 379.6412,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 353.0663,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 328.3517,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 305.367,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-1105.0-sell-1/5-(30%-above-fair-value-850)",
+     "level": 1105.0,
+     "source": "sell 1/5 (30% above fair value 850)"
+    }
+   ],
+   "tier": "T2"
+  },
+  "MSFT": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "ma-100",
+     "level": 466.6164,
+     "mult": 1.0,
+     "source": "100"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 433.9533,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 403.5765,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 375.3261,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 349.0533,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 324.6196,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 301.8962,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 280.7635,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 261.11,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 242.8323,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 225.8341,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-780.0-sell-1/5-(30%-above-fair-value-600)",
+     "level": 780.0,
+     "source": "sell 1/5 (30% above fair value 600)"
+    }
+   ],
+   "tier": "T2"
+  },
+  "NBIS": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": true,
+     "hit": "2026-11-05",
+     "id": "low-1",
+     "level": 123.9811,
+     "mult": 1.0,
+     "source": "near 20-day low (+3%)"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "low-2",
+     "level": 120.2617,
+     "mult": 1.5,
+     "source": "20-day low"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "low-3",
+     "level": 111.8434,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 104.0144,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 96.7334,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 89.962,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 83.6647,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 77.8082,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 72.3616,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 67.2963,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 62.5855,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-195.0-sell-1/5-(30%-above-fair-value-150)",
+     "level": 195.0,
+     "source": "sell 1/5 (30% above fair value 150)"
+    }
+   ],
+   "tier": "T3.5"
+  },
+  "NU": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "2026-10-09",
+     "id": "sell-16.0-sell-all",
+     "level": 16.0,
+     "source": "sell all"
+    }
+   ],
+   "tier": "T9"
+  },
+  "NVDA": {
+   "period": "2026-W46",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 165.3075,
+     "mult": 1.0,
+     "source": "downtrend: 7% below 177.75"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 153.736,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 142.9745,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 132.9663,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 123.6586,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 115.0025,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 106.9524,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 99.4657,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 92.5031,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 86.0279,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 80.0059,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-364.0-sell-1/5-(30%-above-fair-value-280)",
+     "level": 364.0,
+     "source": "sell 1/5 (30% above fair value 280)"
+    }
+   ],
+   "tier": "T1"
+  },
+  "OSCR": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-38.0-sell-all",
+     "level": 38.0,
+     "source": "sell all"
+    }
+   ],
+   "tier": "T5"
+  },
+  "PLTR": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": true,
+     "hit": "2026-11-05",
+     "id": "low-1",
+     "level": 159.6397,
+     "mult": 1.0,
+     "source": "near 20-day low (+3%)"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 151.4991,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 140.8942,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 131.0316,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 121.8594,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 113.3292,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 105.3962,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 98.0185,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 91.1572,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 84.7762,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 78.8418,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-198.9-sell-1/5-(30%-above-fair-value-153)",
+     "level": 198.9,
+     "source": "sell 1/5 (30% above fair value 153)"
+    }
+   ],
+   "tier": "T2"
+  },
+  "PYPL": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-66.0-sell-half",
+     "level": 66.0,
+     "source": "sell half"
+    }
+   ],
+   "tier": "T9"
+  },
+  "RKLB": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": true,
+     "hit": "2026-11-05",
+     "id": "low-1",
+     "level": 47.3697,
+     "mult": 1.0,
+     "source": "near 20-day low (+3%)"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 45.0353,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 41.8829,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 38.9511,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 36.2245,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 33.6888,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 31.3306,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 29.1374,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 27.0978,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 25.201,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 23.4369,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-100.36-sell-1/5-(30%-above-fair-value-77.2)",
+     "level": 100.36,
+     "source": "sell 1/5 (30% above fair value 77.2)"
+    }
+   ],
+   "tier": "T3"
+  },
+  "SOFI": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-25.0-sell-half",
+     "level": 25.0,
+     "source": "sell half"
+    }
+   ],
+   "tier": "T5"
+  },
+  "TSM": {
+   "period": "2026-W46",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 338.2345,
+     "mult": 1.0,
+     "source": "downtrend: 7% below 363.69"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 314.5581,
+     "mult": 1.5,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 292.539,
+     "mult": 2.0,
+     "source": "7% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 272.0613,
+     "mult": 2.0,
+     "source": "7% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 253.017,
+     "mult": 2.0,
+     "source": "7% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 235.3058,
+     "mult": 2.0,
+     "source": "7% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 218.8344,
+     "mult": 2.0,
+     "source": "7% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 203.516,
+     "mult": 2.0,
+     "source": "7% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 189.2699,
+     "mult": 2.0,
+     "source": "7% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 176.021,
+     "mult": 2.0,
+     "source": "7% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 163.6995,
+     "mult": 2.0,
+     "source": "7% drop #8"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-694.2-sell-1/5-(30%-above-fair-value-534)",
+     "level": 694.2,
+     "source": "sell 1/5 (30% above fair value 534)"
+    }
+   ],
+   "tier": "T1"
+  },
+  "V": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "ma-200+250",
+     "level": 344.4262,
+     "mult": 1.0,
+     "source": "200+250"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 327.2049,
+     "mult": 1.5,
+     "source": "5% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 310.8446,
+     "mult": 2.0,
+     "source": "5% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 295.3024,
+     "mult": 2.0,
+     "source": "5% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 280.5373,
+     "mult": 2.0,
+     "source": "5% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 266.5104,
+     "mult": 2.0,
+     "source": "5% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 253.1849,
+     "mult": 2.0,
+     "source": "5% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 240.5256,
+     "mult": 2.0,
+     "source": "5% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 228.4993,
+     "mult": 2.0,
+     "source": "5% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 217.0744,
+     "mult": 2.0,
+     "source": "5% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 206.2207,
+     "mult": 2.0,
+     "source": "5% drop #8"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-8",
+     "level": 195.9096,
+     "mult": 2.0,
+     "source": "5% drop #9"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-9",
+     "level": 186.1141,
+     "mult": 2.0,
+     "source": "5% drop #10"
+    }
+   ],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-429.0-sell-1/5-(30%-above-fair-value-330)",
+     "level": 429.0,
+     "source": "sell 1/5 (30% above fair value 330)"
+    }
+   ],
+   "tier": "T3.5"
+  },
+  "VITL": {
+   "period": "2026-11",
+   "rungs": [],
+   "sells": [
+    {
+     "hit": "",
+     "id": "sell-14.5-sell-half",
+     "level": 14.5,
+     "source": "sell half"
+    },
+    {
+     "hit": "",
+     "id": "sell-16.0-sell-half",
+     "level": 16.0,
+     "source": "sell half"
+    }
+   ],
+   "tier": "T9"
+  },
+  "XLV": {
+   "period": "2026-B22",
+   "rungs": [
+    {
+     "amount": 600.0,
+     "fired": false,
+     "hit": "",
+     "id": "ma-200+250",
+     "level": 158.3228,
+     "mult": 1.0,
+     "source": "200+250"
+    },
+    {
+     "amount": 900.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 150.4067,
+     "mult": 1.5,
+     "source": "5% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-2",
+     "level": 142.8864,
+     "mult": 2.0,
+     "source": "5% drop"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-0",
+     "level": 135.7421,
+     "mult": 2.0,
+     "source": "5% drop #1"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-1",
+     "level": 128.955,
+     "mult": 2.0,
+     "source": "5% drop #2"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-2",
+     "level": 122.5072,
+     "mult": 2.0,
+     "source": "5% drop #3"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-3",
+     "level": 116.3819,
+     "mult": 2.0,
+     "source": "5% drop #4"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-4",
+     "level": 110.5628,
+     "mult": 2.0,
+     "source": "5% drop #5"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-5",
+     "level": 105.0346,
+     "mult": 2.0,
+     "source": "5% drop #6"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-6",
+     "level": 99.7829,
+     "mult": 2.0,
+     "source": "5% drop #7"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-7",
+     "level": 94.7938,
+     "mult": 2.0,
+     "source": "5% drop #8"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-8",
+     "level": 90.0541,
+     "mult": 2.0,
+     "source": "5% drop #9"
+    },
+    {
+     "amount": 1200.0,
+     "fired": false,
+     "hit": "",
+     "id": "below-ladder-drop-9",
+     "level": 85.5514,
+     "mult": 2.0,
+     "source": "5% drop #10"
+    }
+   ],
+   "sells": [],
+   "tier": "T3.5"
+  }
+ }
+}

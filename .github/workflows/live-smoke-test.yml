@@ -59,6 +59,18 @@ jobs:
           print(f"\nOK: {len(quotes)} live quote(s) returned from the deployed function")
           PY
 
+      - name: Push notification backend
+        run: |
+          # Read-only: GET returns the VAPID public key (created on first use)
+          # and how many devices are subscribed; nothing is sent.
+          code=$(curl -sS -o /tmp/push.json -w '%{http_code}' --max-time 30 "$SITE/api/push")
+          echo "GET /api/push -> HTTP $code"
+          python3 -c "import json; d=json.load(open('/tmp/push.json')); print('devices subscribed:', d.get('devices')); print('public key present:', bool(d.get('publicKey')))" || cat /tmp/push.json
+          test "$code" = "200" || { echo "::error::/api/push returned $code"; exit 1; }
+          code=$(curl -sS -o /tmp/plans.json -w '%{http_code}' --max-time 30 "$SITE/dashboard/plans.json")
+          echo "GET /dashboard/plans.json -> HTTP $code"
+          test "$code" = "200" || { echo "::error::plans.json not served"; exit 1; }
+
       - name: Installable as an app (PWA assets)
         run: |
           # Chrome will only offer "Install app" if the manifest, its icons

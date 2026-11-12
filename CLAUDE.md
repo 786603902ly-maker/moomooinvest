@@ -163,6 +163,16 @@ close's date, and the engine fires rungs on `min(close, session_low)`.
 `state-writer` concurrency group because both push `data/state.json`.
 
 
+## Push notifications (2026-11-12)
+
+`api/push.js` (subscriptions, test), `api/notify.js` (decide + send),
+`lib/push.js`, `lib/quote.js`. `notify.js` mirrors the panel's
+`orderState` rules on `dashboard/plans.json` -- if you change how the panel
+picks rungs (floor from buy/skip ticks, deepest-only), change `events()` in
+`notify.js` too. An event is marked sent only after at least one device
+received it. VAPID keys live in KV (`moomooinvest:push:vapid`); deleting
+them invalidates every subscription.
+
 ## Where the user's buy history lives
 
 Ticked-off rungs ("I actually bought this") are stored in the Vercel KV

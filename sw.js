@@ -17,7 +17,7 @@
 //
 // Bump CACHE whenever the precache list changes; activate deletes every
 // cache that isn't the current one.
-const CACHE = "moomooinvest-v1";
+const CACHE = "moomooinvest-v2";
 const PRECACHE = [
   "/",
   "/manifest.webmanifest",
@@ -80,5 +80,34 @@ self.addEventListener("fetch", (event) => {
           return res;
         })
     )
+  );
+});
+
+// Push notifications (api/notify.js sends them). Payload is JSON:
+// { title, body, tag, url }.
+self.addEventListener("push", (event) => {
+  let msg = {};
+  try { msg = event.data ? event.data.json() : {}; } catch (e) { msg = { body: event.data && event.data.text() }; }
+  event.waitUntil(
+    self.registration.showNotification(msg.title || "moomooinvest", {
+      body: msg.body || "",
+      tag: msg.tag,
+      icon: "/icons/icon-192.png",
+      badge: "/icons/icon-192.png",
+      data: { url: msg.url || "/" },
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || "/";
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      for (const c of list) {
+        if ("focus" in c) { c.navigate(url).catch(() => {}); return c.focus(); }
+      }
+      return self.clients.openWindow(url);
+    })
   );
 });
