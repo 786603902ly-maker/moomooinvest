@@ -92,8 +92,13 @@ def get_intraday_quote(ticker: str) -> tuple[dt.datetime, float, float | None]:
     timestamps = result["timestamp"]
     quote = result["indicators"]["quote"][0]
     closes = quote["close"]
-    lows = [v for v in (quote.get("low") or []) if v is not None]
-    session_low = float(min(lows)) if lows else None
+    # Prefer the exchange's official day low (same field /api/quote reads);
+    # the minimum of 1-minute bar lows can include stray prints.
+    session_low = result.get("meta", {}).get("regularMarketDayLow")
+    if not isinstance(session_low, (int, float)):
+        lows = [v for v in (quote.get("low") or []) if v is not None]
+        session_low = min(lows) if lows else None
+    session_low = float(session_low) if session_low is not None else None
     for ts, c in reversed(list(zip(timestamps, closes))):
         if c is not None:
             low = min(session_low, float(c)) if session_low is not None else float(c)
