@@ -1017,7 +1017,7 @@
      "fired": false,
      "hit": "",
      "id": "low-2",
-     "level": 120.2617,
+     "level": 118.81,
      "mult": 1.5,
      "source": "20-day low"
     },
@@ -1026,7 +1026,7 @@
      "fired": false,
      "hit": "",
      "id": "low-3",
-     "level": 111.8434,
+     "level": 110.4933,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1035,7 +1035,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 104.0144,
+     "level": 102.7588,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1044,7 +1044,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 96.7334,
+     "level": 95.5657,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1053,7 +1053,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 89.962,
+     "level": 88.8761,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1062,7 +1062,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 83.6647,
+     "level": 82.6547,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1071,7 +1071,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 77.8082,
+     "level": 76.8689,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1080,7 +1080,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 72.3616,
+     "level": 71.4881,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1089,7 +1089,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 67.2963,
+     "level": 66.4839,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1098,7 +1098,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 62.5855,
+     "level": 61.83,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1133,26 +1133,26 @@
      "amount": 600.0,
      "fired": false,
      "hit": "",
-     "id": "trend-start",
-     "level": 165.3075,
+     "id": "low-1",
+     "level": 153.264,
      "mult": 1.0,
-     "source": "downtrend: 7% below 177.75"
+     "source": "near 20-day low (+3%)"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
-     "id": "rung-drop-1",
-     "level": 153.736,
+     "id": "low-2",
+     "level": 148.6661,
      "mult": 1.5,
-     "source": "7% drop"
+     "source": "20-day low"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
-     "id": "rung-drop-2",
-     "level": 142.9745,
+     "id": "low-3",
+     "level": 138.2595,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1161,7 +1161,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 132.9663,
+     "level": 128.5813,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1170,7 +1170,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 123.6586,
+     "level": 119.5806,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1179,7 +1179,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 115.0025,
+     "level": 111.21,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1188,7 +1188,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 106.9524,
+     "level": 103.4253,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1197,7 +1197,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 99.4657,
+     "level": 96.1855,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1206,7 +1206,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 92.5031,
+     "level": 89.4525,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1215,7 +1215,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 86.0279,
+     "level": 83.1909,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1224,7 +1224,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 80.0059,
+     "level": 77.3675,
      "mult": 2.0,
      "source": "7% drop #8"
     }
