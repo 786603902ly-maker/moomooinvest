@@ -1014,10 +1014,10 @@
     },
     {
      "amount": 900.0,
-     "fired": false,
-     "hit": "",
+     "fired": true,
+     "hit": "2026-11-13",
      "id": "low-2",
-     "level": 109.0,
+     "level": 115.88,
      "mult": 1.5,
      "source": "20-day low"
     },
@@ -1026,7 +1026,7 @@
      "fired": false,
      "hit": "",
      "id": "low-3",
-     "level": 101.37,
+     "level": 107.7684,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1035,7 +1035,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 94.2741,
+     "level": 100.2246,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1044,7 +1044,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 87.6749,
+     "level": 93.2089,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1053,7 +1053,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 81.5377,
+     "level": 86.6843,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1062,7 +1062,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 75.83,
+     "level": 80.6164,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1071,7 +1071,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 70.5219,
+     "level": 74.9732,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1080,7 +1080,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 65.5854,
+     "level": 69.7251,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1089,7 +1089,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 60.9944,
+     "level": 64.8443,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1098,7 +1098,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 56.7248,
+     "level": 60.3052,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1131,12 +1131,12 @@
    "rungs": [
     {
      "amount": 600.0,
-     "fired": false,
-     "hit": "",
-     "id": "low-1",
-     "level": 163.1417,
+     "fired": true,
+     "hit": "2026-11-13",
+     "id": "trend-start",
+     "level": 165.3075,
      "mult": 1.0,
-     "source": "near 20-day low (+3%)"
+     "source": "downtrend: 7% below 177.75"
     },
     {
      "amount": 900.0,
