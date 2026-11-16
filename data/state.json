@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T01:07:55.573684Z",
+  "generated_at": "2026-11-16T01:31:19.239682Z",
   "stocks": {
     "AMD": {
       "base_ladder": [
@@ -2054,16 +2054,7 @@
       "name": "Nebius Group",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 900.0,
-          "first_hit_date": "2026-11-13",
-          "id": "low-2",
-          "level": 115.88,
-          "multiplier": 1.5,
-          "source": "20-day low"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-3",
         "level": 107.7684,
@@ -2307,16 +2298,7 @@
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-13",
-          "id": "trend-start",
-          "level": 165.3075,
-          "multiplier": 1.0,
-          "source": "downtrend: 7% below 177.75"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 153.736,
