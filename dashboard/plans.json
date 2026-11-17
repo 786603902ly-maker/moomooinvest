@@ -2,12 +2,12 @@
  "currency": "SGD",
  "stocks": {
   "AMD": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-05",
+     "fired": false,
+     "hit": "",
      "id": "low-1",
      "level": 416.532,
      "mult": 1.0,
@@ -26,17 +26,17 @@
      "amount": 1200.0,
      "fired": false,
      "hit": "",
-     "id": "ma-250",
-     "level": 373.523,
+     "id": "low-3",
+     "level": 375.7535,
      "mult": 2.0,
-     "source": "250"
+     "source": "7% drop"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 347.3764,
+     "level": 349.4508,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -45,7 +45,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 323.06,
+     "level": 324.9892,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -54,7 +54,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 300.4458,
+     "level": 302.24,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -63,7 +63,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 279.4146,
+     "level": 281.0832,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -72,7 +72,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 259.8556,
+     "level": 261.4073,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -81,7 +81,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 241.6657,
+     "level": 243.1088,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -90,7 +90,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 224.7491,
+     "level": 226.0912,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -99,7 +99,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 209.0167,
+     "level": 210.2648,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -115,7 +115,7 @@
    "tier": "T3"
   },
   "AMZN": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
@@ -131,7 +131,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 234.7621,
+     "level": 237.2091,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -140,7 +140,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 218.3287,
+     "level": 220.6045,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -149,7 +149,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 203.0457,
+     "level": 205.1622,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -158,7 +158,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 188.8325,
+     "level": 190.8008,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -167,7 +167,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 175.6142,
+     "level": 177.4448,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -176,7 +176,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 163.3212,
+     "level": 165.0236,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -185,7 +185,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 151.8887,
+     "level": 153.472,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -194,7 +194,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 141.2565,
+     "level": 142.7289,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -203,7 +203,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 131.3686,
+     "level": 132.7379,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -212,7 +212,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 122.1728,
+     "level": 123.4463,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -228,7 +228,7 @@
    "tier": "T3"
   },
   "ASML": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
@@ -252,100 +252,82 @@
      "amount": 1200.0,
      "fired": false,
      "hit": "",
-     "id": "rung-drop-2",
-     "level": 830.3,
+     "id": "low-3",
+     "level": 812.82,
      "mult": 2.0,
-     "source": "5% drop"
+     "source": "7% drop"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 788.785,
+     "level": 755.9226,
      "mult": 2.0,
-     "source": "5% drop #1"
+     "source": "7% drop #1"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 749.3457,
+     "level": 703.008,
      "mult": 2.0,
-     "source": "5% drop #2"
+     "source": "7% drop #2"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 711.8785,
+     "level": 653.7975,
      "mult": 2.0,
-     "source": "5% drop #3"
+     "source": "7% drop #3"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 676.2845,
+     "level": 608.0316,
      "mult": 2.0,
-     "source": "5% drop #4"
+     "source": "7% drop #4"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 642.4703,
+     "level": 565.4694,
      "mult": 2.0,
-     "source": "5% drop #5"
+     "source": "7% drop #5"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 610.3468,
+     "level": 525.8866,
      "mult": 2.0,
-     "source": "5% drop #6"
+     "source": "7% drop #6"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 579.8295,
+     "level": 489.0745,
      "mult": 2.0,
-     "source": "5% drop #7"
+     "source": "7% drop #7"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 550.838,
+     "level": 454.8393,
      "mult": 2.0,
-     "source": "5% drop #8"
-    },
-    {
-     "amount": 1200.0,
-     "fired": false,
-     "hit": "",
-     "id": "below-ladder-drop-8",
-     "level": 523.2961,
-     "mult": 2.0,
-     "source": "5% drop #9"
-    },
-    {
-     "amount": 1200.0,
-     "fired": false,
-     "hit": "",
-     "id": "below-ladder-drop-9",
-     "level": 497.1313,
-     "mult": 2.0,
-     "source": "5% drop #10"
+     "source": "7% drop #8"
     }
    ],
    "sells": [
@@ -372,23 +354,23 @@
    "tier": "T5"
   },
   "AVGO": {
-   "period": "2026-W46",
+   "period": "2026-W47",
    "rungs": [
     {
      "amount": 600.0,
      "fired": false,
      "hit": "",
-     "id": "trend-start",
-     "level": 278.6967,
+     "id": "low-1",
+     "level": 300.2759,
      "mult": 1.0,
-     "source": "downtrend: 7% below 299.67"
+     "source": "near 20-day low (+3%)"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 259.1879,
+     "level": 288.3577,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -397,7 +379,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 241.0448,
+     "level": 268.1726,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -406,7 +388,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 224.1717,
+     "level": 249.4005,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -415,7 +397,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 208.4796,
+     "level": 231.9425,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -424,7 +406,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 193.8861,
+     "level": 215.7065,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -433,7 +415,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 180.314,
+     "level": 200.6071,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -442,7 +424,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 167.6921,
+     "level": 186.5646,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -451,7 +433,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 155.9536,
+     "level": 173.505,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -460,7 +442,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 145.0369,
+     "level": 161.3597,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -469,7 +451,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 134.8843,
+     "level": 150.0645,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -524,23 +506,23 @@
    "tier": "T5"
   },
   "GOOG": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
      "fired": false,
      "hit": "",
      "id": "trend-start",
-     "level": 258.5772,
+     "level": 261.5718,
      "mult": 1.0,
-     "source": "downtrend: 7% below 278.04"
+     "source": "downtrend: 7% below 281.26"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 240.4768,
+     "level": 243.2618,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -549,7 +531,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 223.6434,
+     "level": 226.2334,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -558,7 +540,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 207.9884,
+     "level": 210.3971,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -567,7 +549,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 193.4292,
+     "level": 195.6693,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -576,7 +558,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 179.8891,
+     "level": 181.9724,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -585,7 +567,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 167.2969,
+     "level": 169.2343,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -594,7 +576,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 155.5861,
+     "level": 157.3879,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -603,7 +585,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 144.6951,
+     "level": 146.3708,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -612,7 +594,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 134.5664,
+     "level": 136.1248,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -621,7 +603,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 125.1468,
+     "level": 126.5961,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -669,23 +651,23 @@
    "tier": "T9"
   },
   "IGV": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
      "fired": true,
-     "hit": "2026-11-05",
-     "id": "ma-100",
-     "level": 100.7679,
+     "hit": "2026-11-16",
+     "id": "low-1",
+     "level": 101.8464,
      "mult": 1.0,
-     "source": "100"
+     "source": "near 20-day low (+3%)"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 93.7141,
+     "level": 94.8328,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -694,7 +676,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 87.1542,
+     "level": 88.1945,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -703,7 +685,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 81.0534,
+     "level": 82.0209,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -712,7 +694,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 75.3797,
+     "level": 76.2794,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -721,7 +703,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 70.1031,
+     "level": 70.9399,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -730,7 +712,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 65.1959,
+     "level": 65.9741,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -739,7 +721,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 60.6322,
+     "level": 61.3559,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -748,7 +730,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 56.3879,
+     "level": 57.061,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -757,7 +739,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 52.4408,
+     "level": 53.0667,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -766,7 +748,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 48.7699,
+     "level": 49.352,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -775,12 +757,12 @@
    "tier": "T2"
   },
   "META": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-05",
+     "fired": false,
+     "hit": "",
      "id": "low-1",
      "level": 623.2324,
      "mult": 1.0,
@@ -791,7 +773,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 586.7804,
+     "level": 588.4836,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -800,7 +782,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 545.7058,
+     "level": 547.2897,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -809,7 +791,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 507.5064,
+     "level": 508.9794,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -818,7 +800,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 471.9809,
+     "level": 473.3509,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -827,7 +809,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 438.9423,
+     "level": 440.2163,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -836,7 +818,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 408.2163,
+     "level": 409.4012,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -845,7 +827,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 379.6412,
+     "level": 380.7431,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -854,7 +836,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 353.0663,
+     "level": 354.0911,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -863,7 +845,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 328.3517,
+     "level": 329.3047,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -872,7 +854,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 305.367,
+     "level": 306.2534,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -888,14 +870,14 @@
    "tier": "T2"
   },
   "MSFT": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
      "fired": false,
      "hit": "",
      "id": "ma-100",
-     "level": 466.6164,
+     "level": 481.7676,
      "mult": 1.0,
      "source": "100"
     },
@@ -904,7 +886,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 433.9533,
+     "level": 448.0439,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -913,7 +895,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 403.5765,
+     "level": 416.6808,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -922,7 +904,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 375.3261,
+     "level": 387.5131,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -931,7 +913,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 349.0533,
+     "level": 360.3872,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -940,7 +922,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 324.6196,
+     "level": 335.1601,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -949,7 +931,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 301.8962,
+     "level": 311.6989,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -958,7 +940,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 280.7635,
+     "level": 289.88,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -967,7 +949,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 261.11,
+     "level": 269.5884,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -976,7 +958,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 242.8323,
+     "level": 250.7172,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -985,7 +967,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 225.8341,
+     "level": 233.167,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1001,32 +983,32 @@
    "tier": "T2"
   },
   "NBIS": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-05",
-     "id": "low-1",
-     "level": 123.9811,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 99.6309,
      "mult": 1.0,
-     "source": "near 20-day low (+3%)"
+     "source": "downtrend: 7% below 107.13"
     },
     {
      "amount": 900.0,
-     "fired": true,
-     "hit": "2026-11-13",
-     "id": "low-2",
-     "level": 115.88,
+     "fired": false,
+     "hit": "",
+     "id": "rung-drop-1",
+     "level": 92.6567,
      "mult": 1.5,
-     "source": "20-day low"
+     "source": "7% drop"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
-     "id": "low-3",
-     "level": 107.7684,
+     "id": "rung-drop-2",
+     "level": 86.1708,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1035,7 +1017,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 100.2246,
+     "level": 80.1388,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1044,7 +1026,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 93.2089,
+     "level": 74.5291,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1053,7 +1035,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 86.6843,
+     "level": 69.3121,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1062,7 +1044,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 80.6164,
+     "level": 64.4602,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1071,7 +1053,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 74.9732,
+     "level": 59.948,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1080,7 +1062,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 69.7251,
+     "level": 55.7517,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1089,7 +1071,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 64.8443,
+     "level": 51.849,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1098,7 +1080,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 60.3052,
+     "level": 48.2196,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1127,23 +1109,23 @@
    "tier": "T9"
   },
   "NVDA": {
-   "period": "2026-W46",
+   "period": "2026-W47",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-13",
+     "fired": false,
+     "hit": "",
      "id": "trend-start",
-     "level": 165.3075,
+     "level": 145.2102,
      "mult": 1.0,
-     "source": "downtrend: 7% below 177.75"
+     "source": "downtrend: 7% below 156.14"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 153.736,
+     "level": 135.0455,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -1152,7 +1134,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 142.9745,
+     "level": 125.5923,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1161,7 +1143,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 132.9663,
+     "level": 116.8008,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1170,7 +1152,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 123.6586,
+     "level": 108.6248,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1179,7 +1161,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 115.0025,
+     "level": 101.021,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1188,7 +1170,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 106.9524,
+     "level": 93.9496,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1197,7 +1179,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 99.4657,
+     "level": 87.3731,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1206,7 +1188,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 92.5031,
+     "level": 81.257,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1215,7 +1197,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 86.0279,
+     "level": 75.569,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1224,7 +1206,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 80.0059,
+     "level": 70.2792,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1253,12 +1235,12 @@
    "tier": "T5"
   },
   "PLTR": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-05",
+     "fired": false,
+     "hit": "",
      "id": "low-1",
      "level": 159.6397,
      "mult": 1.0,
@@ -1268,17 +1250,17 @@
      "amount": 900.0,
      "fired": false,
      "hit": "",
-     "id": "rung-drop-1",
-     "level": 151.4991,
+     "id": "low-2",
+     "level": 154.8505,
      "mult": 1.5,
-     "source": "7% drop"
+     "source": "20-day low"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
-     "id": "rung-drop-2",
-     "level": 140.8942,
+     "id": "low-3",
+     "level": 144.011,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1287,7 +1269,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 131.0316,
+     "level": 133.9302,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1296,7 +1278,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 121.8594,
+     "level": 124.5551,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1305,7 +1287,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 113.3292,
+     "level": 115.8363,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1314,7 +1296,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 105.3962,
+     "level": 107.7277,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1323,7 +1305,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 98.0185,
+     "level": 100.1868,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1332,7 +1314,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 91.1572,
+     "level": 93.1737,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1341,7 +1323,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 84.7762,
+     "level": 86.6515,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1350,7 +1332,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 78.8418,
+     "level": 80.5859,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1379,23 +1361,23 @@
    "tier": "T9"
   },
   "RKLB": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-05",
-     "id": "low-1",
-     "level": 47.3697,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 44.0538,
      "mult": 1.0,
-     "source": "near 20-day low (+3%)"
+     "source": "downtrend: 7% below 47.37"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 45.0353,
+     "level": 40.97,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -1404,7 +1386,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 41.8829,
+     "level": 38.1021,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1413,7 +1395,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 38.9511,
+     "level": 35.435,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1422,7 +1404,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 36.2245,
+     "level": 32.9545,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1431,7 +1413,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 33.6888,
+     "level": 30.6477,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1440,7 +1422,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 31.3306,
+     "level": 28.5024,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1449,7 +1431,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 29.1374,
+     "level": 26.5072,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1458,7 +1440,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 27.0978,
+     "level": 24.6517,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1467,7 +1449,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 25.201,
+     "level": 22.9261,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1476,7 +1458,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 23.4369,
+     "level": 21.3212,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1505,23 +1487,23 @@
    "tier": "T5"
   },
   "TSM": {
-   "period": "2026-W46",
+   "period": "2026-W47",
    "rungs": [
     {
      "amount": 600.0,
      "fired": false,
      "hit": "",
      "id": "trend-start",
-     "level": 338.2345,
+     "level": 347.3085,
      "mult": 1.0,
-     "source": "downtrend: 7% below 363.69"
+     "source": "downtrend: 7% below 373.45"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 314.5581,
+     "level": 322.9969,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -1530,7 +1512,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 292.539,
+     "level": 300.3871,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1539,7 +1521,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 272.0613,
+     "level": 279.36,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1548,7 +1530,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 253.017,
+     "level": 259.8048,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1557,7 +1539,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 235.3058,
+     "level": 241.6185,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1566,7 +1548,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 218.8344,
+     "level": 224.7052,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1575,7 +1557,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 203.516,
+     "level": 208.9758,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1584,7 +1566,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 189.2699,
+     "level": 194.3475,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1593,7 +1575,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 176.021,
+     "level": 180.7432,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1602,7 +1584,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 163.6995,
+     "level": 168.0912,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1618,14 +1600,14 @@
    "tier": "T1"
   },
   "V": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
      "fired": false,
      "hit": "",
      "id": "ma-200+250",
-     "level": 344.4262,
+     "level": 346.5614,
      "mult": 1.0,
      "source": "200+250"
     },
@@ -1634,7 +1616,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 327.2049,
+     "level": 329.2333,
      "mult": 1.5,
      "source": "5% drop"
     },
@@ -1643,7 +1625,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 310.8446,
+     "level": 312.7717,
      "mult": 2.0,
      "source": "5% drop"
     },
@@ -1652,7 +1634,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 295.3024,
+     "level": 297.1331,
      "mult": 2.0,
      "source": "5% drop #1"
     },
@@ -1661,7 +1643,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 280.5373,
+     "level": 282.2765,
      "mult": 2.0,
      "source": "5% drop #2"
     },
@@ -1670,7 +1652,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 266.5104,
+     "level": 268.1626,
      "mult": 2.0,
      "source": "5% drop #3"
     },
@@ -1679,7 +1661,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 253.1849,
+     "level": 254.7545,
      "mult": 2.0,
      "source": "5% drop #4"
     },
@@ -1688,7 +1670,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 240.5256,
+     "level": 242.0168,
      "mult": 2.0,
      "source": "5% drop #5"
     },
@@ -1697,7 +1679,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 228.4993,
+     "level": 229.9159,
      "mult": 2.0,
      "source": "5% drop #6"
     },
@@ -1706,7 +1688,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 217.0744,
+     "level": 218.4201,
      "mult": 2.0,
      "source": "5% drop #7"
     },
@@ -1715,7 +1697,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 206.2207,
+     "level": 207.4991,
      "mult": 2.0,
      "source": "5% drop #8"
     },
@@ -1724,7 +1706,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-8",
-     "level": 195.9096,
+     "level": 197.1242,
      "mult": 2.0,
      "source": "5% drop #9"
     },
@@ -1733,7 +1715,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-9",
-     "level": 186.1141,
+     "level": 187.268,
      "mult": 2.0,
      "source": "5% drop #10"
     }
@@ -1768,14 +1750,14 @@
    "tier": "T9"
   },
   "XLV": {
-   "period": "2026-B22",
+   "period": "2026-B23",
    "rungs": [
     {
      "amount": 600.0,
      "fired": false,
      "hit": "",
      "id": "ma-200+250",
-     "level": 158.3228,
+     "level": 159.8726,
      "mult": 1.0,
      "source": "200+250"
     },
@@ -1784,7 +1766,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 150.4067,
+     "level": 151.879,
      "mult": 1.5,
      "source": "5% drop"
     },
@@ -1793,7 +1775,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 142.8864,
+     "level": 144.285,
      "mult": 2.0,
      "source": "5% drop"
     },
@@ -1802,7 +1784,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 135.7421,
+     "level": 137.0708,
      "mult": 2.0,
      "source": "5% drop #1"
     },
@@ -1811,7 +1793,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 128.955,
+     "level": 130.2172,
      "mult": 2.0,
      "source": "5% drop #2"
     },
@@ -1820,7 +1802,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 122.5072,
+     "level": 123.7064,
      "mult": 2.0,
      "source": "5% drop #3"
     },
@@ -1829,7 +1811,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 116.3819,
+     "level": 117.521,
      "mult": 2.0,
      "source": "5% drop #4"
     },
@@ -1838,7 +1820,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 110.5628,
+     "level": 111.645,
      "mult": 2.0,
      "source": "5% drop #5"
     },
@@ -1847,7 +1829,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 105.0346,
+     "level": 106.0627,
      "mult": 2.0,
      "source": "5% drop #6"
     },
@@ -1856,7 +1838,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 99.7829,
+     "level": 100.7596,
      "mult": 2.0,
      "source": "5% drop #7"
     },
@@ -1865,7 +1847,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 94.7938,
+     "level": 95.7216,
      "mult": 2.0,
      "source": "5% drop #8"
     },
@@ -1874,7 +1856,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-8",
-     "level": 90.0541,
+     "level": 90.9355,
      "mult": 2.0,
      "source": "5% drop #9"
     },
@@ -1883,7 +1865,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-9",
-     "level": 85.5514,
+     "level": 86.3888,
      "mult": 2.0,
      "source": "5% drop #10"
     }
