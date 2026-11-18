@@ -761,8 +761,8 @@
    "rungs": [
     {
      "amount": 600.0,
-     "fired": false,
-     "hit": "",
+     "fired": true,
+     "hit": "2026-11-17",
      "id": "low-1",
      "level": 623.2324,
      "mult": 1.0,
@@ -1239,8 +1239,8 @@
    "rungs": [
     {
      "amount": 600.0,
-     "fired": false,
-     "hit": "",
+     "fired": true,
+     "hit": "2026-11-17",
      "id": "low-1",
      "level": 159.6397,
      "mult": 1.0,
