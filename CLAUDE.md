@@ -149,9 +149,15 @@ order, a fill of the placed order, and the deepest reached-unbought rung as
   Anything that lists ticks must skip them.
 - Older `skipped: true` tick entries (from the 2026-11-07 grouped summary)
   can still exist; the card still labels them.
-- A rung is consumed by a recorded buy/skip tick, never by `fired` alone:
-  `orderState` takes the deepest ticked (or filled-order) level as a floor
-  and only offers rungs below it. Don't go back to treating fired as bought.
+- A rung is consumed by a recorded buy/skip, never by `fired` alone. The
+  floor is the lowest `level` of this ticker's non-order tick entries with
+  `firstHit >= plan.start` (plus a filled order's placed level) -- matched
+  by price and date, NOT by rung id: ids like `rung-drop-1` are reused by
+  the next period's ladder at a different price (2026-11-19: a last-week
+  order was shown as filled at this week's `rung-drop-1` level).
+- A placed order (`order|TICKER`) is a fixed broker price. Fills are judged
+  and recorded at `mark.level`; the panel only suggests moving it DOWN (by
+  more than `order_amend_pct`), never up.
 
 ## Intraday lows (2026-11-12)
 

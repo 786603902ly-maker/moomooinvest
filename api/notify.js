@@ -39,7 +39,13 @@ function events(ticker, plan, q, ticks, currency) {
   const money = (v) => `${currency} ${Math.round(v).toLocaleString("en-US")}`;
 
   // Buys
-  const used = plan.rungs.filter((r) => ticks[tickId(r)]).map((r) => r.level);
+  // Same as the panel: every buy/skip you recorded for this stock since the
+  // period started sets a floor (rung ids get reused next period, so levels
+  // and dates are what count).
+  const used = Object.values(ticks)
+    .filter((e) => e && e.kind !== "order" && e.ticker === ticker && (e.firstHit || "") >= (plan.start || ""))
+    .map((e) => parseFloat(e.level))
+    .filter((v) => isFinite(v));
   const mark = ticks[`order|${ticker}`];
   const filled = mark && low <= mark.level;
   if (filled) used.push(mark.level);

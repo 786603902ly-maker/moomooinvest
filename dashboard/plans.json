@@ -112,6 +112,7 @@
      "source": "sell 1/5 (30% above fair value 530)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T3"
   },
   "AMZN": {
@@ -225,6 +226,7 @@
      "source": "sell 1/5 (30% above fair value 300)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T3"
   },
   "ASML": {
@@ -338,6 +340,7 @@
      "source": "sell 1/5 (30% above fair value 2050)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T3.5"
   },
   "ASTS": {
@@ -351,6 +354,7 @@
      "source": "sell all"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T5"
   },
   "AVGO": {
@@ -464,6 +468,7 @@
      "source": "sell 1/5 (30% above fair value 650)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T1"
   },
   "BRK-B": {
@@ -477,6 +482,7 @@
      "source": "sell half"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T9"
   },
   "DUOL": {
@@ -490,6 +496,7 @@
      "source": "sell all"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T9"
   },
   "FXI": {
@@ -503,6 +510,7 @@
      "source": "sell all"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T5"
   },
   "GOOG": {
@@ -616,6 +624,7 @@
      "source": "sell 1/5 (30% above fair value 433)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T3"
   },
   "GRAB": {
@@ -629,6 +638,7 @@
      "source": "sell half"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T5"
   },
   "HIMS": {
@@ -648,6 +658,7 @@
      "source": "sell half"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T9"
   },
   "IGV": {
@@ -754,6 +765,7 @@
     }
    ],
    "sells": [],
+   "start": "2026-11-16",
    "tier": "T2"
   },
   "META": {
@@ -867,6 +879,7 @@
      "source": "sell 1/5 (30% above fair value 850)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T2"
   },
   "MSFT": {
@@ -980,6 +993,7 @@
      "source": "sell 1/5 (30% above fair value 600)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T2"
   },
   "NBIS": {
@@ -1093,6 +1107,7 @@
      "source": "sell 1/5 (30% above fair value 150)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T3.5"
   },
   "NU": {
@@ -1106,6 +1121,7 @@
      "source": "sell all"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T9"
   },
   "NVDA": {
@@ -1219,6 +1235,7 @@
      "source": "sell 1/5 (30% above fair value 280)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T1"
   },
   "OSCR": {
@@ -1232,6 +1249,7 @@
      "source": "sell all"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T5"
   },
   "PLTR": {
@@ -1345,6 +1363,7 @@
      "source": "sell 1/5 (30% above fair value 153)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T2"
   },
   "PYPL": {
@@ -1358,6 +1377,7 @@
      "source": "sell half"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T9"
   },
   "RKLB": {
@@ -1471,6 +1491,7 @@
      "source": "sell 1/5 (30% above fair value 77.2)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T3"
   },
   "SOFI": {
@@ -1484,6 +1505,7 @@
      "source": "sell half"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T5"
   },
   "TSM": {
@@ -1597,6 +1619,7 @@
      "source": "sell 1/5 (30% above fair value 534)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T1"
   },
   "V": {
@@ -1728,6 +1751,7 @@
      "source": "sell 1/5 (30% above fair value 330)"
     }
    ],
+   "start": "2026-11-16",
    "tier": "T3.5"
   },
   "VITL": {
@@ -1747,6 +1771,7 @@
      "source": "sell half"
     }
    ],
+   "start": "2026-11-01",
    "tier": "T9"
   },
   "XLV": {
@@ -1871,6 +1896,7 @@
     }
    ],
    "sells": [],
+   "start": "2026-11-16",
    "tier": "T3.5"
   }
  }

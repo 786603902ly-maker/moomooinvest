@@ -586,6 +586,12 @@ def evaluate_stock(
     low_zone = None
     if low_cfg.get("enabled") and recent_low is not None and ladder:
         prev_low = (prev_stock_state or {}).get("low_zone") if same_period else None
+        # Within a period the low only ever goes down. Otherwise an old low
+        # rolling out of the 20-day window would RAISE the unfired rungs, and
+        # a GTC order placed at yesterday's level would read as needing to
+        # be moved up (2026-11-19).
+        if prev_low and prev_low.get("recent_low") is not None:
+            recent_low = min(recent_low, prev_low["recent_low"])
         ladder, fired, dropped = apply_low_zone(
             ladder, fired, recent_low, low_cfg, drop_step, first_time=not prev_low
         )

@@ -570,6 +570,15 @@ Per row (USD prices; amounts are the rule's SGD amounts, no FX conversion):
   through a rung and bounced, the row says so ("Dipped to X today ... not
   bought") with **bought** / **skip**, and the next order moves below it.
   A placed order whose level the day low reached counts as filled.
+- Once you mark an order **placed**, that price stays your instruction
+  ("Your order: limit buy $X · placed ✓"). The row asks you to move it
+  only when the ladder now wants it more than 2% **lower** ("Move your $X
+  order down to $Y"); it never asks you to raise a buy order (2026-11-19).
+  Within a period the low-zone low only goes down, so unfired rungs no
+  longer drift up as old lows roll out of the 20-day window.
+- A fill is judged and recorded at the price you placed, and what counts as
+  bought/skipped is read from your recorded buys since the period started
+  (by price, not rung id -- ids are reused by the next period's ladder).
 - Tap a row (not a button) to jump to the stock's card for the full ladder.
 - Placed orders are `order|TICKER` entries (`kind: "order"`) in the synced
   tick store, so all devices agree; the Action log and CSV skip them. Buys

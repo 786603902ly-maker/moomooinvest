@@ -379,13 +379,18 @@ function planTickId(ticker, r){
 function orderState(plan, price, ticks, dayLow){
   const live = isFinite(price);
   const low = live && isFinite(dayLow) ? Math.min(dayLow, price) : price;
-  // A rung is used up only by a buy or a skip you recorded this period --
-  // not by price merely touching it (2026-11-12: NBIS's first rung was
-  // touched on 11-05, never bought, and the panel had silently moved on).
-  // Everything at or above the deepest used rung counts as used too: the
-  // shallower ones are skipped, the user's standing rule.
-  const usedLevels = plan.rungs.filter(r => ticks[planTickId(plan.ticker, r)]).map(r => r.level);
+  const below = (rungs, lvl) => rungs.filter(r => r.level < lvl * (1 - 1e-9));
 
+  // What you already did this period, read from your own records rather than
+  // from rung ids (ids get reused by next period's ladder at other prices).
+  // Every buy or skip recorded for this stock since the period started sets
+  // a floor: rungs at or above it are used or skipped, the user's rule.
+  const usedLevels = Object.values(ticks)
+    .filter(e => e && e.kind !== "order" && e.ticker === plan.ticker && (e.firstHit || "") >= plan.start)
+    .map(e => parseFloat(e.level)).filter(isFinite);
+
+  // Your placed order is a fixed price at the broker. It filled if price
+  // traded at or below THAT price -- whatever the rung it came from says now.
   const mark = ticks["order|" + plan.ticker] || null;
   let filled = null;
   if(mark){
@@ -393,31 +398,40 @@ function orderState(plan, price, ticks, dayLow){
     const hitByClose = plan.rungs.some(r =>
       r.fired && (r.hit || "") >= since && r.level <= mark.level * (1 + 1e-6));
     if((live && low <= mark.level) || hitByClose){
-      filled = plan.rungs.find(r => r.id === mark.rungId) ||
-        {id: mark.rungId, level: mark.level, mult: mark.mult, amount: mark.amount,
-         source: mark.source, hit: mark.hit};
-      usedLevels.push(filled.level);
+      filled = {id: "order-" + mark.level, level: mark.level, mult: mark.mult, amount: mark.amount,
+                source: "your limit order", hit: ""};
+      usedLevels.push(mark.level);
     }
   }
   const floor = usedLevels.length ? Math.min(...usedLevels) : Infinity;
-  const avail = plan.rungs.filter(r => r.level < floor * (1 - 1e-9));   // highest first
+  const avail = below(plan.rungs, floor);   // highest first
 
   // Price is at or below a rung right now: offer the deepest such one.
   const under = live ? avail.filter(r => price <= r.level) : [];
   const buyNow = under.length ? under[under.length - 1] : null;
   // Touched today and bounced: the dip reached it but price is back above.
-  // Yours to decide -- buy now anyway, or skip it and wait lower.
   const dipped = !buyNow && live ? avail.filter(r => r.level < price && low <= r.level) : [];
   const touched = dipped.length ? dipped[dipped.length - 1] : null;
 
   const ceiling = buyNow ? buyNow.level : touched ? touched.level : (live ? price : Infinity);
-  const open = avail.filter(r => r.level < ceiling * (1 - 1e-9));
-  const next = open[0] || null;
-  const then = open[1] || null;
+  const open = below(avail, ceiling);
+  let next = open[0] || null;
 
-  const moved = !!(mark && !filled && next &&
-    Math.abs(next.level - mark.level) / mark.level * 100 > ORDER_AMEND_PCT);
-  return {next, then, mark, filled, buyNow, touched, low, moved};
+  // A placed order stays the instruction. The panel only asks you to move
+  // it when the ladder now wants it meaningfully LOWER -- never higher: a
+  // higher limit buys higher, which is the opposite of what you're doing.
+  let order = next, moved = false, keep = false;
+  if(mark && !filled && next){
+    if(next.level < mark.level * (1 - ORDER_AMEND_PCT / 100)){
+      moved = true;
+    } else {
+      keep = true;
+      order = {id: mark.rungId, level: mark.level, mult: mark.mult, amount: mark.amount,
+               source: mark.source, fired: false};
+    }
+  }
+  const then = order ? below(avail, order.level)[0] || null : null;
+  return {next: order, ladderNext: next, then, mark, filled, buyNow, touched, low, moved, keep};
 }
 
 function buyEntry(plan, r){
@@ -487,8 +501,8 @@ function renderOrderSheet(ticks){
       lines.push(line("now",
         'Price ' + fmtLivePrice(price) + ' is under ' + fmtLivePrice(st.buyNow.level) +
         ' (' + st.buyNow.source + (st.buyNow.hit ? ', reached ' + st.buyNow.hit : '') +
-        ') &mdash; buy at market: <b>' + fmtAmt(st.buyNow.amount) + '</b>',
-        [["bought", "bought"]]));
+        ') &mdash; buy at market: <b>' + fmtAmt(st.buyNow.amount) + '</b>, or skip it and wait lower',
+        [["bought", "bought"], ["skip-now", "skip"]]));
     }
     if(st.touched){
       lines.push(line("now",
@@ -499,27 +513,31 @@ function renderOrderSheet(ticks){
     }
     if(st.filled){
       lines.push(line("filled",
-        '✓ Order at ' + fmtLivePrice(st.filled.level) + ' reached &mdash; counts as this period&#39;s buy at that rung', []));
+        '✓ Your ' + fmtLivePrice(st.filled.level) + ' order was reached (day low ' + fmtLivePrice(st.low) +
+        ') &mdash; counts as a buy this period', []));
     }
 
     if(st.next){
       const dist = isFinite(price) ? ' <span class="o-dist">' + ((st.next.level - price) / price * 100).toFixed(1) + '%</span>' : '';
       const then = st.then ? ' <span class="o-then">then ' + fmtLivePrice(st.then.level) + '</span>' : '';
       const missed = st.next.fired ? ' <span class="o-then">reached ' + st.next.hit + ', not bought</span>' : '';
-      const order = 'Limit buy <b>' + fmtLivePrice(st.next.level) + '</b> &middot; ' + fmtAmt(st.next.amount) +
+      const body = '<b>' + fmtLivePrice(st.next.level) + '</b> &middot; ' + fmtAmt(st.next.amount) +
         ' &middot; x' + st.next.mult + dist + then + missed;
-      let cls, status, actions;
+      let cls, status, actions, order;
       if(st.filled){
-        cls = "todo"; status = "next order"; actions = [["place", "placed"]];
+        cls = "todo"; order = 'Place next: limit buy ' + body; status = "";
+        actions = [["place", "placed"]];
       } else if(!st.mark){
-        cls = "todo"; status = "not placed"; actions = [["place", "placed"]];
+        cls = "todo"; order = 'Place: limit buy ' + body; status = "not placed";
+        actions = [["place", "placed"]];
       } else if(st.moved){
-        cls = "amend"; status = "amend: placed " + fmtLivePrice(st.mark.level);
-        actions = [["place", "amended"]];
+        cls = "amend"; order = 'Move your ' + fmtLivePrice(st.mark.level) + ' order down to ' + body;
+        status = ""; actions = [["place", "moved"]];
       } else {
-        cls = "placed"; status = "placed ✓"; actions = [["filled", "filled"], ["clear", "×"]];
+        cls = "placed"; order = 'Your order: limit buy ' + body; status = "placed ✓";
+        actions = [["filled", "filled"], ["clear", "×"]];
       }
-      lines.push(line(cls, order + ' <span class="o-status">' + status + '</span>', actions));
+      lines.push(line(cls, order + (status ? ' <span class="o-status">' + status + '</span>' : ''), actions));
     } else {
       lines.push(line("placed", "No lower rung left this period.", []));
     }
@@ -555,6 +573,8 @@ document.addEventListener("click", (e)=>{
       changes.push([planTickId(plan.ticker, st.buyNow), buyEntry(plan, st.buyNow)]);
     } else if(act === "bought-touched"){
       changes.push([planTickId(plan.ticker, st.touched), buyEntry(plan, st.touched)]);
+    } else if(act === "skip-now"){
+      changes.push([planTickId(plan.ticker, st.buyNow), skipEntry(plan, st.buyNow)]);
     } else if(act === "skip-touched"){
       changes.push([planTickId(plan.ticker, st.touched), skipEntry(plan, st.touched)]);
     } else if(act === "place"){
@@ -564,8 +584,10 @@ document.addEventListener("click", (e)=>{
       }
       changes.push([key, markEntry(st.next)]);
     } else if(act === "filled" && st.mark){
-      const r = plan.rungs.find(x => x.id === st.mark.rungId) ||
-        {id: st.mark.rungId, level: st.mark.level, mult: st.mark.mult, amount: st.mark.amount, source: st.mark.source, hit: st.mark.hit};
+      // Record the buy at the price you placed, not at whatever the rung it
+      // came from says today.
+      const r = {id: "order-" + st.mark.level, level: st.mark.level, mult: st.mark.mult,
+                 amount: st.mark.amount, source: "your limit order", hit: ""};
       changes.push([planTickId(plan.ticker, r), buyEntry(plan, r)]);
       changes.push([key, null]);
     } else if(act === "clear"){
@@ -1306,7 +1328,8 @@ def order_plan(ticker: str, s: dict, rules: dict) -> dict | None:
         })
     period = s.get("period") or {}
     return {"ticker": ticker, "tier": s.get("tier"), "rungs": rungs,
-            "refresh": period.get("type"), "reset": next_reset(period)}
+            "refresh": period.get("type"), "start": period.get("start_date") or "",
+            "reset": next_reset(period)}
 
 
 def export_plans(stocks_state: dict, stocks_cfg: dict, rules: dict) -> dict:
@@ -1328,6 +1351,7 @@ def export_plans(stocks_state: dict, stocks_cfg: dict, rules: dict) -> dict:
         out[ticker] = {
             "tier": cfg.get("tier"),
             "period": (s.get("period") or {}).get("key"),
+            "start": (s.get("period") or {}).get("start_date") or "",
             "rungs": (plan or {}).get("rungs", []),
             "sells": sells,
         }
