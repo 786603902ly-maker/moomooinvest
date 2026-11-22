@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T02:35:15.862844Z",
+  "generated_at": "2026-11-22T01:27:10.684523Z",
   "stocks": {
     "AMD": {
       "base_ladder": [
@@ -272,16 +272,7 @@
       "name": "Amazon",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-20",
-          "id": "low-1",
-          "level": 247.5605,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "rung-drop-1",
         "level": 237.2091,
@@ -2032,16 +2023,7 @@
       "name": "Nebius Group",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-20",
-          "id": "low-1",
-          "level": 83.7493,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 81.2368,
@@ -2285,16 +2267,7 @@
       "name": "NVIDIA",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-20",
-          "id": "low-1",
-          "level": 129.2959,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 125.417,
@@ -3042,16 +3015,7 @@
       "name": "Taiwan Semiconductor",
       "new_triggers_custom_today": [],
       "new_triggers_sell_today": [],
-      "new_triggers_today": [
-        {
-          "amount": 600.0,
-          "first_hit_date": "2026-11-20",
-          "id": "low-1",
-          "level": 328.2713,
-          "multiplier": 1.0,
-          "source": "near 20-day low (+3%)"
-        }
-      ],
+      "new_triggers_today": [],
       "next_rung": {
         "id": "low-2",
         "level": 318.4232,
