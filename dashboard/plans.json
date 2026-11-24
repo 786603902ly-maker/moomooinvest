@@ -358,23 +358,23 @@
    "tier": "T5"
   },
   "AVGO": {
-   "period": "2026-W47",
+   "period": "2026-W48",
    "rungs": [
     {
      "amount": 600.0,
      "fired": false,
      "hit": "",
-     "id": "low-1",
-     "level": 300.2759,
+     "id": "trend-start",
+     "level": 291.6015,
      "mult": 1.0,
-     "source": "near 20-day low (+3%)"
+     "source": "downtrend: 7% below 313.55"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
      "id": "rung-drop-1",
-     "level": 288.3577,
+     "level": 271.1894,
      "mult": 1.5,
      "source": "7% drop"
     },
@@ -383,7 +383,7 @@
      "fired": false,
      "hit": "",
      "id": "rung-drop-2",
-     "level": 268.1726,
+     "level": 252.2061,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -392,7 +392,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 249.4005,
+     "level": 234.5517,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -401,7 +401,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 231.9425,
+     "level": 218.1331,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -410,7 +410,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 215.7065,
+     "level": 202.8637,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -419,7 +419,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 200.6071,
+     "level": 188.6633,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -428,7 +428,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 186.5646,
+     "level": 175.4569,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -437,7 +437,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 173.505,
+     "level": 163.1749,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -446,7 +446,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 161.3597,
+     "level": 151.7526,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -455,7 +455,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 150.0645,
+     "level": 141.1299,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -468,7 +468,7 @@
      "source": "sell 1/5 (30% above fair value 650)"
     }
    ],
-   "start": "2026-11-16",
+   "start": "2026-11-23",
    "tier": "T1"
   },
   "BRK-B": {
@@ -1125,32 +1125,32 @@
    "tier": "T9"
   },
   "NVDA": {
-   "period": "2026-W47",
+   "period": "2026-W48",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-20",
-     "id": "low-1",
-     "level": 129.2959,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 120.2452,
      "mult": 1.0,
-     "source": "near 20-day low (+3%)"
+     "source": "downtrend: 7% below 129.30"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
-     "id": "low-2",
-     "level": 125.417,
+     "id": "rung-drop-1",
+     "level": 111.828,
      "mult": 1.5,
-     "source": "20-day low"
+     "source": "7% drop"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
-     "id": "low-3",
-     "level": 116.6378,
+     "id": "rung-drop-2",
+     "level": 104.0001,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1159,7 +1159,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 108.4732,
+     "level": 96.7201,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1168,7 +1168,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 100.88,
+     "level": 89.9497,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1177,7 +1177,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 93.8184,
+     "level": 83.6532,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1186,7 +1186,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 87.2511,
+     "level": 77.7975,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1195,7 +1195,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 81.1436,
+     "level": 72.3517,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1204,7 +1204,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 75.4635,
+     "level": 67.287,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1213,7 +1213,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 70.1811,
+     "level": 62.577,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1222,7 +1222,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 65.2684,
+     "level": 58.1966,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1235,7 +1235,7 @@
      "source": "sell 1/5 (30% above fair value 280)"
     }
    ],
-   "start": "2026-11-16",
+   "start": "2026-11-23",
    "tier": "T1"
   },
   "OSCR": {
@@ -1509,32 +1509,32 @@
    "tier": "T5"
   },
   "TSM": {
-   "period": "2026-W47",
+   "period": "2026-W48",
    "rungs": [
     {
      "amount": 600.0,
-     "fired": true,
-     "hit": "2026-11-20",
-     "id": "low-1",
-     "level": 328.2713,
+     "fired": false,
+     "hit": "",
+     "id": "trend-start",
+     "level": 305.2923,
      "mult": 1.0,
-     "source": "near 20-day low (+3%)"
+     "source": "downtrend: 7% below 328.27"
     },
     {
      "amount": 900.0,
      "fired": false,
      "hit": "",
-     "id": "low-2",
-     "level": 318.4232,
+     "id": "rung-drop-1",
+     "level": 283.9218,
      "mult": 1.5,
-     "source": "20-day low"
+     "source": "7% drop"
     },
     {
      "amount": 1200.0,
      "fired": false,
      "hit": "",
-     "id": "low-3",
-     "level": 296.1336,
+     "id": "rung-drop-2",
+     "level": 264.0473,
      "mult": 2.0,
      "source": "7% drop"
     },
@@ -1543,7 +1543,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-0",
-     "level": 275.4042,
+     "level": 245.564,
      "mult": 2.0,
      "source": "7% drop #1"
     },
@@ -1552,7 +1552,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-1",
-     "level": 256.126,
+     "level": 228.3745,
      "mult": 2.0,
      "source": "7% drop #2"
     },
@@ -1561,7 +1561,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-2",
-     "level": 238.1971,
+     "level": 212.3883,
      "mult": 2.0,
      "source": "7% drop #3"
     },
@@ -1570,7 +1570,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-3",
-     "level": 221.5233,
+     "level": 197.5211,
      "mult": 2.0,
      "source": "7% drop #4"
     },
@@ -1579,7 +1579,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-4",
-     "level": 206.0167,
+     "level": 183.6946,
      "mult": 2.0,
      "source": "7% drop #5"
     },
@@ -1588,7 +1588,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-5",
-     "level": 191.5955,
+     "level": 170.836,
      "mult": 2.0,
      "source": "7% drop #6"
     },
@@ -1597,7 +1597,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-6",
-     "level": 178.1838,
+     "level": 158.8775,
      "mult": 2.0,
      "source": "7% drop #7"
     },
@@ -1606,7 +1606,7 @@
      "fired": false,
      "hit": "",
      "id": "below-ladder-drop-7",
-     "level": 165.711,
+     "level": 147.7561,
      "mult": 2.0,
      "source": "7% drop #8"
     }
@@ -1619,7 +1619,7 @@
      "source": "sell 1/5 (30% above fair value 534)"
     }
    ],
-   "start": "2026-11-16",
+   "start": "2026-11-23",
    "tier": "T1"
   },
   "V": {
