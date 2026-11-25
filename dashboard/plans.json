@@ -6,8 +6,8 @@
    "rungs": [
     {
      "amount": 600.0,
-     "fired": false,
-     "hit": "",
+     "fired": true,
+     "hit": "2026-11-24",
      "id": "low-1",
      "level": 416.532,
      "mult": 1.0,
